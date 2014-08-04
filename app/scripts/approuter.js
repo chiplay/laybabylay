@@ -1,8 +1,10 @@
 define([
   'backbone',
+  'underscore',
   'marionette',
+  'vent',
   'analytics'
-], function(Backbone, Marionette, analytics) {
+], function(Backbone, _, Marionette, vent, analytics) {
 
   return Marionette.AppRouter.extend({
 
@@ -23,8 +25,12 @@ define([
       ':slug(/)' : 'post'
     },
 
+    initialize: function() {
+      this.pageBuffer = _.debounce(analytics.page, 500);
+    },
+
     navigate: function(){
-      _.delay(analytics.page, 500);
+      this.pageBuffer();
       Backbone.Router.prototype.navigate.apply(this, arguments);
     }
 

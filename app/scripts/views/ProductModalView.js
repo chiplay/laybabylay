@@ -32,8 +32,8 @@ function (q, analytics, $, _, Backbone, Marionette, facebook, vent, RelatedPosts
       'click .facebook-button': 'showFBDialog',
       'click .tweet-button': 'showTweetDialog',
       'click .pinterest-button': 'showPinDialog',
-      'click .image': 'purchaseLink',
-      'click .purchase-link': 'purchaseLink'
+      'click .image': 'trackLink',
+      'click .purchase-link': 'trackLink'
     },
 
     bindings: {
@@ -110,9 +110,13 @@ function (q, analytics, $, _, Backbone, Marionette, facebook, vent, RelatedPosts
 
     onDomRefresh: function() {
       this.stickit();
-      this.$el.attr({ tabindex: -1, role: 'dialog', 'aria-hidden': true });
       this.loadRelatedPost();
       this.loadTags();
+
+      analytics.track('Viewed Product Modal', {
+        category: this.model.get('link'),
+        label: this.model.get('title')
+      });
       // q(this.model.ready).then(this.loadRelatedPost).done();
       // q(this.model.ready).then(this.loadTags).done();
     },
