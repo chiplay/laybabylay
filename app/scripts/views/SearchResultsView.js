@@ -87,13 +87,13 @@ define([
 
       this.$el.imagesLoaded()
         .always( function(){
-          _this.$el.removeClass('hidden');
           _this.masonry = new Masonry('.search-results-region', {
             itemSelector: '.search-item',
             visibleStyle: { opacity: 1 },
             hiddenStyle: { opacity: 0 },
             transitionDuration: '0.8s'
           });
+          _this.$el.removeClass('hidden');
           _this.loading = false;
           _this.documentHeight = $(document).height();
           _this.on('after:item:added', _this.masonryAppend, _this);

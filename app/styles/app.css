@@ -3940,7 +3940,6 @@ Basic Swiper Styles
   }
 }
 .hidden {
-  display: none !important;
   visibility: hidden !important;
 }
 .visible-sm {

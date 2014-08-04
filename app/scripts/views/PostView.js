@@ -110,7 +110,11 @@ define([
 
       // add compression to images
       var content = this.model.get('content');
-      this.model.set({ content: content.replace(/upload\/v/g,'upload/q_60/v') });
+      content = content.replace(/upload\/v/g,'upload/q_40/v');
+
+      // Society6 links
+      // if (!(/jonilay/.test(content))) content = content.replace(/#\d+=\d+/i,'?utm_source=laybabylay&utm_medium=post&utm_campaign=styleboard&curator=jonilay');
+      this.model.set({ content: content });
 
       this.adjustHeight = _.throttle(function (pos) {
         if (pos > 100) {
