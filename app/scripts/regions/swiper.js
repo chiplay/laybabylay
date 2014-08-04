@@ -24,27 +24,27 @@ function(vent, $, Marionette, _, Backbone) {
       this.swiperObj = this.$el.swiper(this.opts);
 
       // Save a reference to the view for any swiper callback functions
-      this.swiperObj.region = this;
-      this.swiperObj.view = view;
-      view.swiper = this.swiperObj;
+      // this.swiperObj.region = this;
+      // this.swiperObj.view = view;
+      // view.swiper = this.swiperObj;
 
       // Region Nav Events - Called from Parent Composite View
       // Inverted to match wordpresses prev=older, next=newer naming
-      vent.on('nav:next', this.swiperObj.swipePrev);
-      vent.on('nav:prev', this.swiperObj.swipeNext);
-      vent.on('nav:jump', this.swiperObj.swipeTo); // index, speed, runCallbacks
+      this.listenTo(vent, 'nav:next', this.swiperObj.swipePrev);
+      this.listenTo(vent, 'nav:prev', this.swiperObj.swipeNext);
+      this.listenTo(vent, 'nav:jump', this.swiperObj.swipeTo); // index, speed, runCallbacks
 
       // Allow the collection view to trigger a reinit after items are added / removed
-      this.listenTo(view, 'after:item:added item:removed', this.swiperObj.reInit, this);
+      this.listenTo(view, 'after:item:added item:removed', this.swiperObj.reInit);
+      this.listenTo(view, 'collection:rendered', this.swiperObj.reInit);
 
       // Shut down the event listeners and clean up swiper
-      this.listenTo(view, 'before:close', this.closeSwiper, this);
+      this.listenTo(view, 'before:close', this.closeSwiper);
     },
 
     closeSwiper: function() {
       this.stopListening();
-      vent.off('nav:prev nav:next nav:jump');
-      _.delay(this.destroySwiper,500);
+      _.delay(this.destroySwiper, 500);
     },
 
     destroySwiper: function() {

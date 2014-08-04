@@ -1,13 +1,13 @@
 
 #menu {
-  position: absolute;
-  top: 0;
-  left: 0;
+  // position: absolute;
+  // top: 0;
+  // left: 0;
   .clearfix();
   width: 100%;
-  z-index: 0;
-  .translate3d(0,-100%,0);
-  overflow: hidden;
+  // z-index: 0;
+  // .translate3d(0,-100%,0);
+  // overflow: hidden;
 
   .menu-items {
     .make-row();
@@ -22,7 +22,7 @@
 
     @media (max-width: @screen-xsmall-max) {
       .make-column(1,1);
-      height: 60px;
+      height: 90px;
     }
 
     background-repeat: no-repeat;
@@ -43,7 +43,7 @@
     }
 
     .title {
-      display: block;
+      display: inline-block;
       color: #fff;
       text-transform: uppercase;
       letter-spacing: 2px;
@@ -51,8 +51,20 @@
       font-weight: 600;
       font-family: @font-family-sans-serif;
 
+      border: 2px solid @lbl-pink;
+      padding: 2px 30px;
+      margin-top: 6px;
+      .opacity(1);
+
       @media (max-width: @screen-xsmall-max) {
-        font-size: 18px;
+        font-size: 20px;
+      }
+    }
+
+    &:hover {
+      .title {
+        background: @lbl-pink;
+        .opacity(.9);
       }
     }
 
@@ -67,69 +79,69 @@
       font-family: @font-family-serif;
 
       @media (max-width: @screen-xsmall-max) {
-        margin-top: 3%;
-        font-size: 14px;
-        line-height: 14px;
+        margin-top: 3.5%;
+        font-size: 16px;
+        line-height: 16px;
       }
     }
 
     &.facebook {
       background-image: url('@{base-menu-url}/facebook-lg_d60xyo.jpg');
-      &:hover {
-        background-image: url('@{base-menu-url}/facebook-lg-hover_nrzcuz.jpg');
-      }
-      &:after {
-        background-image: url('@{base-menu-url}/facebook-lg-hover_nrzcuz.jpg');
-      }
+      // &:hover {
+      //   background-image: url('@{base-menu-url}/facebook-lg-hover_nrzcuz.jpg');
+      // }
+      // &:after {
+      //   background-image: url('@{base-menu-url}/facebook-lg-hover_nrzcuz.jpg');
+      // }
     }
     &.pinterest {
       background-image: url('@{base-menu-url}/pinterest-lg_bb83mg.jpg');
-      &:hover {
-        background-image: url('@{base-menu-url}/pinterest-lg-hover_okgmvh.jpg');
-      }
-      &:after {
-        background-image: url('@{base-menu-url}/pinterest-lg-hover_okgmvh.jpg');
-      }
+      // &:hover {
+      //   background-image: url('@{base-menu-url}/pinterest-lg-hover_okgmvh.jpg');
+      // }
+      // &:after {
+      //   background-image: url('@{base-menu-url}/pinterest-lg-hover_okgmvh.jpg');
+      // }
     }
     &.shop {
       background-image: url('@{base-menu-url}/shop-lg_ibwkay.jpg');
-      &:hover {
-        background-image: url('@{base-menu-url}/shop-lg-hover_xdhdnl.jpg');
-      }
-      &:after {
-        background-image: url('@{base-menu-url}/shop-lg-hover_xdhdnl.jpg');
-      }
+      // &:hover {
+      //   background-image: url('@{base-menu-url}/shop-lg-hover_xdhdnl.jpg');
+      // }
+      // &:after {
+      //   background-image: url('@{base-menu-url}/shop-lg-hover_xdhdnl.jpg');
+      // }
     }
     &.about {
       background-image: url('@{base-menu-url}/about-lg_qvybgu.jpg');
-      &:hover {
-        background-image: url('@{base-menu-url}/about-lg-hover_xehncv.jpg');
-      }
-      &:after {
-        background-image: url('@{base-menu-url}/about-lg-hover_xehncv.jpg');
-      }
+      // &:hover {
+      //   background-image: url('@{base-menu-url}/about-lg-hover_xehncv.jpg');
+      // }
+      // &:after {
+      //   background-image: url('@{base-menu-url}/about-lg-hover_xehncv.jpg');
+      // }
     }
     &.portfolio {
       background-image: url('@{base-menu-url}/portfolio-lg_n5uwie.jpg');
-      &:hover {
-        background-image: url('@{base-menu-url}/portfolio-lg-hover_mcaps6.jpg');
-      }
-      &:after {
-        background-image: url('@{base-menu-url}/portfolio-lg-hover_mcaps6.jpg');
-      }
+      // &:hover {
+      //   background-image: url('@{base-menu-url}/portfolio-lg-hover_mcaps6.jpg');
+      // }
+      // &:after {
+      //   background-image: url('@{base-menu-url}/portfolio-lg-hover_mcaps6.jpg');
+      // }
     }
     &.instagram {
       background-image: url('@{base-menu-url}/portfolio-lg_n5uwie.jpg');
-      &:hover {
-        &:after {
-          background: rgba(220,220,160,0.3);
-          .opacity(1);
-        }
-      }
-      &:after {
-        .opacity(1);
-        background: rgba(110,110,100,0.6);
-      }
+      // &:hover {
+      //   &:after {
+      //     background: rgba(220,220,160,0.3);
+      //     .opacity(1);
+      //   }
+      // }
+      // &:after {
+      //   .opacity(1);
+      //   background: rgba(110,110,100,0.6);
+      // }
     }
 
     &:after {

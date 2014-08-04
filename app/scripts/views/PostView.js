@@ -101,15 +101,23 @@ define([
     },
 
     initialize: function() {
-      _.bindAll(this,'adjustHeight','initSelected');
-      this.listenTo(this.model, 'selected', this.bufferSelected, this);
-      this.listenTo(this.model, 'deselected', this.removeListeners, this);
+      var _this = this;
+      _.bindAll(this,'initSelected');
+      this.listenTo(this.model, 'selected', this.bufferSelected);
+      this.listenTo(this.model, 'deselected', this.removeListeners);
       // this.listenTo(this.model, 'deselected', this.removeAddthis, this);
       // this.listenTo(this.model, 'load:image', this.loadImages, this);
 
       // add compression to images
       var content = this.model.get('content');
       this.model.set({ content: content.replace(/upload\/v/g,'upload/q_60/v') });
+
+      this.adjustHeight = _.throttle(function (pos) {
+        if (pos > 100) {
+          $('.swiper-wrapper, .swiper-slide').height('auto');
+          $('.swiper-container').height( _this.el.offsetHeight );
+        }
+      }, 1000);
     },
 
     onRender: function() {
@@ -126,24 +134,19 @@ define([
       this.loadRelatedPost();
       this.setupPinBtns();
       this.setupHotSpots();
-      this.listenTo(vent, 'scroll:update', this.adjustHeight, this);
+      this.listenTo(vent, 'scroll:update', this.adjustHeight);
       vent.execute('update:title', decodeURIComponent(this.model.get('title').replace(/&#038;/g, '&')) );
       window.cancelAnimationFrame( this.rafId );
+      var _this = this;
+      _.delay(function() { _this.adjustHeight(101); }, 500);
     },
 
     removeListeners: function() {
-      this.stopListening(vent, 'scroll:update', this.adjustHeight, this);
+      this.stopListening(vent, 'scroll:update', this.adjustHeight);
       this.comments.close();
       this.related.close();
       this.hotspots.close();
     },
-
-    adjustHeight: _.throttle(function(pos) {
-      if (pos > 300) {
-        $('.swiper-wrapper, .swiper-slide').height('auto');
-        $('.swiper-container').height( this.el.offsetHeight );
-      }
-    }, 1000),
 
     showSidebar: function(ev) {
       if (!this.model.get('nb_links').length) return;

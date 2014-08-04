@@ -59,8 +59,9 @@ define([
           {
             name: 'placeholder',
             onGet: function(val) {
-              var adj = this.collection.length ? 'Join' : 'Start';
-              return (val === 'open') ? adj + ' the conversation...' : 'Comments Closed';
+              // var adj = this.collection.length ? 'Join' : 'Start';
+              // return (val === 'open') ? adj + ' the conversation...' : 'Comments Closed';
+              return (val === 'open') ? 'Leave a comment...' : 'Comments Closed';
             }
           }
         ]

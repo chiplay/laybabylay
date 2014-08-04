@@ -64,6 +64,13 @@ module.exports = {
         deps: ['jquery'],
         exports: 'Swiper'
       },
+      analyticsJS: {
+        exports: 'analytics'
+      },
+      raygun: {
+        deps: ['jquery'],
+        exports: 'Raygun'
+      },
       imagesloaded: 'jquery',
       Handlebars: {
         exports: 'Handlebars'

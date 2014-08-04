@@ -38,7 +38,7 @@ module.exports = function (grunt) {
       },
       css: {
         files: [
-          '/wp-content/themes/lbl/assets/styles/app.css'
+          '<%= appConfig.app %>/styles/app.css'
         ],
         options: {
           livereload: true
@@ -77,12 +77,12 @@ module.exports = function (grunt) {
           optimization: 2
         },
         files: {
-          'wp/wp-content/themes/lbl/assets/styles/app.css': '<%= appConfig.app %>/styles/app.less'
+          'wp-content/themes/lbl/assets/styles/app.css': '<%= appConfig.app %>/styles/app.less'
         }
       },
       server: {
         src: '<%= appConfig.app %>/styles/app.less',
-        dest: 'wp/wp-content/themes/lbl/assets/styles/app.css'
+        dest: '<%= appConfig.app %>/styles/app.css'
       }
     },
     jade: {
@@ -157,7 +157,7 @@ module.exports = function (grunt) {
           '<%= appConfig.app %>/bower_components/requirejs/require.js',
           '<%= appConfig.app %>/scripts/require-config.js'
         ],
-        dest: 'wp/wp-content/themes/lbl/assets/scripts/require-built.js'
+        dest: 'app/scripts/require-built.js'
       },
       dist: {
         src: [
@@ -165,21 +165,21 @@ module.exports = function (grunt) {
           '<%= appConfig.app %>/bower_components/requirejs/require.js',
           '<%= appConfig.app %>/scripts/require-config.js'
         ],
-        dest: 'wp/wp-content/themes/lbl/assets/scripts/require-built.js'
+        dest: 'wp-content/themes/lbl/assets/scripts/require-built.js'
       }
     },
     uglify: {
       dist: {
         files: {
-          'wp/wp-content/themes/lbl/assets/scripts/require-built.js': ['wp/wp-content/themes/lbl/assets/scripts/require-built.js']
+          'wp-content/themes/lbl/assets/scripts/require-built.js': ['wp-content/themes/lbl/assets/scripts/require-built.js']
         }
       }
     },
     copy: {
       dist: {
         files: {
-          'wp/wp-content/themes/lbl/assets/scripts/main.js.map': '<%= appConfig.dist %>/scripts/main.js.map',
-          'wp/wp-content/themes/lbl/assets/scripts/main.js': '<%= appConfig.dist %>/scripts/main.js'
+          'wp-content/themes/lbl/assets/scripts/main.js.map': '<%= appConfig.dist %>/scripts/main.js.map',
+          'wp-content/themes/lbl/assets/scripts/main.js': '<%= appConfig.dist %>/scripts/main.js'
         }
       }
     }

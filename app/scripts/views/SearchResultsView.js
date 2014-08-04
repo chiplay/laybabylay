@@ -19,9 +19,8 @@ define([
     initialize: function(){
       _.bindAll(this,'masonryInit','loadPosts');
       this.collection = new Posts();
-      this.listenTo(vent, 'scroll:update', this.loadMore, this);
-      this.on('after:item:added', this.masonryAppend, this);
-      this.listenTo(this.model, 'reset', this.resetPosts, this);
+      this.listenTo(vent, 'scroll:update', this.loadMore);
+      this.listenTo(this.model, 'reset', this.resetPosts);
     },
 
     onDomRefresh: function() {
@@ -33,7 +32,7 @@ define([
       var scroll_max = this.documentHeight - this.windowHeight;
       var dist_to_bottom = scroll_max - pos;
 
-      if (dist_to_bottom < 1000 && !this.loading){
+      if (dist_to_bottom < 1500 && !this.loading){
         this.loading = true;
         this.fetchMore();
       }
@@ -66,6 +65,7 @@ define([
 
     resetPosts: function() {
       this.loading = true;
+      this.$el.addClass('hidden');
       this.collection.reset(this.model.get('posts').models);
       this.masonryInit();
     },
@@ -77,6 +77,7 @@ define([
 
     masonryInit: function(){
       if (this.masonry) this.masonry.destroy();
+      this.off('after:item:added', this.masonryAppend, this);
 
       var columns = this.setColumns(),
           windowWidth = $(window).width(),
@@ -86,6 +87,7 @@ define([
 
       this.$el.imagesLoaded()
         .always( function(){
+          _this.$el.removeClass('hidden');
           _this.masonry = new Masonry('.search-results-region', {
             itemSelector: '.search-item',
             visibleStyle: { opacity: 1 },
@@ -94,8 +96,8 @@ define([
           });
           _this.loading = false;
           _this.documentHeight = $(document).height();
+          _this.on('after:item:added', _this.masonryAppend, _this);
         });
-      this.loading = false;
       this.documentHeight = $(document).height();
     },
 
@@ -107,7 +109,7 @@ define([
       view.$el.imagesLoaded(function(){
         // show elems now they're ready
         view.$el.css({ opacity: 1 });
-        if (_this.masonry) _this.masonry.appended(view.$el, false);
+        if (_this.masonry) _this.masonry.appended(view.$el);
         _this.documentHeight = $(document).height();
       });
     }

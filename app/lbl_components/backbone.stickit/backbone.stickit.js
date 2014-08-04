@@ -1,55 +1,71 @@
+// Backbone.Stickit v0.8.0, MIT Licensed
+// Copyright (c) 2012 The New York Times, CMS Group, Matthew DeLambo <delambo@gmail.com>
+
 (function (factory) {
 
   // Set up Stickit appropriately for the environment. Start with AMD.
-  if (typeof define === 'function' && define.amd)
-    define(['underscore', 'backbone'], factory);
+  if (typeof define === 'function' && define.amd) {
+    define(['underscore', 'backbone', 'exports'], factory);
+  }
 
   // Next for Node.js or CommonJS.
-  else if (typeof exports === 'object')
-    factory(require('underscore'), require('backbone'));
+  else if (typeof exports === 'object') {
+    factory(require('underscore'), require('backbone'), exports);
+  }
 
   // Finally, as a browser global.
-  else
-    factory(_, Backbone);
+  else {
+    factory(_, Backbone, {});
+  }
 
-}(function (_, Backbone) {
+}(function (_, Backbone, Stickit) {
 
-  // Backbone.Stickit Namespace
+  // Stickit Namespace
   // --------------------------
 
-  Backbone.Stickit = {
+  Stickit._handlers = [];
 
-    _handlers: [],
-
-    addHandler: function(handlers) {
-      // Fill-in default values.
-      handlers = _.map(_.flatten([handlers]), function(handler) {
-        return _.extend({
-          updateModel: true,
-          updateView: true,
-          updateMethod: 'text'
-        }, handler);
-      });
-      this._handlers = this._handlers.concat(handlers);
-    }
+  Stickit.addHandler = function(handlers) {
+    // Fill-in default values.
+    handlers = _.map(_.flatten([handlers]), function(handler) {
+      return _.extend({
+        updateModel: true,
+        updateView: true,
+        updateMethod: 'text'
+      }, handler);
+    });
+    this._handlers = this._handlers.concat(handlers);
   };
 
   // Backbone.View Mixins
   // --------------------
 
-  _.extend(Backbone.View.prototype, {
+  Stickit.ViewMixin = {
 
     // Collection of model event bindings.
-    //   [{model,event,fn}, ...]
+    //   [{model,event,fn,config}, ...]
     _modelBindings: null,
 
     // Unbind the model and event bindings from `this._modelBindings` and
     // `this.$el`. If the optional `model` parameter is defined, then only
     // delete bindings for the given `model` and its corresponding view events.
-    unstickit: function(model) {
-      var models = [];
+    unstickit: function(model, bindingSelector) {
+      // Support bindings hash in place of selector.
+      if (_.isObject(bindingSelector)) {
+        _.each(_.keys(bindingSelector), function(selector) {
+          this.unstickit(model, selector);
+        }, this);
+        return;
+      }
+
+      var models = [], destroyFns = [];
       _.each(this._modelBindings, function(binding, i) {
-        if (model && binding.model !== model) return false;
+        if (model && binding.model !== model) { return; }
+        if (bindingSelector && binding.config.selector != bindingSelector) return;
+        if (binding.attrConfig && binding.attrConfig.name === 'class' && binding.el) {
+          binding.el.removeClass(binding.attrConfig.lastClass);
+        }
+        destroyFns.push(binding.config._destroy);
         binding.model.off(binding.event, binding.fn);
         models.push(binding.model);
         delete this._modelBindings[i];
@@ -57,102 +73,132 @@
 
       // Trigger an event for each model that was unbound.
       _.invoke(_.uniq(models), 'trigger', 'stickit:unstuck', this.cid);
+      // Call `_destroy` on a unique list of the binding callbacks.
+      _.each(_.uniq(destroyFns), function(fn) { fn.call(this); }, this);
       // Cleanup the null values.
       this._modelBindings = _.compact(this._modelBindings);
 
-      this.$el.off('.stickit' + (model ? '.' + model.cid : ''));
+      this.$el.off('.stickit' + (model ? '.' + model.cid : ''), bindingSelector);
     },
 
     // Using `this.bindings` configuration or the `optionalBindingsConfig`, binds `this.model`
     // or the `optionalModel` to elements in the view.
     stickit: function(optionalModel, optionalBindingsConfig) {
       var model = optionalModel || this.model,
-        namespace = '.stickit.' + model.cid,
-        bindings = optionalBindingsConfig || _.result(this, "bindings") || {};
+          bindings = optionalBindingsConfig || _.result(this, "bindings") || {};
 
       this._modelBindings || (this._modelBindings = []);
-      this.unstickit(model);
 
       // Iterate through the selectors in the bindings configuration and configure
       // the various options for each field.
-      _.each(bindings, function(v, selector) {
-        var $el, options, modelAttr, config,
-          binding = bindings[selector] || {},
-          bindId = _.uniqueId();
-
-        // Support ':el' selector - special case selector for the view managed delegate.
-        $el = selector === ':el' ? this.$el : this.$(selector);
-
-        // Fail fast if the selector didn't match an element.
-        if (!$el.length) return;
-
-        // Allow shorthand setting of model attributes - `'selector':'observe'`.
-        if (_.isString(binding)) binding = {observe:binding};
-
-        // Handle case where `observe` is in the form of a function.
-        if (_.isFunction(binding.observe)) binding.observe = binding.observe.call(this);
-
-        config = getConfiguration($el, binding);
-
-        modelAttr = config.observe;
-
-        // Create the model set options with a unique `bindId` so that we
-        // can avoid double-binding in the `change:attribute` event handler.
-        config.bindId = bindId;
-        // Add a reference to the view for handlers of stickitChange events
-        config.view = this;
-        options = _.extend({stickitChange:config}, config.setOptions);
-
-        initializeAttributes(this, $el, config, model, modelAttr);
-
-        initializeVisible(this, $el, config, model, modelAttr);
-
-        if (modelAttr) {
-          // Setup one-way, form element to model, bindings.
-          _.each(config.events, function(type) {
-            var event = type + namespace;
-            var method = function(event) {
-              var val = config.getVal.call(this, $el, event, config, _.rest(arguments));
-              // Don't update the model if false is returned from the `updateModel` configuration.
-              if (evaluateBoolean(this, config.updateModel, val, event, config))
-                setAttr(model, modelAttr, val, options, this, config);
-            };
-            method = _.bind(method, this);
-            if (selector === ':el') this.$el.on(event, method);
-            else this.$el.on(event, selector, method);
-          }, this);
-
-          // Setup a `change:modelAttr` observer to keep the view element in sync.
-          // `modelAttr` may be an array of attributes or a single string value.
-          _.each(_.flatten([modelAttr]), function(attr) {
-            observeModelEvent(model, this, attr, function(m, val, options) {
-              var changeId = options && options.stickitChange && options.stickitChange.bindId || null;
-              if (changeId !== bindId)
-                updateViewBindEl(this, $el, config, getAttr(model, modelAttr, config, this), m);
-            });
-          }, this);
-
-          updateViewBindEl(this, $el, config, getAttr(model, modelAttr, config, this), model, true);
-        }
-
-        model.once('stickit:unstuck', function(cid) {
-          if (cid === this.cid) applyViewFn(this, config.destroy, $el, model, config);
-        }, this);
-
-        // After each binding is setup, call the `initialize` callback.
-        applyViewFn(this, config.initialize, $el, model, config);
-      }, this);
+      this.addBinding(model, bindings);
 
       // Wrap `view.remove` to unbind stickit model and dom events.
       var remove = this.remove;
-      this.remove = function() {
-        var ret = this;
-        this.unstickit();
-        if (remove) ret = remove.apply(this, _.rest(arguments));
-        return ret;
+      if (!remove.stickitWrapped) {
+        this.remove = function() {
+          var ret = this;
+          this.unstickit();
+          if (remove) ret = remove.apply(this, arguments);
+          return ret;
+        };
+      }
+      this.remove.stickitWrapped = true;
+      return this;
+    },
+
+    // Add a single model binding to the view
+    addBinding: function(optionalModel, second, _binding) {
+      var $el, options, modelAttr, config, selector,
+        model = optionalModel || this.model,
+        namespace = '.stickit.' + model.cid,
+        binding = _binding || {},
+        bindId = _.uniqueId();
+
+      // Allow jQuery-style {key: val} event maps
+      if (_.isString(second)) {
+        selector = second;
+      } else {
+        var bindings = second;
+        _.each(bindings, function(v, selector) {
+          this.addBinding(model, selector, bindings[selector]);
+        }, this);
+        return;
+      }
+
+      // Support ':el' selector - special case selector for the view managed delegate.
+      $el = selector === ':el' ? this.$el : this.$(selector);
+
+      this.unstickit(model, selector);
+
+      // Fail fast if the selector didn't match an element.
+      if (!$el.length) return;
+
+      // Allow shorthand setting of model attributes - `'selector':'observe'`.
+      if (_.isString(binding)) binding = {observe:binding};
+
+      // Handle case where `observe` is in the form of a function.
+      if (_.isFunction(binding.observe)) binding.observe = binding.observe.call(this);
+
+      config = getConfiguration($el, binding);
+      config.selector = selector;
+      modelAttr = config.observe;
+
+      // Create the model set options with a unique `bindId` so that we
+      // can avoid double-binding in the `change:attribute` event handler.
+      config.bindId = bindId;
+
+      // Add a reference to the view for handlers of stickitChange events
+      config.view = this;
+      options = _.extend({stickitChange:config}, config.setOptions);
+
+      // Add a `_destroy` callback to the configuration, in case `destroy`
+      // is a named function and we need a unique function when unsticking.
+      config._destroy = function() {
+        applyViewFn(this, config.destroy, $el, model, config);
       };
+
+      initializeAttributes(this, $el, config, model, modelAttr);
+
+      initializeVisible(this, $el, config, model, modelAttr);
+
+      if (modelAttr) {
+        // Setup one-way, form element to model, bindings.
+        _.each(config.events, function(type) {
+          var event = type + namespace;
+          var method = function(event) {
+            var val = config.getVal.call(this, $el, event, config, _.rest(arguments));
+            // Don't update the model if false is returned from the `updateModel` configuration.
+            if (evaluateBoolean(this, config.updateModel, val, event, config)) {
+              setAttr(model, modelAttr, val, options, this, config);
+              // Callback that's applied after the Model val is set (eg. format input $el)
+              applyViewFn(this, config.afterModelUpdate, $el, val, config);
+            }
+          };
+          method = _.bind(method, this);
+          if (selector === ':el') this.$el.on(event, method);
+          else this.$el.on(event, selector, method);
+        }, this);
+
+        // Setup a `change:modelAttr` observer to keep the view element in sync.
+        // `modelAttr` may be an array of attributes or a single string value.
+        _.each(_.flatten([modelAttr]), function(attr) {
+          observeModelEvent(model, this, attr, config, function(m, val, options) {
+            var changeId = options && options.stickitChange && options.stickitChange.bindId || null;
+            if (changeId !== bindId)
+              updateViewBindEl(this, $el, config, getAttr(model, modelAttr, config, this), m);
+          });
+        }, this);
+
+        updateViewBindEl(this, $el, config, getAttr(model, modelAttr, config, this), model, true);
+      }
+
+      // After each binding is setup, call the `initialize` callback.
+      applyViewFn(this, config.initialize, $el, model, config);
     }
-  });
+  };
+
+  _.extend(Backbone.View.prototype, Stickit.ViewMixin);
 
   // Helpers
   // -------
@@ -184,13 +230,14 @@
 
   // Setup a model event binding with the given function, and track the event
   // in the view's _modelBindings.
-  var observeModelEvent = function(model, view, attr, fn) {
+  var observeModelEvent = function(model, view, attr, config, fn, attrConfig, $el) {
     // Detect attr type for Backbone.Associations
     var event = (model.get(attr) instanceof Backbone.Collection) ?
-      'add:'+attr+' remove:'+attr+' change:'+attr+'[*]' :
+      'add:'+attr+' remove:'+attr+' reset:'+attr+' change:'+attr+'[*]' :
       'change:'+attr;
-    model.on(event, fn, view);
-    view._modelBindings.push({model:model, event:event, fn:fn});
+    var bufferFn = (model.get(attr) instanceof Backbone.Collection) ? _.debounce(fn, 50) : fn;
+    model.on(event, bufferFn, view);
+    view._modelBindings.push({model:model, event:event, fn:bufferFn, config:config, attrConfig:attrConfig, el:$el});
   };
 
   // Prepares the given `val`ue and sets it into the `model`.
@@ -234,14 +281,14 @@
   // Find handlers in `Backbone.Stickit._handlers` with selectors that match
   // `$el` and generate a configuration by mixing them in the order that they
   // were found with the given `binding`.
-  var getConfiguration = Backbone.Stickit.getConfiguration = function($el, binding) {
+  var getConfiguration = Stickit.getConfiguration = function($el, binding) {
     var handlers = [{
       updateModel: false,
       updateMethod: 'text',
       update: function($el, val, m, opts) { if ($el[opts.updateMethod]) $el[opts.updateMethod](val); },
       getVal: function($el, e, opts) { return $el[opts.updateMethod](); }
     }];
-    handlers = handlers.concat(_.filter(Backbone.Stickit._handlers, function(handler) {
+    handlers = handlers.concat(_.filter(Stickit._handlers, function(handler) {
       return $el.is(handler.selector);
     }));
     handlers.push(binding);
@@ -250,7 +297,6 @@
     // `visible`; otherwise, `updateView` is defaulted to true.
     if (config.visible && !_.has(config, 'updateView')) config.updateView = false;
     else if (!_.has(config, 'updateView')) config.updateView = true;
-    delete config.selector;
     return config;
   };
 
@@ -268,21 +314,22 @@
     var props = ['autofocus', 'autoplay', 'async', 'checked', 'controls', 'defer', 'disabled', 'hidden', 'indeterminate', 'loop', 'multiple', 'open', 'readonly', 'required', 'scoped', 'selected'];
 
     _.each(config.attributes || [], function(attrConfig) {
-      var lastClass = '', observed, updateAttr;
+      var observed, updateAttr;
       attrConfig = _.clone(attrConfig);
+      attrConfig.lastClass = '';
       observed = attrConfig.observe || (attrConfig.observe = modelAttr),
       updateAttr = function() {
         var updateType = _.indexOf(props, attrConfig.name, true) > -1 ? 'prop' : 'attr',
           val = getAttr(model, observed, attrConfig, view);
         // If it is a class then we need to remove the last value and add the new.
         if (attrConfig.name === 'class') {
-          $el.removeClass(lastClass).addClass(val);
-          lastClass = val;
+          $el.removeClass(attrConfig.lastClass).addClass(val);
+          attrConfig.lastClass = val;
         }
         else $el[updateType](attrConfig.name, val);
       };
       _.each(_.flatten([observed]), function(attr) {
-        observeModelEvent(model, view, attr, updateAttr);
+        observeModelEvent(model, view, attr, config, updateAttr, attrConfig, $el);
       });
       updateAttr();
     });
@@ -313,7 +360,7 @@
       }
     };
     _.each(_.flatten([modelAttr]), function(attr) {
-      observeModelEvent(model, view, attr, visibleCb);
+      observeModelEvent(model, view, attr, config, visibleCb);
     });
     visibleCb();
   };
@@ -334,7 +381,7 @@
   // Default Handlers
   // ----------------
 
-  Backbone.Stickit.addHandler([{
+  Stickit.addHandler([{
     selector: '[contenteditable="true"]',
     updateMethod: 'html',
     events: ['input', 'change']
@@ -369,7 +416,7 @@
         val || (val = []);
         $el.each(function(i, el) {
           var checkbox = Backbone.$(el);
-          var checked = _.indexOf(val, checkbox.val()) > -1;
+          var checked = _.contains(val, checkbox.val());
           checkbox.prop('checked', checked);
         });
       } else {
@@ -474,7 +521,7 @@
         });
       };
 
-      $el.html('');
+      $el.find('*').remove();
 
       // The `list` configuration is a function that returns the options list or a string
       // which represents the path to the list relative to `window` or the view/`this`.
@@ -486,7 +533,7 @@
       };
       if (_.isString(list)) optList = evaluate(this, list);
       else if (_.isFunction(list)) optList = applyViewFn(this, list, $el, options);
-      else optList = list;
+      else optList = list || [];
 
       // Support Backbone.Collection and deserialize.
       if (optList instanceof Backbone.Collection) optList = optList.toJSON();
@@ -529,13 +576,19 @@
       var val;
       if ($el.prop('multiple')) {
         val = Backbone.$(getSelectedOption($el).map(function() {
-          return Backbone.$(this).data('stickit_bind_val');
+          return Backbone.$(this).data('stickit_bind_val') || getSelectedOption($el).val();
         })).get();
       } else {
-        val = getSelectedOption($el).data('stickit_bind_val');
+        val = getSelectedOption($el).data('stickit_bind_val') || getSelectedOption($el).val();
       }
       return val;
     }
   }]);
+
+
+  // Export onto Backbone object
+  Backbone.Stickit = Stickit;
+
+  return Backbone.Stickit;
 
 }));

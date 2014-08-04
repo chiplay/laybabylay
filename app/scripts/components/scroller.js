@@ -16,10 +16,6 @@ function(vent, _){
     latestKnownScrollY: 0
   };
 
-  var update = _.throttle(function() {
-    vent.trigger('scroll:update', scroller.viewScrollTop);
-  }, 17);
-
   var ticking = false,
       rafId;
 
@@ -39,7 +35,7 @@ function(vent, _){
 
   var requestTick = function() {
     if (!ticking) {
-      rafId = window.requestAnimationFrame( updateFrame );
+      updateFrame();
       vent.trigger('scroll:start', scroller.latestKnownScrollY);
     }
     stopFrame();
@@ -47,14 +43,18 @@ function(vent, _){
   };
 
   var onScroll = function() {
-    scroller.latestKnownScrollY = scroller.el.scrollTop || scroller.el.scrollY;
+    scroller.latestKnownScrollY = scroller.el.pageYOffset || scroller.el.scrollY;
     requestTick();
   };
 
   // Accepts a view element or defaults to the window
   scroller.init = function(el) {
     scroller.el = (el) ? el : window;
-    scroller.el.addEventListener('scroll', onScroll, false);
+    if (!scroller.el.addEventListener) {
+      scroller.el.attachEvent('onscroll', onScroll);
+    } else {
+      scroller.el.addEventListener('scroll', onScroll, false);
+    }
   };
 
   return scroller;

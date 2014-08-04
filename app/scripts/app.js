@@ -38,7 +38,7 @@ define([
 
     // load raygun for error logging
     Raygun.setVersion(config.version);
-    Raygun.init(config.raygunApiKey).attach();
+    Raygun.init(config.raygunApiKey, { ignore3rdPartyErrors: true }).attach();
 
     app.namespaces = options.namespaces;
     app.config = config;

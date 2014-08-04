@@ -6,6 +6,8 @@
 
 <script data-main="/wp-content/themes/lbl/assets/scripts/main" src="/wp-content/themes/lbl/assets/scripts/require-built.js"></script>
 
+<!-- <script data-main="/app/scripts/main" src="/app/scripts/require-built.js"></script>
+ -->
 <!-- <script data-main="//d3ltixh64q1poh.cloudfront.net/main" src="//d3ltixh64q1poh.cloudfront.net/require-built.js"></script> -->
 
 <script src="//ajax.googleapis.com/ajax/libs/webfont/1.5.0/webfont.js"></script>

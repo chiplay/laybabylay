@@ -6,13 +6,14 @@ define([
   // 'models/CustomFields',
   'collections/StyleboardProducts',
   'collections/Tags',
+  'collections/Base',
   'collections/Comments',
   'collections/Attachments',
   'collections/RelatedPosts',
   'collections/RelatedProducts',
   'collections/SearchTerms',
   'collections/Colors'
-], function(_, Backbone, AssociatedModel, StyleboardProducts, Tags, Comments, Attachments, RelatedPosts, RelatedProducts, SearchTerms, Colors) {
+], function(_, Backbone, AssociatedModel, StyleboardProducts, Tags, Base, Comments, Attachments, RelatedPosts, RelatedProducts, SearchTerms, Colors) {
 
   return AssociatedModel.extend({
 
@@ -53,7 +54,7 @@ define([
       {
         type: Backbone.Many,
         key: 'nb_links',
-        collectionType: Backbone.Collection
+        collectionType: Base
       },
       {
         type: Backbone.Many,

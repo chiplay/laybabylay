@@ -28,12 +28,13 @@ define([
 
     bindings: {
       '.search-results-text span': {
-        observe: ['count','count_total'],
+        observe: ['count','count_total','searching'],
         onGet: function(values) {
           var str = values[1],
               data = this.model.defaultData;
           // if (values[0] < values[1]) str += ' of ' + values[1];
           str += ' Result';
+          if (values[2]) return 'Searching...';
           if (values[0] !== 1) str += 's';
           if (data.search) str += ' for "' + data.search + '"';
           if (data.category) str += ' in "' + data.category + '"';
@@ -90,6 +91,8 @@ define([
       queryObj = queryObj || {};
       _.extend(this.model.defaultData, queryObj);
       this.model.get('posts').reset();
+      this.triggerReset();
+      this.model.set('searching', true);
       this.model.ready = this.model.fetch();
       q(this.model.ready).then(this.triggerReset).done();
 
@@ -106,10 +109,11 @@ define([
 
     triggerReset: function() {
       this.model.trigger('reset');
+      this.model.set('searching', false);
     },
 
     sortResults: function(sortVal) {
-      var sort = { order_by: sortVal };
+      var sort = { orderby: sortVal };
       this.searchQuery(sort);
     },
 
@@ -128,6 +132,8 @@ define([
       this.model.defaultData.type = (category === 'style-boards') ? 'styleboard' : type;
 
       if (type === 'all') type = ['post','product'];
+
+      if (type === 'post') type = ['post','product'];
 
       // Break up tags
       if (tags) tagArray = tags.split('+');
@@ -148,9 +154,11 @@ define([
 
       queryObj = { search: queryString, post_type: type, category_exclude: null };
       if (type === 'product') {
+        queryObj.orderby = 'rand';
         queryObj.product_type = category;
         queryObj.product_tags = tagArray.join('+');
       } else {
+        queryObj.orderby = 'date';
         queryObj.category = category;
         queryObj.tags = tagArray.join('+');
       }

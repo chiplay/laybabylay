@@ -234,7 +234,8 @@
   }
 
   .modal-body {
-    height: calc(~"100% - 196px");
+    height: 60%;
+    height: calc(~"100% - 216px");
     background: #fff;
     padding: 25px;
     z-index: 900;
@@ -275,6 +276,13 @@
         border: 1px solid #ffd7ea;
         font-size: 14px;
         font-weight: 400;
+        background: #fff;
+        color: @lbl-pink;
+
+        &:hover {
+          color: #fff;
+          background: @lbl-pink;
+        }
       }
     }
 
@@ -299,7 +307,7 @@
   }
 
   .modal-footer {
-    height: 100px;
+    height: 120px;
     padding: 0;
     margin-top: 0;
     background: #fff;
@@ -315,7 +323,7 @@
       display: block;
       width: 100%;
       height: 100%;
-      padding: 22px 0 20px 0;
+      padding: 32px 0 30px 0;
       color: #fff;
       margin: 0;
       background: @lbl-pink;

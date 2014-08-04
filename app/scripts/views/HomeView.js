@@ -51,7 +51,6 @@ define([
       var slug = options.slug;
 
       this.collection = new Posts();
-      this.totalCount = 0;
       this.navModel = new Backbone.Model({ index: 0, first: true, last: false });
 
       if (slug) {
@@ -76,7 +75,7 @@ define([
       this.nextNav.show( new TabNavView({ type: 'next', model: this.navModel }) );
       this.about.show( new AboutView() );
 
-      _.delay(function(){ $('#arrows').addClass('active'); },2500);
+      _.delay(function(){ $('#arrows').addClass('active'); }, 1500);
     },
 
     fetchColors: function(slug) {
@@ -130,7 +129,6 @@ define([
 
     loadPost: function() {
       this.activePost = this.getPost.get('post');
-      this.totalCount += 1;
       this.addPost(this.activePost);
       this.getPosts = this.fetchPosts();
       q(this.getPosts.ready).then(this.loadPosts).done();
@@ -140,7 +138,6 @@ define([
     loadPosts: function() {
       vent.trigger('load:start');
       this.collection.set(this.getPosts.get('posts'), { merge: false, remove: false });
-      this.totalCount += this.getPosts.get('posts').length;
     },
 
     // loadSidebar: function(model) {
@@ -179,9 +176,9 @@ define([
       if (newIndex >= this.collection.length - 2) {
         count = this.getPosts.get('count');
         count_total = this.getPosts.get('count_total');
-        currentPage = this.totalCount / count;
+        currentPage = this.collection.length / count;
 
-        if (count_total > this.totalCount) {
+        if (count_total > this.collection.length) {
           this.getPosts = this.fetchPosts(currentPage + 1);
           q(this.getPosts.ready).then(this.loadPosts).done();
         }

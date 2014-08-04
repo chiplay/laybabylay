@@ -32,7 +32,7 @@
     text-align: center;
     color: @lbl-pink;
     font-family: @font-family-sans-serif;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-size: 10px;
@@ -43,14 +43,15 @@
   a.see-all-comments {
     padding: 15px;
     width: 240px;
-    margin: 0 auto;
+    margin: 10px auto 10px;
     .border-radius(20px);
     height: 40px;
-    border: 1px solid @lbl-pink;
+    border: 2px solid @lbl-light-pink;
     display: block;
-    .opacity(0.5);
+    .opacity(0.8);
 
     &:hover {
+      border: 2px solid @lbl-pink;
       .opacity(1);
     }
 
@@ -305,7 +306,8 @@ li.comment {
   textarea {
     height: 60px;
     display: block;
-    .transition(all .3s cubic-bezier(0.190, 1.000, 0.220, 1.000));
+    .transition(height .3s cubic-bezier(0.190, 1.000, 0.220, 1.000));
+    .box-shadow(0 0 0 1px rgba(0,0,0,.15));
 
     &:hover {
       .box-shadow(0 0 0 2px rgba(0,0,0,.2));
