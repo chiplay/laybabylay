@@ -1,0 +1,386 @@
+//
+// Modals
+// --------------------------------------------------
+
+// .modal-open      - body class for killing the scroll
+// .modal           - container to scroll within
+// .modal-dialog    - positioning shell for the actual modal
+// .modal-content   - actual modal w/ bg and corners and shit
+
+// Kill the scroll on the body
+.modal-open {
+  // overflow: hidden;
+}
+
+// Container that the modal scrolls within
+.modal {
+  position: fixed;
+  display: none;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20000;
+  .backface-visibility(visible);
+
+  // When fading in the modal, animate it to slide down
+  &.fade .modal-dialog {
+    .translate3d(20%, -0, 0);
+    .transition-transform(~"0.15s ease-out");
+  }
+  &.in .modal-dialog { .translate3d(0, 0, 0)}
+}
+
+// Shell div to position the modal with bottom padding
+.modal-dialog {
+  // margin-left: auto;
+  // margin-right: auto;
+  // width: auto;
+  // padding: 10px;
+  overflow: hidden !important;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 40%;
+  max-width: 400px;
+  z-index: 20010;
+
+  @media (max-width: @screen-small-max) {
+    width: 55%;
+    z-index: 20000;
+  }
+
+  @media (max-width: @screen-xsmall-max) {
+    width: 95%;
+  }
+
+}
+
+// Actual modal
+.modal-content {
+  position: relative;
+  height: 100%;
+  // margin-top: 96px;
+  background-color: rgba(255,255,255,1);
+  // border: 1px solid @modal-content-fallback-border-color; //old browsers fallback (ie8 etc)
+  // border: 1px solid @modal-content-border-color;
+  // border-radius: @border-radius-large;
+  // .box-shadow(0 3px 9px rgba(0,0,0,.5));
+  .background-clip(padding-box);
+  // Remove focus outline from opened modal
+  outline: none;
+
+  // @media (max-width: @screen-small-max) {
+  //   margin-top: 0;
+  // }
+}
+
+// Modal background
+.modal-backdrop {
+  // display: none;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 19000;
+  background-color: @modal-backdrop-bg;
+  pointer-events: none;
+  // Fade for backdrop
+  &.fade { .opacity(0); }
+  &.in { .opacity(.1); }
+}
+
+// Modal header
+// Top section of the modal w/ title and dismiss
+.modal-header {
+
+  padding: @modal-title-padding;
+  border-bottom: 1px solid @modal-header-border-color;
+  min-height: (@modal-title-padding + @modal-title-line-height);
+}
+// Close icon
+.modal-header .close-btn {
+  margin-top: -55px;
+}
+
+.close-btn {
+  width: 25px;
+  height: 25px;
+  display: block;
+  position: absolute;
+  top: 70px;
+  right: 30px;
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/close_jcrsth.png');
+  background-repeat: none;
+  background-origin: 0 0;
+  background-size: 100%;
+}
+
+// Title text within header
+.modal-title {
+  margin: 0;
+  line-height: @modal-title-line-height;
+}
+
+// Modal body
+// Where all modal content resides (sibling of .modal-header and .modal-footer)
+.modal-body {
+  height: 80%;
+  overflow: auto;
+  overflow-y: scroll;
+  position: relative;
+  padding: @modal-inner-padding;
+}
+
+// Footer (for actions)
+.modal-footer {
+  margin-top: 15px;
+  padding: (@modal-inner-padding - 1) @modal-inner-padding @modal-inner-padding;
+  text-align: right; // right align buttons
+  border-top: 1px solid @modal-footer-border-color;
+  .clearfix(); // clear it in case folks use .pull-* classes on buttons
+}
+
+
+
+
+.modal {
+  display: block !important;
+  height: 0;
+
+  &.active {
+    height: auto;
+  }
+
+  .close{
+    color: @gray-dark;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .modal-header{
+    border-bottom: none;
+
+    h3{
+      margin: 20px 0 0;
+    }
+  }
+
+  .modal-footer{
+    text-align: center;
+    padding: 25px 20px;
+
+    p{
+      margin: 0;
+    }
+  }
+
+  // When showing an alert, animate it to slide down
+  &.shift .modal-dialog {
+    .translate(0, 12%);
+    .transition-transform(~"0.3s ease-out");
+  }
+}
+
+// Componetize
+// -----------
+// - different modals need to be their own components
+// - .modal-dialog-coupon becomes its own component
+// - .modal-dialog-coupon is a bit long - simplify / break apart
+
+// Coupon-modal
+
+
+.modal-dialog.product,
+.modal-dialog.sidebar {
+
+  .modal-header {
+    height: 96px;
+    z-index: 1000;
+    padding-left: 30px;
+    position: relative;
+    .box-shadow(0 0 4px rgba(0,0,0,0.2));
+
+    h1.title {
+      position: absolute;
+      bottom: 10px;
+      left: 25px;
+      color: @black;
+      line-height: 24px;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      margin: 0;
+      display: block;
+      width: 70%;
+    }
+
+    h2.subtitle {
+      font-family: @font-family-serif;
+      color: @gray-dark;
+      font-style: italic;
+      letter-spacing: .07rem;
+      text-transform: lowercase;
+      line-height: 18px;
+      font-size: 14px;
+      font-weight: normal;
+      display: inline-block;
+      float: none !important;
+      vertical-align: middle;
+      width: 70%;
+    }
+  }
+
+  .modal-body {
+    height: calc(~"100% - 196px");
+    background: #fff;
+    padding: 25px;
+    z-index: 900;
+
+    img {
+      max-height: 300px;
+      margin: 0 auto;
+      display: block;
+      max-width: 100%;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 28px;
+    }
+
+    .vendor, h3 {
+      font-family: @font-family-sans-serif;
+      font-weight: 600;
+      letter-spacing: 2px;
+      font-size: 14px;
+      margin-top: 10px;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      font-size: 10px;
+      letter-spacing: 1px;
+      margin: 20px 0 10px 0;
+      font-weight: 600;
+      color: @gray-dark;
+    }
+
+    .categories-region {
+      .tag-btn {
+        letter-spacing: 2px;
+        padding: 15px 25px;
+        border: 1px solid #ffd7ea;
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
+
+    .tag-list {
+      margin: 0;
+      padding: 0;
+    }
+
+    .related-posts {
+      .related-post-list {
+        width: 100%;
+        margin-top: 20px;
+      }
+      > h2 {
+        display: none;
+      }
+
+      .related-post {
+        .make-column(1,2);
+      }
+    }
+  }
+
+  .modal-footer {
+    height: 100px;
+    padding: 0;
+    margin-top: 0;
+    background: #fff;
+    z-index: 1000;
+
+    .addthis-region {
+      height: 40px;
+      padding: 10px 0;
+    }
+
+    .purchase-link {
+      .border-radius(0);
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 22px 0 20px 0;
+      color: #fff;
+      margin: 0;
+      background: @lbl-pink;
+      line-height: 20px;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-align: center;
+      position: relative;
+      text-transform: uppercase;
+
+      @media (max-width: @screen-tablet-max) {
+        font-size: 14px;
+      }
+
+      &:hover, &:active {
+        background: darken(@lbl-pink,5%);
+      }
+    }
+  }
+}
+
+.modal-dialog.sidebar {
+
+  .modal-header {
+    height: 60px;
+    z-index: 1000;
+    padding-left: 30px;
+    position: relative;
+  }
+
+  h1.title {
+    position: absolute;
+    bottom: 10px;
+    left: 25px;
+    color: @black;
+    line-height: 24px;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    margin: 0;
+    display: block;
+    width: 50%;
+  }
+
+  .modal-header .close-btn {
+    margin-top: -50px;
+  }
+
+  .modal-body {
+    height: calc(~"100% - 60px");
+  }
+
+  ol {
+    color: @lbl-pink;
+    margin: 0 0 0 20px;
+    padding: 0;
+    li {
+      margin: 0 0 6px 0;
+      a {
+        font-family: @font-family-serif;
+        font-size: 18px;
+        font-weight: 100;
+        letter-spacing: 0px;
+      }
+    }
+  }
+}

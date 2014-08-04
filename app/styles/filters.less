@@ -1,0 +1,257 @@
+.search-filters-region {
+  // padding-top: 96px;
+  display: none;
+
+  @media (max-width: @screen-small-max) {
+    // padding-top: 130px;
+  }
+
+  .search & {
+    display: block;
+  }
+
+}
+
+.search-categories-region {
+  @media (max-width: @screen-small-max) {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  width: 170%;
+}
+
+.filters {
+  position: fixed;
+  width: 100%;
+  top: 60px;
+  left: 0;
+  padding: 0;
+  z-index: 1500;
+  background: rgba(255,255,255,0.96);
+
+  @media (max-width: @screen-small-max) {
+    .container {
+      max-width: 100%;
+    }
+  }
+}
+
+.filter-bar {
+  width: 100%;
+
+  .post-types {
+    float: left;
+    position: relative;
+    width: 82%;
+
+    @media (min-width: @screen-tablet) {
+      width: 60%;
+    }
+  }
+}
+
+.filter-btn {
+  position: relative;
+  display: block;
+  float: left;
+  margin: 0 14px;
+  text-transform: uppercase;
+  color: @gray-dark;
+  letter-spacing: 1px;
+  padding: 12px 8px 6px 10px;
+  background: transparent;
+  font-size: 11px;
+  font-weight: 400;
+
+  &.disabled {
+    pointer-events: none;
+    cursor: pointer;
+    .opacity(.4);
+  }
+
+  &:first-of-type {
+    margin: 0;
+    padding: 12px 18px 6px;
+  }
+
+  @media (max-width: @screen-xsmall-max) {
+    margin: 0;
+    padding: 12px 11px 6px;
+
+    &:first-of-type {
+      margin: 0;
+      padding: 12px 18px 6px;
+    }
+    &:last-of-type {
+      padding: 12px 12px 6px;
+    }
+  }
+
+  &:hover {
+    color: @lbl-pink;
+  }
+
+  &.active {
+    color: @lbl-pink;
+    border-bottom: 3px solid @lbl-pink;
+  }
+
+  &.category-filters,
+  &.tag-filters {
+    // font-family: @font-family-serif;
+    // text-transform: capitalize;
+    // font-style: italic;
+    // font-size: 14px;
+    // padding: 11px 8px 6px;
+    // line-height: 14px;
+    float: right;
+    margin-right: 10px;
+    // letter-spacing: 0;
+
+    &:hover {
+
+
+    }
+
+    @media (max-width: @screen-xsmall-max) {
+      width: 39%;
+    }
+
+    &:after {
+      // border-left: 5px solid transparent;
+      // border-right: 5px solid transparent;
+      // border-top: 5px solid @gray-dark;
+      content: '\002B';
+      font-size: 18px;
+      font-weight: 300;
+      top: 7px;
+      right: -10px;
+      position: absolute;
+    }
+
+    &.active {
+      border-bottom: none;
+
+      &:after {
+        content: '\2013';
+        top: 5px;
+        right: -12px;
+      }
+    }
+  }
+
+  &.tag-filters {
+    margin-right: 30px;
+  }
+}
+
+.colors-btn {
+  float: right;
+  position: relative;
+  .box-sizing(border-box);
+  text-transform: uppercase;
+  margin: 0 0 0 0;
+  height: 36px;
+  padding: 12px 35px 6px 15px;
+  color: #fff;
+  letter-spacing: 1px;
+  font-size: 11px;
+  font-weight: 600;
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/color-picker_jkakjd.jpg');
+  background-repeat: no-repeat;
+  background-position: 60% 60%;
+  background-size: 120%;
+  .transition(all .3s ease-out);
+
+  // @media (max-width: @screen-xsmall-max) {
+  //   width: 50%;
+  // }
+
+  @media (max-width: @screen-xsmall-max) {
+    width: 18%;
+    padding: 12px 0 6px;
+    font-size: 0;
+    background-position: 100% 60%;
+    background-size: 240%;
+
+  }
+
+  &:after,
+  &:before {
+    content: ' ';
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    right: 13px;
+    position: absolute;
+    @media (max-width: @screen-xsmall-max) {
+      right: 23px;
+    }
+  }
+
+  &:after {
+    border-top: 5px solid #fff;
+    top: 16px;
+  }
+
+  &:before {
+    border-top: 5px solid @gray-light;
+    top: 17px;
+  }
+
+  &:hover {
+    .opacity(1);
+    color: #fff;
+  }
+
+  &.active {
+    color: #fff;
+    border-bottom: none;
+  }
+}
+
+
+.search-colors {
+  padding: 15px 0 10px 0;
+  z-index: 1000;
+  text-align: center;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+  }
+
+  .home & {
+    background: transparent;
+    position: relative;
+    top: auto;
+    left: auto;
+  }
+
+  a:hover {
+    .tooltip-wrapper {
+      display: none;
+      opacity: 0;
+    }
+  }
+
+  .swatch:last-of-type {
+    .box-shadow(0 0 4px rgba(0, 0, 0, 0.2));
+  }
+
+  // .swatch {
+  //   width: 30px;
+  //   height: 30px;
+  //   .border-radius(15px);
+  //   display: inline-block;
+  //   margin: 0 5px 10px;
+  //   background: @gray-lighter;
+
+    // &.ffffff {
+    //   .box-shadow(0 0 4px rgba(0, 0, 0, .3));
+    // }
+  // }
+}

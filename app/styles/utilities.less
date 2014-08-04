@@ -1,0 +1,70 @@
+//
+// Utility classes
+// --------------------------------------------------
+
+.flicker {
+  .backface-visibility(hidden);
+  //-webkit-perspective: 1000;
+  //-webkit-transform-style: flat;
+  //-webkit-transform:translate3d(0,0,0);
+}
+
+.align-left{
+  text-align: left;
+}
+
+.align-right{
+  text-align: right;
+}
+
+.align-center{
+  text-align: center;
+}
+
+.full_img{
+  width: 100%;
+  height: 100%;
+
+  img{
+    width: 100% !important;
+    height: auto !important;
+  }
+}
+
+// Floats
+// -------------------------
+
+.clearfix {
+  .clearfix();
+}
+.pull-right {
+  float: right !important;
+}
+.pull-left {
+  float: left !important;
+}
+
+
+// Toggling content
+// -------------------------
+
+.hide {
+  display: none !important;
+}
+.show {
+  display: block !important;
+}
+.invisible {
+  visibility: hidden;
+}
+.text-hide {
+  .hide-text();
+}
+
+
+// For Affix plugin
+// -------------------------
+
+.affix {
+  position: fixed;
+}

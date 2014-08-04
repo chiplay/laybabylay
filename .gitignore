@@ -1,0 +1,23 @@
+# Lame OS files
+Thumbs.db
+.DS_Store
+
+# Ignore everything
+/*
+/*/
+
+# But not these files...
+!.gitignore
+!.jshintrc
+!package.json
+!bower.json
+!GruntFile.js
+!/wp-content
+!/app
+
+# But ignore these subdirectories
+/wp-content/plugins
+/wp-content/upgrade
+/wp-content/uploads
+
+!/wp-content/plugins/json-api

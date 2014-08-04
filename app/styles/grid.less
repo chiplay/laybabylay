@@ -1,0 +1,36 @@
+//
+// Grid system
+// --------------------------------------------------
+
+// Set the container width, and override it for fixed navbars in media queries
+.container {
+  min-width: 300px !important;
+  max-width: @container-phone;
+  .container-fixed();
+}
+
+.row {
+  .make-row();
+}
+
+
+// Small device columns (phones to tablets)
+@media (min-width: @screen-tablet) {
+  .container {
+    max-width: @container-tablet;
+  }
+}
+
+// Medium and large device columns (desktop and up)
+@media (min-width: @screen-desktop) {
+  .container {
+    max-width: @container-desktop;
+  }
+}
+
+// Large desktops and up
+@media (min-width: @screen-large-desktop) {
+  .container {
+    max-width: @container-large-desktop;
+  }
+}

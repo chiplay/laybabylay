@@ -1,0 +1,18 @@
+{
+  "name": "analytics",
+  "version": "1.2.8",
+  "main": "analytics.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "homepage": "https://github.com/segmentio/analytics.js",
+  "_release": "1.2.8",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.2.8",
+    "commit": "6ef7aca263d65c352041fe2cd53184a114372ce6"
+  },
+  "_source": "git://github.com/segmentio/analytics.js.git",
+  "_target": "~1.2.8",
+  "_originalSource": "analytics",
+  "_direct": true
+}

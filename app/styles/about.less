@@ -1,0 +1,60 @@
+/* About */
+
+#about {
+
+  h1 {
+    padding: 15px 45px;
+    background: rgba(255,255,255,.8);
+    display: inline-block;
+    .box-shadow(-3px 3px 0px 3px rgba(254, 246, 248, .9));
+  }
+
+  #gradient > .striped(rgba(254, 246, 248, 0), rgba(254, 246, 248, .9), -45deg);
+  .background-size(28px 28px);
+
+  padding: 40px 0;
+  text-align: center;
+
+  .about-image {
+    margin: 40px auto;
+    width: 320px;
+    height: 320px;
+
+    @media (max-width: @screen-tablet-max) {
+      width: 280px;
+      height: 280px;
+    }
+
+    img {
+      width: 100%;
+      .border-radius(50%);
+    }
+  }
+
+  .about-copy {
+    width: 75%;
+    margin: 0 auto;
+
+    @media (max-width: @screen-tablet-max) {
+      width: 100%;
+    }
+  }
+
+  .about-copy p {
+    text-align: left;
+    font-size: 18px;
+    line-height: 26px;
+    padding: 0 30px 20px;
+    background: #fff;
+    margin: 0;
+    .box-shadow(-3px 3px 0px 3px rgba(254, 246, 248, .9));
+
+  }
+
+  .about-copy p.lead {
+    text-align: left;
+    font-size: 21px;
+    line-height: 32px;
+    padding: 25px 30px 20px;
+  }
+}

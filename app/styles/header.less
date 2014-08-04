@@ -1,0 +1,369 @@
+/* Main Header */
+
+#header {
+  width: 100%;
+  height: 100%;
+  max-height: 60px;
+  position: fixed;
+  top: 0;
+  z-index: 1200;
+  .translate3d(0, 0, 0);
+  .backface-visibility(visible);
+
+}
+
+.header {
+  background: rgba(255,255,255,0);
+  width: 100%;
+  position: relative;
+  .transition(all .2s linear);
+
+  &.fixed {
+    background: rgba(255,255,255,0.96);
+    // border-bottom: 1px solid #f6f6f6;
+  }
+}
+
+.navigation-wrapper {
+  position: relative;
+  font-size: 0;
+  width: 100%;
+  max-height: 60px;
+  z-index: 1000;
+  .transition(all .3s linear);
+
+  .search & {
+    .box-shadow(none);
+  }
+}
+
+#logo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 30px 0 0 -10px;
+  width: 210px;
+  height: 110px;
+  line-height: 110px;
+  text-align: center;
+  vertical-align: middle;
+  .transition(all .2s cubic-bezier(0.5, 0.3, 0.5, .7));
+  .translate3d(0, 0, 0);
+  .backface-visibility(visible);
+
+  @media (max-width: @screen-desktop-max) {
+    width: 18%;
+  }
+
+  @media (max-width: @screen-tablet-max) {
+    width: 60px;
+    height: 50px;
+    .translate3d(0px, -20px, 0) !important;
+  }
+
+  .fixed & {
+    .translate3d(0px, -16px, 0);
+  }
+
+  .search & {
+    .translate3d(-75px, -16px, 0);
+
+    @media (max-width: @screen-desktop-max) {
+      .translate3d(-30%, -16px, 0);
+    }
+
+    @media (max-width: @screen-tablet-max) {
+      .translate3d(-55px, -20px, 0);
+    }
+  }
+
+  a {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+
+    &:before {
+      .opacity(100);
+      content: '';
+      position: absolute;
+      margin-top: -5px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      background-image: url('http://res.cloudinary.com/laybabylay/image/upload/rhino_lt35fu.png');
+      background-repeat: no-repeat;
+      background-position: top center;
+      background-size: contain;
+
+      @media (max-width: @screen-tablet-max) {
+        height: 35px;
+      }
+
+      @media (max-width: @screen-small-max) {
+        height: 30px;
+        margin-top: 0px;
+      }
+
+
+    }
+
+    // &:before {
+    //   z-index: -1;
+    //   .opacity(1);
+    //   .transition(all .3s cubic-bezier(0.455, 0.030, 0.515, 0.955));
+
+    //   .fixed & {
+    //     .opacity(0);
+    //   }
+    // }
+
+    // &:after {
+    //   .opacity(0);
+    //   top: 0;
+    //   left: -90px;
+    //   .transition(all .3s cubic-bezier(0.455, 0.030, 0.515, 0.955));
+
+    //   .fixed & {
+    //     .opacity(1);
+    //   }
+    // }
+  }
+
+  h1 {
+    width: 100%;
+    height: 110px;
+    background-image: url('http://res.cloudinary.com/laybabylay/image/upload/logo_eurtrt.png');
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    background-size: 80%;
+    .opacity(1);
+    .transition(opacity .2s);
+
+    .fixed &,
+    .search & {
+      .opacity(0);
+    }
+
+    @media (max-width: @screen-tablet-max) {
+      display: none;
+    }
+
+    @media (max-width: @screen-desktop-max) {
+      height: 100px;
+    }
+  }
+}
+
+.nav-link {
+  display: inline-block;
+  padding: 0 18px;
+  color: #3a3a3a;
+  font-weight: bold;
+  font-size: 12px;
+  height: 62px;
+  line-height: 62px;
+  text-align: center;
+  width: 9.25%;
+  vertical-align: middle;
+}
+
+.icon-search,
+.icon-menu,
+.icon-close,
+.load-indicator {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  margin: 20px 10px;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 100%;
+}
+
+.icon-search,
+.icon-menu {
+  position: relative;
+
+  &:hover {
+    background-position: top center;
+  }
+  &:before {
+    content: ' ';
+    position: absolute;
+    height: 60px;
+    width: 50px;
+    top: -20px;
+    left: -15px;
+  }
+}
+
+.icon-search,
+.icon-close,
+.load-indicator {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.icon-search {
+  position: absolute;
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/search_nlj5vc.png');
+
+  .active & {
+    display: none;
+  }
+}
+
+.icon-menu {
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/menu_mukduh.png');
+}
+
+.icon-close {
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/close_jcrsth.png');
+  display: none;
+
+  .active & {
+    display: inline-block;
+  }
+}
+
+.load-indicator {
+  display: none;
+}
+
+.search-cover {
+  display: none;
+  height: 1000px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 500;
+}
+
+#header.search {
+  .search-cover {
+    display: block;
+  }
+}
+
+#search {
+  float: right;
+  font-size: 0;
+  position: relative;
+  width: 78.7%;
+
+  @media (max-width: @screen-tablet-max) {
+    width: 87%;
+  }
+
+  @media (max-width: @screen-small-max) {
+    width: 78%;
+  }
+
+  @media (max-width: @screen-xsmall-max) {
+    width: 70%;
+  }
+
+  @media (min-width: @screen-large-desktop) {
+    width: 77.7%;
+  }
+
+  input {
+    overflow: hidden;
+    &:extend(.inline-block);
+    vertical-align: middle;
+    border: 0;
+    background: transparent;
+    font-weight: 300;
+    padding: 6px 0px 0 0px;
+    font-size: 26px;
+    width: 100%;
+    line-height: 48px;
+    height: 48px;
+    vertical-align: middle;
+    color: #373737;
+    font-family: @font-family-serif;
+    letter-spacing: 1px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    .opacity(0);
+    .transition(all .2s cubic-bezier(0.5, 0.3, 0.5, .7));
+    .translate3d(-30px, 0, 0);
+    .backface-visibility(visible);
+
+    @media (max-width: @screen-small-max) {
+      .translate3d(6px, 0, 0) !important;
+    }
+
+    @media (max-width: @screen-tablet-max) {
+      .translate3d(0, 0, 0);
+    }
+
+    .search & {
+      .translate3d(-120px, 0, 0);
+
+      @media (max-width: @screen-desktop-max) {
+        .translate3d(-11%, 0, 0);
+      }
+      @media (max-width: @screen-tablet-max) {
+        .translate3d(0, 0, 0);
+      }
+    }
+
+    .active & {
+      .opacity(1);
+    }
+  }
+}
+
+#navigation {
+  overflow: hidden;
+  float: right;
+  width: 50px;
+  vertical-align: top;
+  margin-right: -10px;
+
+  @media (max-width: @screen-small-max) {
+    width: 40px;
+    margin-right: 0px;
+  }
+
+  @media (max-width: @screen-tablet-max) {
+    margin-left: 0px;
+  }
+
+  .right-nav {
+    float: right;
+    text-align: right;
+    padding: 0;
+  }
+
+  .sidebar-menu {
+
+  }
+
+  .site-nav {
+
+    a {
+      color: @lbl-light-pink;
+      text-transform: uppercase;
+      font-size: 12px;
+      line-height: 12px;
+      letter-spacing: 2px;
+      font-weight: bold;
+
+      &:hover{
+        color: @white;
+      }
+    }
+  }
+
+}

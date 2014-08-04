@@ -1,0 +1,41 @@
+// Forms
+
+// Componetize
+// -----------
+// - should form resets be put in core with other custom resets?
+
+textarea,
+input {
+  outline: none;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='password'],
+textarea {
+  border: none;
+  cursor: text;
+  padding: 12px 14px;
+  background: #fff;
+  position: relative;
+  z-index: 1;
+  .box-shadow(0 0 0 1px rgba(0,0,0,.15));
+  .transition(~"background-color .2s linear, box-shadow .2s linear");
+
+  &:focus:not(.pickadate):not(.pickatime)  {
+    .box-shadow(0 0 0 2px rgba(0,0,0,.2));
+  }
+
+  &.error {
+    .box-shadow(0 0 0 1px rgba(255,0,0,.3));
+  }
+}
+
+input[type]
+
+textarea {
+  resize: none;
+  height: 100px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}

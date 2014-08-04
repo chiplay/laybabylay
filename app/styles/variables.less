@@ -1,0 +1,354 @@
+//
+// Variables
+// --------------------------------------------------
+@base-menu-url: "http://res.cloudinary.com/laybabylay/image/upload/q_40,h_480,w_800,c_fit";
+@base-url: "http://res.cloudinary.com/laybabylay/image/upload";
+
+
+// Grays
+// -------------------------
+@black:                 #181715;
+@gray-darker:           lighten(#181715, 13.5%); // #222
+@gray-dark:             lighten(#181715, 20%);   // #333
+@gray:                  lighten(#181715, 33.5%); // #555
+@gray-light:            lighten(#181715, 60%);   // #999
+@gray-lighter:          lighten(#181715, 93.5%); // #eee
+@white:                 #fff;
+
+
+// Accent colors
+// -------------------------
+@blue:              #049cdb;
+@blueDark:          #0064cd;
+@green:             #46a546;
+@red:               #9d261d;
+@yellow:            #ffc40d;
+@orange:            #f89406;
+@pink:              #c3325f;
+@purple:            #7a43b6;
+
+// Swatches
+@swatch_01:         #ED4832; //red
+@swatch_02:         #FFA757; //orange
+@swatch_03:         #FFF797; //yellow
+@swatch_04:         #CAA640; //gold
+@swatch_05:         #6CC912; //kelly green
+@swatch_06:         #C2F4B5; //mint
+@swatch_07:         #9FE2A7; //
+@swatch_08:         #55D893; //seafoam
+@swatch_09:         #CDF9F0; //aqua
+@swatch_10:         #69DDE2; //turquoise
+@swatch_11:         #60BAE2; //true blue
+@swatch_12:         #17294C; //navy
+@swatch_13:         #BFB9FC; //lavender
+@swatch_14:         #A773EA; //purple
+@swatch_15:         #FFDCFD; //pink
+@swatch_16:         #FF40B6; //magenta
+@swatch_17:         #FFAEB4; //peachy pink
+@swatch_18:         #AAAAAA; //gray
+@swatch_19:         @black;
+@swatch_20:         @white;
+
+// Colors
+@lbl-pink:					#f95aa2;
+@lbl-light-pink:		#FFD7EA;
+@lbl-brown:					#bfb486;
+@lbl-light-brown:		#EFE5C2;
+@lbl-navy:					#1A223A;
+
+@brand-primary:          @lbl-pink;
+@dropdown-header-color:  @lbl-navy;
+
+
+// Scaffolding
+// -------------------------
+@body-bg:               @white;
+@text-color:            @gray-dark;
+
+
+// Links
+// -------------------------
+@link-color:            @lbl-pink;
+@link-hover-color:      darken(@link-color, 15%);
+
+
+// Typography
+// -------------------------
+@font-family-sans-serif:  "brandon-grotesque", "Helvetica Neue Light", Helvetica, Arial, sans-serif;
+@font-family-serif:       "freight-text-pro", Georgia, "Times New Roman", Times, serif;
+@font-family-monospace:   Monaco, Menlo, Consolas, "Courier New", monospace;
+@font-family-base:        @font-family-sans-serif;
+
+@font-size-base:          14px;
+@font-size-large:         ceil(@font-size-base * 1.25); // ~18px
+@font-size-small:         ceil(@font-size-base * 0.85); // ~12px
+
+@line-height-base:        1.428571429; // 20/14
+@line-height-computed:    floor(@font-size-base * @line-height-base); // ~20px
+
+@headings-font-family:    @font-family-base;
+@headings-font-weight:    500;
+@headings-line-height:    1.1;
+
+
+
+// Tables
+// -------------------------
+//
+// @table-cell-padding:                 8px;
+// @table-condensed-cell-padding:       5px;
+
+// @table-bg:                           transparent; // overall background-color
+// @table-bg-accent:                    #f9f9f9; // for striping
+// @table-bg-hover:                     #f5f5f5;
+// @table-bg-active:                    @table-bg-hover;
+
+// @table-border-color:                 #ddd; // table and cell border
+
+
+// Buttons
+// -------------------------
+//
+// @btn-font-weight:                bold;
+
+// @btn-default-color:              #333;
+// @btn-default-bg:                 #fff;
+// @btn-default-border:             #ccc;
+
+// @btn-primary-color:              #fff;
+// @btn-primary-bg:                 @brand-primary;
+// @btn-primary-border:             darken(@btn-primary-bg, 5%);
+
+// @btn-success-color:              #fff;
+// @btn-success-bg:                 @brand-success;
+// @btn-success-border:             darken(@btn-success-bg, 5%);
+
+// @btn-warning-color:              #fff;
+// @btn-warning-bg:                 @brand-warning;
+// @btn-warning-border:             darken(@btn-warning-bg, 5%);
+
+// @btn-danger-color:               #fff;
+// @btn-danger-bg:                  @brand-danger;
+// @btn-danger-border:              darken(@btn-danger-bg, 5%);
+
+// @btn-info-color:                 #fff;
+// @btn-info-bg:                    @brand-info;
+// @btn-info-border:                darken(@btn-info-bg, 5%);
+
+// @btn-link-disabled-color:        @gray-light;
+
+
+// Forms
+// -------------------------
+//
+@input-bg:                       #fff;
+@input-bg-disabled:              @gray-lighter;
+
+@input-border:                   #ccc;
+@input-border-radius:            @border-radius-base;
+@input-border-focus:             #66afe9;
+
+@input-color-placeholder:        @gray-light;
+
+@input-height-base:              (@line-height-computed + (@padding-base-vertical * 2) + 2);
+@input-height-large:             (floor(@font-size-large * @line-height-large) + (@padding-large-vertical * 2) + 2);
+@input-height-small:             (floor(@font-size-small * @line-height-small) + (@padding-small-vertical * 2) + 2);
+
+@legend-border-color:            #e5e5e5;
+
+@input-group-addon-border-color: @input-border;
+
+
+// Dropdowns
+// -------------------------
+//
+// @dropdown-bg:                    #fff;
+// @dropdown-border:                rgba(0,0,0,.15);
+// @dropdown-fallback-border:       #ccc;
+// @dropdown-divider-bg:            #e5e5e5;
+
+// @dropdown-link-active-color:     #fff;
+// @dropdown-link-active-bg:        @component-active-bg;
+
+// @dropdown-link-color:            @gray-dark;
+// @dropdown-link-hover-color:      #fff;
+// @dropdown-link-hover-bg:         @dropdown-link-active-bg;
+
+// @dropdown-caret-color:           #000;
+
+
+// Components
+// -------------------------
+// Based on 14px font-size and 1.428 line-height (~20px to start)
+
+@padding-base-vertical:          6px;
+@padding-base-horizontal:        12px;
+
+@padding-large-vertical:         10px;
+@padding-large-horizontal:       16px;
+
+@padding-small-vertical:         5px;
+@padding-small-horizontal:       10px;
+
+@line-height-large:              1.33;
+@line-height-small:              1.5;
+
+@border-radius-base:             4px;
+@border-radius-large:            6px;
+@border-radius-small:            3px;
+
+@caret-width-base:               4px;
+@caret-width-large:              5px;
+
+
+// Z-index master list
+// -------------------------
+// Used for a bird's eye view of components dependent on the z-axis
+// Try to avoid customizing these :)
+
+@zindex-dropdown:          1000;
+@zindex-popover:           1010;
+@zindex-tooltip:           1030;
+@zindex-navbar-fixed:      1030;
+@zindex-modal-background:  1040;
+@zindex-modal:             1050;
+
+
+// Input placeholder text color
+// -------------------------
+@placeholder-text:         @gray-light;
+
+// Hr border color
+// -------------------------
+@hr-border:                @gray-lighter;
+
+// Horizontal forms & lists
+// -------------------------
+@component-offset-horizontal:       180px;
+
+// Wells
+// -------------------------
+// @well-bg:                  #f5f5f5;
+
+// Pagination
+// -------------------------
+
+// @pagination-bg:                        #fff;
+// @pagination-border:                    #ddd;
+// @pagination-active-bg:                 #f5f5f5;
+// @pagination-active-color:              @gray-light;
+// @pagination-disabled-color:            @gray-light;
+
+
+// // Form states and alerts
+// // -------------------------
+// @state-warning-text:             #c09853;
+// @state-warning-bg:               #fcf8e3;
+// @state-warning-border:           darken(spin(@state-warning-bg, -10), 3%);
+
+// @state-danger-text:              #b94a48;
+// @state-danger-bg:                #f2dede;
+// @state-danger-border:            darken(spin(@state-danger-bg, -10), 3%);
+
+// @state-success-text:             #468847;
+// @state-success-bg:               #dff0d8;
+// @state-success-border:           darken(spin(@state-success-bg, -10), 5%);
+
+// @state-info-text:                #3a87ad;
+// @state-info-bg:                  #d9edf7;
+// @state-info-border:              darken(spin(@state-info-bg, -10), 7%);
+
+
+// // Tooltips
+// // -------------------------
+// @tooltip-max-width:           200px;
+// @tooltip-color:               #fff;
+// @tooltip-bg:                  #000;
+
+// @tooltip-arrow-width:         5px;
+// @tooltip-arrow-color:         @tooltip-bg;
+
+
+// // Popovers
+// // -------------------------
+// @popover-bg:                          #fff;
+// @popover-max-width:                   276px;
+// @popover-border-color:                rgba(0,0,0,.2);
+// @popover-fallback-border-color:       #ccc;
+
+// @popover-title-bg:                    darken(@popover-bg, 3%);
+
+// @popover-arrow-width:                 10px;
+// @popover-arrow-color:                 #fff;
+
+// @popover-arrow-outer-width:           (@popover-arrow-width + 1);
+// @popover-arrow-outer-color:           rgba(0,0,0,.25);
+// @popover-arrow-outer-fallback-color:  #999;
+
+
+// Modals
+// -------------------------
+@modal-inner-padding:         20px;
+
+@modal-title-padding:         15px;
+@modal-title-line-height:     @line-height-base;
+
+@modal-content-bg:                             #fff;
+@modal-content-border-color:                   rgba(0,0,0,.2);
+@modal-content-fallback-border-color:          #999;
+
+@modal-backdrop-bg:           #000;
+@modal-header-border-color:   #e5e5e5;
+@modal-footer-border-color:   @modal-header-border-color;
+
+// Media queries breakpoints
+// --------------------------------------------------
+
+// Extra small screen / phone
+@screen-xsmall:              480px;
+@screen-phone:               @screen-xsmall;
+
+// Small screen / tablet
+@screen-small:               768px;
+@screen-tablet:              @screen-small;
+
+// Medium screen / desktop
+@screen-medium:              992px;
+@screen-desktop:             @screen-medium;
+
+// Large screen / wide desktop
+@screen-large:               1240px;
+@screen-large-desktop:       @screen-large;
+
+// So media queries don't overlap when required, provide a maximum
+@screen-xsmall-max:          (@screen-phone - 1);
+@screen-small-max:           (@screen-tablet - 1);
+@screen-tablet-max:          (@screen-desktop - 1);
+@screen-desktop-max:         (@screen-large-desktop - 1);
+
+
+// Grid system
+// --------------------------------------------------
+
+// Number of columns in the grid system
+@grid-columns:              12;
+// Padding, to be divided by two and applied to the left and right of all columns
+@grid-gutter-width:         20px;
+// Point at which the navbar stops collapsing
+@grid-float-breakpoint:     @screen-tablet;
+
+
+// Container sizes
+// --------------------------------------------------
+
+// Small screen / tablet
+@container-phone:          94%;
+
+// Small screen / tablet
+@container-tablet:          94%;
+
+// Medium screen / desktop
+@container-desktop:         94%;
+
+// Large screen / wide desktop
+@container-large-desktop:   1080px;
