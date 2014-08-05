@@ -25,7 +25,7 @@ if (!$matches) { ?>
     <title>Nursery Inspiration &amp; Baby Room Ideas &#124; Lay Baby Lay</title>
     <meta property="og:title" content="Lay Baby Lay"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:description" content="Nursery Inspiration & Baby Room Ideas"/>
+    <meta property="og:description" content="Nursery Inspiration &amp; Baby Room Ideas"/>
     <meta property="og:url" content="http://laybabylay.com"/>
     <meta property="og:site_name" content="Lay Baby Lay"/>
     <meta property="fb:app_id" content="179291298758035"/>
