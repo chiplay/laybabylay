@@ -147,6 +147,7 @@ define([
 
     removeListeners: function() {
       this.stopListening(vent, 'scroll:update', this.adjustHeight);
+      if (this.isClosed) return;
       this.comments.close();
       this.related.close();
       this.hotspots.close();
@@ -163,6 +164,7 @@ define([
     },
 
     setupHotSpots: function() {
+      if (this.isClosed) return;
       var categories = this.model.get('categories'),
           isBoard = categories.findWhere({ slug: 'style-boards' }),
           firstImg = this.$('.content img').first(),
@@ -183,6 +185,7 @@ define([
     },
 
     attachPinBtn: function(el) {
+      if (this.isClosed) return;
       var $el = $(el),
           href = '//www.pinterest.com/pin/create/button/',
           pinBtn = document.createElement('button');
@@ -255,16 +258,19 @@ define([
     },
 
     loadRelatedPost: function() {
+      if (this.isClosed) return;
       var relatedPost = this.model.get('related_posts');
       if (relatedPost.length) this.related.show( new RelatedPostsView({ collection: relatedPost }) );
     },
 
     loadColors: function() {
+      if (this.isClosed) return;
       var colors = this.model.get('colors');
       if (colors.length) this.colors.show( new PostColorsView({ collection: colors }) );
     },
 
     loadComments: function() {
+      if (this.isClosed) return;
       var comments = this.model.get('comments');
       comments.sortParents();
       this.comments.show( new CommentsView({ model: this.model, comments: comments }) );

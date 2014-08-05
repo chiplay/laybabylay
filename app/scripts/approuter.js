@@ -21,6 +21,7 @@ define([
       'search/:type/in/:category/tagged/:tags/:query(/)': 'search',
       'products(/)' : 'search',
       'products/:slug(/)' : 'product',
+      'page/*num(/)': 'index',
       'about(/)': 'about',
       ':slug(/)' : 'post'
     },

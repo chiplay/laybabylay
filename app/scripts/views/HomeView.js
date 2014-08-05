@@ -117,6 +117,7 @@ define([
     },
 
     showRegions: function() {
+      if (this.isClosed) return;
       // this.sidebar.show( new SidebarView({ model: this.activePost }) );
       this.posts.show( new PostsView({ collection: this.collection, model: this.navModel }) );
       this.activePost.select();
@@ -124,10 +125,16 @@ define([
     },
 
     showColors: function() {
+      if (this.isClosed) return;
       this.colorsRegion.show( new SearchColorsView({ collection: this.colors.get('page.colors') }) );
     },
 
     loadPost: function() {
+      if (this.getPost.get('error')) {
+        var terms = window.location.pathname.substring(1, window.location.pathname.length).replace('-',' ');
+        vent.execute('navigate','search/all/q=' + terms, true);
+        return;
+      }
       this.activePost = this.getPost.get('post');
       this.addPost(this.activePost);
       this.getPosts = this.fetchPosts();
@@ -136,6 +143,7 @@ define([
     },
 
     loadPosts: function() {
+      if (this.isClosed) return;
       vent.trigger('load:start');
       this.collection.set(this.getPosts.get('posts'), { merge: false, remove: false });
     },
