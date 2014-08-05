@@ -85,7 +85,7 @@ define([
 
   vent.reqres.setHandler('fetch:url', function(type, category, tag, queryString) {
     var url = '';
-    if (app.main.currentView.search) {
+    if (app.main.currentView && app.main.currentView.search) {
       url = vent.request('search:fetch:url', type, category, tag, queryString);
     } else {
       url += type ? type + 's/' : 'all/';

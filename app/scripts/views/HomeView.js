@@ -166,6 +166,7 @@ define([
     },
 
     loadPrev: function() {
+      if (!this.getPosts) return;
       var newIndex = this.navModel.get('index') + 1,
           count_total = this.getPosts.get('count_total'),
           isLast = (count_total === newIndex) ? true : false;
@@ -194,8 +195,11 @@ define([
     },
 
     updateUrl: function (index) {
+      var _this = this;
       this.activePost = this.collection.at(index);
-      _.delay(this.activePost.select, 400);
+      _.delay(function() {
+        if (_this.activePost) _this.activePost.select();
+      }, 400);
       // this.loadSidebar(this.activePost);
 
       vent.execute('navigate', this.activePost.get('slug'), false);
