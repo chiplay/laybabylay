@@ -22,10 +22,10 @@ if (!$matches) { ?>
   <html lang="en">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Nursery Inspiration &amp; Baby Room Ideas &#124; Lay Baby Lay</title>
+    <title>Nursery Decor &amp; Baby Room Ideas &#124; Lay Baby Lay</title>
     <meta property="og:title" content="Lay Baby Lay"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:description" content="Nursery Inspiration &amp; Baby Room Ideas"/>
+    <meta property="og:description" content="Nursery Decor &amp; Baby Room Ideas"/>
     <meta property="og:url" content="http://laybabylay.com"/>
     <meta property="og:site_name" content="Lay Baby Lay"/>
     <meta property="fb:app_id" content="179291298758035"/>
@@ -37,7 +37,7 @@ if (!$matches) { ?>
   <header>
 
     <h1>Welcome to Lay Baby Lay</h1>
-    <h2>Nursery Inspiration &amp; Baby Room Ideas</h2>
+    <h2>Nursery Decor &amp; Baby Room Ideas</h2>
 
   </header>
 
