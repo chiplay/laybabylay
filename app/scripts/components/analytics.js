@@ -12,6 +12,9 @@ define(function (require) {
         'Google Analytics': {
           trackingId: 'UA-5123840-19',
           includeSearch: true
+        },
+        'Google Tag Manager': {
+          containerId: 'GTM-5MF9JS'
         }
       });
     }
