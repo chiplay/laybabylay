@@ -1968,22 +1968,22 @@ html ::selection {
   background-position: bottom center;
 }
 #about-widget .social-links a.facebook {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/fb-circle_x90r3a.png');
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/fb-circle_hte17d.png');
 }
 #about-widget .social-links a.pinterest {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/pinterest-circle_matllt.png');
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/pinterest-circle_j5ylji.png');
 }
 #about-widget .social-links a.instagram-icon {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/instagram-circle_wl6rog.png');
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/instagram-circle_eaaxsy.png');
 }
 #about-widget .social-links a.bloglovin {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/bl-circle_ooc4dz.png');
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/bl-circle_becgue.png');
 }
 #about-widget .social-links a.rss {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/rss-circle_dgrwaz.png');
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/rss-circle_xqmr3d.png');
 }
 #about-widget .social-links a.twitter {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/twitter-circle_tokdp3.png');
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/twitter-circle_qrplea.png');
 }
 #about-widget .links {
   font-size: 16px;
@@ -1998,6 +1998,56 @@ html ::selection {
 }
 #about-widget .links a:hover {
   color: #f95aa2;
+}
+#about-widget .email-signup {
+  border-top: 1px solid #fff;
+  margin-top: 15px;
+  padding-top: 15px;
+  width: 100%;
+  font-size: 0px;
+  color: #3d3a35;
+  font-family: "freight-text-pro", Georgia, "Times New Roman", Times, serif;
+}
+#about-widget .email-signup label {
+  display: block;
+  font-size: 16px;
+}
+#about-widget .email-signup .field-wrapper {
+  height: 30px;
+  margin-top: 8px;
+}
+#about-widget .email-signup input[type="email"] {
+  -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15) !important;
+  margin-top: 1px;
+  float: left;
+  font-size: 14px;
+  line-height: 16px;
+  width: 115px;
+  border: none;
+  padding: 6px 10px 3px;
+  display: inline-block;
+}
+#about-widget .email-signup input.button {
+  float: left;
+  padding: 10px 5px 8px;
+  width: 85px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  border: none;
+  background: #f95aa2;
+  letter-spacing: 1px;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 11px;
+  color: #fff;
+  display: inline-block;
+  font-family: "brandon-grotesque", "Helvetica Neue Light", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+}
+#about-widget .email-signup input.button:hover {
+  background: #f84194;
 }
 #arrows {
   position: fixed;
