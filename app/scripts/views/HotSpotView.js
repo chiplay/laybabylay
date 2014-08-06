@@ -58,17 +58,17 @@ define([
         ev.preventDefault();
         ev.stopPropagation();
       }
-      var extUrl = this.model.get('external_url'),
+      var url = this.model.get('external_url'),
           tmp, getProduct, ready;
 
-      if (extUrl) {
+      if (url) {
         tmp = document.createElement('a');
-        tmp.href = extUrl;
+        tmp.href = url;
         analytics.track('Outbound Traffic', {
           label: this.model.get('external_title'),
           category: tmp.hostname
         });
-        _.delay(function() { window.open(extUrl, '_blank'); }, 200);
+        _.delay(function() { window.vglnk.click(url, '_blank'); }, 200);
         return;
       }
 

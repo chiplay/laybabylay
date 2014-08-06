@@ -185,7 +185,7 @@ function (q, analytics, $, _, Backbone, Marionette, facebook, vent, RelatedPosts
         label: this.model.get('title'),
         category: tmp.hostname
       });
-      _.delay(function() { window.open(url, '_blank'); }, 200);
+      _.delay(function() { window.vglnk.click(url, '_blank'); }, 200);
     }
 
   });

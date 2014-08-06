@@ -286,7 +286,7 @@ define([
         label: url,
         category: tmp.hostname
       });
-      _.delay(function() { window.open(url, '_blank'); }, 200);
+      _.delay(function() { window.vglnk.click(url, '_blank'); }, 200);
     }
 
   });
