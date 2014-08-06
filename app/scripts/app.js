@@ -28,7 +28,7 @@ define([
 
   app.addInitializer(function (options) {
 
-    analytics.initialize();
+    // analytics.initialize();
 
     if (config.debug){
       // if this is local, expose _app for debugging

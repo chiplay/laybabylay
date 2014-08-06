@@ -38,6 +38,7 @@ define([
       'click .search-cover': 'hideSearch',
       'click @ui.menu': 'toggleMenu',
       'click @ui.logo': 'home',
+      'click .about-link': 'showAbout'
       // 'blur @ui.input': 'blurInput'
     },
 
@@ -217,6 +218,14 @@ define([
       this.hideSearch(ev);
       if (ev) ev.preventDefault();
       vent.execute('navigate', '/', true);
+    },
+
+    showAbout: function(ev) {
+      this.hideSearch(ev);
+      if (ev) ev.preventDefault();
+      vent.execute('navigate', '/about', true);
+      $(window).scrollTop(20);
+
     }
 
   });

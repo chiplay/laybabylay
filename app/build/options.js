@@ -39,7 +39,7 @@ module.exports = {
       swiper: '../bower_components/swiper/dist/idangerous.swiper',
       masonry: '../bower_components/masonry/dist/masonry.pkgd',
       raygun: '../bower_components/raygun4js/dist/raygun.vanilla',
-      analyticsJS: '../lbl_components/analytics/analytics',
+      // analyticsJS: '../lbl_components/analytics/analytics',
       fbsdk: '//connect.facebook.net/en_US/sdk'
     },
     map: {
@@ -64,9 +64,9 @@ module.exports = {
         deps: ['jquery'],
         exports: 'Swiper'
       },
-      analyticsJS: {
-        exports: 'analytics'
-      },
+      // analyticsJS: {
+      //   exports: 'analytics'
+      // },
       raygun: {
         deps: ['jquery'],
         exports: 'Raygun'

@@ -1913,6 +1913,92 @@ html ::selection {
 #navigation .site-nav a:hover {
   color: #ffffff;
 }
+#about-widget {
+  width: 200px;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-transition: all 0.1s cubic-bezier(0.5, 0.3, 0.5, 0.7);
+  transition: all 0.1s cubic-bezier(0.5, 0.3, 0.5, 0.7);
+  -webkit-transform: translate3d(0, 220px, 0);
+  transform: translate3d(0, 220px, 0);
+}
+@media (max-width: 1239px) {
+  #about-widget {
+    -webkit-transform: translate3d(-10px, 220px, 0);
+    transform: translate3d(-10px, 220px, 0);
+  }
+}
+@media (max-width: 1030px) {
+  #about-widget {
+    -webkit-transform: translate3d(-30px, 220px, 0);
+    transform: translate3d(-30px, 220px, 0);
+  }
+}
+@media (max-width: 991px) {
+  #about-widget {
+    opacity: 0;
+    filter: alpha(opacity=0);
+  }
+}
+.fixed #about-widget {
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+#about-widget .headshot {
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/joni-lay_o1ml6d.png');
+  background-position: center center;
+  background-size: 75%;
+  background-repeat: no-repeat;
+  width: 200px;
+  height: 200px;
+  display: block;
+}
+#about-widget .social-links a {
+  background-position: top center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  margin-right: 6px;
+}
+#about-widget .social-links a:hover {
+  background-position: bottom center;
+}
+#about-widget .social-links a.facebook {
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/fb-circle_x90r3a.png');
+}
+#about-widget .social-links a.pinterest {
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/pinterest-circle_matllt.png');
+}
+#about-widget .social-links a.instagram-icon {
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/instagram-circle_wl6rog.png');
+}
+#about-widget .social-links a.bloglovin {
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/bl-circle_ooc4dz.png');
+}
+#about-widget .social-links a.rss {
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/rss-circle_dgrwaz.png');
+}
+#about-widget .social-links a.twitter {
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/twitter-circle_tokdp3.png');
+}
+#about-widget .links {
+  font-size: 16px;
+  color: #b5b1aa;
+}
+#about-widget .links a {
+  display: inline-block;
+  font-size: 16px;
+  color: #3d3a35;
+  font-family: "freight-text-pro", Georgia, "Times New Roman", Times, serif;
+  margin: 15px 6px;
+}
+#about-widget .links a:hover {
+  color: #f95aa2;
+}
 #arrows {
   position: fixed;
   right: 30px;
