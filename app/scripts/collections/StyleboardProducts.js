@@ -5,7 +5,7 @@ define([
 
   return Backbone.Collection.extend({
 
-    model: StyleboardProduct,
+    model: StyleboardProduct
 
     // url: '/api/get_posts'
 

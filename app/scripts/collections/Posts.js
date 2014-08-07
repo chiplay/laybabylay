@@ -5,7 +5,7 @@ define([
 
   return Backbone.Collection.extend({
 
-    model: Post,
+    model: Post
 
     // parse: function(response) {
     //   return response.posts;

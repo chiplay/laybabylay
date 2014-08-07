@@ -141,8 +141,6 @@ define([
       this.listenTo(vent, 'scroll:update', this.adjustHeight);
       vent.execute('update:title', decodeURIComponent(this.model.get('title').replace(/&#038;/g, '&')) );
       window.cancelAnimationFrame( this.rafId );
-      var _this = this;
-      _.delay(function() { _this.adjustHeight(101); }, 500);
     },
 
     removeListeners: function() {

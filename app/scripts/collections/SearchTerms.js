@@ -5,7 +5,7 @@ define([
 
   return Backbone.Collection.extend({
 
-    model: SearchTerm,
+    model: SearchTerm
 
     // url: '/api/get_posts'
 

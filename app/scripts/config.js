@@ -2,7 +2,7 @@ define([
   'vent'
 ], function(vent){
 
-  var __VERSION = window.__VERSION || '1.0.3';
+  var __VERSION = window.__VERSION || '1.0.4';
 
   var config = {
     version: __VERSION,

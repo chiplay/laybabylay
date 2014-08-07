@@ -5,7 +5,7 @@ define([
 
   return Backbone.Collection.extend({
 
-    model: ACFRelatedPost,
+    model: ACFRelatedPost
 
     // url: '/api/get_posts'
 

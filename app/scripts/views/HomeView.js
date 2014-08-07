@@ -199,12 +199,13 @@ define([
 
       var _this = this;
       this.activePost = this.collection.at(index);
+      if (this.activePost) vent.execute('navigate', this.activePost.get('slug'), false);
+
       _.delay(function() {
         if (_this.activePost) _this.activePost.select();
       }, 400);
       // this.loadSidebar(this.activePost);
 
-      vent.execute('navigate', this.activePost.get('slug'), false);
     }
 
   });
