@@ -157,13 +157,14 @@ define([
 
       var _this = this;
 
-      if ($(document.body).hasClass('search')) {
+      if ($(document.body).hasClass('search') || !!$(document.body).find('#about').length) {
         this.home();
         _.delay(function() {
           _this.toggleMenu();
         }, 2000);
       } else {
-        $(document.body).scrollTop($('#menu').offset().top);
+        var $menu = $('#menu');
+        if ($menu) $(document.body).scrollTop($menu.offset().top);
       }
     },
 

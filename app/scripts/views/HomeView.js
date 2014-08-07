@@ -12,12 +12,12 @@ define([
   'regions/swiper',
   'views/PostsView',
   'views/TabNavView',
-  'views/SidebarView',
-  'views/AboutView',
-  'views/SearchColorsView',
+  // 'views/SidebarView',
+  // 'views/AboutView',
+  // 'views/SearchColorsView',
   'hbar!templates/home'
 
-], function(q, $, imagesloaded, _, Backbone, vent, GetPage, GetPosts, GetPost, Posts, Marionette, PostsView, TabNavView, SidebarView, AboutView, SearchColorsView, homeTemplate){
+], function(q, $, imagesloaded, _, Backbone, vent, GetPage, GetPosts, GetPost, Posts, Marionette, PostsView, TabNavView, homeTemplate){
 
   return Marionette.Layout.extend({
 
@@ -32,9 +32,9 @@ define([
       },
       prevNav: '#prev-btn-region',
       nextNav: '#next-btn-region',
-      about: '#about-region',
+      about: '#about-region'
       // sidebar: '#sidebar-region',
-      colorsRegion: '.search-colors-region'
+      // colorsRegion: '.search-colors-region'
     },
 
     // If we hit a direct slug, grab the slug and run a get_post
@@ -45,7 +45,7 @@ define([
     // After 'next' fetch one at a time
 
     initialize: function(options) {
-      _.bindAll(this,'loadPosts','loadPost','initialLoad','showColors');
+      _.bindAll(this,'loadPosts','loadPost','initialLoad');
       options = options || {};
 
       var slug = options.slug;
@@ -66,14 +66,14 @@ define([
       vent.on('load:next', this.loadNext, this);
       vent.on('load:prev', this.loadPrev, this);
 
-      this.colors = this.fetchColors('search');
-      q(this.colors.ready).then(this.showColors).done();
+      // this.colors = this.fetchColors('search');
+      // q(this.colors.ready).then(this.showColors).done();
     },
 
     onDomRefresh: function() {
       this.prevNav.show( new TabNavView({ type: 'prev', model: this.navModel }) );
       this.nextNav.show( new TabNavView({ type: 'next', model: this.navModel }) );
-      this.about.show( new AboutView() );
+      // this.about.show( new AboutView() );
 
       _.delay(function(){ $('#arrows').addClass('active'); }, 1500);
     },
@@ -117,17 +117,17 @@ define([
     },
 
     showRegions: function() {
-      if (this.isClosed) return;
+      if (this.isClosed || !this.activePost) return;
       // this.sidebar.show( new SidebarView({ model: this.activePost }) );
       this.posts.show( new PostsView({ collection: this.collection, model: this.navModel }) );
       this.activePost.select();
       vent.execute('navigate', this.activePost.get('slug'), false);
     },
 
-    showColors: function() {
-      if (this.isClosed) return;
-      this.colorsRegion.show( new SearchColorsView({ collection: this.colors.get('page.colors') }) );
-    },
+    // showColors: function() {
+    //   if (this.isClosed) return;
+    //   this.colorsRegion.show( new SearchColorsView({ collection: this.colors.get('page.colors') }) );
+    // },
 
     loadPost: function() {
       if (this.getPost.get('error')) {
@@ -195,6 +195,8 @@ define([
     },
 
     updateUrl: function (index) {
+      if (!this.collection || !this.collection.length) return;
+
       var _this = this;
       this.activePost = this.collection.at(index);
       _.delay(function() {
