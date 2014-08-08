@@ -104,10 +104,10 @@ define([
     initialize: function() {
       var _this = this;
       _.bindAll(this,'initSelected');
+      this.listenTo(this.model, 'load:images', this.loadImages);
       this.listenTo(this.model, 'selected', this.bufferSelected);
       this.listenTo(this.model, 'deselected', this.removeListeners);
       // this.listenTo(this.model, 'deselected', this.removeAddthis, this);
-      // this.listenTo(this.model, 'load:image', this.loadImages, this);
 
       // add compression to images
       var content = this.model.get('content');
@@ -130,12 +130,6 @@ define([
     onRender: function() {
       this.stickit();
       this.loadColors();
-
-      this.$('.content img.lazy').lazyload({
-        effect: 'fadeIn',
-        threshold: 200,
-        placeholder: 'data:image/gif;base64,R0lGODlhAQABAIAAAP7//wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='
-      });
     },
 
     bufferSelected: function() {
@@ -250,9 +244,13 @@ define([
       window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
     },
 
-    // loadImages: function() {
-    //   // TODO - load images in content using data-attr and jquery / imagesloaded
-    // },
+    loadImages: function() {
+      this.$('.content img.lazy').lazyload({
+        effect: 'fadeIn',
+        threshold: 200,
+        placeholder: 'data:image/gif;base64,R0lGODlhAQABAIAAAP7//wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='
+      });
+    },
 
     // adjustHeight: function(ev) {
     //   ev = ev || {};

@@ -199,7 +199,10 @@ define([
 
       var _this = this;
       this.activePost = this.collection.at(index);
-      if (this.activePost) vent.execute('navigate', this.activePost.get('slug'), false);
+      if (this.activePost) {
+        vent.execute('navigate', this.activePost.get('slug'), false);
+        this.activePost.trigger('load:images');
+      }
 
       _.delay(function() {
         if (_this.activePost) _this.activePost.select();
