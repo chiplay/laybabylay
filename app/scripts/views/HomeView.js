@@ -120,6 +120,7 @@ define([
       if (this.isClosed || !this.activePost) return;
       // this.sidebar.show( new SidebarView({ model: this.activePost }) );
       this.posts.show( new PostsView({ collection: this.collection, model: this.navModel }) );
+      this.activePost.trigger('load:images');
       this.activePost.select();
       vent.execute('navigate', this.activePost.get('slug'), false);
     },
