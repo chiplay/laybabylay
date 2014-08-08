@@ -177,7 +177,7 @@ html {
 body {
   font-family: "brandon-grotesque", "Helvetica Neue Light", Helvetica, Arial, sans-serif;
   font-size: 14px;
-  line-height: 1.428571429;
+  line-height: 1.42857143;
   color: #4e4b45;
   background-color: #ffffff;
 }
@@ -322,7 +322,7 @@ hr {
   padding-left: 10px;
   padding-right: 10px;
   float: left;
-  width: 33.300000000000004%;
+  width: 33.3%;
 }
 .column-2of3 {
   position: relative;
@@ -471,7 +471,7 @@ hr {
     padding-left: 10px;
     padding-right: 10px;
     float: left;
-    width: 33.300000000000004%;
+    width: 33.3%;
   }
 }
 @media (max-width: 992px) {
@@ -651,7 +651,7 @@ hr {
     padding-left: 10px;
     padding-right: 10px;
     float: left;
-    width: 33.300000000000004%;
+    width: 33.3%;
   }
 }
 @media (min-width: 1240px) {
@@ -809,7 +809,7 @@ p {
 }
 .lead {
   margin-bottom: 20px;
-  font-size: 16.099999999999998px;
+  font-size: 16.1px;
   line-height: 1.4;
   font-size: 17.5px;
 }
@@ -899,7 +899,7 @@ dl {
 }
 dt,
 dd {
-  line-height: 1.428571429;
+  line-height: 1.42857143;
 }
 dt {
   font-weight: bold;
@@ -955,7 +955,7 @@ blockquote p:last-child {
 }
 blockquote small {
   display: block;
-  line-height: 1.428571429;
+  line-height: 1.42857143;
 }
 blockquote small:before {
   content: '\2014 \00A0';
@@ -970,7 +970,7 @@ address {
   display: block;
   margin-bottom: 20px;
   font-style: normal;
-  line-height: 1.428571429;
+  line-height: 1.42857143;
 }
 textarea,
 input {
@@ -1153,7 +1153,7 @@ button:focus {
 .modal-header {
   padding: 15px;
   border-bottom: 1px solid #e5e5e5;
-  min-height: 16.428571429px;
+  min-height: 16.42857143px;
 }
 .modal-header .close-btn {
   margin-top: -55px;
@@ -1172,7 +1172,7 @@ button:focus {
 }
 .modal-title {
   margin: 0;
-  line-height: 1.428571429;
+  line-height: 1.42857143;
 }
 .modal-body {
   height: 80%;
@@ -1945,6 +1945,7 @@ html ::selection {
 .fixed #about-widget {
   opacity: 0;
   filter: alpha(opacity=0);
+  pointer-events: none;
 }
 #about-widget .headshot {
   background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/joni-lay_o1ml6d.png');
@@ -2162,7 +2163,7 @@ html ::selection {
   padding-left: 10px;
   padding-right: 10px;
   float: left;
-  width: 33.300000000000004%;
+  width: 33.3%;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 100%;
@@ -2372,7 +2373,7 @@ html ::selection {
   padding-left: 10px;
   padding-right: 10px;
   float: left;
-  width: 33.300000000000004%;
+  width: 33.3%;
   height: 200px;
   text-align: center;
   position: relative;
@@ -2965,7 +2966,7 @@ html ::selection {
   padding-left: 10px;
   padding-right: 10px;
   float: left;
-  width: 33.300000000000004%;
+  width: 33.3%;
   margin-bottom: 20px;
   min-height: 100px;
   text-align: center;
@@ -3526,7 +3527,7 @@ li.comment:hover .comment-reply-link {
     padding-left: 10px;
     padding-right: 10px;
     float: left;
-    width: 33.300000000000004%;
+    width: 33.3%;
   }
 }
 @media (max-width: 767px) {
@@ -3962,8 +3963,6 @@ Basic Swiper Styles
   /* Fix of Webkit flickering */
   z-index: 1;
   min-height: 1000px;
-  -webkit-transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .swiper-wrapper {
   position: relative;

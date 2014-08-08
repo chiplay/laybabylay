@@ -76,6 +76,7 @@ define([
     },
 
     masonryInit: function(){
+      if (this.isClosed) return;
       if (this.masonry) this.masonry.destroy();
       this.off('after:item:added', this.masonryAppend, this);
 
@@ -87,6 +88,7 @@ define([
 
       this.$el.imagesLoaded()
         .always( function(){
+          if (_this.isClosed) return;
           _this.masonry = new Masonry('.search-results-region', {
             itemSelector: '.search-item',
             visibleStyle: { opacity: 1 },
@@ -102,6 +104,7 @@ define([
     },
 
     masonryAppend: function(view){
+      if (this.isClosed) return;
       var _this = this;
       view.$el.css({ opacity: 0 });
 

@@ -164,7 +164,7 @@ define([
         }, 2000);
       } else {
         var $menu = $('#menu');
-        if ($menu) $(document).scrollTop($menu.offset().top);
+        if ($menu && $menu.length) $(document).scrollTop($menu.offset().top);
       }
     },
 

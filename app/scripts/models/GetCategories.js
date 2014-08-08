@@ -1,8 +1,9 @@
 define([
   'backbone',
+  'underscore',
   'models/AssociatedModel',
   'collections/Categories'
-], function(Backbone, AssociatedModel, Categories){
+], function(Backbone, _, AssociatedModel, Categories){
 
   var originalSync = Backbone.sync;
 

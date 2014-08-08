@@ -35,6 +35,7 @@ module.exports = {
       'eventEmitter/EventEmitter': '../bower_components/eventEmitter/EventEmitter',
       fastclick: '../bower_components/fastclick/lib/fastclick',
       imagesloaded: '../bower_components/imagesloaded/imagesloaded',
+      'jquery.lazyload': '../bower_components/jquery.lazyload/jquery.lazyload',
       q: '../bower_components/q/q',
       swiper: '../bower_components/swiper/dist/idangerous.swiper',
       masonry: '../bower_components/masonry/dist/masonry.pkgd',
@@ -49,16 +50,16 @@ module.exports = {
     },
     shim: {
       'bootstrap.modal': {
-        deps: [
-          'jquery'
-        ],
+        deps: ['jquery'],
         exports: '$.fn.modal'
       },
       'bootstrap.transition': {
-        deps: [
-          'jquery'
-        ],
+        deps: ['jquery'],
         exports: '$.support.transition'
+      },
+      'jquery.lazyload': {
+        deps: ['jquery'],
+        exports: '$.fn.lazyload'
       },
       swiper: {
         deps: ['jquery'],

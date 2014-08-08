@@ -46,7 +46,7 @@ define([
 			ev.preventDefault();
 			var tag = this.model.get('search_term');
 			if (!tag) return;
-			url = vent.request('fetch:url', null, null, tag, null);
+			var url = vent.request('fetch:url', null, null, tag, null);
 			vent.execute('navigate','/search/' + url, true);
 		}
 

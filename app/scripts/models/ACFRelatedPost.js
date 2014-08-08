@@ -1,8 +1,9 @@
 define([
   'underscore',
+  'backbone',
   'models/AssociatedModel',
   'collections/Attachments'
-], function(_, AssociatedModel, Attachments) {
+], function(_, Backbone, AssociatedModel, Attachments) {
 
   return AssociatedModel.extend({
 

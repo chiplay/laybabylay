@@ -1,8 +1,9 @@
 define([
   'backbone',
+  'underscore',
   'models/AssociatedModel',
   'collections/Tags'
-], function(Backbone, AssociatedModel, Tags){
+], function(Backbone, _, AssociatedModel, Tags){
 
   var originalSync = Backbone.sync;
 

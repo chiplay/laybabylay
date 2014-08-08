@@ -57,7 +57,10 @@ module.exports = function (grunt) {
       all: [
         'app/scripts/**/*.js',
         '!app/scripts/require-built.js'
-      ]
+      ],
+      options: {
+        jshintrc: true
+      }
     },
     clean: {
       dist: ['<%= appConfig.tmp %>', '<%= appConfig.dist %>'],

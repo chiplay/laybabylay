@@ -14,7 +14,8 @@ define([
   'views/CommentsView',
   'views/RelatedPostsView',
   'views/HotSpotsView',
-  'hbar!templates/post'
+  'hbar!templates/post',
+  'jquery.lazyload'
 
 ], function($, _, Backbone, Marionette, moment, vent, analytics, facebook, scroller, Post, SidebarView, PostColorsView, CommentsView, RelatedPostsView, HotSpotsView, postTemplate){
 
@@ -111,6 +112,8 @@ define([
       // add compression to images
       var content = this.model.get('content');
       content = content.replace(/upload\/v/g,'upload/q_40/v');
+      content = content.replace(/src=/ig,'data-original=');
+      content = content.replace(/class="/ig,'class="lazy ');
 
       // Society6 links
       // if (!(/jonilay/.test(content))) content = content.replace(/#\d+=\d+/i,'?utm_source=laybabylay&utm_medium=post&utm_campaign=styleboard&curator=jonilay');
@@ -127,6 +130,12 @@ define([
     onRender: function() {
       this.stickit();
       this.loadColors();
+
+      this.$('.content img.lazy').lazyload({
+        effect: 'fadeIn',
+        threshold: 200,
+        placeholder: 'data:image/gif;base64,R0lGODlhAQABAIAAAP7//wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='
+      });
     },
 
     bufferSelected: function() {
@@ -134,12 +143,15 @@ define([
     },
 
     initSelected: function() {
+      $(window).scrollTop($(window).scrollTop()+1);
+
       this.loadComments();
       this.loadRelatedPost();
       this.setupPinBtns();
       this.setupHotSpots();
       this.listenTo(vent, 'scroll:update', this.adjustHeight);
       vent.execute('update:title', decodeURIComponent(this.model.get('title').replace(/&#038;/g, '&')) );
+
       window.cancelAnimationFrame( this.rafId );
       var _this = this;
       _.delay(function() { _this.adjustHeight(101); }, 500);
@@ -286,7 +298,7 @@ define([
         label: url,
         category: tmp.hostname
       });
-      _.delay(function() { window.vglnk.click(url, '_blank'); }, 200);
+      _.delay(function() { window.vglnk && window.vglnk.click(url, '_blank'); }, 200);
     }
 
   });

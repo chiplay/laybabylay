@@ -25,6 +25,7 @@
     "eventie": "~1.0.5",
     "raygun4js": "~1.11.0",
     "analytics": "~2.3.9",
+    "jquery.lazyload": "~1.9.3",
     "requirejs-plugins": "~1.0.2",
     "requirejs-handlebars": "https://github.com/jfparadis/requirejs-handlebars.git"
   }

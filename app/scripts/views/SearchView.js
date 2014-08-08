@@ -152,7 +152,7 @@ define([
       var queryMatch = this.searchTerms && this.searchTerms.findWhere({ incorrect_term: queryString.toLowerCase() });
       if (queryMatch) queryString = queryMatch.get('replacement_term');
 
-      queryObj = { search: queryString, post_type: type, category_exclude: null };
+      var queryObj = { search: queryString, post_type: type, category_exclude: null };
       if (type === 'product') {
         queryObj.orderby = 'rand';
         queryObj.product_type = category;

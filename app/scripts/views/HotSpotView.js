@@ -68,7 +68,7 @@ define([
           label: this.model.get('external_title'),
           category: tmp.hostname
         });
-        _.delay(function() { window.vglnk.click(url, '_blank'); }, 200);
+        _.delay(function() { window.vglnk && window.vglnk.click(url, '_blank'); }, 200);
         return;
       }
 
