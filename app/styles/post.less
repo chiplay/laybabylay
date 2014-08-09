@@ -93,22 +93,22 @@
     display: block;
     .translate3d(130%,0,0);
     background-color: transparent;
-    background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1391320331/pinit_qybxx5.png');
-    background-position: 0 0;
+    background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1391320331/sprites_lblvio.png');
+    background-position: 0 -50px;
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 212px 130px;
 
     &:hover {
-      background-position: 0 33.3%;
+      background-position-y: -70px;
     }
 
     @media (max-width: @screen-tablet-max) {
-      background-position: 0 66.6%;
+      background-position: 0 -90px;
       left: 0;
       .translate3d(-130%,0,0);
 
       &:hover, &:active {
-        background-position: 0 100%;
+        background-position: 0 -110px;
       }
     }
 
@@ -291,19 +291,6 @@
       background-color: @lbl-pink;
     }
   }
-
-  .facebook_btn{
-    background-image: url('../img/facebook_icon.png');
-  }
-
-  .twitter_btn{
-    background-image: url('../img/twitter_icon.png');
-  }
-
-  .linkedin_btn{
-    background-image: url('../img/linkedin_icon.png');
-  }
-
 
   .categories {
     text-align: center;

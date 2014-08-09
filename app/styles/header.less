@@ -180,16 +180,17 @@
   text-align: center;
   margin: 20px 10px;
   background-repeat: no-repeat;
-  background-position: bottom center;
-  background-size: 100%;
+  background-position-y: -20px;
+  background-size: 212px 130px;
 }
 
 .icon-search,
-.icon-menu {
+.icon-menu,
+.icon-close {
   position: relative;
 
   &:hover {
-    background-position: top center;
+    background-position-y: 0px;
   }
   &:before {
     content: ' ';
@@ -211,7 +212,8 @@
 
 .icon-search {
   position: absolute;
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/search_nlj5vc.png');
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
+  background-position-x: -150px;
 
   .active & {
     display: none;
@@ -219,11 +221,13 @@
 }
 
 .icon-menu {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/menu_mukduh.png');
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
+  background-position-x: -170px;
 }
 
 .icon-close {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/close_jcrsth.png');
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
+  background-position-x: -192px;
   display: none;
 
   .active & {
@@ -385,6 +389,7 @@
   }
   @media (max-width: @screen-tablet-max) {
     .opacity(0);
+    display: none;
   }
 
   .fixed & {
@@ -393,9 +398,9 @@
   }
 
   .headshot {
-    background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/joni-lay_o1ml6d.png');
+    background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/joni-lay_xerqir.jpg');
     background-position: center center;
-    background-size: 75%;
+    background-size: 80%;
     background-repeat: no-repeat;
     width: 200px;
     height: 200px;
@@ -405,35 +410,40 @@
   .social-links {
 
     a {
-      background-position: top center;
-      background-size: 100%;
+      background-size: 212px 130px;
       background-repeat: no-repeat;
       width: 25px;
       height: 25px;
       display: inline-block;
       margin-right: 6px;
 
-      &:hover {
-        background-position: bottom center;
-      }
-
       &.facebook {
-        background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/fb-circle_hte17d.png');
+        background-position: -125px 0;
+        background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/sprites_lblvio.png');
       }
       &.pinterest {
-        background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/pinterest-circle_j5ylji.png');
+        background-position: -75px 0;
+        background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/sprites_lblvio.png');
       }
       &.instagram-icon {
-        background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/instagram-circle_eaaxsy.png');
+        background-position: -100px 0;
+        background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/sprites_lblvio.png');
       }
       &.bloglovin {
-        background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/bl-circle_becgue.png');
+        background-position: 0px 0px;
+        background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/sprites_lblvio.png');
       }
       &.rss {
-        background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/rss-circle_xqmr3d.png');
+        background-position: -50px 0;
+        background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/sprites_lblvio.png');
       }
       &.twitter {
-        background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/twitter-circle_qrplea.png');
+        background-position: -25px 0;
+        background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/sprites_lblvio.png');
+      }
+
+      &:hover {
+        background-position-y: -25px;
       }
     }
   }

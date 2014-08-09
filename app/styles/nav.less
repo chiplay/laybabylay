@@ -14,18 +14,19 @@
   }
 
   .nav-btn {
-    background-image: url('http://res.cloudinary.com/laybabylay/image/upload/arrow_cgycj6.png');
+    background-image: url('http://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
     margin-top: 25px;
     width: 20px;
-    height: 36px;
+    height: 35px;
     display: block;
     // top: 50%;
     z-index: 500;
     // .border-radius(32px);
     // .transition(background-color .1s linear);
     background-repeat: no-repeat;
-    background-position: top center;
-    background-size: 100%;
+    background-position: -51px -87px;
+    background-size: 212px 130px;
+    cursor: pointer;
 
     &:before {
       content: ' ';
@@ -41,7 +42,7 @@
     }
 
     &:hover{
-      background-position: bottom center;
+      background-position: -51px -51px;
     }
 
     &.disabled,
@@ -50,7 +51,7 @@
       .opacity(0.1);
       cursor: default;
       pointer-events: none;
-      background-position: bottom center;
+      background-position: -51px -87px;
     }
 
     &.prev {

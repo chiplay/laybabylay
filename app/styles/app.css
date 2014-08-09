@@ -1159,16 +1159,21 @@ button:focus {
   margin-top: -55px;
 }
 .close-btn {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   display: block;
   position: absolute;
   top: 70px;
-  right: 30px;
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/close_jcrsth.png');
+  right: 20px;
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
   background-repeat: none;
   background-origin: 0 0;
-  background-size: 100%;
+  background-position-x: -192px;
+  background-position-y: -20px;
+  background-size: 212px 130px;
+}
+.close-btn:hover {
+  background-position-y: 0px;
 }
 .modal-title {
   margin: 0;
@@ -1733,19 +1738,22 @@ html ::selection {
   text-align: center;
   margin: 20px 10px;
   background-repeat: no-repeat;
-  background-position: bottom center;
-  background-size: 100%;
+  background-position-y: -20px;
+  background-size: 212px 130px;
 }
 .icon-search,
-.icon-menu {
+.icon-menu,
+.icon-close {
   position: relative;
 }
 .icon-search:hover,
-.icon-menu:hover {
-  background-position: top center;
+.icon-menu:hover,
+.icon-close:hover {
+  background-position-y: 0px;
 }
 .icon-search:before,
-.icon-menu:before {
+.icon-menu:before,
+.icon-close:before {
   content: ' ';
   position: absolute;
   height: 60px;
@@ -1762,16 +1770,19 @@ html ::selection {
 }
 .icon-search {
   position: absolute;
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/search_nlj5vc.png');
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
+  background-position-x: -150px;
 }
 .active .icon-search {
   display: none;
 }
 .icon-menu {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/menu_mukduh.png');
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
+  background-position-x: -170px;
 }
 .icon-close {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/close_jcrsth.png');
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
+  background-position-x: -192px;
   display: none;
 }
 .active .icon-close {
@@ -1940,6 +1951,7 @@ html ::selection {
   #about-widget {
     opacity: 0;
     filter: alpha(opacity=0);
+    display: none;
   }
 }
 .fixed #about-widget {
@@ -1948,43 +1960,48 @@ html ::selection {
   pointer-events: none;
 }
 #about-widget .headshot {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/joni-lay_o1ml6d.png');
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/joni-lay_xerqir.jpg');
   background-position: center center;
-  background-size: 75%;
+  background-size: 80%;
   background-repeat: no-repeat;
   width: 200px;
   height: 200px;
   display: block;
 }
 #about-widget .social-links a {
-  background-position: top center;
-  background-size: 100%;
+  background-size: 212px 130px;
   background-repeat: no-repeat;
   width: 25px;
   height: 25px;
   display: inline-block;
   margin-right: 6px;
 }
-#about-widget .social-links a:hover {
-  background-position: bottom center;
-}
 #about-widget .social-links a.facebook {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/fb-circle_hte17d.png');
+  background-position: -125px 0;
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/sprites_lblvio.png');
 }
 #about-widget .social-links a.pinterest {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/pinterest-circle_j5ylji.png');
+  background-position: -75px 0;
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/sprites_lblvio.png');
 }
 #about-widget .social-links a.instagram-icon {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/instagram-circle_eaaxsy.png');
+  background-position: -100px 0;
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/sprites_lblvio.png');
 }
 #about-widget .social-links a.bloglovin {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/bl-circle_becgue.png');
+  background-position: 0px 0px;
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/sprites_lblvio.png');
 }
 #about-widget .social-links a.rss {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/rss-circle_xqmr3d.png');
+  background-position: -50px 0;
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/sprites_lblvio.png');
 }
 #about-widget .social-links a.twitter {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/twitter-circle_qrplea.png');
+  background-position: -25px 0;
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1407290541/sprites_lblvio.png');
+}
+#about-widget .social-links a:hover {
+  background-position-y: -25px;
 }
 #about-widget .links {
   font-size: 16px;
@@ -2068,15 +2085,15 @@ html ::selection {
   transform: translate3d(0, 0, 0);
 }
 #arrows .nav-btn {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/arrow_cgycj6.png');
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
   margin-top: 25px;
   width: 20px;
-  height: 36px;
+  height: 35px;
   display: block;
   z-index: 500;
   background-repeat: no-repeat;
-  background-position: top center;
-  background-size: 100%;
+  background-position: -51px -87px;
+  background-size: 212px 130px;
 }
 #arrows .nav-btn:before {
   content: ' ';
@@ -2092,7 +2109,7 @@ html ::selection {
   }
 }
 #arrows .nav-btn:hover {
-  background-position: bottom center;
+  background-position: -51px -51px;
 }
 #arrows .nav-btn.disabled,
 #arrows .nav-btn.disabled:hover {
@@ -2100,7 +2117,7 @@ html ::selection {
   filter: alpha(opacity=10);
   cursor: default;
   pointer-events: none;
-  background-position: bottom center;
+  background-position: -51px -87px;
 }
 #arrows .nav-btn.prev {
   -webkit-transform: rotate(180deg);
@@ -2190,7 +2207,7 @@ html ::selection {
     padding-right: 10px;
     float: left;
     width: 100%;
-    height: 90px;
+    height: 80px;
   }
 }
 #menu .menu-box a {
@@ -2218,7 +2235,9 @@ html ::selection {
 }
 @media (max-width: 479px) {
   #menu .menu-box .title {
-    font-size: 20px;
+    font-size: 18px;
+    line-height: 24px;
+    padding: 0px 20px;
   }
 }
 #menu .menu-box:hover .title {
@@ -2237,7 +2256,7 @@ html ::selection {
 }
 @media (max-width: 479px) {
   #menu .menu-box .subtitle {
-    margin-top: 3.5%;
+    margin-top: 3%;
     font-size: 16px;
     line-height: 16px;
   }
@@ -2269,10 +2288,14 @@ html ::selection {
   width: 100%;
   height: 100%;
   content: '';
-  background: rgba(0, 0, 0, 0);
+  background: #000000;
   z-index: 1;
   opacity: 0;
   filter: alpha(opacity=0);
+}
+#menu .menu-box:hover:after {
+  opacity: 0.3;
+  filter: alpha(opacity=30);
 }
 #menu .menu-box:before {
   background: 0 0;
@@ -2619,24 +2642,24 @@ html ::selection {
   -webkit-transform: translate3d(130%, 0, 0);
   transform: translate3d(130%, 0, 0);
   background-color: transparent;
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1391320331/pinit_qybxx5.png');
-  background-position: 0 0;
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1391320331/sprites_lblvio.png');
+  background-position: 0 -50px;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: 212px 130px;
 }
 .post .pin-it-button:hover {
-  background-position: 0 33.3%;
+  background-position-y: -70px;
 }
 @media (max-width: 991px) {
   .post .pin-it-button {
-    background-position: 0 66.6%;
+    background-position: 0 -90px;
     left: 0;
     -webkit-transform: translate3d(-130%, 0, 0);
     transform: translate3d(-130%, 0, 0);
   }
   .post .pin-it-button:hover,
   .post .pin-it-button:active {
-    background-position: 0 100%;
+    background-position: 0 -110px;
   }
 }
 @media (max-width: 767px) {
@@ -2795,15 +2818,6 @@ html ::selection {
 .post .social_btn:hover {
   background-color: #f95aa2;
 }
-.post .facebook_btn {
-  background-image: url('../img/facebook_icon.png');
-}
-.post .twitter_btn {
-  background-image: url('../img/twitter_icon.png');
-}
-.post .linkedin_btn {
-  background-image: url('../img/linkedin_icon.png');
-}
 .post .categories {
   text-align: center;
   margin: 40px 0px 0px;
@@ -2844,27 +2858,38 @@ html ::selection {
 }
 .addthis-region button {
   display: inline-block;
-  width: 60px;
+  width: 61px;
   height: 20px;
   margin: 0 6px;
   background-color: transparent;
-  background-position: 0 0;
+  background-position-y: -50px;
+  background-size: 212px 130px;
   background-repeat: no-repeat;
-  background-size: 100%;
   text-indent: -1000px;
   font-size: 0;
 }
-.addthis-region button:hover {
-  background-position: 0 100%;
-}
 .addthis-region button.facebook-button {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1391324865/facebook-btn_ppsl92.png');
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1391324865/sprites_lblvio.png');
+  background-position-x: -78px;
+  background-position-y: -90px;
+}
+.addthis-region button.facebook-button:hover {
+  background-position-y: -110px;
 }
 .addthis-region button.tweet-button {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1391324865/tweet-btn_qnnu4p.png');
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1391324865/sprites_lblvio.png');
+  background-position-x: -139px;
+  background-position-y: -90px;
+}
+.addthis-region button.tweet-button:hover {
+  background-position-y: -110px;
 }
 .addthis-region button.pinterest-button {
-  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1391324865/pinterest-btn_ew8yll.png');
+  background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1391324865/sprites_lblvio.png');
+  background-position-x: -79px;
+}
+.addthis-region button.pinterest-button:hover {
+  background-position-y: -70px;
 }
 .addthis-region img {
   width: auto;

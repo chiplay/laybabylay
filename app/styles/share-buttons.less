@@ -7,30 +7,43 @@
 
   button {
     display: inline-block;
-    width: 60px;
+    width: 61px;
     height: 20px;
     margin: 0 6px;
     background-color: transparent;
-    background-position: 0 0;
+    background-position-y: -50px;
+    background-size: 212px 130px;
     background-repeat: no-repeat;
-    background-size: 100%;
     text-indent: -1000px;
     font-size: 0;
 
-    &:hover {
-      background-position: 0 100%;
-    }
-
     &.facebook-button {
-      background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1391324865/facebook-btn_ppsl92.png');
+      background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1391324865/sprites_lblvio.png');
+      background-position-x: -78px;
+      background-position-y: -90px;
+
+      &:hover {
+        background-position-y: -110px;
+      }
     }
 
     &.tweet-button {
-      background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1391324865/tweet-btn_qnnu4p.png');
+      background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1391324865/sprites_lblvio.png');
+      background-position-x: -139px;
+      background-position-y: -90px;
+
+      &:hover {
+        background-position-y: -110px;
+      }
     }
 
     &.pinterest-button {
-      background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1391324865/pinterest-btn_ew8yll.png');
+      background-image: url('http://res.cloudinary.com/laybabylay/image/upload/v1391324865/sprites_lblvio.png');
+      background-position-x: -79px;
+
+      &:hover {
+        background-position-y: -70px;
+      }
     }
   }
 
