@@ -196,7 +196,7 @@ define([
           href = '//www.pinterest.com/pin/create/button/',
           pinBtn = document.createElement('button');
       href += '?url=' + encodeURIComponent(this.model.get('url'));
-      href += '&media=' + encodeURIComponent($el.attr('src'));
+      href += '&media=' + encodeURIComponent($el.attr('data-original'));
       href += '&description=' + encodeURIComponent(this.model.get('title'));
       pinBtn.setAttribute('data-href',href);
       pinBtn.setAttribute('class','pin-it-button');

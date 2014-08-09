@@ -32,6 +32,7 @@ define([
     itemView: PostView,
 
     swiper: {
+      updateOnImagesReady: false,
       moveStartThreshold: 10,
       onFirstInit: function(swiper){
         // TODO - Imagesloaded

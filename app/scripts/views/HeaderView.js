@@ -38,7 +38,9 @@ define([
       'click .search-cover': 'hideSearch',
       'click @ui.menu': 'toggleMenu',
       'click @ui.logo': 'home',
-      'click .about-link': 'showAbout'
+      'click .about-link': 'showAbout',
+      'click .headshot': 'showAbout',
+      'click .print-shop': 'clickPrintShop'
       // 'blur @ui.input': 'blurInput'
     },
 
@@ -226,7 +228,13 @@ define([
       if (ev) ev.preventDefault();
       vent.execute('navigate', '/about', true);
       $(window).scrollTop(20);
+    },
 
+    clickPrintShop: function(ev) {
+      analytics.track('Visited Print Shop', {
+        label: 'Society6 Print Shop',
+        category: 'Society6 Print Shop'
+      });
     }
 
   });

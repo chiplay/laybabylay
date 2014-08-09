@@ -156,7 +156,6 @@ module.exports = function (grunt) {
       server: {
         src: [
           // need to use app version since dist versions are removed during requirejs task
-          '<%= appConfig.app %>/bower_components/modernizr/modernizr.js',
           '<%= appConfig.app %>/bower_components/requirejs/require.js',
           '<%= appConfig.app %>/scripts/require-config.js'
         ],
@@ -164,7 +163,6 @@ module.exports = function (grunt) {
       },
       dist: {
         src: [
-          '<%= appConfig.app %>/bower_components/modernizr/modernizr.js',
           '<%= appConfig.app %>/bower_components/requirejs/require.js',
           '<%= appConfig.app %>/scripts/require-config.js'
         ],
@@ -234,7 +232,7 @@ module.exports = function (grunt) {
       'less:server', // compile less into tmp dir
       'jade:server', // compile jade files into tmp dir
       'build-requirejs-config', // create requirejs config to be included with require lib
-      'concat:server', // concat require config, require lib, and modernizr
+      'concat:server', // concat require config and require lib
       // 'express:server', // start express server
       'watch' // and wait...
     ]);
@@ -260,7 +258,7 @@ module.exports = function (grunt) {
       'requirejs', // requirejs optimization of js into dist dir
       'clean:jade', // remove generated html files from app dir
       'copy:dist', // remove generated html files from app dir
-      'concat:dist', // concat require config, require lib, and modernizr
+      'concat:dist', // concat require config and require lib
       'uglify:dist', // uglify concacted require file
       'less:dist' // compile less into 1 css file in dist
     ]);

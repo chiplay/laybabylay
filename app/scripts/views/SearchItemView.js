@@ -70,6 +70,7 @@ define([
     showPost: function(ev) {
       ev.preventDefault();
       vent.execute('navigate', '/' + this.model.get('slug'), true);
+      $(window).scrollTop(20);
     },
 
     showProduct: function(ev) {
