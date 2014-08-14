@@ -132,7 +132,7 @@ define([
 
     loadPost: function() {
       if (this.getPost.get('error')) {
-        var terms = window.location.pathname.substring(1, window.location.pathname.length).replace('-',' ');
+        var terms = window.location.pathname.substring(1, window.location.pathname.length).replace(/-/g,' ');
         vent.execute('navigate','search/all/q=' + terms, true);
         return;
       }

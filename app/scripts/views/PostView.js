@@ -165,6 +165,7 @@ define([
         ev.preventDefault();
         ev.stopPropagation();
       }
+      $(window).scrollTop($(window).scrollTop()+1);
       var sidebarView = new SidebarView({ model: this.model.clone() });
       vent.trigger('app:modal:show', sidebarView);
     },
@@ -296,7 +297,13 @@ define([
         label: url,
         category: tmp.hostname
       });
-      _.delay(function() { window.vglnk && window.vglnk.click(url, '_blank'); }, 200);
+      _.delay(function() {
+        if (window.vglnk) {
+          window.vglnk.click(url, '_blank');
+        } else {
+          window.open(url, '_blank');
+        }
+      }, 50);
     }
 
   });

@@ -43,7 +43,13 @@ define([
         label: this.model.get('title'),
         category: tmp.hostname
       });
-      _.delay(function() { window.vglnk && window.vglnk.click(url, '_blank'); }, 200);
+      _.delay(function() {
+        if (window.vglnk) {
+          window.vglnk.click(url, '_blank');
+        } else {
+          window.open(url, '_blank');
+        }
+      }, 50);
     }
 
   });
