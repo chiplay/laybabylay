@@ -388,8 +388,27 @@
     .translate3d(-30px, 220px, 0);
   }
   @media (max-width: @screen-tablet-max) {
-    .opacity(0);
     display: none;
+  }
+
+  &.mobile {
+    border-top: 1px solid #fff;
+    display: none;
+    width: 320px;
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: 0 auto 100px;
+    .translate3d(0, 0, 0);
+
+    .headshot {
+      width: 320px;
+      height: 320px;
+    }
+
+    @media (max-width: @screen-tablet-max) {
+      display: block;
+    }
   }
 
   .fixed & {
@@ -405,6 +424,7 @@
     width: 200px;
     height: 200px;
     display: block;
+    text-indent: -5000px;
   }
 
   .social-links {
@@ -416,6 +436,7 @@
       height: 25px;
       display: inline-block;
       margin-right: 6px;
+      text-indent: -5000px;
 
       &.facebook {
         background-position: -125px 0;
@@ -481,7 +502,8 @@
 
     .field-wrapper {
       height: 30px;
-      margin-top: 8px;
+      margin: 8px auto;
+      width: 200px;
     }
 
     input[type="email"] {

@@ -1,5 +1,6 @@
 define([
   'q',
+  'config',
   'jquery',
   'underscore',
   'backbone',
@@ -10,7 +11,7 @@ define([
   'views/SearchFiltersView',
   'hbar!templates/header'
 
-], function(q, $, _, Backbone, Marionette, vent, analytics, scroller, SearchFiltersView, headerTpl){
+], function(q, config, $, _, Backbone, Marionette, vent, analytics, scroller, SearchFiltersView, headerTpl){
 
   return Marionette.Layout.extend({
 
@@ -142,38 +143,41 @@ define([
     },
 
     toggleMenu: function() {
-      // var height = $('#menu').height();
-      // if (this.menu) {
-      //   $('body').attr('style','');
-      //   this.menu = false;
-      //   this.stopListening(vent, 'scroll:update', this.closeMenu, this);
-      //   // this.listenTo(vent, 'scroll:update', this.openMenu, this);
-      // } else {
-      //   window.scrollTo(0,0);
-      //   analytics.track('Viewed the Menu');
-      //   this.menu = true;
-      //   this.listenTo(vent, 'scroll:update', this.closeMenu, this);
-      //   // this.stopListening(vent, 'scroll:update', this.openMenu, this);
-      //   $('body').attr('style','-webkit-transform: translate3d(0, ' + height + 'px, 0); transform: translate3d(0, ' + height + 'px, 0);');
-      // }
-
       var _this = this;
 
-      if ($(document).hasClass('search') || !!$(document).find('#about').length) {
-        this.home();
-        _.delay(function() {
-          _this.toggleMenu();
-        }, 2000);
+      if (window.innerWidth <= 768) {
+
+        // iPhone gets the top slidedown menu
+        var height = $('#menu').height();
+        if (this.menu) {
+          $('body').attr('style','');
+          this.menu = false;
+          this.stopListening(vent, 'scroll:update', this.closeMenu);
+        } else {
+          window.scrollTo(0,0);
+          analytics.track('Viewed the Menu');
+          this.menu = true;
+          this.listenTo(vent, 'scroll:update', this.closeMenu);
+          $('body').attr('style','-webkit-transform: translate3d(0, ' + height + 'px, 0); transform: translate3d(0, ' + height + 'px, 0);');
+        }
       } else {
-        var $menu = $('#menu');
-        if ($menu && $menu.length) $(document).scrollTop($menu.offset().top);
+
+        // Everything else gets the footer menu
+        if ($(document).hasClass('search') || !!$(document).find('#about').length) {
+          this.home();
+          _.delay(function() {
+            _this.toggleMenu();
+          }, 1500);
+        } else {
+          var $menu = $('#menu');
+          if ($menu && $menu.length) $(document).scrollTop($menu.offset().top);
+        }
       }
     },
 
     closeMenu: function(pos) {
       if (pos > 150) {
         this.toggleMenu();
-        this.stopListening(vent, 'scroll:update', this.closeMenu, this);
       }
     },
 
