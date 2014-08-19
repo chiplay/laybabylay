@@ -128,6 +128,11 @@ function (q, analytics, $, _, Backbone, Marionette, facebook, vent, RelatedPosts
     },
 
     showFBDialog: function(ev) {
+      analytics.track('Shared Product on Facebook', {
+        category: this.model.get('link'),
+        url: this.model.get('url'),
+        label: this.model.get('title')
+      });
       ev.preventDefault();
       facebook.uiDialog({
         method: 'feed',
@@ -142,6 +147,11 @@ function (q, analytics, $, _, Backbone, Marionette, facebook, vent, RelatedPosts
     },
 
     showPinDialog: function(ev) {
+      analytics.track('Shared Product on Pinterest', {
+        category: this.model.get('link'),
+        url: this.model.get('url'),
+        label: this.model.get('title')
+      });
       ev.preventDefault();
       var url = $(ev.currentTarget).attr('data-href'),
           w = 750,
@@ -150,6 +160,11 @@ function (q, analytics, $, _, Backbone, Marionette, facebook, vent, RelatedPosts
     },
 
     showTweetDialog: function(ev) {
+      analytics.track('Shared Product on Twitter', {
+        category: this.model.get('link'),
+        url: this.model.get('url'),
+        label: this.model.get('title')
+      });
       ev.preventDefault();
       var url = $(ev.currentTarget).attr('data-href'),
           w = 550,

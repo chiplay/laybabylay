@@ -62,30 +62,30 @@ define([
       scroller.init();
       this.viewModel = new Backbone.Model();
 
-      var body = document.body,
-          cover = document.createElement('div'),
-          timer = 0;
-      cover.setAttribute('class','scroll-cover');
+      // var body = document.body,
+      //     cover = document.createElement('div'),
+      //     timer = 0;
+      // cover.setAttribute('class','scroll-cover');
 
-      // http://www.thecssninja.com/javascript/pointer-events-60fps
-      this.listenTo(vent, 'scroll:start', function() {
-        timer = _.delay(function(){ body.appendChild(cover); }, 100);
-      });
+      // // http://www.thecssninja.com/javascript/pointer-events-60fps
+      // this.listenTo(vent, 'scroll:start', function() {
+      //   timer = _.delay(function(){ body.appendChild(cover); }, 100);
+      // });
 
-      this.listenTo(vent, 'scroll:stop', function() {
-        clearTimeout(timer);
-        if (cover.parentNode) cover.parentNode.removeChild(cover);
-      });
+      // this.listenTo(vent, 'scroll:stop', function() {
+      //   clearTimeout(timer);
+      //   if (cover.parentNode) cover.parentNode.removeChild(cover);
+      // });
 
       var search = vent.request('search:model');
-      this.listenTo(search, 'reset', this.blurInput, this);
+      this.listenTo(search, 'reset', this.blurInput);
 
       // this.listenTo(vent, 'scroll:update', this.openMenu, this);
-      this.listenTo(vent, 'header:scroll:setup', this.setupScroll, this);
-      this.listenTo(vent, 'search:update:input', this.updateInput, this);
+      this.listenTo(vent, 'header:scroll:setup', this.setupScroll);
+      this.listenTo(vent, 'search:update:input', this.updateInput);
       this.listenTo(vent, 'search:loaded', function() {
         this.search = true;
-      }, this);
+      });
 
       this.delaySearch = _.debounce(this.issueSearch, 1000);
     },
@@ -98,8 +98,8 @@ define([
 
     setupScroll: function () {
       this.$el.removeClass('fixed');
-      this.stopListening(vent, 'scroll:update', this.fixHeader, this);
-      this.listenTo(vent, 'scroll:update', this.fixHeader, this);
+      this.stopListening(vent, 'scroll:update', this.fixHeader);
+      this.listenTo(vent, 'scroll:update', this.fixHeader);
     },
 
     fixHeader: function(pos) {
@@ -160,6 +160,7 @@ define([
           this.listenTo(vent, 'scroll:update', this.closeMenu);
           $('body').attr('style','-webkit-transform: translate3d(0, ' + height + 'px, 0); transform: translate3d(0, ' + height + 'px, 0);');
         }
+
       } else {
 
         // Everything else gets the footer menu
@@ -176,7 +177,7 @@ define([
     },
 
     closeMenu: function(pos) {
-      if (pos > 150) {
+      if (pos > 100) {
         this.toggleMenu();
       }
     },

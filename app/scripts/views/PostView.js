@@ -165,7 +165,7 @@ define([
         ev.preventDefault();
         ev.stopPropagation();
       }
-      $(window).scrollTop($(window).scrollTop()+1);
+      $(window).scrollTop($(window).scrollTop()+4);
       var sidebarView = new SidebarView({ model: this.model.clone() });
       vent.trigger('app:modal:show', sidebarView);
     },
@@ -209,6 +209,10 @@ define([
     },
 
     showFBDialog: function(ev) {
+      analytics.track('Shared Post on Facebook', {
+        category: this.model.get('url'),
+        label: this.model.get('title')
+      });
       ev.preventDefault();
       facebook.uiDialog({
         display: 'popup',
@@ -223,6 +227,10 @@ define([
     },
 
     showPinDialog: function(ev) {
+      analytics.track('Shared Post on Pinterest', {
+        category: this.model.get('url'),
+        label: this.model.get('title')
+      });
       ev.preventDefault();
       ev.stopPropagation();
       var url = $(ev.currentTarget).attr('data-href'),
@@ -232,6 +240,10 @@ define([
     },
 
     showTweetDialog: function(ev) {
+      analytics.track('Shared Post on Twitter', {
+        category: this.model.get('url'),
+        label: this.model.get('title')
+      });
       ev.preventDefault();
       var url = $(ev.currentTarget).attr('data-href'),
           w = 550,
