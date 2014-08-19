@@ -79,7 +79,7 @@ function (q, analytics, $, _, Backbone, Marionette, facebook, vent, RelatedPosts
       '.tweet-button': {
         attributes: [{
           name: 'data-href',
-          observe: ['link','title'],
+          observe: ['url','title'],
           onGet: function(values) {
             var href = 'https://twitter.com/share';
             href += '?url=' + encodeURIComponent(values[0]);
@@ -133,7 +133,7 @@ function (q, analytics, $, _, Backbone, Marionette, facebook, vent, RelatedPosts
         method: 'feed',
         display: 'popup',
         name: this.model.get('title'),
-        link: this.model.get('link'),
+        link: this.model.get('url'),
         picture: this.model.get('image.url'),
         description: this.model.get('description').replace('<p>', '').replace('</p>', '')
       }, function(response){
