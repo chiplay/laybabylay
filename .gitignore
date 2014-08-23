@@ -16,8 +16,27 @@ Thumbs.db
 !/app
 
 # But ignore these subdirectories
-/wp-content/plugins
 /wp-content/upgrade
 /wp-content/uploads
-
-!/wp-content/plugins/json-api
+/wp-content/plugins/acf-repeater
+/wp-content/plugins/advanced-custom-fields
+/wp-content/plugins/akismet
+/wp-content/plugins/all-in-one-seo-pack
+/wp-content/plugins/and-the-winner-is
+/wp-content/plugins/cloudinary-image-management-and-manipulation-in-the-cloud-cdn
+/wp-content/plugins/creative-boards
+/wp-content/plugins/disqus-comment-system
+/wp-content/plugins/google-analyticator
+/wp-content/plugins/google-sitemap-generator
+/wp-content/plugins/instapress
+/wp-content/plugins/netblog
+/wp-content/plugins/pdf24-post-to-pdf
+/wp-content/plugins/pinterest-pin-it-button
+/wp-content/plugins/pretty-link
+/wp-content/plugins/regenerate-thumbnails
+/wp-content/plugins/w3-total-cache
+/wp-content/plugins/wonderm00ns-simple-facebook-open-graph-tags
+/wp-content/plugins/wordpress-importer
+/wp-content/plugins/wp-no-category-base
+/wp-content/plugins/wp-no-tag-base
+/wp-content/plugins/wp-tweet-button
