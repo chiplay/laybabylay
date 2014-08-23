@@ -38,7 +38,7 @@ module.exports = function (grunt) {
       },
       css: {
         files: [
-          '<%= appConfig.app %>/styles/app.css'
+          'wp-content/themes/lbl/assets/styles/app.css'
         ],
         options: {
           livereload: true
@@ -85,7 +85,7 @@ module.exports = function (grunt) {
       },
       server: {
         src: '<%= appConfig.app %>/styles/app.less',
-        dest: '<%= appConfig.app %>/styles/app.css'
+        dest: 'wp-content/themes/lbl/assets/styles/app.css'
       }
     },
     jade: {

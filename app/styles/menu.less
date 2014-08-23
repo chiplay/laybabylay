@@ -1,20 +1,6 @@
-#menu {
+#menu, #menu-mobile {
   .clearfix();
   width: 100%;
-
-  &.mobile {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    .translate3d(0,-100%,0);
-    overflow: hidden;
-
-    @media (max-width: @screen-tablet) {
-      display: block;
-    }
-  }
 
   @media (max-width: @screen-tablet) {
     display: none;
@@ -187,5 +173,19 @@
       //   background: rgba(110,110,100,0.6);
       // }
     }
+  }
+}
+
+#menu-mobile {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  .translate3d(0,-100%,0);
+  overflow: hidden;
+
+  @media (max-width: @screen-tablet) {
+    display: block;
   }
 }
