@@ -87,7 +87,7 @@ define([
         this.search = true;
       });
 
-      this.delaySearch = _.debounce(this.issueSearch, 1000);
+      this.delaySearch = _.debounce(this.issueSearch, 2000);
     },
 
     onDomRefresh: function() {
