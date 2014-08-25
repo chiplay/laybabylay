@@ -8,6 +8,7 @@ Thumbs.db
 
 # But not these files...
 !.gitignore
+!.bowerrc
 !.jshintrc
 !package.json
 !bower.json
@@ -26,6 +27,8 @@ Thumbs.db
 /wp-content/plugins/cloudinary-image-management-and-manipulation-in-the-cloud-cdn
 /wp-content/plugins/creative-boards
 /wp-content/plugins/disqus-comment-system
+/wp-content/plugins/eps-301-redirects
+/wp-content/plugins/featured-images-for-rss-feeds
 /wp-content/plugins/google-analyticator
 /wp-content/plugins/google-sitemap-generator
 /wp-content/plugins/instapress
@@ -34,9 +37,13 @@ Thumbs.db
 /wp-content/plugins/pinterest-pin-it-button
 /wp-content/plugins/pretty-link
 /wp-content/plugins/regenerate-thumbnails
+/wp-content/plugins/artiss-transient-cleaner
 /wp-content/plugins/w3-total-cache
 /wp-content/plugins/wonderm00ns-simple-facebook-open-graph-tags
 /wp-content/plugins/wordpress-importer
+/wp-content/plugins/wordpress-seo
+/wp-content/plugins/wp-no-base-permalink
+/wp-content/plugins/wp-seo-redirect-301
 /wp-content/plugins/wp-no-category-base
 /wp-content/plugins/wp-no-tag-base
 /wp-content/plugins/wp-tweet-button
