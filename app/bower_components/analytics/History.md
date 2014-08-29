@@ -1,13 +1,46 @@
 
-2.3.9 / 2014-07-25
+2.3.17 / 2014-08-28
+===================
+
+  * deps: duo 0.7
+  * deps: duo 0.7
+  * Merge pull request #397 from segmentio/add/anonymous-id
+  * add checking for anonymous id in options
+
+2.3.15 / 2014-08-22
 ==================
 
+ * google adwords: directly pass remarketing option
 
-
-2.3.8 / 2014-07-23
+2.3.14 / 2014-08-22
 ==================
 
+ * deps: upgrade to duo-test@0.3.x
+ * google adwords: switch to async api
 
+2.3.13 / 2014-08-20
+==================
+
+ * localstorage fallback: add implementation
+ * localstorage fallback: add tests
+ * rebuild
+ * deps: upgrade to duo 0.7
+ * make: dont clean my npm cache :P
+
+2.3.12 / 2014-08-07
+==================
+
+ * remove userfox
+
+2.3.11 / 2014-08-07
+==================
+
+ * merge a few more fixes (keen.io)
+
+2.3.10 / 2014-07-25
+==================
+
+ * Make lots of analytics.js-integrations fixes
 
 2.3.7 / 2014-07-21
 ==================

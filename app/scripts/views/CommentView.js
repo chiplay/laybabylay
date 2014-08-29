@@ -19,12 +19,8 @@ define([
 
     bindings: {
       '.comment-author-avatar': {
-        observe: ['avatar','name'],
+        observe: 'avatar',
         updateMethod: 'html',
-        onGet: function(values) {
-          if (values[1] === 'Joni Lay') return '<img class="avatar" src="http://res.cloudinary.com/laybabylay/image/upload/q_40/avatar_v83vzd.jpg" alt="Joni Lay">';
-          return values[0];
-        },
         attributes: [{
           name: 'style',
           onGet: function(values) {

@@ -1,15 +1,15 @@
 {
   "name": "analytics",
-  "version": "2.3.9",
+  "version": "2.3.17",
   "main": "analytics.js",
   "dependencies": {},
   "devDependencies": {},
   "homepage": "https://github.com/segmentio/analytics.js",
-  "_release": "2.3.9",
+  "_release": "2.3.17",
   "_resolution": {
     "type": "version",
-    "tag": "2.3.9",
-    "commit": "cdc480386e07d3ce3301999b1c24e7470dbd3889"
+    "tag": "2.3.17",
+    "commit": "699a441124cbb64542ecaf8315fa4896ac0df84d"
   },
   "_source": "git://github.com/segmentio/analytics.js.git",
   "_target": "~2.3.9",

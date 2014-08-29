@@ -4,14 +4,12 @@
 #
 
 BROWSER ?= chrome,firefox,safari
-REPORTER ?= spec
 TESTS = $(wildcard test/*.js)
-TEST = test/server
 SRC = $(wildcard lib/*.js)
 MINIFY = $(BINS)/uglifyjs
 PID = test/server/pid.txt
 BINS = node_modules/.bin
-BUILD = build/build.js
+BUILD = build.js
 DUO = $(BINS)/duo
 DUOT = $(BINS)/duo-test
 
@@ -25,11 +23,10 @@ default: test
 # Clean.
 #
 
-clean: kill
-	@-rm -rf components build
+clean:
+	@-rm -rf components $(BUILD)
 	@-rm analytics.js analytics.min.js
 	@-rm -rf node_modules npm-debug.log
-	@-npm cache clean
 
 #
 # update version
@@ -43,17 +40,16 @@ version: component.json
 #
 
 test: $(BUILD)
-	@$(DUOT) phantomjs $(TEST)
+	@$(DUOT) phantomjs test/server
 
 #
 # Test with saucelabs
 #
 
 test-sauce: $(BUILD)
-	@$(DUOT) saucelabs $(TEST) \
-		--reporter $(REPORTER) \
-		--browser $(BROWSER) \
-		--name analytics.js
+	@$(DUOT) saucelabs test/server \
+		--browsers $(BROWSER) \
+		--title analytics.js
 
 #
 # Test in the browser.
@@ -62,15 +58,13 @@ test-sauce: $(BUILD)
 #
 
 test-browser: $(BUILD)
-	@$(DUOT) browser $(TEST) default
+	@$(DUOT) browser default
 
 #
 # Phony targets.
 #
 
 .PHONY: clean
-.PHONY: kill
-.PHONY: kill-all
 .PHONY: test
 .PHONY: test-browser
 .PHONY: test-coverage
@@ -96,4 +90,4 @@ node_modules: package.json
 #
 
 $(BUILD): $(TESTS) analytics.js
-	@$(DUO) --development test/tests.js $(BUILD)
+	@$(DUO) --development test/tests.js > $(BUILD)
