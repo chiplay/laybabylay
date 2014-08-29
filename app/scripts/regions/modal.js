@@ -19,7 +19,7 @@ function(vent, $, Marionette, _) {
     },
 
     onShow: function(){
-      if (!this.currentView || !this.currentView.$el || !this.currentView.$el.model) return;
+      if (!this.currentView || !this.currentView.$el) return;
       var options = this.getDefaultOptions(_.result(this.currentView, 'dialog'));
 
       // trick to get modal height before it's shown
