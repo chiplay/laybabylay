@@ -9,6 +9,7 @@ Thumbs.db
 # But not these files...
 !.gitignore
 !.jshintrc
+!.bowerrc
 !package.json
 !bower.json
 !GruntFile.js
