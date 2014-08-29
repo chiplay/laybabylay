@@ -201,7 +201,7 @@ function (q, analytics, $, _, Backbone, Marionette, facebook, vent, RelatedPosts
         category: tmp.hostname
       });
       _.delay(function() {
-        if (window.vglnk) {
+        if (window.vglnk && window.vglnk.click) {
           window.vglnk.click(url, '_blank');
         } else {
           window.open(url, '_blank');

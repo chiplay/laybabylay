@@ -16,6 +16,8 @@ function(vent, $, Marionette, _, Backbone) {
     },
 
     onShow: function(view){
+      if (!this.$el || !this.$el.swiper) return;
+
       // Mix in the view's swiper hash with the region defaults
       this.opts = this.getDefaultOptions(_.result(view, 'swiper'));
 

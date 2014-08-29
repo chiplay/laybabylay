@@ -19,7 +19,7 @@ function(vent, $, Marionette, _) {
     },
 
     onShow: function(){
-      if (!this.ensureView()) return;
+      if (!this.currentView || !this.currentView.$el || !this.currentView.$el.model) return;
       var options = this.getDefaultOptions(_.result(this.currentView, 'dialog'));
 
       // trick to get modal height before it's shown
@@ -40,16 +40,12 @@ function(vent, $, Marionette, _) {
 
     closeModal: function(){
       $('#main').removeClass('shift');
-      if (this.ensureView()) this.currentView.$el.modal('hide');
+      if (this.currentView && this.currentView.$el.modal) this.currentView.$el.modal('hide');
     },
 
     cleanupView: function(){
       // Modal data is attached to the view.$el - which is removed and detroyed on close
       this.close();
-    },
-
-    ensureView: function() {
-      return (this.currentView) ? true : false;
     }
 
   });
