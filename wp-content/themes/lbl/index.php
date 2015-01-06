@@ -4,11 +4,11 @@ Template Name: Index
 */
 ?>
 
-<?php
+<?php /*
 
 preg_match('/alexa|bot|crawl(er|ing)|pinterest|facebookexternalhit|feedburner|google web preview|nagios|postrank|pingdom|slurp|spider|yahoo!|yandex|^$/i', $_SERVER['HTTP_USER_AGENT'], $matches);
 
-if (!$matches) { ?>
+if (!$matches) { */ ?>
 
   <?php get_header(); ?>
 
@@ -16,7 +16,7 @@ if (!$matches) { ?>
 
   <?php get_footer(); ?>
 
-<?php } else { ?>
+<?php /* } else { ?>
 
   <!DOCTYPE html>
   <html lang="en">
@@ -120,4 +120,4 @@ if (!$matches) { ?>
 </body>
 </html>
 
-<?php } ?>
+<?php }  */ ?>

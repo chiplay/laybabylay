@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="/wp-content/themes/lbl/assets/styles/app.css?v=1.1.0">
 
-		<title>Nursery Inspiration &amp; Baby Room Delights | Lay Baby Lay</title>
+		<title>Nursery Inspiration &amp; Baby Room Ideas | Lay Baby Lay</title>
 
 	</head>
 
