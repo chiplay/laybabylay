@@ -6,12 +6,14 @@ Template Name: Single Post
 
 <?php
 
-preg_match('/alexa|bot|crawl(er|ing)|pinterest|facebookexternalhit|feedburner|google web preview|nagios|postrank|pingdom|slurp|spider|yahoo!|yandex|^$/i', $_SERVER['HTTP_USER_AGENT'], $matches);
+/* preg_match('/alexa|bot|crawl(er|ing)|pinterest|facebookexternalhit|feedburner|google web preview|nagios|postrank|pingdom|slurp|spider|yahoo!|yandex|^$/i', $_SERVER['HTTP_USER_AGENT'], $matches);
 
 if (!$matches) {
 
+*/
 	get_template_part( 'index' );
 
+/*
 } else {
 
 ?>
@@ -173,4 +175,4 @@ if (!$matches) {
 </body>
 </html>
 
-<?php } ?>
+<?php }  */ ?>
