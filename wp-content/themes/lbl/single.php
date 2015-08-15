@@ -6,14 +6,14 @@ Template Name: Single Post
 
 <?php
 
-/* preg_match('/alexa|bot|crawl(er|ing)|pinterest|facebookexternalhit|feedburner|google web preview|nagios|postrank|pingdom|slurp|spider|yahoo!|yandex|^$/i', $_SERVER['HTTP_USER_AGENT'], $matches);
+ preg_match('/alexa|bot|crawl(er|ing)|pinterest|facebookexternalhit|feedburner|google web preview|nagios|postrank|pingdom|slurp|spider|yahoo!|yandex|^$/i', $_SERVER['HTTP_USER_AGENT'], $matches);
 
 if (!$matches) {
 
-*/
+
 	get_template_part( 'index' );
 
-/*
+
 } else {
 
 ?>
@@ -26,6 +26,7 @@ if (!$matches) {
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
   <title><?php wp_title('&nbsp;&#124;&nbsp;', true, 'right'); ?> <?php bloginfo('name'); ?></title>
+  <link rel="stylesheet" href="/wp-content/themes/lbl/assets/styles/app.css">
   <meta property="og:title" content="<?php echo trim(wp_title('', false)); ?>"/>
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="<?php echo get_the_excerpt(); ?>"/>
@@ -175,4 +176,4 @@ if (!$matches) {
 </body>
 </html>
 
-<?php }  */ ?>
+<?php }   ?>
