@@ -60,114 +60,86 @@ if (!$matches) {
 
 </head>
 
-<div id="wrapper">
+<div id="main">
 
-	<div class="container">
+	<article class="post">
 
- 		<div class="row overflow-v">
+    <div class="container">
 
-			<div id="main_entries" class="overflow-v">
+			<header class="align-center">
 
-				<div id="panel0" class="main_data">
+				<h1><small><?php the_title(); ?></small></h1>
 
-					<div class="span8 offset2">
+				<span class="post_date"><?php the_time('l, F j, Y'); ?></span>
 
-						<article class="entry">
+			</header>
 
-							<header class="align-center">
+      <div class="content">
 
-								<h1><small><?php the_title(); ?></small></h1>
+				<?php the_content(); ?>
 
-								<span class="post_date"><?php the_time('l, F j, Y'); ?></span>
-
-							</header>
-
-							<?php the_content(); ?>
-
-							<div class="categories">
-
-								<?php
-								$separator = ' ';
-								$output = '';
-								if($categories){
-									foreach($categories as $category) {
-										$output .= '<a href="'.get_category_link( $category->term_id ).'" title="' . esc_attr( sprintf( __( "View all posts in %s" ), $category->name ) ) . '">'.$category->cat_name.'</a>'.$separator;
-									}
-									echo trim($output, $separator);
-								} ?>
-
-							</div>
-
-							<p><?php the_tags(); ?></p>
-
-							<?php
-
-							comments_template();
-
-							?>
-
-						</article>
-
-					</div>
-
-				</div>
-
-			</div>
-
-		</div>
-
-	</div>
-
-<?php endwhile; ?>
-
-	<!-- 4 Random Posts -->
-
-	<div class="container">
-
-		<div class="row">
-
-			<div class="span8 offset2">
-
-				<div id="recent_posts" class="additional_posts">
-
-					<h2 class="align-center"><small>Check Out These Similar Posts</small></h2>
-
-					<div class="row">
+				<div class="categories">
 
 					<?php
-
-						$args = array(
-							'posts_per_page' => 4,
-							'orderby' => 'rand'
-						);
-
-						$loop = new WP_query($args);
-
-						while($loop->have_posts()) : $loop->the_post(); ?>
-
-						<div class="span2">
-
-							<div class="related-entry">
-
-								<a href="<?php the_permalink(); ?>">
-									<span class="related-title"><?php the_title(); ?></span>
-								</a>
-
-							</div>
-
-						</div>
-
-					<?php endwhile; ?>
-
-					</div>
+					$separator = ' ';
+					$output = '';
+					if($categories){
+						foreach($categories as $category) {
+							$output .= '<a href="'.get_category_link( $category->term_id ).'" title="' . esc_attr( sprintf( __( "View all posts in %s" ), $category->name ) ) . '">'.$category->cat_name.'</a>'.$separator;
+						}
+						echo trim($output, $separator);
+					} ?>
 
 				</div>
 
-			</div>
+				<p><?php the_tags(); ?></p>
 
-		</div>
+				<?php
 
-	</div>
+				comments_template();
+
+				?>
+
+      </div>
+
+      <?php endwhile; ?>
+
+      <!-- 4 Random Posts -->
+
+      <div class="related-posts-region">
+
+        <h2 class="align-center"><small>Check Out These Similar Posts</small></h2>
+
+        <?php
+
+          $args = array(
+            'posts_per_page' => 4,
+            'orderby' => 'rand'
+          );
+
+          $loop = new WP_query($args);
+
+          while($loop->have_posts()) : $loop->the_post(); ?>
+
+          <div class="span2">
+
+            <div class="related-entry">
+
+              <a href="<?php the_permalink(); ?>">
+                <span class="related-title"><?php the_title(); ?></span>
+              </a>
+
+            </div>
+
+          </div>
+
+        <?php endwhile; ?>
+
+      </div>
+
+    </div>
+
+	</article>
 
 </div>
 
