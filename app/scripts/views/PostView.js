@@ -83,9 +83,9 @@ define([
           onGet: function(values) {
             var firstImg = this.$('.content img').first();
             var href = '//www.pinterest.com/pin/create/button/';
-            // href += '?url=' + encodeURIComponent(values[0]);
+            href += '?url=' + encodeURIComponent(values[0]);
             // if (firstImg) href += '&media=' + encodeURIComponent(firstImg.attr('data-original'));
-            // href += '&description=' + encodeURIComponent(values[1]);
+            href += '&description=' + encodeURIComponent(values[1]);
             return href;
           }
         }]
