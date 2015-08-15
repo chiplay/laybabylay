@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
     <title>Nursery Inspiration &amp; Baby Room Ideas | Lay Baby Lay</title>
-    <meta title="description" content="Inspiration to create spaces for your little ones that are full of imagination, color, and delight and maybe find a little encouragement in this crazy but wonderful journey of having babies and watching them grow."
+    <meta name="description" content="Inspiration to create spaces for your little ones that are full of imagination, color, and delight and maybe find a little encouragement in this crazy but wonderful journey of having babies and watching them grow."
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
