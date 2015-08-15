@@ -84,7 +84,7 @@ define([
             var firstImg = this.$('.content img').first();
             var href = '//www.pinterest.com/pin/create/button/';
             href += '?url=' + encodeURIComponent(values[0]);
-            if (firstImg) href += '&media=' + encodeURIComponent(firstImg.attr('src'));
+            if (firstImg) href += '&media=' + encodeURIComponent(firstImg.attr('data-original'));
             href += '&description=' + encodeURIComponent(values[1]);
             return href;
           }
@@ -154,13 +154,17 @@ define([
     removeListeners: function() {
       this.stopListening(vent, 'scroll:update', this.adjustHeight);
       if (this.isClosed) return;
+      this.removePinBtns();
       this.comments.close();
       this.related.close();
       this.hotspots.close();
     },
 
     showSidebar: function(ev) {
-      if (!this.model.get('nb_links').length) return;
+      if (!this.model.get('nb_links').length) {
+        if (ev) $(ev.currentTarget).next('button').click();
+        return;
+      }
       if (ev) {
         ev.preventDefault();
         ev.stopPropagation();
@@ -191,13 +195,20 @@ define([
       });
     },
 
+    removePinBtns: function() {
+      var _this = this;
+      this.$('.content img').each(function(){
+        _this.removePinBtn(this);
+      });
+    },
+
     attachPinBtn: function(el) {
       if (this.isClosed) return;
-      var $el = $(el),
+      var $image = $(el),
           href = '//www.pinterest.com/pin/create/button/',
           pinBtn = document.createElement('button');
       href += '?url=' + encodeURIComponent(this.model.get('url'));
-      href += '&media=' + encodeURIComponent($el.attr('data-original'));
+      href += '&media=' + encodeURIComponent($image.attr('data-original'));
       href += '&description=' + encodeURIComponent(this.model.get('title'));
       pinBtn.setAttribute('data-href',href);
       pinBtn.setAttribute('class','pin-it-button');
@@ -205,7 +216,19 @@ define([
       pinBtn.setAttribute('data-pin-config','beside');
       pinBtn.setAttribute('data-pin-color','white');
       pinBtn.setAttribute('data-pin-height','20');
-      $el.after(pinBtn);
+      $image.after(pinBtn);
+      $image.hover(function() {
+        $image.parent().addClass('hover');
+      }, function() {
+        $image.parent().removeClass('hover');
+      });
+    },
+
+    removePinBtn: function(el) {
+      if (this.isClosed) return;
+      var $image = $(el);
+      $image.next('button').remove();
+      $image.unbind('mouseenter mouseleave');
     },
 
     showFBDialog: function(ev) {
