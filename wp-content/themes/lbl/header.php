@@ -16,8 +16,8 @@
     <meta property="og:site_name" content="Lay Baby Lay"/>
     <meta property="fb:app_id" content="179291298758035"/>
 
-    <link rel="stylesheet" href="/wp-content/themes/lbl/assets/styles/app.css?v=1.2.0">
-
+<!--     <link rel="stylesheet" href="/wp-content/themes/lbl/assets/styles/app.css?v=1.2.0">
+ -->
 	</head>
 
 	<body>

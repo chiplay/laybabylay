@@ -1,15 +1,18 @@
-require(['app','approuter','appcontroller'],function(app, AppRouter, appController){
-  'use strict';
-  var options = {
-    'appController': appController,
-    'AppRouter': AppRouter,
-    'namespaces': [
-      'home',
-      'products',
-      'catalog',
-      'search',
-      'inspiration'
-    ]
-  };
-  app.start(options);
-});
+import 'babel/polyfill';
+import React from 'react';
+import { Provider } from 'react-redux';
+import App from './containers/App';
+import store from './store';
+
+let rootElement = document.createElement('div');
+rootElement.id = 'root';
+document.body.appendChild(rootElement);
+
+React.render(
+  // The child must be wrapped in a function
+  // to work around an issue in React 0.13.
+  <Provider store={store}>
+    {() => <App />}
+  </Provider>,
+  rootElement
+);
