@@ -16,9 +16,9 @@ Template Name: Single Post
 
 	<header class="align-center">
 
-	<h1><small><?php the_title(); ?></small></h1>
+	<h1 class="title"><?php the_title(); ?></h1>
 
-	<span class="post_date"><?php the_time('l, F j, Y'); ?></span>
+	<h2 class="subtitle"><?php the_time('l, F j, Y'); ?></h2>
 
 	</header>
 
