@@ -43,7 +43,7 @@
 
 <?php endwhile; ?>
 
-  <link rel="stylesheet" href="/wp-content/themes/lbl/assets/styles/app.css?v=1.2.0">
+  <link rel="stylesheet" href="/wp-content/themes/lbl/assets/styles/app.css?v=1.3.0">
 
 </head>
 
