@@ -10,7 +10,7 @@ define([
     fbApiKey: '149853455060313',
     fbPermissions: 'user_relationships, publish_stream, email',
     raygunApiKey: '4df+4P9h+vgzqPxFgGvvIQ==',
-    cloudinaryUrl: 'http://res.cloudinary.com/laybabylay/image/upload/'
+    cloudinaryUrl: 'https://res.cloudinary.com/laybabylay/image/upload/'
   };
 
   // Detect Device
