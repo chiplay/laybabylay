@@ -1,39 +1,94 @@
-define([
-  'jquery',
-  'underscore',
-  'backbone',
-  'marionette',
-  'moment',
-  'vent',
-  'analytics',
-  'components/facebook',
-  'components/scroller',
-  'models/Post',
-  'views/SidebarView',
-  'views/PostColorsView',
-  'views/CommentsView',
-  'views/RelatedPostsView',
-  'views/HotSpotsView',
-  'hbar!templates/post',
-  'jquery.lazyload'
+define(function(require) {
+  var React = require('react'),
+      ReactDOM = require('react-dom'),
+      Marionette = require('marionette'),
+      $ = require('jquery'),
+      _ = require('underscore'),
+      Backbone = require('backbone'),
+      moment = require('moment'),
+      vent = require('vent'),
+      analytics = require('analytics'),
+      facebook = require('components/facebook'),
+      scroller = require('components/scroller'),
+      Post = require('models/Post'),
+      SidebarView = require('views/SidebarView'),
+      PostColorsView = require('views/PostColorsView'),
+      CommentsView = require('views/CommentsView'),
+      RelatedPostsView = require('views/RelatedPostsView'),
+      HotSpotsView = require('views/HotSpotsView'),
+      tpl = require('hbar!templates/post');
 
-], function($, _, Backbone, Marionette, moment, vent, analytics, facebook, scroller, Post, SidebarView, PostColorsView, CommentsView, RelatedPostsView, HotSpotsView, postTemplate){
+  require('jquery.lazyload');
 
-  return Marionette.Layout.extend({
+  var PostComponent = React.createClass({
+
+      displayName: 'Post',
+
+      // propTypes: {
+      //   Title:   PropTypes.string.isRequired,
+      //   GroupId: PropTypes.string.isRequired,
+      //   CardId:  PropTypes.string.isRequired
+      // },
+
+      onClick: function(ev) {
+        ev.preventDefault();
+      },
+
+      // componentDidUpdate(prevProps) {
+      //   if (this.props.isActive && !prevProps.isActive) {
+      //     this.refs.choice.scrollIntoViewIfNeeded();
+      //   }
+      // },
+
+      render: function() {
+        const { props } = this;
+
+        console.log(props.model);
+
+        return (
+          <div class="container">
+
+            <header class="align-center">
+
+              <h1 class="title"></h1>
+              <h2 class="subtitle"></h2>
+
+            </header>
+
+            <div class="meta">
+
+              <div class="date"></div>
+
+              <div class="color-palette-region"></div>
+
+            </div>
+
+            <div class="content"></div>
+
+            <div class="categories-region"></div>
+
+            <div class="addthis-region">
+              <button class="pinterest-button">Pin It</button>
+              <button class="tweet-button">Tweet</button>
+              <button class="facebook-button">Share on Facebook</button>
+            </div>
+
+            <div class="comments-region"></div>
+
+            <div class="related-posts-region"></div>
+
+          </div>
+        );
+      }
+  });
+
+  return Marionette.ItemView.extend({
 
     tagName: 'article',
 
     className: 'post swiper-slide',
 
-    template: postTemplate,
-
-    regions: {
-      colors: '.color-palette-region',
-      categories: '.categories-region',
-      comments: '.comments-region',
-      related: '.related-posts-region',
-      hotspots: '.hotspots-region'
-    },
+    template: tpl,
 
     bindings: {
       // ':el': {
@@ -101,12 +156,28 @@ define([
       'click .pinterest-button': 'showPinDialog'
     },
 
+    render: function() {
+      this.isClosed = false;
+
+      this.triggerMethod('before:render', this);
+      this.triggerMethod('item:before:render', this);
+
+      ReactDOM.render(<PostComponent model={this.model} />, this.$el[0]);
+
+      this.isRendered = true;
+
+      this.triggerMethod('render', this);
+      this.triggerMethod('item:rendered', this);
+
+      return this;
+    },
+
     initialize: function() {
       var _this = this;
       _.bindAll(this,'initSelected');
-      this.listenTo(this.model, 'load:images', this.loadImages);
-      this.listenTo(this.model, 'selected', this.bufferSelected);
-      this.listenTo(this.model, 'deselected', this.removeListeners);
+      // this.listenTo(this.model, 'load:images', this.loadImages);
+      // this.listenTo(this.model, 'selected', this.bufferSelected);
+      // this.listenTo(this.model, 'deselected', this.removeListeners);
       // this.listenTo(this.model, 'deselected', this.removeAddthis, this);
 
       // add compression to images
@@ -119,18 +190,18 @@ define([
       // if (!(/jonilay/.test(content))) content = content.replace(/#\d+=\d+/i,'?utm_source=laybabylay&utm_medium=post&utm_campaign=styleboard&curator=jonilay');
       this.model.set({ content: content });
 
-      this.adjustHeight = _.throttle(function (pos) {
-        if (pos > 100) {
-          $('.swiper-wrapper, .swiper-slide').height('auto');
-          $('.swiper-container').height( _this.el.offsetHeight );
-        }
-      }, 1000);
+      // this.adjustHeight = _.throttle(function (pos) {
+      //   if (pos > 100) {
+      //     $('.swiper-wrapper, .swiper-slide').height('auto');
+      //     $('.swiper-container').height( _this.el.offsetHeight );
+      //   }
+      // }, 1000);
     },
 
-    onRender: function() {
-      this.stickit();
-      this.loadColors();
-    },
+    // onRender: function() {
+    //   this.stickit();
+    //   this.loadColors();
+    // },
 
     bufferSelected: function() {
       this.rafId = window.requestAnimationFrame( this.initSelected );

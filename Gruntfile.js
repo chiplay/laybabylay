@@ -11,7 +11,8 @@ module.exports = function (grunt) {
 
   var appConfig = {
     tmp: '.tmp', // generated files, used by both app and dist
-    app: 'app', // code files in source control
+    src: 'src', // code files in source control
+    app: 'app', // code files built via babel
     dist: 'dist' // distribution files for deployment (not in source control)
   };
 
@@ -19,10 +20,37 @@ module.exports = function (grunt) {
   grunt.initConfig({
     appConfig: appConfig,
     pkg: grunt.file.readJSON('package.json'),
+    webpack: {
+      options: webpackConfig(true),
+      dist: {}
+    },
+    'webpack-dev-server': {
+      options: {
+        port: 9000,
+        host: 'localhost',
+        webpack: webpackConfig(),
+        contentBase: '.tmp',
+        publicPath: webpackConfig().output.publicPath,
+        progress: true,
+        keepalive: true,
+        historyApiFallback: true,
+        hot: true,
+        inline: true,
+        stats: {
+          timings: true
+        }
+      },
+      server: {
+        webpack: {
+          devtool: 'eval',
+          debug: true
+        }
+      }
+    },
     watch: {
       scripts: {
-        files: ['<%= appConfig.app %>/scripts/**/*.js'],
-        tasks: ['newer:jshint:all'],
+        files: ['<%= appConfig.src %>/scripts/**/*.js'],
+        tasks: ['newer:eslint:all','babel:server'],
         options: {
           livereload: true,
           interrupt: true
@@ -31,10 +59,6 @@ module.exports = function (grunt) {
       less: {
         files: ['<%= appConfig.app %>/styles/**/*.less'],
         tasks: ['less:server']
-      },
-      jade: {
-        files: ['<%= appConfig.app %>/**/*.jade'],
-        tasks: ['jade:server']
       },
       css: {
         files: [
@@ -53,24 +77,15 @@ module.exports = function (grunt) {
         command: 'bower install'
       }
     },
-    jshint: {
+    eslint: {
       all: [
-        'app/scripts/**/*.js',
-        '!app/scripts/require-built.js'
-      ],
-      options: {
-        jshintrc: true
-      }
+        'src/scripts/**/*.js',
+        '!src/scripts/require-built.js'
+      ]
     },
     clean: {
       dist: ['<%= appConfig.tmp %>', '<%= appConfig.dist %>'],
-      server: '<%= appConfig.tmp %>',
-      jade: {
-        src: [
-          '<%= appConfig.app %>/*.html',
-          '<%= appConfig.app %>/scripts/namespaces/**/*.html'
-        ]
-      }
+      server: '<%= appConfig.tmp %>'
     },
     less: {
       dist: {
@@ -86,41 +101,6 @@ module.exports = function (grunt) {
       server: {
         src: '<%= appConfig.app %>/styles/app.less',
         dest: 'wp-content/themes/lbl/assets/styles/app.css'
-      }
-    },
-    jade: {
-      dist: {
-        options: {
-          data: {
-            bust: '?bust=' + deployTime, // cache bust non-requirejs files
-            version: deployTime // Could use grunt bump or gittags?
-          }
-        },
-        files: [{
-          expand: true,
-          cwd: '<%= appConfig.app %>',
-          src: ['**/*.jade'],
-          // r.js copies the entire app folder before compiling,
-          // including template files.  We need jade to complile down
-          // to the app folder before that happens
-          dest: '<%= appConfig.app %>',
-          ext: ['.html']
-        }]
-      },
-      server: {
-        options: {
-          pretty: true,
-          data: {
-            bust: '' // no bust during dev, so replace placeholder with empty string
-          }
-        },
-        files: [{
-          expand: true,
-          cwd: '<%= appConfig.app %>',
-          src: ['**/*.jade'],
-          dest: '<%= appConfig.app %>',
-          ext: ['.html']
-        }]
       }
     },
     requirejs: {
@@ -230,7 +210,8 @@ module.exports = function (grunt) {
       'shell:bower-install',
       // 'clean:server', // empty tmp dir
       'less:server', // compile less into tmp dir
-      'jade:server', // compile jade files into tmp dir
+      'eslint:all', // linting
+      'babel:server',
       'build-requirejs-config', // create requirejs config to be included with require lib
       'concat:server', // concat require config and require lib
       // 'express:server', // start express server
@@ -250,13 +231,12 @@ module.exports = function (grunt) {
     }
 
     taskList = taskList.concat([
-      'jshint', // linting
+      'eslint:all', // linting
       'clean:dist', // empty dist dir
-      'jade:dist', // convert jade files into html files *in app dir* (needed for requirejs)
+      'babel:dist',
       'build-requirejs-config:dist', // create requirejs config to be included with require lib
       'create-requirejs-modules', // create list of requirejs modules to be used by requirejs task
       'requirejs', // requirejs optimization of js into dist dir
-      'clean:jade', // remove generated html files from app dir
       'copy:dist', // remove generated html files from app dir
       'concat:dist', // concat require config and require lib
       'uglify:dist', // uglify concacted require file

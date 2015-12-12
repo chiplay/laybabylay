@@ -1,25 +1,17 @@
-<footer id="footer">
-
-</footer>
-
-<div class="modal-region"></div>
+<?php
+wp_footer();
+?>
 
 <script type="text/javascript">
   window.analytics=window.analytics||[],window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),window.analytics.push(a),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(t){if(!document.getElementById("analytics-js")){var a=document.createElement("script");a.type="text/javascript",a.id="analytics-js",a.async=!0,a.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.io/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n)}},window.analytics.SNIPPET_VERSION="2.0.9",
   window.analytics.load("9u0ojk4mt9");
-
-  var __VERSION = "1.2.0";
 </script>
 
-<script data-main="/wp-content/themes/lbl/assets/scripts/main" src="/wp-content/themes/lbl/assets/scripts/require-built.js"></script>
+<script src="<?= get_template_directory_uri(); ?>/dist/app.js"></script>
 
-<!-- <script data-main="/app/scripts/main" src="/app/scripts/require-built.js"></script>
- -->
-<script src="//ajax.googleapis.com/ajax/libs/webfont/1.5.0/webfont.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
 <script>
-  WebFont && WebFont.load({
-    typekit: { id: 'mex0hpo' }
-  });
+  window.WebFont && window.WebFont.load({ typekit: { id: 'mex0hpo' } });
 </script>
 
 <script type="text/javascript">
@@ -35,9 +27,11 @@
 <script type="text/javascript">
   var vglnk = { key: 'bc30fb7cd8ff1adadd2b8b70a7ec44db' };
   (function(d, t) {
-    var s = d.createElement(t); s.type = 'text/javascript'; s.async = true;
+    var s = d.createElement(t); s.type = 'text/javascript';
+    s.async = true;
     s.src = '//cdn.viglink.com/api/vglnk.js?key=' + vglnk.key;
-    var r = d.getElementsByTagName(t)[0]; r.parentNode.insertBefore(s, r);
+    var r = d.getElementsByTagName(t)[0];
+    r.parentNode.insertBefore(s, r);
   }(document, 'script'));
 </script>
 

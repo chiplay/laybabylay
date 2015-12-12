@@ -8,6 +8,8 @@ Template Name: Single Post
 
 <?php while(have_posts()) : the_post(); ?>
 
+<div id="root"></div>
+
 <div id="main">
 
   <article class="post">

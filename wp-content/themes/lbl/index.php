@@ -2,21 +2,18 @@
 /*
 Template Name: Index
 */
+
+get_header();
+
 ?>
 
-<?php /*
+<div id="root"></div>
 
-preg_match('/alexa|bot|crawl(er|ing)|pinterest|facebookexternalhit|feedburner|google web preview|nagios|postrank|pingdom|slurp|spider|yahoo!|yandex|^$/i', $_SERVER['HTTP_USER_AGENT'], $matches);
+<?php
 
-if (!$matches) { */ ?>
+get_footer();
 
-  <?php get_header(); ?>
-
-  <div id="main"></div>
-
-  <?php get_footer(); ?>
-
-<?php /* } else { ?>
+/* } else { ?>
 
   <!DOCTYPE html>
   <html lang="en">
@@ -120,4 +117,4 @@ if (!$matches) { */ ?>
 </body>
 </html>
 
-<?php }  */ ?>
+<?php }  */

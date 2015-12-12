@@ -77,8 +77,9 @@ define([
       if (attrs === null) {
         options.data = _.pick(options.data, this.whitelist);
         _.each(options.data,function(val,key,index){
-          if (val !== null && val !== '')
+          if (val !== null && val !== '') {
             dataStr += key+'='+val+'&';
+          }
         });
         dataStr = dataStr.slice(0,-1);
         options.data = dataStr;

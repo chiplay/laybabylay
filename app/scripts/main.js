@@ -1,5 +1,8 @@
-require(['app','approuter','appcontroller'],function(app, AppRouter, appController){
-  'use strict';
+define(function(require) {
+  var app = require('app'),
+      AppRouter = require('approuter'),
+      appController = require('appcontroller');
+
   var options = {
     'appController': appController,
     'AppRouter': AppRouter,
