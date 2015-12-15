@@ -2,23 +2,43 @@ import React, { Component } from 'react';
 
 // Dumb component
 export default class Post extends Component {
-    createMarkup(html) {
-        return {
-            __html: html
-        };
-    }
+  createMarkup(html) {
+    return {
+      __html: html
+    };
+  }
 
-    render() {
-        const { post } = this.props;
+  render() {
+    const { post } = this.props;
 
-        return (
-            <div className="blog-post">
-                <h2 className="blog-post-title">{post.title}</h2>
-                <p className="blog-post-meta">{post.date} <a href="#">Mark</a></p>
+    return (
+      <div className="container">
 
-                <div dangerouslySetInnerHTML={this.createMarkup(post.content)} />
+        <header className="align-center">
+          <h1 className="title">{post.title}</h1>
+          <h2 className="subtitle">{post.subtitle}</h2>
+        </header>
 
-            </div>
-        );
-    }
+        <div className="meta">
+          <div className="date">{post.date}</div>
+          <div className="color-palette-region" />
+        </div>
+
+        <div className="content" dangerouslySetInnerHTML={this.createMarkup(post.content)} />
+
+        <div className="categories-region" />
+
+        <div className="addthis-region">
+          <button className="pinterest-button">Pin It</button>
+          <button className="tweet-button">Tweet</button>
+          <button className="facebook-button">Share on Facebook</button>
+        </div>
+
+        <div className="comments-region" />
+        <div className="related-posts-region" />
+
+      </div>
+
+    );
+  }
 }
