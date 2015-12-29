@@ -8,6 +8,8 @@ export default class Post extends Component {
     };
   }
 
+  // TODO - related post and comments, social buttons logic (actions?)
+
   render() {
     const { post } = this.props;
 

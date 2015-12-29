@@ -1,0 +1,172 @@
+@import (reference) "variables.less";
+@import (reference) "mixins.less";
+
+.author {
+  width: 200px;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  .transition(all .1s cubic-bezier(0.5, 0.3, 0.5, .7));
+  .translate3d(0, 220px, 0);
+
+  @media (max-width: @screen-desktop-max) {
+    .translate3d(-10px, 220px, 0);
+  }
+  @media (max-width: 1030px) {
+    .translate3d(-30px, 220px, 0);
+  }
+  @media (max-width: @screen-tablet-max) {
+    display: none;
+  }
+
+  &.mobile {
+    border-top: 1px solid #fff;
+    display: none;
+    width: 320px;
+    position: relative;
+    top: auto;
+    left: auto;
+    margin: 0 auto 100px;
+    .translate3d(0, 0, 0);
+
+    .headshot {
+      width: 320px;
+      height: 320px;
+    }
+
+    @media (max-width: @screen-tablet-max) {
+      display: block;
+    }
+  }
+
+  .fixed & {
+    .opacity(0);
+    pointer-events: none;
+  }
+
+  .headshot {
+    background-image: url('https://res.cloudinary.com/laybabylay/image/upload/joni-lay_xerqir.jpg');
+    background-position: center center;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    width: 200px;
+    height: 200px;
+    display: block;
+    text-indent: -5000px;
+  }
+
+  .social-links {
+
+    a {
+      background-size: 212px 130px;
+      background-repeat: no-repeat;
+      width: 25px;
+      height: 25px;
+      display: inline-block;
+      margin-right: 6px;
+      text-indent: -5000px;
+
+      &.facebook {
+        background-position: -125px 0;
+        background-image: url('https://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
+      }
+      &.pinterest {
+        background-position: -75px 0;
+        background-image: url('https://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
+      }
+      &.instagram-icon {
+        background-position: -100px 0;
+        background-image: url('https://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
+      }
+      &.bloglovin {
+        background-position: 0px 0px;
+        background-image: url('https://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
+      }
+      &.rss {
+        background-position: -50px 0;
+        background-image: url('https://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
+      }
+      &.twitter {
+        background-position: -25px 0;
+        background-image: url('https://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
+      }
+
+      &:hover {
+        background-position-y: -25px;
+      }
+    }
+  }
+
+  .links {
+    font-size: 16px;
+    color: @gray-light;
+
+    a {
+      display: inline-block;
+      font-size: 16px;
+      color: @gray-darker;
+      font-family: @font-family-serif;
+      margin: 15px 6px;
+
+      &:hover {
+        color: @lbl-pink;
+      }
+    }
+  }
+
+  .email-signup {
+    border-top: 1px solid #fff;
+    margin-top: 15px;
+    padding-top: 15px;
+    width: 100%;
+    font-size: 0px;
+    color: @gray-darker;
+    font-family: @font-family-serif;
+
+    label {
+      display: block;
+      font-size: 16px;
+    }
+
+    .field-wrapper {
+      height: 30px;
+      margin: 8px auto;
+      width: 200px;
+    }
+
+    input[type="email"] {
+      .box-shadow(0 0 0 1px rgba(0, 0, 0, 0.15)) !important;
+      margin-top: 1px;
+      float: left;
+      font-size: 14px;
+      line-height: 16px;
+      width: 115px;
+      border: none;
+      padding: 6px 10px 3px;
+      display: inline-block;
+    }
+
+    input.button {
+      float: left;
+      padding: 10px 5px 8px;
+      width: 85px;
+      .border-radius(0);
+      border: none;
+      background: @lbl-pink;
+      letter-spacing: 1px;
+      font-weight: 400;
+      font-size: 11px;
+      line-height: 11px;
+      color: #fff;
+      display: inline-block;
+      font-family: @font-family-sans-serif;
+      text-transform: uppercase;
+
+      &:hover {
+        background: darken(@lbl-pink, 5%);
+      }
+    }
+  }
+}
+
