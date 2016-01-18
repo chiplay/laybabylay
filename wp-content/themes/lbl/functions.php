@@ -30,4 +30,22 @@ function my_attachment_image_thumb($postid=0, $size='full', $attributes='') {
   }
 }
 
+add_filter( 'the_content', 'cloudinary_image_transform', 20 );
+/**
+ * Let's save us some bandwidth
+ *
+ * @uses is_single()
+ */
+function cloudinary_image_transform( $content ) {
+  $doc = new DOMDocument();
+  $doc->LoadHTML($content);
+  $images = $doc->getElementsByTagName('img');
+  foreach ($images as $image) {
+    $src = $image->getAttribute('src');
+    $filename = basename($src);
+    $image->setAttribute('src', 'https://res.cloudinary.com/laybabylay/image/upload/q_35,w_1200,f_auto/' . $filename);
+  }
+  return $doc->saveHTML();
+}
+
 ?>
