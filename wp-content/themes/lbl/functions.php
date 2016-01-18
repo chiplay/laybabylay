@@ -30,4 +30,14 @@ function my_attachment_image_thumb($postid=0, $size='full', $attributes='') {
   }
 }
 
+function custom_excerpt_more( $more ) {
+  return '...';
+}
+add_filter( 'excerpt_more', 'custom_excerpt_more' );
+
+function custom_excerpt_length( $length ) {
+  return 36;
+}
+add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+
 ?>

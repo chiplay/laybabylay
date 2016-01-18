@@ -15,8 +15,8 @@
     <meta property="og:site_name" content="Lay Baby Lay"/>
     <meta property="fb:app_id" content="179291298758035"/>
 
-    <link rel="stylesheet" href="<?= get_template_directory_uri(); ?>/dist/app.css">
-
+<!--     <link rel="stylesheet" href="<?= get_template_directory_uri(); ?>/dist/app.css">
+ -->
 </head>
 
 <body>

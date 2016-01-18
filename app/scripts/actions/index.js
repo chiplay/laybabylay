@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 import Promise from 'bluebird';
 
 export const RECEIVE_PAGE = 'RECEIVE_PAGE';
+export const RECEIVE_PAGE_ERROR = 'RECEIVE_PAGE_ERROR';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 export const RECEIVE_POST = 'RECEIVE_POST';
 export const RECEIVE_POST_ERROR = 'RECEIVE_POST_ERROR';
@@ -9,12 +10,43 @@ export const RECEIVE_POST_ERROR = 'RECEIVE_POST_ERROR';
 const POSTS_PER_PAGE = 10;
 const WP_URL = '/api';
 const postAttrs = 'nb_links,acf,styleboard_products,subtitle,comments,comment_status,attachments,categories,colors,excerpt,related_posts,comment_count,content,date,id,slug,tags,title,type,url';
+const pageAttrs = 'acf,related_posts,content,title,subtitle,attachments,id,slug,url';
+
 
 // TODO: Add "featured" posts fetching for homepage - seperate action? or parameters?
 
-export function fetchPosts(pageNum = 1) {
+export function fetchPage(slug) {
   return function (dispatch) {
-    return fetch(WP_URL + '/get_posts/?post_type=post&include=' + postAttrs + '&page=' + pageNum + '&count=' + POSTS_PER_PAGE)
+    return fetch(WP_URL + '/get_page/?slug=' + slug + '&include=' + pageAttrs)
+      .then(response => Promise.resolve(
+        response.json()
+      ))
+      .then(pageData => dispatch(
+        receivePage(pageData)
+      ))
+      .catch(err => dispatch(
+        pageFetchError(err)
+      ));
+  }
+}
+
+function receivePage(response) {
+  return {
+    type: RECEIVE_PAGE,
+    payload: response
+  };
+}
+
+function pageFetchError(err) {
+  return {
+    type: RECEIVE_PAGE_ERROR,
+    payload: err
+  };
+}
+
+export function fetchPosts(pageNum = 1, postPerPage = POSTS_PER_PAGE) {
+  return function (dispatch) {
+    return fetch(WP_URL + '/get_posts/?post_type=post&include=' + postAttrs + '&page=' + pageNum + '&count=' + postPerPage)
       .then(response => Promise.resolve(
         response.json()
       ))
@@ -50,7 +82,6 @@ export function fetchPost(slug) {
 }
 
 function receivePost(response) {
-  console.log(response);
   return {
     type: RECEIVE_POST,
     payload: response

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import URI from 'urijs';
+import 'styles/postcard.less';
 
 export default class PostCard extends Component {
 
@@ -6,7 +8,14 @@ export default class PostCard extends Component {
 
   render() {
     const { post } = this.props;
-    const imageSrc = 'https://res.cloudinary.com/laybabylay/image/upload/q_60,w_400/v1448851561/' + post.attachments[0].slug + '.jpg';
+    const firstImage = post.attachments[0];
+    let image = <div />;
+
+    if (firstImage) {
+      const filename = new URI(firstImage.url).filename();
+      const imageSrc = 'https://res.cloudinary.com/laybabylay/image/upload/f_auto,q_40,w_500,h_1000,c_fill/v1448851561/' + filename;
+      image = <figure className="postcard__image--wrapper"><img className="postcard__image" src={imageSrc} alt={post.title} /></figure>;
+    }
 
     return (
       <div className="postcard">
@@ -20,9 +29,7 @@ export default class PostCard extends Component {
           </div>
         </header>
 
-        <figure>
-          <img className="postcard__image" src={imageSrc} alt={post.title} />
-        </figure>
+        {image}
 
       </div>
     );

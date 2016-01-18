@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
+import Slider from 'react-slick';
 import { Link } from 'react-router';
+
 import PostCard from '../components/PostCard';
+import 'slick-carousel/slick/slick.less';
+import 'styles/postcards.less';
 
 export default class PostCards extends Component {
 
   buildPosts(posts) {
     return posts.map(post =>
-      <PostCard post={post} key={post.id} />
+      <div key={post.id}><PostCard post={post} /></div>
     );
   }
 
   handlePaginationClick(pageNum) {
     console.log('pagination clicked');
-
     // scroll(0, 0);
-
     this.props.fetchPosts(pageNum);
   }
 
@@ -44,31 +46,61 @@ export default class PostCards extends Component {
     }
 
     return (
-      <nav>
-        <ul className="pager">
-          {[prevLink, nextLink].map((link, index) =>
-            <li key={index} className={link.enabled ? '' : 'disabled'}>
-              {link.link}
-            </li>
-          )}
-        </ul>
-      </nav>
+      <div />
     );
+
+    // return (
+    //   <nav>
+    //     <ul className="pager">
+    //       {[prevLink, nextLink].map((link, index) =>
+    //         <li key={index} className={link.enabled ? '' : 'disabled'}>
+    //           {link.link}
+    //         </li>
+    //       )}
+    //     </ul>
+    //   </nav>
+    // );
   }
 
   render() {
-    const { posts, totalPages, pageNum = 1 } = this.props;
+    const { featured, totalPages, pageNum = 1 } = this.props;
 
-    console.log('PostCardsContainer:render');
+    let settings = {
+      dots: false,
+      // className: 'center',
+      // centerMode: true,
+      infinite: true,
+      // centerPadding: '60px',
+      slidesToShow: 5,
+      slidesToScroll: 3,
+      responsive: [{
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3
+        }
+      }, {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      }, {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }]
+    };
 
     return (
       <div className="postcards">
-
-        {this.buildPosts(posts)}
-
-        {this.buildPagination(parseInt(pageNum), totalPages)}
-
+        <Slider {...settings}>
+          {this.buildPosts(featured)}
+        </Slider>
       </div>
     );
+    //        {this.buildPagination(parseInt(pageNum), totalPages)}
   }
 }

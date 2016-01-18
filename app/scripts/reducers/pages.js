@@ -1,30 +1,25 @@
 import { RECEIVE_PAGE } from '../actions';
 
-export const DEFAULT_PAGE = 'defaultPage';
+export const DEFAULT_PAGE = 'home';
 
 let defaultPage = {
-    content: {
-        rendered: ''
-    },
-    title: {
-        rendered: ''
-    }
+  related_posts: []
 };
 
 let defaultState = {
-    [DEFAULT_PAGE]: defaultPage
+  [DEFAULT_PAGE]: defaultPage
 };
 
 export default function pages(state = defaultState, action) {
-    switch(action.type) {
-        case RECEIVE_PAGE:
-            const { pageName, page } = action.payload;
+  switch(action.type) {
+    case RECEIVE_PAGE:
+      const { page } = action.payload;
 
-            return Object.assign({}, state, {
-                [pageName]: page
-            });
+      return Object.assign({}, state, {
+        [page.slug]: page
+      });
 
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 }

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import PostCard from '../components/PostCard';
+import PostSummary from '../components/PostSummary';
+import 'styles/recent-posts.less';
 
 export default class RecentPosts extends Component {
 
   buildPosts(posts) {
     return posts.map(post =>
-      <PostCard post={post} key={post.id} />
+      <PostSummary post={post} key={post.id} />
     );
   }
 
@@ -59,10 +60,10 @@ export default class RecentPosts extends Component {
   render() {
     const { posts, totalPages, pageNum = 1 } = this.props;
 
-    console.log('PostCardsContainer:render');
+    console.log('RecentPosts:render');
 
     return (
-      <div className="postcards">
+      <div className="recent-posts">
 
         {this.buildPosts(posts)}
 

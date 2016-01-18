@@ -1,0 +1,71 @@
+@import (reference) "variables.less";
+@import (reference) "mixins.less";
+
+.post-summary {
+  .clearfix();
+  .transition(all .5s cubic-bezier(0.190, 1.000, 0.220, 1.000));
+  margin-bottom: 20px;
+  padding: 30px;
+
+  &:nth-child(even) {
+    .post-summary__image--wrapper {
+      float: right;
+      margin: 0 0 0 30px;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+    background: #fff;
+    .box-shadow(0 1px 10px rgba(0,0,0,.1));
+  }
+
+  &__content {
+    // float: left;
+  }
+
+  header {
+    // float: left;
+    margin-bottom: 10px;
+  }
+
+  &__title {
+    color: @black;
+    line-height: 22px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 2px;
+  }
+
+  &__subtitle {
+    font-family: @font-family-serif;
+    color: @gray-dark;
+    font-style: italic;
+    letter-spacing: .07rem;
+    text-transform: lowercase;
+    line-height: 18px;
+    font-size: 14px;
+    font-weight: normal;
+  }
+
+  &__excerpt {
+    font-size: 18px;
+  }
+
+  &__link {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: @lbl-pink;
+    text-transform: uppercase;
+  }
+
+  &__image { // img
+    width: 100%;
+
+    &--wrapper { // figure
+      float: left;
+      margin-right: 30px;
+      width: 200px;
+    }
+  }
+}
