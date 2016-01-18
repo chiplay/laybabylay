@@ -30,7 +30,7 @@ function my_attachment_image_thumb($postid=0, $size='full', $attributes='') {
   }
 }
 
-// add_filter( 'the_content', 'cloudinary_image_transform', 20 );
+add_filter( 'the_content', 'cloudinary_image_transform', 20 );
 /**
  * Let's save us some bandwidth
  *
@@ -38,7 +38,7 @@ function my_attachment_image_thumb($postid=0, $size='full', $attributes='') {
  */
 function cloudinary_image_transform( $content ) {
   $doc = new DOMDocument();
-  $doc->LoadHTML($content);
+  $doc->LoadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
   $images = $doc->getElementsByTagName('img');
   foreach ($images as $image) {
     $src = $image->getAttribute('src');
