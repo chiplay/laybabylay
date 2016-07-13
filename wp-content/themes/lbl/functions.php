@@ -43,7 +43,7 @@ function cloudinary_image_transform( $content ) {
   foreach ($images as $image) {
     $src = $image->getAttribute('src');
     $filename = basename($src);
-    $image->setAttribute('src', 'https://res.cloudinary.com/laybabylay/image/upload/q_45,w_1200/' . $filename);
+    $image->setAttribute('src', 'https://res.cloudinary.com/laybabylay/image/upload/q_60,w_1200/' . $filename);
   }
   return $doc->saveHTML();
 }
