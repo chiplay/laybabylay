@@ -111,9 +111,13 @@ define([
 
       // add compression to images
       var content = this.model.get('content');
-      content = content.replace(/upload\/v/g,'upload/q_40/v');
-      content = content.replace(/src=/ig,'data-original=');
-      content = content.replace(/class="/ig,'class="lazy ');
+      var pattern = /<img.*?>/gm;
+
+      content = content.replace(pattern, function (sMatch) {
+        return sMatch.replace(/upload\/v/g,'upload/q_40/v')
+                     .replace(/src=/ig,'data-original=')
+                     .replace(/class="/ig,'class="lazy ');
+      });
 
       // Society6 links
       // if (!(/jonilay/.test(content))) content = content.replace(/#\d+=\d+/i,'?utm_source=laybabylay&utm_medium=post&utm_campaign=styleboard&curator=jonilay');
