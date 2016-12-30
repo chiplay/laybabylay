@@ -31,8 +31,10 @@ class JSON_API_Post {
   var $colors;
   var $search_terms;
   var $related_posts;
+  var $featured_posts;
   var $styleboard_products;
   var $nb_links;
+  var $featured_image;
 
   function JSON_API_Post($wp_post = null) {
     if (!empty($wp_post)) {
@@ -163,7 +165,9 @@ class JSON_API_Post {
     $this->set_custom_taxonomies($wp_post->post_type);
     // LBL
     $this->set_related_posts_value();
+    $this->set_featured_posts_value();
     $this->set_value('subtitle', get_field('subtitle', $this->id));
+    $this->set_value('featured_image', get_field('featured_image', $this->id));
     $this->set_colors_value();
     $this->set_search_terms_value();
     $this->set_styleboard_products_value();
@@ -340,6 +344,15 @@ class JSON_API_Post {
       $this->related_posts = $json_api->introspector->get_related_posts($this->id);
     } else {
       unset($this->related_posts);
+    }
+  }
+
+  function set_featured_posts_value() {
+    global $json_api;
+    if ($json_api->include_value('featured_posts')) {
+      $this->featured_posts = $json_api->introspector->get_featured_posts($this->id);
+    } else {
+      unset($this->featured_posts);
     }
   }
 

@@ -3,7 +3,7 @@ import { RECEIVE_PAGE } from '../actions';
 export const DEFAULT_PAGE = 'home';
 
 let defaultPage = {
-  related_posts: []
+  featured_posts: []
 };
 
 let defaultState = {

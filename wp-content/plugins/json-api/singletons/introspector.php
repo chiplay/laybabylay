@@ -388,6 +388,17 @@ class JSON_API_Introspector {
     return $related_posts;
   }
 
+  public function get_featured_posts($post_id) {
+    $acf_featured_posts = get_field('featured_posts', $post_id);
+    $featured_posts = array();
+    if (!empty($acf_featured_posts)) {
+      foreach ($acf_featured_posts as $acf_featured_post) {
+        $featured_posts[] = new JSON_API_Related($acf_featured_post);
+      }
+    }
+    return $featured_posts;
+  }
+
   public function get_related_products($post_id) {
     $acf_related_products = get_field('product_alternates', $post_id);
     $related_products = array();

@@ -164,12 +164,21 @@
   -webkit-transform: translate3d(@x, @y, @z);
           transform: translate3d(@x, @y, @z);
 }
+.scale3d(@x; @y; @z) {
+  -webkit-transform: scale3d(@x, @y, @z);
+          transform: scale3d(@x, @y, @z);
+}
+.perspective(@perspective) {
+  -webkit-perspective: @perspective;
+          perspective: @perspective;
+}
 .transform-origin(@origin) {
   -webkit-transform-origin: @origin;
-     -moz-transform-origin: @origin;
-      -ms-transform-origin: @origin;
-       -o-transform-origin: @origin;
           transform-origin: @origin;
+}
+.transform-style(@style) {
+  -webkit-transform-style: @style;
+          transform-style: @style;
 }
 
 // Backface visibility

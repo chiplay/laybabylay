@@ -10,7 +10,10 @@ Thumbs.db
 !.gitignore
 !.jshintrc
 !.bowerrc
+!.babelrc
+!.favicon.ico
 !package.json
+!webpack.config.*
 !bower.json
 !GruntFile.js
 !/wp-content

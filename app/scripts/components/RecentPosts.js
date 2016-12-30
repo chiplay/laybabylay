@@ -5,18 +5,20 @@ import 'styles/recent-posts.less';
 
 export default class RecentPosts extends Component {
 
+  handlePaginationClick(pageNum) {
+    // scroll(0, 0);
+    this.props.fetchPosts(pageNum);
+  }
+
+  handleFilterClick(filter) {
+    // scroll(0, 0);
+    // this.props.filterPosts(filter);
+  }
+
   buildPosts(posts) {
     return posts.map(post =>
       <PostSummary post={post} key={post.id} />
     );
-  }
-
-  handlePaginationClick(pageNum) {
-    console.log('pagination clicked');
-
-    // scroll(0, 0);
-
-    this.props.fetchPosts(pageNum);
   }
 
   buildPagination(pageNum, totalPages) {
@@ -29,18 +31,18 @@ export default class RecentPosts extends Component {
     };
 
     let nextLink = {
-      link: <Link to={'/' + (pageNum + 1)} onClick={() => this.handlePaginationClick(pageNum + 1)}>{nextText}</Link>,
+      link: <Link to={'/posts/' + (pageNum + 1)} onClick={() => this.handlePaginationClick(pageNum + 1)}>{nextText}</Link>,
       enabled: true
     };
 
     if (pageNum > 1 && pageNum < totalPages) {
-      prevLink.link = <Link to={'/' + (pageNum - 1)} onClick={() => this.handlePaginationClick(pageNum - 1)}>{prevText}</Link>;
+      prevLink.link = <Link to={'/posts/' + (pageNum - 1)} onClick={() => this.handlePaginationClick(pageNum - 1)}>{prevText}</Link>;
       prevLink.enabled = true;
     } else if (pageNum == totalPages) {
       nextLink.link = <a>{nextText}</a>;
       nextLink.enabled = false;
 
-      prevLink.link = <Link to={'/' + (pageNum - 1)} onClick={() => this.handlePaginationClick(pageNum - 1)}>{prevText}</Link>;
+      prevLink.link = <Link to={'/posts/' + (pageNum - 1)} onClick={() => this.handlePaginationClick(pageNum - 1)}>{prevText}</Link>;
       prevLink.enabled = true;
     }
 
@@ -57,13 +59,37 @@ export default class RecentPosts extends Component {
     );
   }
 
+  buildFilters(activeFilter) {
+    let recentFilter = {
+      button: <button onClick={() => this.handleFilterClick('recent')}>Recent</button>,
+      enabled: activeFilter === 'recent' ? true : false
+    };
+
+    let featuredFilter = {
+      button: <button onClick={() => this.handleFilterClick('featured')}>Featured</button>,
+      enabled: activeFilter === 'featured' ? true : false
+    };
+
+    return (
+      <ul className="post-filters">
+        {[recentFilter, featuredFilter].map((filter, index) =>
+          <li key={index} className={filter.active ? 'active' : ''}>
+            {filter.button}
+          </li>
+        )}
+      </ul>
+    );
+  }
+
   render() {
-    const { posts, totalPages, pageNum = 1 } = this.props;
+    const { posts, totalPages, pageNum = 1, activeFilter = 'recent' } = this.props;
 
     console.log('RecentPosts:render');
 
     return (
       <div className="recent-posts">
+
+        {this.buildFilters(activeFilter)}
 
         {this.buildPosts(posts)}
 

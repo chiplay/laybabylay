@@ -10,12 +10,8 @@ export default class LexiTheme extends Component {
         <Header />
         <SearchFilters />
         <div className="search-cover"></div>
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-8 blog-main">
-              {this.props.children}
-            </div>
-          </div>
+        <div className="">
+          {this.props.children}
         </div>
         <Footer />
       </div>

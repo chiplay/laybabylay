@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import URI from 'urijs';
+import 'styles/post.less';
 
 // Dumb component
 export default class Post extends Component {
@@ -12,9 +14,20 @@ export default class Post extends Component {
 
   render() {
     const { post } = this.props;
+    let image = <div />;
+
+    if (post.featured_image) {
+      const filename = new URI(post.featured_image.url).filename();
+      const imageSrc = 'https://res.cloudinary.com/laybabylay/image/upload/f_auto,q_30,w_2400,h_800,c_fill/v1448851561/' + filename;
+      image = <img className="post__featured-image" src={imageSrc} alt={post.title} />;
+    }
 
     return (
-      <div className="container">
+      <article className="post">
+
+        <div className="post__featured-image--wrapper">
+          {image}
+        </div>
 
         <header className="align-center">
           <h1 className="title">{post.title}</h1>
@@ -39,7 +52,7 @@ export default class Post extends Component {
         <div className="comments-region" />
         <div className="related-posts-region" />
 
-      </div>
+      </article>
 
     );
   }

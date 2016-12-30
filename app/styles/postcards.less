@@ -2,6 +2,86 @@
 @import (reference) "mixins.less";
 
 .postcards {
-  .make-row();
   margin-top: 100px;
+  position: relative;
+}
+
+.slick-dots {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: center;
+
+  li {
+    margin: 0;
+    padding: 0 5px;
+    display: inline-block;
+
+    &.slick-active {
+      button {
+        background-color: @lbl-pink;
+      }
+    }
+  }
+
+  button {
+    background-color: #ddd;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    text-indent: -10000px;
+  }
+}
+
+
+.slick-arrow {
+  background-image: url('https://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
+  margin-top: 25px;
+  width: 20px;
+  height: 35px;
+  display: block;
+  z-index: 500;
+  background-repeat: no-repeat;
+  background-position: -51px -87px;
+  background-size: 212px 130px;
+  cursor: pointer;
+  position: absolute;
+  top: 42%;
+  text-indent: -10000px;
+
+  &.slick-next {
+    .rotate(180deg);
+    right: 10px;
+  }
+
+  &.slick-prev {
+    left: 10px;
+  }
+
+  &:before {
+    content: ' ';
+    position: absolute;
+    height: 60px;
+    width: 50px;
+    top: -20px;
+    left: -15px;
+  }
+
+  @media (max-width: @screen-small-max) {
+    display: none;
+  }
+
+  &:hover {
+    background-position: -51px -51px;
+  }
+
+  &.disabled,
+  &.disabled:hover {
+    // background-color: lighten(@lbl-pink,25%);
+    .opacity(0.1);
+    cursor: default;
+    pointer-events: none;
+    background-position: -51px -87px;
+  }
 }

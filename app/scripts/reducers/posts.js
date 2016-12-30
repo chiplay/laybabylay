@@ -17,7 +17,7 @@ export default function posts(state = defaultState, action) {
       const { query, pages, posts } = action.payload;
 
       return Object.assign({}, state, {
-        posts,
+        posts: [...state.posts, ...posts],
         pageNum: parseInt(query.page),
         post: posts[0],
         totalPages: parseInt(pages)
@@ -27,7 +27,7 @@ export default function posts(state = defaultState, action) {
       const { post } = action.payload;
 
       return Object.assign({}, state, {
-        posts: state.posts.push(post),
+        posts: [...state.posts, post],
         activePost: post
       });
 

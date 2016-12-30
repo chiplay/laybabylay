@@ -12,10 +12,6 @@ class PostContainer extends Component {
     fetchPost(postSlug);
   }
 
-  buildPost(post) {
-    return <Post post={post} foo="bar" />
-  }
-
   componentDidUpdate() {
   }
 
@@ -25,9 +21,7 @@ class PostContainer extends Component {
     console.log('PostContainer:render');
 
     return (
-      <article className="post">
-        {this.buildPost(post)}
-      </article>
+      <Post post={post} />
     );
   }
 }

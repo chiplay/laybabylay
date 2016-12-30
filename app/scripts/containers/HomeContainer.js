@@ -38,7 +38,7 @@ class HomeContainer extends Component {
 function mapStateToProps(state) {
   return {
     // TODO: properly map state to props for all components
-    featured: state.pages.home.related_posts,
+    featured: state.pages.home.featured_posts,
     posts: state.posts.posts,
     pageNum: state.posts.pageNum,
     totalPages: state.posts.totalPages

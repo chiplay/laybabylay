@@ -9,6 +9,8 @@
 .postcard {
   padding: 10px;
   position: relative;
+  opacity: 0.1;
+  .transition(opacity 1s cubic-bezier(0.190, 1.000, 0.220, 1.000));
   // .make-column(1, 1);
   // min-height: 400px;
 
@@ -24,10 +26,8 @@
   //   .make-column(1, 5);
   // }
 
-  &:hover {
-    header {
-      opacity: 0.90;
-    }
+  .slick-active & {
+    opacity: 1;
   }
 
   header {
@@ -35,19 +35,35 @@
     background: #fff;
     position: absolute;
     bottom: 0;
-    left: 0;
-    width: calc(~"100% - 30px");
-    padding: 20px 20px 15px;
-    margin: 0 15px 15px;
+    right: 0;
+    width: auto;
+    padding: 20px 60px;
+    margin: 0 30px 30px;
     text-align: center;
-    opacity: 0;
+    opacity: 0.9;
+  }
+
+  &__category, &__link {
+    color: @lbl-pink;
+    line-height: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    width: 100%;
+    position: relative;
+    text-transform: uppercase;
+  }
+
+  &__category {
+    margin-bottom: 10px;
+    font-weight: 500;
   }
 
   &__title {
-    color: @black;
-    line-height: 22px;
-    font-size: 16px;
-    font-weight: 500;
+    color: @gray-darker;
+    line-height: 24px;
+    font-size: 24px;
+    font-weight: 600;
     letter-spacing: 2px;
     width: 100%;
     position: relative;
@@ -59,9 +75,10 @@
     font-style: italic;
     letter-spacing: .07rem;
     text-transform: lowercase;
-    line-height: 18px;
-    font-size: 14px;
+    line-height: 24px;
+    font-size: 16px;
     font-weight: normal;
+    margin-bottom: 15px;
   }
 
   &__image { // img
