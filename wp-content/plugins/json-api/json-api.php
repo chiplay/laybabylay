@@ -24,6 +24,7 @@ $dir = json_api_dir();
 @include_once "$dir/models/related.php";
 @include_once "$dir/models/boarditem.php";
 @include_once "$dir/models/searchterm.php";
+@include_once "$dir/models/sidebartile.php";
 
 function json_api_init() {
   global $json_api;

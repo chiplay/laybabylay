@@ -3,7 +3,10 @@ import { RECEIVE_PAGE } from '../actions';
 export const DEFAULT_PAGE = 'home';
 
 let defaultPage = {
-  featured_posts: []
+  featured_posts: [],
+  popular_posts: [],
+  favorite_posts: [],
+  sidebar_tiles: []
 };
 
 let defaultState = {

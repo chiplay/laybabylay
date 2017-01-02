@@ -1,0 +1,197 @@
+.clear { 
+	clear: both; 
+}
+
+.board_builder {  
+	margin: -6px -12px -8px -10px; 
+	position: relative; 
+}
+
+.layout { 
+	min-height: 50px; 
+
+	.add_layout_image { 
+		margin: 20px 0 0 20px; 
+	}
+
+	img { 
+		display: block; 
+		margin: 20px; 
+		background: #fff; 
+		height: auto; 
+		border: none; 
+	}
+}
+
+.items { 
+	overflow-y: scroll; 
+
+	ul { 
+		margin: 0; 
+		padding: 0; 
+
+		li { 
+			margin: 0; 
+			padding: 20px; 
+			background: #fff; 
+			border-bottom: 1px solid #ddd; 
+		}
+	}
+}
+
+.newitem {
+	position: relative;
+
+	input.findornew { 
+		display: block; 
+		margin: 0; 
+		padding: 20px 20px 20px 20px;
+		border: none !important; 
+		background: #fff; 
+		color: #777; 
+		height: 60px; 
+		width: 100%;
+		font-size: 20px; 
+		line-height: 23px; 
+	}
+
+	input.addnewitem {
+		position: absolute;
+		top: 17px;
+		right: 15px;
+	}
+}
+
+
+.vertical_split {
+
+	.layout { 
+		width: 35%; 
+		float: left; 
+		border-right: 1px solid #fff; 
+	}
+
+	.items { 
+		width: 65%; 
+		position: absolute; 
+		right:0px; 
+		top: 0px; 
+		border-left: 1px solid #ddd; 
+		height: 100%; 
+	}
+}
+
+.board-builder-create-item {
+
+	.media-frame-router { 
+		height: 0px;
+	}
+
+	.media-frame-content {
+		top: 45px;
+
+		.media-sidebar {
+			left: 0;
+			right: auto;
+			width: 200px;
+			padding: 0 0 24px;
+			overflow: visible;
+
+			ul {
+				margin: 30px 0 0;
+				border-top: 1px solid #eaeaea;
+
+				li {
+					margin: 0;
+
+					a {
+						color: #555;
+						text-decoration: none;
+					}
+				}
+			}
+
+			.item_grouping {
+				border-bottom: 1px solid #eaeaea;
+				display: block;
+				padding: 10px;
+				margin: 0;
+				position: relative;
+
+				&:hover {
+					background: #fafafa;
+				}
+
+				&.selected_grouping {
+					background: #fff;
+
+					.arrow {
+						position: absolute;
+						top: 50%;
+						right: 0;
+						margin: -19px -38px 0 0;
+						height: 0;
+						width: 0;
+						border: 19px solid transparent;
+						border-left: 19px solid #e7e7e7;
+
+						.arrow-inner {
+							position: absolute;
+							height: 0;
+							width: 0;
+							border: 18px solid transparent;
+							border-left: 18px solid #fff;
+							margin: -18px 0 0 -19px;
+						}
+					}
+				}
+			}
+		}
+
+		.item-section {
+			margin-left: 200px;
+			padding: 30px;
+
+			input {
+				width: 100%;
+				padding: 10px;
+				margin: 0 0 10px;
+			}
+
+			textarea {
+				width: 100%;
+				padding: 10px;
+				margin: 5px 0 10px;
+			}
+		}
+	}
+
+	.row-wrap {
+		padding: 0 5px;
+		width: auto;
+		float: none;
+
+		.span50 {
+			margin: 0 -5px;
+			width: 50%;
+
+			&.border-right {
+				border-right: 1px solid #ddd;
+				margin-right: -6px;
+			}
+
+			&.postbox {
+				margin: 0 -7px;
+
+				input.button {
+					width: auto;
+					padding: 0px 10px 1px;
+				}
+			}
+		}
+	}
+
+	h3 {
+		padding: 10px;
+	}
+}

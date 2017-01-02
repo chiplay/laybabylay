@@ -19,7 +19,7 @@ export default class PostSummary extends Component {
 
     if (firstImage) {
       const filename = new URI(firstImage.url).filename();
-      const imageSrc = 'https://res.cloudinary.com/laybabylay/image/upload/f_auto,q_30,w_500,h_500,r_250,c_fill/v1448851561/' + filename;
+      const imageSrc = 'https://res.cloudinary.com/laybabylay/image/upload/f_auto,q_30,w_400/v1448851561/' + filename;
       image = <figure className="post-summary__image--wrapper"><img className="post-summary__image" src={imageSrc} alt={post.title} /></figure>;
     }
 

@@ -399,6 +399,28 @@ class JSON_API_Introspector {
     return $featured_posts;
   }
 
+  public function get_popular_posts($post_id) {
+    $acf_popular_posts = get_field('popular_posts', $post_id);
+    $popular_posts = array();
+    if (!empty($acf_popular_posts)) {
+      foreach ($acf_popular_posts as $acf_popular_post) {
+        $popular_posts[] = new JSON_API_Related($acf_popular_post);
+      }
+    }
+    return $popular_posts;
+  }
+
+  public function get_favorite_posts($post_id) {
+    $acf_favorite_posts = get_field('favorite_posts', $post_id);
+    $favorite_posts = array();
+    if (!empty($acf_favorite_posts)) {
+      foreach ($acf_favorite_posts as $acf_favorite_post) {
+        $favorite_posts[] = new JSON_API_Related($acf_favorite_post);
+      }
+    }
+    return $favorite_posts;
+  }
+
   public function get_related_products($post_id) {
     $acf_related_products = get_field('product_alternates', $post_id);
     $related_products = array();
@@ -447,6 +469,17 @@ class JSON_API_Introspector {
       }
     }
     return $styleboard_products;
+  }
+
+  public function get_sidebar_tiles($post_id) {
+    $acf_sidebar_tiles = get_field('sidebar_tiles', $post_id);
+    $sidebar_tiles = array();
+    if (!empty($acf_sidebar_tiles)) {
+      foreach ($acf_sidebar_tiles as $key=>$acf_sidebar_tile) {
+        $sidebar_tiles[] = new JSON_API_Sidebar_Tile($acf_sidebar_tile, $key);
+      }
+    }
+    return $sidebar_tiles;
   }
 
   public function get_search_terms($post_id) {

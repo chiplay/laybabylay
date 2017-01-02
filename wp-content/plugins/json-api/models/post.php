@@ -32,6 +32,9 @@ class JSON_API_Post {
   var $search_terms;
   var $related_posts;
   var $featured_posts;
+  var $popular_posts;
+  var $favorite_posts;
+  var $sidebar_tiles;
   var $styleboard_products;
   var $nb_links;
   var $featured_image;
@@ -166,6 +169,9 @@ class JSON_API_Post {
     // LBL
     $this->set_related_posts_value();
     $this->set_featured_posts_value();
+    $this->set_popular_posts_value();
+    $this->set_favorite_posts_value();
+    $this->set_sidebar_tiles_value();
     $this->set_value('subtitle', get_field('subtitle', $this->id));
     $this->set_value('featured_image', get_field('featured_image', $this->id));
     $this->set_colors_value();
@@ -356,12 +362,39 @@ class JSON_API_Post {
     }
   }
 
+  function set_popular_posts_value() {
+    global $json_api;
+    if ($json_api->include_value('popular_posts')) {
+      $this->popular_posts = $json_api->introspector->get_popular_posts($this->id);
+    } else {
+      unset($this->popular_posts);
+    }
+  }
+
+  function set_favorite_posts_value() {
+    global $json_api;
+    if ($json_api->include_value('favorite_posts')) {
+      $this->favorite_posts = $json_api->introspector->get_favorite_posts($this->id);
+    } else {
+      unset($this->favorite_posts);
+    }
+  }
+
   function set_colors_value() {
     global $json_api;
     if ($json_api->include_value('colors')) {
       $this->colors = $json_api->introspector->get_colors($this->id);
     } else {
       unset($this->colors);
+    }
+  }
+
+  function set_sidebar_tiles_value() {
+    global $json_api;
+    if ($json_api->include_value('sidebar_tiles')) {
+      $this->sidebar_tiles = $json_api->introspector->get_sidebar_tiles($this->id);
+    } else {
+      unset($this->sidebar_tiles);
     }
   }
 

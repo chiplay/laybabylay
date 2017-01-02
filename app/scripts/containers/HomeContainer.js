@@ -4,6 +4,7 @@ import { fetchPosts, fetchPage } from '../actions';
 import { Link } from 'react-router';
 import PostCards from '../components/PostCards';
 import RecentPosts from '../components/RecentPosts';
+import Sidebar from '../components/Sidebar';
 
 // Smart component
 class HomeContainer extends Component {
@@ -28,7 +29,12 @@ class HomeContainer extends Component {
     return (
       <div>
         <PostCards {...this.props} />
-        <RecentPosts {...this.props} />
+
+        <div className="home__container">
+          <RecentPosts {...this.props} />
+          <Sidebar {...this.props} />
+        </div>
+
       </div>
     );
 
@@ -39,6 +45,9 @@ function mapStateToProps(state) {
   return {
     // TODO: properly map state to props for all components
     featured: state.pages.home.featured_posts,
+    favorite: state.pages.home.favorite_posts,
+    popular: state.pages.home.popular_posts,
+    tiles: state.pages.home.sidebar_tiles,
     posts: state.posts.posts,
     pageNum: state.posts.pageNum,
     totalPages: state.posts.totalPages

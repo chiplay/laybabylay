@@ -10,7 +10,7 @@ export const RECEIVE_POST_ERROR = 'RECEIVE_POST_ERROR';
 const POSTS_PER_PAGE = 10;
 const WP_URL = '/api';
 const postAttrs = 'nb_links,acf,styleboard_products,subtitle,comments,comment_status,attachments,categories,colors,excerpt,related_posts,comment_count,content,date,id,slug,tags,title,type,url,featured_image';
-const pageAttrs = 'acf,excerpt,categories,featured_posts,content,title,subtitle,attachments,id,slug,url';
+const pageAttrs = 'acf,excerpt,categories,featured_posts,popular_posts,favorite_posts,sidebar_tiles,content,title,subtitle,attachments,id,slug,url';
 
 
 // TODO: Add "featured" posts fetching for homepage - seperate action? or parameters?
