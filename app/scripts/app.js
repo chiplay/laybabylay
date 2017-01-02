@@ -6,14 +6,13 @@ define([
   'marionette',
   'analytics',
   'vent',
-  'raygun',
   'fastclick',
   'models/SearchResults',
   'views/HeaderView',
   'regions/modal',
   'backbone.stickit',
   'backbone-associations'
-], function(config, $, _, Backbone, Marionette, analytics, vent, Raygun, FastClick, SearchResults, HeaderView){
+], function(config, $, _, Backbone, Marionette, analytics, vent, FastClick, SearchResults, HeaderView){
 
   var app = new Marionette.Application();
 
@@ -35,10 +34,6 @@ define([
       window._app = app;
       window._vent = vent;
     }
-
-    // load raygun for error logging
-    Raygun.setVersion(config.version);
-    Raygun.init(config.raygunApiKey, { ignore3rdPartyErrors: true }).attach();
 
     app.namespaces = options.namespaces;
     app.config = config;
