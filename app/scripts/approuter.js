@@ -27,7 +27,7 @@ define([
     },
 
     initialize: function() {
-      this.pageBuffer = _.debounce(analytics.page, 500);
+      this.pageBuffer = _.debounce(function() { window.ga('send', 'pageview'); }, 500);
     },
 
     navigate: function(){

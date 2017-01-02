@@ -236,10 +236,6 @@ define([
     },
 
     showFBDialog: function(ev) {
-      analytics.track('Shared Post on Facebook', {
-        category: this.model.get('url'),
-        label: this.model.get('title')
-      });
       ev.preventDefault();
       facebook.uiDialog({
         display: 'popup',
@@ -254,10 +250,6 @@ define([
     },
 
     showPinDialog: function(ev) {
-      analytics.track('Shared Post on Pinterest', {
-        category: this.model.get('url'),
-        label: this.model.get('title')
-      });
       ev.preventDefault();
       ev.stopPropagation();
       var url = $(ev.currentTarget).attr('data-href'),
@@ -267,10 +259,6 @@ define([
     },
 
     showTweetDialog: function(ev) {
-      analytics.track('Shared Post on Twitter', {
-        category: this.model.get('url'),
-        label: this.model.get('title')
-      });
       ev.preventDefault();
       var url = $(ev.currentTarget).attr('data-href'),
           w = 550,
@@ -332,9 +320,11 @@ define([
           url = link.attr('href'),
           tmp = document.createElement('a');
       tmp.href = url;
-      analytics.track('Outbound Traffic', {
-        label: url,
-        category: tmp.hostname
+      window.ga('send', {
+        hitType: 'event',
+        eventAction: 'Outbound Traffic',
+        eventLabel: url,
+        eventCategory: tmp.hostname
       });
       _.delay(function() {
         if (window.vglnk && window.vglnk.click) {

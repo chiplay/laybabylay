@@ -113,9 +113,11 @@ function (q, analytics, $, _, Backbone, Marionette, facebook, vent, RelatedPosts
       this.loadRelatedPost();
       this.loadTags();
 
-      analytics.track('Viewed Product Modal', {
-        category: this.model.get('link'),
-        label: this.model.get('title')
+      window.ga('send', {
+        hitType: 'event',
+        eventAction: 'Viewed Product Modal',
+        eventLabel: this.model.get('title'),
+        eventCategory: this.model.get('link')
       });
       // q(this.model.ready).then(this.loadRelatedPost).done();
       // q(this.model.ready).then(this.loadTags).done();
@@ -128,11 +130,6 @@ function (q, analytics, $, _, Backbone, Marionette, facebook, vent, RelatedPosts
     },
 
     showFBDialog: function(ev) {
-      analytics.track('Shared Product on Facebook', {
-        category: this.model.get('link'),
-        url: this.model.get('url'),
-        label: this.model.get('title')
-      });
       ev.preventDefault();
       facebook.uiDialog({
         method: 'feed',
@@ -147,11 +144,6 @@ function (q, analytics, $, _, Backbone, Marionette, facebook, vent, RelatedPosts
     },
 
     showPinDialog: function(ev) {
-      analytics.track('Shared Product on Pinterest', {
-        category: this.model.get('link'),
-        url: this.model.get('url'),
-        label: this.model.get('title')
-      });
       ev.preventDefault();
       var url = $(ev.currentTarget).attr('data-href'),
           w = 750,
@@ -160,11 +152,6 @@ function (q, analytics, $, _, Backbone, Marionette, facebook, vent, RelatedPosts
     },
 
     showTweetDialog: function(ev) {
-      analytics.track('Shared Product on Twitter', {
-        category: this.model.get('link'),
-        url: this.model.get('url'),
-        label: this.model.get('title')
-      });
       ev.preventDefault();
       var url = $(ev.currentTarget).attr('data-href'),
           w = 550,
@@ -196,9 +183,11 @@ function (q, analytics, $, _, Backbone, Marionette, facebook, vent, RelatedPosts
           url = link.attr('href'),
           tmp = document.createElement('a');
       tmp.href = url;
-      analytics.track('Outbound Traffic', {
-        label: this.model.get('title'),
-        category: tmp.hostname
+      window.ga('send', {
+        hitType: 'event',
+        eventAction: 'Outbound Traffic',
+        eventLabel: this.model.get('title'),
+        eventCategory: tmp.hostname
       });
       _.delay(function() {
         if (window.vglnk && window.vglnk.click) {

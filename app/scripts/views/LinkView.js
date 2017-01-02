@@ -39,9 +39,11 @@ define([
       var url = this.model.get('link'),
           tmp = document.createElement('a');
       tmp.href = url;
-      analytics.track('Outbound Traffic', {
-        label: this.model.get('title'),
-        category: tmp.hostname
+      window.ga('send', {
+        hitType: 'event',
+        eventAction: 'Outbound Traffic',
+        eventLabel: this.model.get('title'),
+        eventCategory: tmp.hostname
       });
       _.delay(function() {
         if (window.vglnk && window.vglnk.click) {

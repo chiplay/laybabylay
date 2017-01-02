@@ -155,7 +155,10 @@ define([
           this.stopListening(vent, 'scroll:update', this.closeMenu);
         } else {
           window.scrollTo(0,0);
-          analytics.track('Viewed the Menu');
+          window.ga('send', {
+            hitType: 'event',
+            eventAction: 'Viewed the Menu'
+          });
           this.menu = true;
           this.listenTo(vent, 'scroll:update', this.closeMenu);
           $('body').attr('style','-webkit-transform: translate3d(0, ' + height + 'px, 0); transform: translate3d(0, ' + height + 'px, 0);');
@@ -236,9 +239,10 @@ define([
     },
 
     clickPrintShop: function(ev) {
-      analytics.track('Visited Print Shop', {
-        label: 'Society6 Print Shop',
-        category: 'Society6 Print Shop'
+      window.ga('send', {
+        hitType: 'event',
+        eventAction: 'Visited Print Shop',
+        eventLabel: 'Society6 Print Shop'
       });
     }
 

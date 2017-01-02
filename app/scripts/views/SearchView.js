@@ -96,9 +96,11 @@ define([
       this.model.ready = this.model.fetch();
       q(this.model.ready).then(this.triggerReset).done();
 
-      analytics.track('Searched', {
-        category: queryObj.category,
-        label: queryObj.search
+      window.ga('send', {
+        hitType: 'event',
+        eventAction: 'Searched',
+        eventLabel: queryObj.search,
+        eventCategory: queryObj.category
       });
     },
 

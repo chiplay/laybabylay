@@ -64,9 +64,11 @@ define([
       if (url) {
         tmp = document.createElement('a');
         tmp.href = url;
-        analytics.track('Outbound Traffic', {
-          label: this.model.get('external_title'),
-          category: tmp.hostname
+        window.ga('send', {
+          hitType: 'event',
+          eventAction: 'Outbound Traffic',
+          eventLabel: this.model.get('external_title'),
+          eventCategory: tmp.hostname
         });
         _.delay(function() {
           if (window.vglnk && window.vglnk.click) {
@@ -86,9 +88,11 @@ define([
         var modalView = new ProductModalView({ model: getProduct.get('product') });
         vent.trigger('app:modal:show', modalView);
       });
-      analytics.track('Clicked Hotspot', {
-        category: this.model.collection.parents[0].get('title'),
-        label: this.model.get('product.title')
+      window.ga('send', {
+        hitType: 'event',
+        eventAction: 'Clicked Hotspot',
+        eventLabel: this.model.get('product.title'),
+        eventCategory: this.model.collection.parents[0].get('title')
       });
     }
 
