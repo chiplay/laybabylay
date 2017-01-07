@@ -8,7 +8,6 @@ export default class LexiTheme extends Component {
     return (
       <div className="">
         <Header />
-        <SearchFilters />
         <div className="search-cover"></div>
         <div className="">
           {this.props.children}

@@ -36,9 +36,9 @@ render(
 		<Router history={browserHistory}>
 			<Route path="/" component={Theme}>
 				<IndexRoute component={HomeContainer} />
-				<Route path=":postSlug" component={PostContainer} />
-				<Route path="posts/:pageNum" component={HomeContainer} />
 				<Route path="about" component={AboutPageContainer} />
+				<Route path="posts/:pageNum" component={HomeContainer} />
+				<Route path=":postSlug" component={PostContainer} />
 			</Route>
 		</Router>
 	</Provider>,

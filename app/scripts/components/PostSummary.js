@@ -25,26 +25,28 @@ export default class PostSummary extends Component {
 
     return (
       <div className="post-summary">
-        <div className="post-summary__bg">
+        <Link to={'/' + post.slug}>
+          <div className="post-summary__bg">
 
-          {image}
+            {image}
 
-          <div className="post-summary__content">
+            <div className="post-summary__content">
 
-            <div className="post-summary__meta">
-              <div className="post-summary__category">{categoryTitle}</div>
+              <div className="post-summary__meta">
+                <div className="post-summary__category">{categoryTitle}</div>
+              </div>
+
+              <header>
+                <h1 className="post-summary__title">{decodeHtml(post.title)}</h1>
+                <h2 className="post-summary__subtitle">{decodeHtml(post.subtitle)}</h2>
+              </header>
+
+              <p className="post-summary__excerpt">{decodeHtml(post.excerpt)}</p>
+
+              <div className="post-summary__link">Read More</div>
             </div>
-
-            <header>
-              <h1 className="post-summary__title">{decodeHtml(post.title)}</h1>
-              <h2 className="post-summary__subtitle">{decodeHtml(post.subtitle)}</h2>
-            </header>
-
-            <p className="post-summary__excerpt">{decodeHtml(post.excerpt)}</p>
-
-            <Link className="post-summary__link" to={'/' + post.slug}>Read More</Link>
           </div>
-        </div>
+        </Link>
       </div>
     );
   }

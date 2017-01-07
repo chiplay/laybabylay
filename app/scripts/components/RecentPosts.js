@@ -21,7 +21,7 @@ export default class RecentPosts extends Component {
     );
   }
 
-  buildPagination(pageNum, totalPages) {
+  buildPagination(pageNum, totalPages, isFetching) {
     const prevText = 'Previous';
     const nextText = 'Next';
 
@@ -46,17 +46,26 @@ export default class RecentPosts extends Component {
       prevLink.enabled = true;
     }
 
-    return (
-      <nav>
-        <ul className="pager">
-          {[prevLink, nextLink].map((link, index) =>
-            <li key={index} className={link.enabled ? '' : 'disabled'}>
-              {link.link}
-            </li>
-          )}
-        </ul>
-      </nav>
-    );
+    if (isFetching) {
+      return (
+        <div className="spinner">
+          <div className="double-bounce1"></div>
+          <div className="double-bounce2"></div>
+        </div>
+      );
+    } else {
+      return (
+        <nav>
+          <ul className="pager">
+            {[prevLink, nextLink].map((link, index) =>
+              <li key={index} className={link.enabled ? '' : 'disabled'}>
+                {link.link}
+              </li>
+            )}
+          </ul>
+        </nav>
+      );
+    }
   }
 
   buildFilters(activeFilter) {
@@ -82,7 +91,13 @@ export default class RecentPosts extends Component {
   }
 
   render() {
-    const { posts, totalPages, pageNum = 1, activeFilter = 'recent' } = this.props;
+    const {
+      posts,
+      totalPages,
+      pageNum = 1,
+      activeFilter = 'recent',
+      isFetching
+    } = this.props;
 
     console.log('RecentPosts:render');
 
@@ -93,7 +108,7 @@ export default class RecentPosts extends Component {
 
         {this.buildPosts(posts)}
 
-        {this.buildPagination(parseInt(pageNum), totalPages)}
+        {this.buildPagination(parseInt(pageNum), totalPages, isFetching)}
 
       </div>
     );

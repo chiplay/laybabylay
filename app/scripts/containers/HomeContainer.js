@@ -50,7 +50,8 @@ function mapStateToProps(state) {
     tiles: state.pages.home.sidebar_tiles,
     posts: state.posts.posts,
     pageNum: state.posts.pageNum,
-    totalPages: state.posts.totalPages
+    totalPages: state.posts.totalPages,
+    isFetching: state.posts.isFetching
   };
 }
 

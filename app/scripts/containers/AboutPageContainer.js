@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AboutPage from '../components/AboutPage';
 import { connect } from 'react-redux';
-import { fetchPageIfNeeded } from '../actions';
+import { fetchPage } from '../actions';
 import { bindActionCreators } from 'redux';
 import { DEFAULT_PAGE } from '../reducers/pages';
 
@@ -10,9 +10,9 @@ const PAGE_NAME = 'about';
 // Smart component
 class AboutPageContainer extends Component {
     componentWillMount() {
-        const { fetchPageIfNeeded } = this.props;
+        const { fetchPage } = this.props;
 
-        fetchPageIfNeeded(PAGE_NAME);
+        fetchPage(PAGE_NAME);
     }
 
     render() {
@@ -32,6 +32,6 @@ function mapStateToProps(state) {
 // We need to connect it to Redux store
 export default connect(
     mapStateToProps,
-    { fetchPageIfNeeded }
+    { fetchPage }
 )(AboutPageContainer);
 

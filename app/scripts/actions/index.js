@@ -3,6 +3,7 @@ import Promise from 'bluebird';
 
 export const RECEIVE_PAGE = 'RECEIVE_PAGE';
 export const RECEIVE_PAGE_ERROR = 'RECEIVE_PAGE_ERROR';
+export const START_FETCH_POSTS = 'START_FETCH_POSTS';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 export const RECEIVE_POST = 'RECEIVE_POST';
 export const RECEIVE_POST_ERROR = 'RECEIVE_POST_ERROR';
@@ -46,6 +47,8 @@ function pageFetchError(err) {
 
 export function fetchPosts(pageNum = 1, postPerPage = POSTS_PER_PAGE) {
   return function (dispatch) {
+    dispatch(startFetchPosts());
+
     return fetch(WP_URL + '/get_posts/?post_type=post&include=' + postAttrs + '&page=' + pageNum + '&count=' + postPerPage)
       .then(response => Promise.resolve(
         response.json()
@@ -57,6 +60,12 @@ export function fetchPosts(pageNum = 1, postPerPage = POSTS_PER_PAGE) {
         postFetchError(err)
       ));
   }
+}
+
+function startFetchPosts(response) {
+  return {
+    type: START_FETCH_POSTS
+  };
 }
 
 function receivePosts(response) {

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
+import 'styles/header.less';
 
 export default class Header extends Component {
   render() {
@@ -7,21 +9,31 @@ export default class Header extends Component {
         <div className="header">
           <div className="navigation-wrapper container">
 
-            <h1 id="logo">
-              <a href="/">
+            <Link className="logo" to={'/'}>
+              <h1>
                 <span className="sr-only">Lay Baby Lay - Nursery Decor and Baby Room Ideas</span>
-              </a>
-            </h1>
+              </h1>
+            </Link>
 
-            <nav id="navigation">
-              <span className="right-nav">
-                <button className="icon-menu">
-                  <span className="hide">View Menu</span>
-                </button>
-              </span>
-            </nav>
+            <ul className="header__nav">
+              <li className="header__nav-item">
+                <Link to={'/about'}>About</Link>
+              </li>
+              <li className="header__nav-item">
+                <Link to={'/studio'}>Studio</Link>
+              </li>
+              <li className="header__nav-item header__nav-item--home">
+                <Link to={'/'}>Home</Link>
+              </li>
+              <li className="header__nav-item">
+                <Link to={'/shop'}>Shop</Link>
+              </li>
+              <li className="header__nav-item header__nav-item--last">
+                <Link to={'/products'}>Products</Link>
+              </li>
+            </ul>
 
-            <div id="search">
+            <div>
               <form action="/search" className="search-form" id="search-header-form" role="search">
                 <input autoCapitalize="off" autoComplete="off" autoCorrect="off" className="search-input" id="search-input" name="query" placeholder="Search" tabIndex="1" type="search" />
 
