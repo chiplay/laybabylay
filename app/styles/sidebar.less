@@ -10,4 +10,35 @@
   @media (max-width: @screen-tablet-max) {
     width: 90%;
   }
+
+  &-tiles {
+
+  }
+
+  &-tile {
+    background-color: #fff;
+    display: block;
+    margin-bottom: 30px;
+
+    &:hover {
+      h4 {
+        color: @lbl-pink;
+      }
+    }
+
+    img {
+      width: 100%;
+    }
+
+    h4 {
+      text-align: center;
+      padding: 20px 10px;
+      width: 100%;
+      font-size: 12px;
+      line-height: 18px;
+      font-weight: 600;
+      color: @gray-dark;
+      letter-spacing: 1px;
+    }
+  }
 }

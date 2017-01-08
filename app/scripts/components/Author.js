@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import 'styles/author.less';
 
 export default class Author extends Component {
   render() {
     return (
       <div className="author">
-        <a className="headshot" href="/about" title="About Lay Baby Lay">Joni Lay</a>
+        <Link className="headshot" to={'/about'} title="About Lay Baby Lay">About Joni</Link>
 
         <div className="social-links">
           <a className="facebook" href="https://www.facebook.com/laybabylay" target="_blank">Facebook</a>
@@ -16,22 +17,6 @@ export default class Author extends Component {
           <a className="twitter" href="https://twitter.com/laybabylay" target="_blank">Twitter</a>
         </div>
 
-        <div className="links">
-          <a className="about-link" href="/about">about joni</a> | <a href="http://society6.com/jonilay" className="print-shop" target="_blank">print shop</a>
-        </div>
-
-        <div className="email-signup">
-          <form action="//laybabylay.us3.list-manage.com/subscribe/post?u=fdeae0ed89c10e09597447b4b&amp;id=30ae3cf548" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" className="validate" target="_blank" noValidate="">
-            <label htmlFor="mce-EMAIL">weekly inbox inspiration:</label>
-            <div className="field-wrapper">
-              <input type="email" value="" name="EMAIL" className="email" id="mce-EMAIL" placeholder="email address" required="" />
-              <div style={{position: 'absolute', left: '-5000px'}}>
-                <input type="text" name="b_fdeae0ed89c10e09597447b4b_30ae3cf548" tabIndex="-1" value="" />
-              </div>
-              <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className="button" />
-            </div>
-          </form>
-        </div>
       </div>
     );
   }

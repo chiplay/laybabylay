@@ -23,26 +23,29 @@ export default class PostCards extends Component {
       // className: 'center',
       centerMode: true,
       infinite: true,
-      centerPadding: '60px',
+      centerPadding: '200px',
+      adaptiveHeight: true,
       slidesToShow: 1,
       slidesToScroll: 1,
       responsive: [{
+        breakpoint: 1400,
+        settings: {
+          centerPadding: '160px'
+        }
+      },{
         breakpoint: 1024,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
+          centerPadding: '110px'
         }
       }, {
         breakpoint: 600,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
+          centerPadding: '80px'
         }
       }, {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
+          centerPadding: '20px'
         }
       }]
     };

@@ -16,12 +16,27 @@
     background-size: 90%;
     background-repeat: no-repeat;
     width: 270px;
-    height: 270px;
-    display: block;
-    text-indent: -5000px;
+    height: 320px;
+    display: inline-block;
+    vertical-align: bottom;
+
+    font-size: 14px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: @lbl-pink;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+
+    &:after {
+      content: "";
+      display: inline-block;
+      height: 100%;            /* Let it be as height as the parent */
+      vertical-align: bottom;  /* Align the element at the bottom   */
+    }
   }
 
   .social-links {
+    margin-bottom: 40px;
 
     a {
       background-size: 212px 130px;

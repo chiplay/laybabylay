@@ -6,9 +6,10 @@ Template Name: Single Post
 
 <?php get_header('single'); ?>
 
-<?php while(have_posts()) : the_post(); ?>
-
 <div id="root"></div>
+
+<?php /* while(have_posts()) : the_post(); ?>
+
 
 <div id="main">
 
@@ -92,5 +93,7 @@ Template Name: Single Post
 	</article>
 
 </div>
+
+<?php */ ?>
 
 <?php get_footer(); ?>

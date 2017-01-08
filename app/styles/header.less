@@ -41,13 +41,17 @@
 
     a {
       text-transform: uppercase;
-      color: @lbl-pink;
+      color: @gray;
       line-height: 20px;
       font-size: 14px;
       font-weight: 700;
       letter-spacing: 2px;
       position: relative;
       text-transform: uppercase;
+
+      &:hover {
+        color: @lbl-pink;
+      }
     }
 
     &--home {
@@ -87,6 +91,11 @@
   .translate3d(0, 0, 0);
   .backface-visibility(visible);
   .opacity(1);
+
+  .footer & {
+    position: relative;
+    float: left;
+  }
 
   @media (max-width: @screen-desktop-max) {
     width: 18%;

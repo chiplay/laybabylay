@@ -22,30 +22,6 @@ export default class RecentPosts extends Component {
   }
 
   buildPagination(pageNum, totalPages, isFetching) {
-    const prevText = 'Previous';
-    const nextText = 'Next';
-
-    let prevLink = {
-      link: <a>{prevText}</a>,
-      enabled: false
-    };
-
-    let nextLink = {
-      link: <Link to={'/posts/' + (pageNum + 1)} onClick={() => this.handlePaginationClick(pageNum + 1)}>{nextText}</Link>,
-      enabled: true
-    };
-
-    if (pageNum > 1 && pageNum < totalPages) {
-      prevLink.link = <Link to={'/posts/' + (pageNum - 1)} onClick={() => this.handlePaginationClick(pageNum - 1)}>{prevText}</Link>;
-      prevLink.enabled = true;
-    } else if (pageNum == totalPages) {
-      nextLink.link = <a>{nextText}</a>;
-      nextLink.enabled = false;
-
-      prevLink.link = <Link to={'/posts/' + (pageNum - 1)} onClick={() => this.handlePaginationClick(pageNum - 1)}>{prevText}</Link>;
-      prevLink.enabled = true;
-    }
-
     if (isFetching) {
       return (
         <div className="spinner">
@@ -53,17 +29,13 @@ export default class RecentPosts extends Component {
           <div className="double-bounce2"></div>
         </div>
       );
+    } else if (pageNum != totalPages) {
+      return (
+        <button type="button" className="load-more" onClick={() => this.handlePaginationClick(pageNum + 1)}>Gimme More +</button>
+      );
     } else {
       return (
-        <nav>
-          <ul className="pager">
-            {[prevLink, nextLink].map((link, index) =>
-              <li key={index} className={link.enabled ? '' : 'disabled'}>
-                {link.link}
-              </li>
-            )}
-          </ul>
-        </nav>
+        <button type="button" className="load-more load-more--fin">That's All!</button>
       );
     }
   }

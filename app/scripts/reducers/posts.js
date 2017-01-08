@@ -24,7 +24,7 @@ export default function posts(state = defaultState, action) {
       const { query, pages, posts } = action.payload;
 
       return Object.assign({}, state, {
-        posts: _.unionBy(posts, state.posts, 'id'),
+        posts: _.unionBy(state.posts, posts, 'id'),
         pageNum: parseInt(query.page),
         post: posts[0],
         totalPages: parseInt(pages),
@@ -35,7 +35,7 @@ export default function posts(state = defaultState, action) {
       const { post } = action.payload;
 
       return Object.assign({}, state, {
-        posts: _.unionBy(posts, state.posts, 'id'),
+        posts: _.unionBy(state.posts, posts, 'id'),
         activePost: post,
         isFetching: false
       });
