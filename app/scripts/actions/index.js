@@ -3,19 +3,24 @@ import Promise from 'bluebird';
 
 export const RECEIVE_PAGE = 'RECEIVE_PAGE';
 export const RECEIVE_PAGE_ERROR = 'RECEIVE_PAGE_ERROR';
+
 export const START_FETCH_POSTS = 'START_FETCH_POSTS';
 export const START_FETCH_POST = 'START_FETCH_POST';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 export const RECEIVE_POST = 'RECEIVE_POST';
 export const RECEIVE_POST_ERROR = 'RECEIVE_POST_ERROR';
 
+export const EXPAND_HEADER = 'EXPAND_HEADER';
+export const SHRINK_HEADER = 'SHRINK_HEADER';
+
 const POSTS_PER_PAGE = 10;
 const WP_URL = '/api';
 const postAttrs = 'nb_links,acf,styleboard_products,subtitle,comments,comment_status,attachments,categories,colors,excerpt,related_posts,comment_count,content,date,id,slug,tags,title,type,url,featured_image';
 const pageAttrs = 'acf,excerpt,categories,featured_posts,popular_posts,favorite_posts,sidebar_tiles,content,title,subtitle,attachments,id,slug,url';
 
-
 // TODO: Add "featured" posts fetching for homepage - seperate action? or parameters?
+
+// page actions
 
 export function fetchPage(slug) {
   return function (dispatch) {
@@ -45,6 +50,9 @@ function pageFetchError(err) {
     payload: err
   };
 }
+
+
+// posts actions
 
 export function fetchPosts(pageNum = 1, postPerPage = POSTS_PER_PAGE) {
   return function (dispatch) {
@@ -113,3 +121,17 @@ function postFetchError(err) {
   };
 }
 
+
+// app state actions
+
+export function expandHeader() {
+  return {
+    type: EXPAND_HEADER
+  };
+}
+
+export function shrinkHeader() {
+  return {
+    type: SHRINK_HEADER
+  };
+}

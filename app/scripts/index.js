@@ -5,7 +5,7 @@ import { Router, Route, IndexRoute, browserHistory, applyRouterMiddleware } from
 import { useScroll } from 'react-router-scroll';
 
 import configureStore from './store/configureStore';
-import Theme from './containers/Theme';
+import ThemeContainer from './containers/ThemeContainer';
 import HomeContainer from './containers/HomeContainer';
 import PostContainer from './containers/PostContainer';
 import AboutPageContainer from './containers/AboutPageContainer';
@@ -38,7 +38,7 @@ render(
 			history={browserHistory}
 			render={applyRouterMiddleware(useScroll())}
 		>
-			<Route path="/" component={Theme}>
+			<Route path="/" component={ThemeContainer}>
 				<IndexRoute component={HomeContainer} />
 				<Route path="about" component={AboutPageContainer} />
 				<Route path="posts/:pageNum" component={HomeContainer} />

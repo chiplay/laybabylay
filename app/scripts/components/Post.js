@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import URI from 'urijs';
 import { decodeHtml } from 'utils';
+import moment from 'moment';
+import classNames from 'classnames';
 import 'styles/post.less';
 
 // Dumb component
@@ -15,6 +17,7 @@ export default class Post extends Component {
 
   render() {
     const { post, isFetching } = this.props;
+    const postClasses = classNames({ post: true, featured: !!post.featured_image });
 
     if (isFetching) {
       return (
@@ -27,30 +30,32 @@ export default class Post extends Component {
       );
     }
 
-    let image = <div />;
+    let image = null;
 
     if (post.featured_image) {
       const filename = new URI(post.featured_image.url).filename();
-      const imageSrc = 'https://res.cloudinary.com/laybabylay/image/upload/f_auto,q_30,w_2400,h_800,c_fill/v1448851561/' + filename;
-      image = <img className="post__featured-image" src={imageSrc} alt={post.title} />;
+      const imageSrc = 'https://res.cloudinary.com/laybabylay/image/upload/f_auto,q_30,w_2400,h_1000,c_fill/v1448851561/' + filename;
+      image = (
+        <div className="post__featured-image--wrapper">
+          <img className="post__featured-image" src={imageSrc} alt={post.title} />
+        </div>
+      );
     }
 
     return (
-      <article className="post">
+      <article className={postClasses}>
 
-        <div className="post__featured-image--wrapper">
-          {image}
-        </div>
+        {image}
 
         <header className="align-center">
           <h1 className="title">{decodeHtml(post.title)}</h1>
           <h2 className="subtitle">{decodeHtml(post.subtitle)}</h2>
-        </header>
 
-        <div className="meta">
-          <div className="date">{post.date}</div>
-          <div className="color-palette-region" />
-        </div>
+          <div className="meta">
+            <div className="date">{moment(post.date).format('MMM Do, YYYY')}</div>
+            <div className="color-palette-region" />
+          </div>
+        </header>
 
         <div className="content" dangerouslySetInnerHTML={this.createMarkup(post.content)} />
 
