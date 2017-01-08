@@ -1,4 +1,4 @@
-import { RECEIVE_POSTS, RECEIVE_POST, START_FETCH_POSTS } from '../actions';
+import { RECEIVE_POSTS, RECEIVE_POST, START_FETCH_POSTS, START_FETCH_POST } from '../actions';
 import * as _ from 'lodash';
 
 const defaultState = {
@@ -16,6 +16,11 @@ const defaultState = {
 export default function posts(state = defaultState, action) {
   switch (action.type) {
     case START_FETCH_POSTS:
+      return Object.assign({}, state, {
+        isFetching: true
+      });
+
+    case START_FETCH_POST:
       return Object.assign({}, state, {
         isFetching: true
       });

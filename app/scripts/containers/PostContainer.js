@@ -21,14 +21,15 @@ class PostContainer extends Component {
     console.log('PostContainer:render');
 
     return (
-      <Post post={post} />
+      <Post {...this.props} />
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    post: state.posts.activePost
+    post: state.posts.activePost,
+    isFetching: state.posts.isFetching
   };
 }
 

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory, applyRouterMiddleware } from 'react-router';
+import { useScroll } from 'react-router-scroll';
 
 import configureStore from './store/configureStore';
 import Theme from './containers/Theme';
@@ -33,7 +34,10 @@ let rootElement = document.getElementById('root');
 
 render(
 	<Provider store={store}>
-		<Router history={browserHistory}>
+		<Router
+			history={browserHistory}
+			render={applyRouterMiddleware(useScroll())}
+		>
 			<Route path="/" component={Theme}>
 				<IndexRoute component={HomeContainer} />
 				<Route path="about" component={AboutPageContainer} />

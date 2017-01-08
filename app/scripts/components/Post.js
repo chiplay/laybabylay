@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import URI from 'urijs';
+import { decodeHtml } from 'utils';
 import 'styles/post.less';
 
 // Dumb component
@@ -13,7 +14,19 @@ export default class Post extends Component {
   // TODO - related post and comments, social buttons logic (actions?)
 
   render() {
-    const { post } = this.props;
+    const { post, isFetching } = this.props;
+
+    if (isFetching) {
+      return (
+        <article className="post">
+          <div className="spinner">
+            <div className="double-bounce1"></div>
+            <div className="double-bounce2"></div>
+          </div>
+        </article>
+      );
+    }
+
     let image = <div />;
 
     if (post.featured_image) {
@@ -30,8 +43,8 @@ export default class Post extends Component {
         </div>
 
         <header className="align-center">
-          <h1 className="title">{post.title}</h1>
-          <h2 className="subtitle">{post.subtitle}</h2>
+          <h1 className="title">{decodeHtml(post.title)}</h1>
+          <h2 className="subtitle">{decodeHtml(post.subtitle)}</h2>
         </header>
 
         <div className="meta">
