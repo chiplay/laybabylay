@@ -12,7 +12,7 @@ preg_match('/alexa|bot|crawl(er|ing)|pinterest|facebookexternalhit|feedburner|go
 
 if (!$matches) { ?>
 
-  <div id="main"></div>
+  <div id="root"></div>
 
 <?php
 

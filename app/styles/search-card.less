@@ -1,0 +1,40 @@
+@import (reference) "variables.less";
+@import (reference) "mixins.less";
+
+.search-card {
+  .make-column(1, 4);
+
+  @media (max-width: @screen-tablet-max) {
+    .make-column(1,3);
+  }
+  @media (max-width: @screen-small-max) {
+    .make-column(1,2);
+  }
+  margin: 20px 0;
+  text-align: center;
+
+  &__bg {
+    background-color: #fff;
+    padding: 10px;
+  }
+
+  &__header {
+    width: 100%;
+    padding: 20px 20px 15px;
+    text-align: center;
+    background: #f3f3f3;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    line-height: 20px;
+  }
+
+  &__image {
+    width: 100%;
+    background-color: #fff;
+    min-height: 100px;
+  }
+}

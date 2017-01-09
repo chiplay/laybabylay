@@ -199,9 +199,9 @@ class JSON_API_Core_Controller {
 
   public function get_search_results() {
     global $json_api;
-    $posts = $json_api->introspector->get_posts(array(
-      's' => $json_api->query->search
-    ));
+    $json = file_get_contents('php://input');
+    $obj = json_decode($json);
+    $posts = $json_api->introspector->get_posts($obj);
     return $this->posts_result($posts);
   }
 

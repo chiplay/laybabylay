@@ -15,7 +15,7 @@ define([
 
     defaults: {
       status: null,
-      count: 0,
+      posts_per_page: 0,
       count_total: 0,
       pages: 0,
       posts: []
@@ -23,19 +23,17 @@ define([
 
     defaultData: {
       post_type: ['post','product'],
-      tags: '',
-      category: null,
+      tag: '',
+      category_name: null,
       category_exclude: null,
-      product_tags: '',
+      product_tag: '',
       product_type: null,
-      page: 1,
-      count: 20,
+      paged: 1,
+      posts_per_page: 20,
       search: null,
       orderby: 'rand',
       order: 'DESC',
       include: 'acf,styleboard_products,subtitle,description,link,color,vendor,price,image,related_styleboards,related_products,attachments,categories,colors,excerpt,related_posts,comment_count,comment_status,content,date,id,slug,tags,taxonomy_product_tag,taxonomy_product_type,title,type,url'
-
-      // taxonomies / filters
     },
 
     relations: [

@@ -34,7 +34,7 @@ export default class Post extends Component {
 
     if (post.featured_image) {
       const filename = new URI(post.featured_image.url).filename();
-      const imageSrc = 'https://res.cloudinary.com/laybabylay/image/upload/f_auto,q_30,w_2400,h_1000,c_fill/v1448851561/' + filename;
+      const imageSrc = '//res.cloudinary.com/laybabylay/image/upload/q_30,w_2400,h_1000,c_fill/' + filename;
       image = (
         <div className="post__featured-image--wrapper">
           <img className="post__featured-image" src={imageSrc} alt={post.title} />

@@ -8,6 +8,7 @@ import configureStore from './store/configureStore';
 import ThemeContainer from './containers/ThemeContainer';
 import HomeContainer from './containers/HomeContainer';
 import PostContainer from './containers/PostContainer';
+import SearchContainer from './containers/SearchContainer';
 import AboutPageContainer from './containers/AboutPageContainer';
 import '../styles/app.less';
 
@@ -41,6 +42,9 @@ render(
 			<Route path="/" component={ThemeContainer}>
 				<IndexRoute component={HomeContainer} />
 				<Route path="about" component={AboutPageContainer} />
+				<Route path="search" component={SearchContainer} />
+				<Route path="search/:post_type" component={SearchContainer} />
+				<Route path="search/:post_type/:keyword" component={SearchContainer} />
 				<Route path="posts/:pageNum" component={HomeContainer} />
 				<Route path=":postSlug" component={PostContainer} />
 			</Route>

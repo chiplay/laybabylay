@@ -2,8 +2,10 @@
 
 class JSON_API_Introspector {
 
-  public function get_posts($query = false, $wp_posts = false) {
+  public function get_posts($obj = false, $wp_posts = false) {
     global $post, $wp_query;
+    $query = (array) $obj;
+
     $this->set_posts_query($query);
     $output = array();
     while (have_posts()) {
@@ -331,42 +333,14 @@ class JSON_API_Introspector {
 
     $query = array_merge($query, $wp_query->query);
 
-    if ($json_api->query->orderby) {
-      $query['orderby'] = $json_api->query->orderby;
+    if ($query['search']) {
+      $query['s'] = $query['search'];
     }
 
-    if ($json_api->query->page) {
-      $query['paged'] = $json_api->query->page;
-    }
-
-    if ($json_api->query->count) {
-      $query['posts_per_page'] = $json_api->query->count;
-    }
-
-    if ($json_api->query->post_type) {
-      $query['post_type'] = $json_api->query->post_type;
-    }
-
-    if ($json_api->query->category) {
-      $query['category_name'] = $json_api->query->category;
-    }
-
-    if ($json_api->query->category_exclude) {
+    if ($query['category_exclude']) {
       $category = get_category_by_slug($json_api->query->category_exclude);
       $id = $category->term_id;
       $query['category__not_in'] = $id;
-    }
-
-    if ($json_api->query->product_type) {
-      $query['product_type'] = $json_api->query->product_type;
-    }
-
-    if ($json_api->query->tags) {
-      $query['tag'] = $json_api->query->tags;
-    }
-
-    if ($json_api->query->product_tags) {
-      $query['product_tag'] = $json_api->query->product_tags;
     }
 
     if (!empty($query)) {

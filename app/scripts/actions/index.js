@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import Promise from 'bluebird';
+import { checkStatus, parseJSON } from 'utils';
 
 export const RECEIVE_PAGE = 'RECEIVE_PAGE';
 export const RECEIVE_PAGE_ERROR = 'RECEIVE_PAGE_ERROR';
@@ -13,10 +14,15 @@ export const RECEIVE_POST_ERROR = 'RECEIVE_POST_ERROR';
 export const EXPAND_HEADER = 'EXPAND_HEADER';
 export const SHRINK_HEADER = 'SHRINK_HEADER';
 
+export const START_FETCH_SEARCH = 'START_FETCH_SEARCH';
+export const RECEIVE_SEARCH = 'RECEIVE_SEARCH';
+export const SEARCH_FETCH_ERROR = 'SEARCH_FETCH_ERROR';
+
 const POSTS_PER_PAGE = 10;
 const WP_URL = '/api';
 const postAttrs = 'nb_links,acf,styleboard_products,subtitle,comments,comment_status,attachments,categories,colors,excerpt,related_posts,comment_count,content,date,id,slug,tags,title,type,url,featured_image';
 const pageAttrs = 'acf,excerpt,categories,featured_posts,popular_posts,favorite_posts,sidebar_tiles,content,title,subtitle,attachments,id,slug,url';
+const searchAttrs = 'acf,styleboard_products,subtitle,description,link,color,vendor,price,image,related_styleboards,related_products,attachments,categories,colors,excerpt,related_posts,comment_count,comment_status,content,date,id,slug,tags,taxonomy_product_tag,taxonomy_product_type,title,type,url';
 
 // TODO: Add "featured" posts fetching for homepage - seperate action? or parameters?
 
@@ -25,9 +31,8 @@ const pageAttrs = 'acf,excerpt,categories,featured_posts,popular_posts,favorite_
 export function fetchPage(slug) {
   return function (dispatch) {
     return fetch(WP_URL + '/get_page/?slug=' + slug + '&include=' + pageAttrs)
-      .then(response => Promise.resolve(
-        response.json()
-      ))
+      .then(checkStatus)
+      .then(parseJSON)
       .then(pageData => dispatch(
         receivePage(pageData)
       ))
@@ -59,9 +64,8 @@ export function fetchPosts(pageNum = 1, postPerPage = POSTS_PER_PAGE) {
     dispatch(startFetchPosts());
 
     return fetch(WP_URL + '/get_posts/?post_type=post&include=' + postAttrs + '&page=' + pageNum + '&count=' + postPerPage)
-      .then(response => Promise.resolve(
-        response.json()
-      ))
+      .then(checkStatus)
+      .then(parseJSON)
       .then(postsData => dispatch(
         receivePosts(postsData)
       ))
@@ -89,9 +93,8 @@ export function fetchPost(slug) {
     dispatch(startFetchPost());
 
     return fetch(WP_URL + '/get_post/?post_type=post&slug=' + slug + '&include=' + postAttrs)
-      .then(response => Promise.resolve(
-        response.json()
-      ))
+      .then(checkStatus)
+      .then(parseJSON)
       .then(postData => dispatch(
         receivePost(postData)
       ))
@@ -133,5 +136,63 @@ export function expandHeader() {
 export function shrinkHeader() {
   return {
     type: SHRINK_HEADER
+  };
+}
+
+
+// search actions
+
+export function search(queryObj = { search: 'cribs' }) {
+  return function (dispatch) {
+    dispatch(startFetchSearch());
+
+    return fetch(WP_URL + '/get_search_results/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          post_type: ['post','product'],
+          tag: '',
+          category_name: null,
+          category_exclude: null,
+          product_tag: '',
+          product_type: null,
+          paged: 1,
+          posts_per_page: 20,
+          search: null,
+          orderby: 'rand',
+          include: searchAttrs,
+          ...queryObj
+        })
+      })
+      .then(checkStatus)
+      .then(parseJSON)
+      .then(searchData => dispatch(
+        receiveSearch(searchData)
+      ))
+      .catch(err => dispatch(
+        searchFetchError(err)
+      ));
+  }
+}
+
+function startFetchSearch() {
+  return {
+    type: START_FETCH_SEARCH
+  };
+}
+
+function receiveSearch(response) {
+  return {
+    type: RECEIVE_SEARCH,
+    payload: response
+  };
+}
+
+function searchFetchError(err) {
+  return {
+    type: SEARCH_FETCH_ERROR,
+    payload: err
   };
 }
