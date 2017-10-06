@@ -23,12 +23,12 @@ function(q, FBApi, config) {
     return facebook;
   }
 
-  window.FB.init && window.FB.init({
-    appId: facebookappid,
-    version: 'v2.0',
-    cookie: true,
-    xfbml: true
-  });
+  // window.FB.init && window.FB.init({
+  //   appId: facebookappid,
+  //   version: 'v2.0',
+  //   cookie: true,
+  //   xfbml: true
+  // });
 
   facebook = {
     getLoginStatus: function(callback) {

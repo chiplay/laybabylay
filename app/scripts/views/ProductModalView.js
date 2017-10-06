@@ -131,7 +131,7 @@ function (q, analytics, $, _, Backbone, Marionette, facebook, vent, RelatedPosts
 
     showFBDialog: function(ev) {
       ev.preventDefault();
-      facebook.uiDialog({
+      facebook.uiDialog && facebook.uiDialog({
         method: 'feed',
         display: 'popup',
         name: this.model.get('title'),

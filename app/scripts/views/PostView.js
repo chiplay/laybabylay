@@ -237,7 +237,7 @@ define([
 
     showFBDialog: function(ev) {
       ev.preventDefault();
-      facebook.uiDialog({
+      facebook.uiDialog && facebook.uiDialog({
         display: 'popup',
         method: 'feed',
         name: this.model.get('title'),
