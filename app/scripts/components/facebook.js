@@ -18,12 +18,12 @@ function(q, FBApi, config) {
 
   var console = window.console;
 
-  if (!FBApi) {
+  if (!window.FB) {
     facebook = {};
     return facebook;
   }
 
-  FBApi.init({
+  window.FB.init && window.FB.init({
     appId: facebookappid,
     version: 'v2.0',
     cookie: true,
@@ -31,10 +31,9 @@ function(q, FBApi, config) {
   });
 
   facebook = {
-
-    getLoginStatus : function(callback){
+    getLoginStatus: function(callback) {
       if (debug) console.log('*** getLoginStatus() called.');
-      FBApi.getLoginStatus(function(response) {
+      window.FB.getLoginStatus(function(response) {
         if (debug) console.log('*** FB.getLoginStatus callback: ' + response.status);
         if (response && response.authResponse){
           authResponse = response.authResponse;
@@ -46,10 +45,9 @@ function(q, FBApi, config) {
         }
       });
     },
-
-    login: function(callback){
+    login: function(callback) {
       if (debug) console.log('*** login() called.');
-      FBApi.login(function(response) {
+      window.FB.login(function(response) {
         if (debug){
           var success = false;
           if (response && response.authResponse){
@@ -66,9 +64,9 @@ function(q, FBApi, config) {
       }, {scope: facebookpermissionsneeded});
     },
 
-    logout: function(callback){
+    logout: function(callback) {
       if (debug) console.log('*** logout() called.');
-      FBApi.logout(function(response) {
+      window.FB.logout(function(response) {
         if (debug) console.log('*** FB.logout callback.');
         if (callback){
           callback(response);
@@ -76,9 +74,9 @@ function(q, FBApi, config) {
       });
     },
 
-    getUserName: function(callback){
+    getUserName: function(callback) {
       if (debug) console.log('*** getUserName() called.');
-      FBApi.api('/me', function(response){
+      window.FB.api('/me', function(response){
         if (callback){
           if (debug) console.log('*** FB.api "/me" callback: ' + response.name);
           callback(response);
@@ -86,18 +84,18 @@ function(q, FBApi, config) {
       });
     },
 
-    parseElements: function(el){
+    parseElements: function(el) {
       if (debug) console.log('*** parseUIElements() called.');
       if (el) {
-        FBApi.XFBML.parse(el);
+        window.FB.XFBML.parse(el);
       } else {
-        FBApi.XFBML.parse();
+        window.FB.XFBML.parse();
       }
     },
 
-    uiDialog: function(params, callback){
+    uiDialog: function(params, callback) {
       if (debug) console.log('*** uiDialog() called.');
-      FBApi.ui(params, function(response){
+      window.FB.ui(params, function(response){
         if (callback){
           if (debug) console.log('*** FB.api "ui" callback: ' + response);
           callback(response);
