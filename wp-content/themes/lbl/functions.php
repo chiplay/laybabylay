@@ -53,27 +53,55 @@ define( 'ALGOLIA_SPLIT_POSTS', false );
 /**
  * Add ACF fields to Algolia index
  */
-function submission_post_attributes( array $records, WP_Post $post ) {
-	$updated_records = array();
-
-	foreach ( $records as $record ) {
-		$record['slug'] = $post->post_name;
-    		$record['content_test'] = 'test';
-
-		if (get_field('related_posts', $post->ID)) {
-			$record['related_posts'] = get_field('related_posts', $post->ID);
-		}
-		if (get_field('featured_image', $post->ID)) {
-			$record['featured_image'] = get_field('featured_image', $post->ID)[url];
-		}
-		if (get_field('subtitle', $post->ID)) {
-			$record['subtitle'] = get_field('subtitle', $post->ID);
-		}
-		$updated_records[] = $record;
-   	}
-
-	return $updated_records;
+add_filter( 'algolia_searchable_post_shared_attributes', 'acf_post_attributes', 10, 2);
+add_filter( 'algolia_post_shared_attributes', 'acf_post_attributes', 10, 2);
+/**
+ * @param array   $attributes
+ * @param WP_Post $post
+ *
+ * @return array
+ */
+function acf_post_attributes(array $attributes, WP_Post $post) {
+    // Get the field value with the 'get_field' method and assign it to the attributes array.
+    // @see https://www.advancedcustomfields.com/resources/get_field/
+    // $layout_sections = array();
+    // $index = 0;
+    // if (have_rows('page_layout', $post->ID)):
+    //     while (have_rows('page_layout', $post->ID) ) : the_row();
+    //         $section = new \stdClass();
+    //         // get layout
+    //         $layout = get_row_layout();
+    //         $section->type = $layout;
+    //         $section->order = $index;
+    //         // layout_1
+    //         if ($layout === 'hero_section'):
+    //             $section->title = get_sub_field('title');
+    //             $section->subtitle = get_sub_field('subtitle');
+    //             $section->background_image = get_sub_field('background_image');
+    //         elseif ($layout === 'simple_content_section' ):
+    //             $section->copy = get_sub_field('copy_block');
+    //         endif;
+    //         $layout_sections[] = $section;
+    //         $index++;
+    //     endwhile;
+    //     $attributes['layout'] = $layout_sections;
+    // endif;
+    // Add the post slug
+    $attributes['slug'] = $post->post_name;
+    $attributes['content_full'] = $post->post_content;
+    // The above could be used for custom shaping of the JSON,
+    // but this is much, much simplier and allows for new layouts
+    // without having to touch this file
+//     if (get_field('related_posts', $post->ID)) {
+//         $attributes['related_posts'] = get_field('related_posts', $post->ID);
+//     }
+    if (get_field('featured_image', $post->ID)) {
+        $attributes['featured_image'] = get_field('featured_image', $post->ID)[url];
+    }
+    if (get_field('subtitle', $post->ID)) {
+        $attributes['subtitle'] = get_field('subtitle', $post->ID);
+    }
+    // Always return the value we are filtering.
+    return $attributes;
 }
-add_filter( 'algolia_searchable_post_records', 'submission_post_attributes', 10, 2 );
-
 ?>
