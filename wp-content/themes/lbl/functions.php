@@ -98,7 +98,8 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
     // endif;
 
     // Add the post slug
-    $attributes['slug'] = $post->post_name;	
+    $attributes['slug'] = $post->post_name;
+    $attributes['content'] = $post->post_content;
 
     // The above could be used for custom shaping of the JSON,
     // but this is much, much simplier and allows for new layouts
