@@ -109,7 +109,8 @@ function submission_post_attributes( array $records, WP_Post $post ) {
 	$updated_records = array();
 
 	foreach ( $records as $record ) {
-		$record['content'] = '';
+		$record['content'] = $record['content_full'];
+		$record['content_full'] = '';
 		$updated_records[] = $record;
    }
 
