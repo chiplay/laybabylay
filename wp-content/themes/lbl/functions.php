@@ -58,7 +58,7 @@ function submission_post_attributes( array $records, WP_Post $post ) {
 
 	foreach ( $records as $record ) {
 		$record['slug'] = $post->post_name;
-    		$record['content'] = $post->post_content;
+    		$record['content'] = 'test';
 
 		if (get_field('related_posts', $post->ID)) {
 			$record['related_posts'] = get_field('related_posts', $post->ID);
