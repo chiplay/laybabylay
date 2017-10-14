@@ -89,6 +89,16 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 		foreach ( $featured_posts as $featured_post ) {
 			$featured_post->slug = $featured_post->post_name;
 			$featured_post->featured_image = get_field('featured_image', $featured_post->ID)[url];
+			$featured_post->category = array();
+			if ($wp_categories = get_the_category($featured_post->ID)) {
+				foreach ($wp_categories as $wp_category) {
+					if ($wp_category->term_id == 1 && $wp_category->slug == 'uncategorized') {
+						// Skip the 'uncategorized' category
+						continue;
+					}
+					$featured_post->category[] = $wp_category;
+				}
+			}
 			$updated_featured_posts[] = $featured_post;
 		}
 		$attributes['featured_posts'] = $updated_featured_posts;
