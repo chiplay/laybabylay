@@ -116,7 +116,7 @@ function submission_post_attributes( array $records, WP_Post $post ) {
    return $updated_records;
 }
 add_filter( 'algolia_searchable_post_records', 'submission_post_attributes', 10, 2 );
-add_filter( 'algolia_post_records', 'acf_post_attributes', 10, 2);
+add_filter( 'algolia_post_records', 'submission_post_attributes', 10, 2);
 
 
 ?>
