@@ -62,47 +62,41 @@ add_filter( 'algolia_post_shared_attributes', 'acf_post_attributes', 10, 2);
  * @return array
  */
 function acf_post_attributes(array $attributes, WP_Post $post) {
-    // Get the field value with the 'get_field' method and assign it to the attributes array.
-    // @see https://www.advancedcustomfields.com/resources/get_field/
-    // $layout_sections = array();
-    // $index = 0;
-    // if (have_rows('page_layout', $post->ID)):
-    //     while (have_rows('page_layout', $post->ID) ) : the_row();
-    //         $section = new \stdClass();
-    //         // get layout
-    //         $layout = get_row_layout();
-    //         $section->type = $layout;
-    //         $section->order = $index;
-    //         // layout_1
-    //         if ($layout === 'hero_section'):
-    //             $section->title = get_sub_field('title');
-    //             $section->subtitle = get_sub_field('subtitle');
-    //             $section->background_image = get_sub_field('background_image');
-    //         elseif ($layout === 'simple_content_section' ):
-    //             $section->copy = get_sub_field('copy_block');
-    //         endif;
-    //         $layout_sections[] = $section;
-    //         $index++;
-    //     endwhile;
-    //     $attributes['layout'] = $layout_sections;
-    // endif;
-    // Add the post slug
-    $attributes['slug'] = $post->post_name;
-    $attributes['content_full'] = $post->post_content;
-    // The above could be used for custom shaping of the JSON,
-    // but this is much, much simplier and allows for new layouts
-    // without having to touch this file
-//     if (get_field('related_posts', $post->ID)) {
-//         $attributes['related_posts'] = get_field('related_posts', $post->ID);
-//     }
-    if (get_field('featured_image', $post->ID)) {
-        $attributes['featured_image'] = get_field('featured_image', $post->ID)[url];
-    }
-    if (get_field('subtitle', $post->ID)) {
-        $attributes['subtitle'] = get_field('subtitle', $post->ID);
-    }
-    // Always return the value we are filtering.
-    return $attributes;
+	// Add the post slug
+	$attributes['slug'] = $post->post_name;
+	
+	// Add the post content (with html), and reassign in algolia_post_records
+	$attributes['content_full'] = $post->post_content;
+
+	// The above could be used for custom shaping of the JSON,
+	// but this is much, much simplier and allows for new layouts
+	// without having to touch this file
+	if (get_field('related_posts', $post->ID)) {
+		$attributes['related_posts'] = get_field('related_posts', $post->ID);
+	}
+	if (get_field('featured_image', $post->ID)) {
+		$attributes['featured_image'] = get_field('featured_image', $post->ID)[url];
+	}
+	if (get_field('subtitle', $post->ID)) {
+		$attributes['subtitle'] = get_field('subtitle', $post->ID);
+	}
+	
+	// Homepage fields
+	if (get_field('featured_posts', $post->ID)) {
+		$attributes['featured_posts'] = get_field('featured_posts', $post->ID);
+	}
+	if (get_field('popular_posts', $post->ID)) {
+		$attributes['popular_posts'] = get_field('popular_posts', $post->ID);
+	}
+	if (get_field('favorite_posts', $post->ID)) {
+		$attributes['favorite_posts'] = get_field('favorite_posts', $post->ID);
+	}
+	if (get_field('sidebar_tiles', $post->ID)) {
+		$attributes['sidebar_tiles'] = get_field('sidebar_tiles', $post->ID);
+	}
+
+	// Always return the value we are filtering.
+	return $attributes;
 }
 
 function submission_post_attributes( array $records, WP_Post $post ) {
