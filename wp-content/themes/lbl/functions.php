@@ -104,4 +104,17 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
     // Always return the value we are filtering.
     return $attributes;
 }
+
+function submission_post_attributes( array $records, WP_Post $post ) {
+	$updated_records = array();
+
+	foreach ( $records as $record ) {
+		$record['content'] = '';
+		$updated_records[] = $record;
+   }
+
+   return $updated_records;
+}
+add_filter( 'algolia_searchable_post_records', 'submission_post_attributes', 10, 2 );
+
 ?>
