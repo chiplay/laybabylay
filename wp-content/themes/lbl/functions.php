@@ -107,7 +107,7 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 //         $attributes['related_posts'] = get_field('related_posts', $post->ID);
 //     }
     if (get_field('featured_image', $post->ID)) {
-        $attributes['featured_image'] = get_field('featured_image', $post->ID);
+        $attributes['featured_image'] = get_field('featured_image', $post->ID)->url;
     }
     if (get_field('subtitle', $post->ID)) {
         $attributes['subtitle'] = get_field('subtitle', $post->ID);
