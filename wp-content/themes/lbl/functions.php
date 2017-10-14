@@ -88,7 +88,7 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 		$featured_posts = get_field('featured_posts', $post->ID);
 		foreach ( $featured_posts as $featured_post ) {
 			$featured_post['slug'] = $featured_post->post_name;
-			$featured_post['featured_image'] = get_field('featured_image', $featured_post->ID)[url];
+// 			$featured_post['featured_image'] = get_field('featured_image', $featured_post->ID)[url];
 			$updated_featured_posts[] = $featured_post;
 		}
 		$attributes['featured_posts'] = $updated_featured_posts;
