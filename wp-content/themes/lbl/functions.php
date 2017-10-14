@@ -103,15 +103,15 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
     // The above could be used for custom shaping of the JSON,
     // but this is much, much simplier and allows for new layouts
     // without having to touch this file
-    if (get_field('related_posts', $post->ID)) {
-        $attributes['related_posts'] = get_field('related_posts', $post->ID);
-    }
-    if (get_field('featured_image', $post->ID)) {
-        $attributes['featured_image'] = get_field('featured_image', $post->ID);
-    }
-    if (get_field('subtitle', $post->ID)) {
-        $attributes['subtitle'] = get_field('subtitle', $post->ID);
-    }
+//     if (get_field('related_posts', $post->ID)) {
+//         $attributes['related_posts'] = get_field('related_posts', $post->ID);
+//     }
+//     if (get_field('featured_image', $post->ID)) {
+//         $attributes['featured_image'] = get_field('featured_image', $post->ID);
+//     }
+//     if (get_field('subtitle', $post->ID)) {
+//         $attributes['subtitle'] = get_field('subtitle', $post->ID);
+//     }
 
     // Always return the value we are filtering.
     return $attributes;
