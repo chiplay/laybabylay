@@ -83,7 +83,15 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 	
 	// Homepage fields
 	if (get_field('featured_posts', $post->ID)) {
-		$attributes['featured_posts'] = get_field('featured_posts', $post->ID);
+		$updated_featured_posts = array();
+		
+		$featured_posts = get_field('featured_posts', $post->ID);
+		foreach ( $featured_posts as $featured_post ) {
+			$featured_post['slug'] = $featured_post->post_name;
+			$featured_post['featured_image'] = get_field('featured_image', $featured_post->ID)[url];
+			$updated_featured_posts[] = $featured_post;
+		}
+		$attributes['featured_posts'] = $updated_featured_posts;
 	}
 	if (get_field('popular_posts', $post->ID)) {
 		$attributes['popular_posts'] = get_field('popular_posts', $post->ID);
@@ -106,9 +114,9 @@ function submission_post_attributes( array $records, WP_Post $post ) {
 		$record['content'] = $record['content_full'];
 		$record['content_full'] = '';
 		$updated_records[] = $record;
-   }
+   	}
 
-   return $updated_records;
+   	return $updated_records;
 }
 add_filter( 'algolia_searchable_post_records', 'submission_post_attributes', 10, 2 );
 add_filter( 'algolia_post_records', 'submission_post_attributes', 10, 2);
