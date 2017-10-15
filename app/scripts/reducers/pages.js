@@ -16,7 +16,8 @@ let defaultState = {
 export default function pages(state = defaultState, action) {
   switch(action.type) {
     case RECEIVE_PAGE:
-      const { page } = action.payload;
+      const { hits } = action.payload,
+            page = hits[0];
 
       return Object.assign({}, state, {
         [page.slug]: page

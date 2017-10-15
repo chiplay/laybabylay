@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'styles/sidebar.less';
 import Author from '../components/Author';
 import { Link } from 'react-router';
+import URI from 'urijs';
 
 export default class Sidebar extends Component {
 
@@ -20,21 +21,28 @@ export default class Sidebar extends Component {
     //   });
   }
 
-  createTileLink(tile) {
-    const { image = {}, link, link_type } = tile;
+  createTileLink(tile, index) {
+    const { image = {}, link, link_type, title } = tile;
+    let img = <div />
 
-    if (tile.link_type === 'external') {
+    if (image.url) {
+      const filename = new URI(image.url).filename();
+      const imageSrc = 'https://res.cloudinary.com/laybabylay/image/upload/f_auto,q_35,w_540,h_360,c_fill/' + filename;
+      img = <img src={imageSrc} alt={title} />;
+    }
+
+    if (link_type === 'external') {
       return (
-        <a href={tile.link} target="_blank" key={tile.index} className="sidebar-tile">
-          <img src={`//res.cloudinary.com/laybabylay/image/upload/${image.title}.jpg`} />
-          <h4>{tile.title}</h4>
+        <a href={link} target="_blank" key={title} className="sidebar-tile">
+          {img}
+          <h4>{title}</h4>
         </a>
       );
     } else {
       return (
-        <Link to={tile.link} key={tile.index} className="sidebar-tile">
-          <img src={`//res.cloudinary.com/laybabylay/image/upload/${image.title}.jpg`} />
-          <h4>{tile.title}</h4>
+        <Link to={link} key={title} className="sidebar-tile">
+          {img}
+          <h4>{title}</h4>
         </Link>
       );
     }

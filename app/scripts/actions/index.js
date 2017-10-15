@@ -1,6 +1,10 @@
 import fetch from 'isomorphic-fetch';
 import Promise from 'bluebird';
 import { checkStatus, parseJSON } from 'utils';
+import algoliasearch from 'algoliasearch';
+// import algoliasearchHelper from 'algoliasearch-helper';
+
+const client = algoliasearch('Y488X1WEPX', '5a718b4a933cc7a657bbf4273df0d63c');
 
 export const RECEIVE_PAGE = 'RECEIVE_PAGE';
 export const RECEIVE_PAGE_ERROR = 'RECEIVE_PAGE_ERROR';
@@ -30,9 +34,14 @@ const searchAttrs = 'acf,styleboard_products,subtitle,description,link,color,ven
 
 export function fetchPage(slug) {
   return function (dispatch) {
-    return fetch(WP_URL + '/get_page/?slug=' + slug + '&include=' + pageAttrs)
-      .then(checkStatus)
-      .then(parseJSON)
+    const pagesIndex = createAlgoliaIndex('wp_posts_page');
+    pagesIndex.search({
+        query: '',
+        facetFilters: [`slug:${slug}`],
+        attributesToHighlight: [],
+        attributesToSnippet: [],
+        hitsPerPage: 1
+      })
       .then(pageData => dispatch(
         receivePage(pageData)
       ))
@@ -56,6 +65,10 @@ function pageFetchError(err) {
   };
 }
 
+function createAlgoliaIndex(indexName) {
+   return client.initIndex(indexName);
+}
+
 
 // posts actions
 
@@ -63,9 +76,25 @@ export function fetchPosts(pageNum = 1, postPerPage = POSTS_PER_PAGE) {
   return function (dispatch) {
     dispatch(startFetchPosts());
 
-    return fetch(WP_URL + '/get_posts/?post_type=post&include=' + postAttrs + '&page=' + pageNum + '&count=' + postPerPage)
-      .then(checkStatus)
-      .then(parseJSON)
+    const postsIndex = createAlgoliaIndex('wp_posts_post');
+    postsIndex.search({
+        query: '',
+        attributesToHighlight: [],
+        attributesToSnippet: ['content:30'],
+        attributesToRetrieve: [
+          'post_title',
+          'permalink',
+          'content',
+          'post_date_formatted',
+          'post_id',
+          'taxonomies_hierarchical',
+          'taxonomies',
+          'featured_image',
+          'subtitle',
+          'slug'
+        ],
+        hitsPerPage: 10,
+      })
       .then(postsData => dispatch(
         receivePosts(postsData)
       ))
@@ -92,9 +121,14 @@ export function fetchPost(slug) {
   return function (dispatch) {
     dispatch(startFetchPost());
 
-    return fetch(WP_URL + '/get_post/?post_type=post&slug=' + slug + '&include=' + postAttrs)
-      .then(checkStatus)
-      .then(parseJSON)
+    const postIndex = createAlgoliaIndex('wp_posts_post');
+    postIndex.search({
+        query: '',
+        facetFilters: [`slug:${slug}`],
+        attributesToHighlight: [],
+        attributesToSnippet: [],
+        hitsPerPage: 1
+      })
       .then(postData => dispatch(
         receivePost(postData)
       ))

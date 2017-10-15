@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import URI from 'urijs';
-import { decodeHtml } from 'utils';
 import moment from 'moment';
 import classNames from 'classnames';
+
+import { decodeHtml } from 'utils';
 import 'styles/post.less';
 
-// Dumb component
 export default class Post extends Component {
-  createMarkup(html) {
+  createMarkup = (html) => {
     return {
       __html: html
     };
@@ -16,15 +18,26 @@ export default class Post extends Component {
   // TODO - related post and comments, social buttons logic (actions?)
 
   render() {
-    const { post, isFetching } = this.props;
+    const { post, isFetching } = this.props,
+          {
+            content,
+            featured_image,
+            post_title,
+            date,
+            subtitle
+            // slug,
+            // taxonomies = {},
+            // category = [],
+          } = post;
+
     const postClasses = classNames({ post: true, featured: !!post.featured_image });
 
     if (isFetching) {
       return (
         <article className="post">
           <div className="spinner">
-            <div className="double-bounce1"></div>
-            <div className="double-bounce2"></div>
+            <div className="double-bounce1" />
+            <div className="double-bounce2" />
           </div>
         </article>
       );
@@ -32,12 +45,12 @@ export default class Post extends Component {
 
     let image = null;
 
-    if (post.featured_image) {
-      const filename = new URI(post.featured_image.url).filename();
-      const imageSrc = '//res.cloudinary.com/laybabylay/image/upload/q_30,w_2400,h_1000,c_fill/' + filename;
+    if (featured_image) {
+      const filename = new URI(featured_image).filename();
+      const imageSrc = `//res.cloudinary.com/laybabylay/image/upload/q_30,w_2400,h_1000,c_fill/${filename}`;
       image = (
         <div className="post__featured-image--wrapper">
-          <img className="post__featured-image" src={imageSrc} alt={post.title} />
+          <img className="post__featured-image" src={imageSrc} alt={post_title} />
         </div>
       );
     }
@@ -48,16 +61,18 @@ export default class Post extends Component {
         {image}
 
         <header className="align-center">
-          <h1 className="title">{decodeHtml(post.title)}</h1>
-          <h2 className="subtitle">{decodeHtml(post.subtitle)}</h2>
+          <h1 className="title">{decodeHtml(post_title)}</h1>
+          <h2 className="subtitle">{decodeHtml(subtitle)}</h2>
 
           <div className="meta">
-            <div className="date">{moment(post.date).format('MMM Do, YYYY')}</div>
+            <div className="date">{moment(date).format('MMM Do, YYYY')}</div>
             <div className="color-palette-region" />
           </div>
         </header>
 
-        <div className="content" dangerouslySetInnerHTML={this.createMarkup(post.content)} />
+        {/* eslint-disable react/no-danger */}
+        <div className="content" dangerouslySetInnerHTML={this.createMarkup(content)} />
+        {/* eslint-enable react/no-danger */}
 
         <div className="categories-region" />
 
@@ -75,3 +90,8 @@ export default class Post extends Component {
     );
   }
 }
+
+Post.propTypes = {
+  post: PropTypes.object.isRequired,
+  isFetching: PropTypes.bool
+};

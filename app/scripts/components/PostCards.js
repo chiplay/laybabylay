@@ -10,7 +10,7 @@ export default class PostCards extends Component {
 
   buildPosts(posts) {
     return posts.length ? posts.map(post =>
-      <div key={post.id}><PostCard post={post} /></div>
+      <div key={post.ID}><PostCard post={post} /></div>
     ) : <div className="postcard__loading"></div>;
   }
 

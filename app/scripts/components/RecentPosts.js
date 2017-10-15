@@ -17,7 +17,7 @@ export default class RecentPosts extends Component {
 
   buildPosts(posts) {
     return posts.map(post =>
-      <PostSummary post={post} key={post.id} />
+      <PostSummary post={post} key={post.post_id} />
     );
   }
 

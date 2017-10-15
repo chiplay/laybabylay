@@ -10,22 +10,25 @@ export default class PostSummary extends Component {
   // TODO - styles and router "Link" to single post
 
   render() {
-    const { post } = this.props;
-    const firstImage = post.attachments[0];
-    const categories = post.categories || [];
-    const category = categories[0] || {};
-    const categoryTitle = category.title || '';
+    const { post } = this.props,
+          { featured_image, taxonomies = {}, post_title, slug, subtitle, _snippetResult } = post,
+          { category = [] } = taxonomies,
+          excerpt = _snippetResult.content.value,
+          categoryTitle = category.length && category[0];
+
     let image = <div />;
 
-    if (firstImage) {
-      const filename = new URI(firstImage.url).filename();
+    if (featured_image) {
+      const filename = new URI(featured_image).filename();
       const imageSrc = 'https://res.cloudinary.com/laybabylay/image/upload/f_auto,q_30,w_400/v1448851561/' + filename;
-      image = <figure className="post-summary__image--wrapper"><img className="post-summary__image" src={imageSrc} alt={post.title} /></figure>;
+      image = (<figure className="post-summary__image--wrapper">
+        <img className="post-summary__image" src={imageSrc} alt={post_title} />
+      </figure>);
     }
 
     return (
       <div className="post-summary">
-        <Link to={'/' + post.slug}>
+        <Link to={'/' + slug}>
           <div className="post-summary__bg">
 
             {image}
@@ -37,11 +40,11 @@ export default class PostSummary extends Component {
               </div>
 
               <header>
-                <h1 className="post-summary__title">{decodeHtml(post.title)}</h1>
-                <h2 className="post-summary__subtitle">{decodeHtml(post.subtitle)}</h2>
+                <h1 className="post-summary__title">{decodeHtml(post_title)}</h1>
+                <h2 className="post-summary__subtitle">{decodeHtml(subtitle)}</h2>
               </header>
 
-              <p className="post-summary__excerpt">{decodeHtml(post.excerpt)}</p>
+              <p className="post-summary__excerpt">{decodeHtml(excerpt)}</p>
 
               <div className="post-summary__link">Read More</div>
             </div>

@@ -4,27 +4,19 @@ var path                = require('path'),
     nodeModulesPath     = path.join(__dirname, 'node_modules');
 
 module.exports = {
-  entry: ['./app/scripts'],
+  entry: './app/scripts',
   output: {
-    path: path.join(__dirname, 'wp-content', 'themes', 'lbl', 'dist'),
-    filename: 'app.js',
-    publicPath: '/static/'
+    path: path.join(__dirname, 'dist'),
+    filename: '[name].bundle.js'
+    // publicPath: '/static/'
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.ProvidePlugin({
-      _: 'lodash',
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery'
+    new webpack.NoEmitOnErrorsPlugin(),
+    new ExtractTextPlugin({
+      filename: 'app.css'
     }),
-    new ExtractTextPlugin('app.css'),
-    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
+      sourceMap: true
     }),
     new webpack.DefinePlugin({
       'process.env': {
@@ -34,40 +26,68 @@ module.exports = {
     })
   ],
   resolve: {
-    modulesDirectories: [
+    modules: [
       'node_modules',
       'app/scripts',
       'app/styles',
       'app/img',
       'app'
     ],
-    extensions: ['', '.js', '.json', '.less', '.jade']
+    extensions: ['.js', '.json', '.less', '.jade']
   },
   module: {
     loaders: [
       { test: /fbsdk/, loader: 'script' },
       {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style', 'css!less')
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader!less-loader'
+        })
       },
-      { test: /\.css$/, loader: 'style!css' },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      },
       {
         test: /\.(jpe?g|gif|png|woff|svg)$/i,
-        loaders: [
-          'url?limit=50000&name=[name].[hash].[ext]',
-          'image-webpack?bypassOnDebug'
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 50000,
+              name: '[name].[hash].[ext]'
+            }
+          },
+          {
+            loader: 'image-webpack',
+            options: {
+              bypassOnDebug: true
+            }
+          }
         ]
       },
       {
         test: /\.jade$/,
-        loaders: [
-          'html?attrs[]=img:src&attrs[]=source:src&minimize=false',
-          'jade-html'
+        use: [
+          {
+            loader: 'html-loader',
+            options: {
+              attrs: ['img:src', 'source:src'],
+              minimize: false
+            }
+          },
+          {
+            loader: 'jade-html-loader'
+          }
         ]
       },
       {
         test: /\.jsx?$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         include: path.join(__dirname, 'app', 'scripts')
       }
     ]

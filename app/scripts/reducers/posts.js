@@ -26,22 +26,25 @@ export default function posts(state = defaultState, action) {
       });
 
     case RECEIVE_POSTS:
-      const { query, pages, posts } = action.payload;
+      const { page, nbPages, hits } = action.payload;
 
       return Object.assign({}, state, {
-        posts: _.unionBy(state.posts, posts, 'id'),
-        pageNum: parseInt(query.page),
-        post: posts[0],
-        totalPages: parseInt(pages),
+        posts: [...state.posts, ...hits],
+        pageNum: page,
+        totalPages: nbPages,
         isFetching: false
       });
 
     case RECEIVE_POST:
-      const { post } = action.payload;
+      if (!action.payload.hits.length) {
+        return Object.assign({}, state, {
+          isFetching: false
+        });
+      }
 
       return Object.assign({}, state, {
-        posts: _.unionBy(state.posts, posts, 'id'),
-        activePost: post,
+        posts: [...state.posts, ...action.payload.hits],
+        activePost: action.payload.hits[0],
         isFetching: false
       });
 
