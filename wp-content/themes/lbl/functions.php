@@ -54,6 +54,12 @@ define( 'ALGOLIA_SPLIT_POSTS', false );
  * Fill out related post content
  */
 
+function get_first_image_from_content( $content ) {
+	preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches);
+	$first_img = $matches[1][0];
+	return basename($first_img);	
+}
+
 function get_related_posts( $field_name, $post ) {
 	$updated_posts = array();
 
@@ -65,6 +71,7 @@ function get_related_posts( $field_name, $post ) {
 }
 
 function transform_post( $related_post ) {
+	$related_post->first_image = get_first_image_from_content($related_post->post_content);
 	$related_post->post_content = '';
 	$related_post->slug = $related_post->post_name;
 	$related_post->subtitle = get_field('subtitle', $related_post->ID);
@@ -99,6 +106,8 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 	
 	// Add the post content (with html), and reassign in algolia_post_records
 	$attributes['content_full'] = $post->post_content;
+	$attributes['first_image'] = get_first_image_from_content($post->post_content);
+
 
 	// The above could be used for custom shaping of the JSON,
 	// but this is much, much simplier and allows for new layouts
