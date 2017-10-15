@@ -114,7 +114,7 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 	
 	// Homepage fields
 	if (get_field('featured_posts', $post->ID)) {
-		$attributes['popular_posts'] = get_related_posts('featured_posts', $post);
+		$attributes['featured_posts'] = get_related_posts('featured_posts', $post);
 	}
 	if (get_field('popular_posts', $post->ID)) {
 		$attributes['popular_posts'] = get_related_posts('popular_posts', $post);
