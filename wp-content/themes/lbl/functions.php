@@ -57,11 +57,10 @@ define( 'ALGOLIA_SPLIT_POSTS', false );
 function get_related_posts( $field_name, $post ) {
 	$updated_posts = array();
 	error_log($field_name);
-	error_log(echo $field_name);
 	error_log($post->ID);
 		
 	$related_posts = get_field($field_name, $post->ID);
-	error_log($related_posts);
+// 	error_log($related_posts);
 	foreach ( $related_posts as $related_post ) {
 		$updated_posts[] = transform_post($related_post);
 	}
