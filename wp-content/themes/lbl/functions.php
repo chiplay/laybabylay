@@ -56,11 +56,8 @@ define( 'ALGOLIA_SPLIT_POSTS', false );
 
 function get_related_posts( $field_name, $post ) {
 	$updated_posts = array();
-	error_log($field_name);
-	error_log($post->ID);
-		
+
 	$related_posts = get_field($field_name, $post->ID);
-// 	error_log($related_posts);
 	foreach ( $related_posts as $related_post ) {
 		$updated_posts[] = transform_post($related_post);
 	}
@@ -106,7 +103,7 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 	// but this is much, much simplier and allows for new layouts
 	// without having to touch this file
 	if (get_field('related_posts', $post->ID)) {
-// 		$attributes['related_posts'] = get_related_posts('related_posts', $post);
+		$attributes['related_posts'] = get_related_posts('related_posts', $post);
 	}
 	if (get_field('featured_image', $post->ID)) {
 		$attributes['featured_image'] = get_field('featured_image', $post->ID)[url];
@@ -117,36 +114,16 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 	
 	// Homepage fields
 	if (get_field('featured_posts', $post->ID)) {
-		$updated_posts = array();
-		$featured_posts = get_field('featured_post', $post->ID);
-
-		foreach ( $featured_posts as $featured_post ) {
-			$featured_post->post_content = '';
-			$featured_post->slug = $featured_post->post_name;
-			$featured_post->featured_image = get_field('featured_image', $featured_post->ID)[url];
-			$featured_post->category = array();
-			if ($wp_categories = get_the_category($featured_post->ID)) {
-				foreach ($wp_categories as $wp_category) {
-					if ($wp_category->term_id == 1 && $wp_category->slug == 'uncategorized') {
-						// Skip the 'uncategorized' category
-						continue;
-					}
-					$featured_post->category[] = $wp_category;
-				}
-			}
-			$updated_posts[] = $featured_post;
-		}
-		
-		$attributes['featured_posts'] = $updated_posts;
+		$attributes['popular_posts'] = get_related_posts('featured_posts', $post);
 	}
 	if (get_field('popular_posts', $post->ID)) {
-// 		$attributes['popular_posts'] = get_related_posts('popular_posts', $post);
+		$attributes['popular_posts'] = get_related_posts('popular_posts', $post);
 	}
 	if (get_field('favorite_posts', $post->ID)) {
-// 		$attributes['favorite_posts'] = get_related_posts('favorite_posts', $post);
+		$attributes['favorite_posts'] = get_related_posts('favorite_posts', $post);
 	}
 	if (get_field('sidebar_tiles', $post->ID)) {
-// 		$attributes['sidebar_tiles'] = get_field('sidebar_tiles', $post->ID);
+		$attributes['sidebar_tiles'] = get_field('sidebar_tiles', $post->ID);
 	}
 
 	// Always return the value we are filtering.
