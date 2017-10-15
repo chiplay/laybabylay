@@ -57,28 +57,28 @@ define( 'ALGOLIA_SPLIT_POSTS', false );
 function get_related_post( $field_name, $post ) {
 	$updated_posts = array();
 		
-	$posts = get_field($field_name, $post->ID);
-	foreach ( $posts as $post ) {
-		$updated_posts[] = transform_post($post);
+	$related_posts = get_field($field_name, $post->ID);
+	foreach ( $related_posts as $related_post ) {
+		$updated_posts[] = transform_post($related_post);
 	}
 	return $updated_posts;
 }
 
-function transform_post( $post ) {
-	$post->post_content = '';
-	$post->slug = $post->post_name;
-	$post->featured_image = get_field('featured_image', $post->ID)[url];
-	$post->category = array();
-	if ($wp_categories = get_the_category($post->ID)) {
+function transform_post( $related_post ) {
+	$related_post->post_content = '';
+	$related_post->slug = $related_post->post_name;
+	$related_post->featured_image = get_field('featured_image', $related_post->ID)[url];
+	$related_post->category = array();
+	if ($wp_categories = get_the_category($related_post->ID)) {
 		foreach ($wp_categories as $wp_category) {
 			if ($wp_category->term_id == 1 && $wp_category->slug == 'uncategorized') {
 				// Skip the 'uncategorized' category
 				continue;
 			}
-			$post->category[] = $wp_category;
+			$related_post->category[] = $wp_category;
 		}
 	}
-	return $post;
+	return $related_post;
 }
 
 /**
