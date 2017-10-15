@@ -51,6 +51,37 @@ function cloudinary_image_transform( $content ) {
 define( 'ALGOLIA_SPLIT_POSTS', false );
 
 /**
+ * Fill out related post content
+ */
+
+function get_related_post( $field_name, $post ) {
+	$updated_posts = array();
+		
+	$posts = get_field($field_name, $post->ID);
+	foreach ( $posts as $post ) {
+		$updated_posts[] = transform_post($post);
+	}
+	return $updated_posts;
+}
+
+function transform_post( $post ) {
+	$post->post_content = '';
+	$post->slug = $post->post_name;
+	$post->featured_image = get_field('featured_image', $post->ID)[url];
+	$post->category = array();
+	if ($wp_categories = get_the_category($post->ID)) {
+		foreach ($wp_categories as $wp_category) {
+			if ($wp_category->term_id == 1 && $wp_category->slug == 'uncategorized') {
+				// Skip the 'uncategorized' category
+				continue;
+			}
+			$post->category[] = $wp_category;
+		}
+	}
+	return $post;
+}
+
+/**
  * Add ACF fields to Algolia index
  */
 add_filter( 'algolia_searchable_post_shared_attributes', 'acf_post_attributes', 10, 2);
@@ -72,7 +103,7 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 	// but this is much, much simplier and allows for new layouts
 	// without having to touch this file
 	if (get_field('related_posts', $post->ID)) {
-		$attributes['related_posts'] = get_field('related_posts', $post->ID);
+		$attributes['related_posts'] = get_related_post('related_posts', $post);
 	}
 	if (get_field('featured_image', $post->ID)) {
 		$attributes['featured_image'] = get_field('featured_image', $post->ID)[url];
@@ -83,31 +114,13 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 	
 	// Homepage fields
 	if (get_field('featured_posts', $post->ID)) {
-		$updated_featured_posts = array();
-		
-		$featured_posts = get_field('featured_posts', $post->ID);
-		foreach ( $featured_posts as $featured_post ) {
-			$featured_post->slug = $featured_post->post_name;
-			$featured_post->featured_image = get_field('featured_image', $featured_post->ID)[url];
-			$featured_post->category = array();
-			if ($wp_categories = get_the_category($featured_post->ID)) {
-				foreach ($wp_categories as $wp_category) {
-					if ($wp_category->term_id == 1 && $wp_category->slug == 'uncategorized') {
-						// Skip the 'uncategorized' category
-						continue;
-					}
-					$featured_post->category[] = $wp_category;
-				}
-			}
-			$updated_featured_posts[] = $featured_post;
-		}
-		$attributes['featured_posts'] = $updated_featured_posts;
+		$attributes['featured_posts'] = get_related_post('featured_post', $post);
 	}
 	if (get_field('popular_posts', $post->ID)) {
-		$attributes['popular_posts'] = get_field('popular_posts', $post->ID);
+		$attributes['popular_posts'] = get_related_post('popular_posts', $post);
 	}
 	if (get_field('favorite_posts', $post->ID)) {
-		$attributes['favorite_posts'] = get_field('favorite_posts', $post->ID);
+		$attributes['favorite_posts'] = get_related_post('favorite_posts', $post);
 	}
 	if (get_field('sidebar_tiles', $post->ID)) {
 		$attributes['sidebar_tiles'] = get_field('sidebar_tiles', $post->ID);
