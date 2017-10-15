@@ -67,6 +67,7 @@ function get_related_posts( $field_name, $post ) {
 function transform_post( $related_post ) {
 	$related_post->post_content = '';
 	$related_post->slug = $related_post->post_name;
+	$related_post->subtitle = get_field('subtitle', $related_post->ID);
 	$related_post->featured_image = get_field('featured_image', $related_post->ID)[url];
 	$related_post->category = array();
 	if ($wp_categories = get_the_category($related_post->ID)) {
