@@ -1,45 +1,82 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchPosts, fetchPage } from '../actions';
-import { Link } from 'react-router';
-import PostCards from '../components/PostCards';
-import RecentPosts from '../components/RecentPosts';
-import Sidebar from '../components/Sidebar';
+import { bindActionCreators } from 'redux';
+
+import { fetchPosts, fetchPage } from 'actions';
+import PostCards from 'components/PostCards';
+import RecentPosts from 'components/RecentPosts';
+import Sidebar from 'components/Sidebar';
 
 // Smart component
 class HomeContainer extends Component {
   componentWillMount() {
-    const { fetchPosts, fetchPage, pageNum = 1 } = this.props;
+    const {
+      actions,
+      page,
+      posts,
+      featured
+    } = this.props;
 
     // Bootstrap initial posts
-    // TODO: fetch both recent and featured?
-    // Should these be done by "sub" containers?
-    fetchPosts(pageNum, 10);
+    if (!posts.length) actions.fetchPosts(page, 10);
 
     // Fetch featured post via homepage relationship field
-    fetchPage('home');
+    if (!featured.length) actions.fetchPage('home');
   }
 
   componentDidUpdate() {
   }
 
   render() {
-    const { posts } = this.props;
+    const {
+      posts,
+      popular,
+      favorite,
+      featured,
+      page,
+      totalPages,
+      isFetching,
+      tiles,
+      activeFilter,
+      actions
+    } = this.props;
 
     return (
       <div>
-        <PostCards {...this.props} />
+        <PostCards featured={featured} />
 
         <div className="home__container">
-          <RecentPosts {...this.props} />
-          <Sidebar {...this.props} />
+          <RecentPosts
+            posts={posts}
+            favorite={favorite}
+            popular={popular}
+            page={page}
+            totalPages={totalPages}
+            isFetching={isFetching}
+            activeFilter={activeFilter}
+            actions={actions}
+          />
+          <Sidebar tiles={tiles} />
         </div>
 
       </div>
     );
-
   }
 }
+
+HomeContainer.propTypes = {
+  posts: PropTypes.array.isRequired,
+  featured: PropTypes.array.isRequired,
+  favorite: PropTypes.array.isRequired,
+  popular: PropTypes.array.isRequired,
+  tiles: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired,
+  page: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  activeFilter: PropTypes.string.isRequired
+};
 
 function mapStateToProps(state) {
   return {
@@ -49,13 +86,20 @@ function mapStateToProps(state) {
     popular: state.pages.home.popular_posts,
     tiles: state.pages.home.sidebar_tiles,
     posts: state.posts.posts,
-    pageNum: state.posts.pageNum,
+    page: state.posts.page,
     totalPages: state.posts.totalPages,
-    isFetching: state.posts.isFetching
+    isFetching: state.posts.isFetching,
+    activeFilter: state.posts.activeFilter
   };
 }
 
-export default connect(
-  mapStateToProps,
-  { fetchPosts, fetchPage }
-)(HomeContainer);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      fetchPosts,
+      fetchPage
+    }, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);

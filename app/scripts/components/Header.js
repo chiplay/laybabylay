@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import { Link } from 'react-router';
 import Waypoint from 'react-waypoint';
 import classNames from 'classnames';
@@ -14,7 +16,7 @@ export default class Header extends Component {
           <div className={headerClasses}>
             <div className="navigation-wrapper container">
 
-              <Link className="logo" to={'/'}>
+              <Link className="logo" to="/">
                 <h1>
                   <span className="sr-only">Lay Baby Lay - Nursery Decor and Baby Room Ideas</span>
                 </h1>
@@ -22,25 +24,34 @@ export default class Header extends Component {
 
               <ul className="header__nav">
                 <li className="header__nav-item">
-                  <Link to={'/about'}>About</Link>
+                  <Link to="/about">About</Link>
                 </li>
                 <li className="header__nav-item">
-                  <Link to={'/studio'}>Studio</Link>
+                  <Link to="/studio">Studio</Link>
                 </li>
                 <li className="header__nav-item header__nav-item--home">
-                  <Link to={'/'}>Home</Link>
+                  <Link to="/">Home</Link>
                 </li>
                 <li className="header__nav-item">
-                  <Link to={'/shop'}>Shop</Link>
+                  <Link to="/shop">Shop</Link>
                 </li>
                 <li className="header__nav-item header__nav-item--last">
-                  <Link to={'/products'}>Products</Link>
+                  <Link to="/products">Products</Link>
                 </li>
               </ul>
 
               <div>
                 <form action="/search" className="search-form" id="search-header-form" role="search">
-                  <input autoCapitalize="off" autoComplete="off" autoCorrect="off" className="search-input" id="search-input" name="query" placeholder="Search" tabIndex="1" type="search" />
+                  <input
+                    autoCapitalize="off"
+                    autoComplete="off"
+                    autoCorrect="off"
+                    className="search-input"
+                    id="search-input"
+                    name="query"
+                    placeholder="Search"
+                    type="search"
+                  />
 
                   <button className="icon-search search-show">
                     <span className="hide">Search</span>
@@ -51,8 +62,8 @@ export default class Header extends Component {
                   </button>
 
                   <div className="load-indicator">
-                    <div className="circle-1"></div>
-                    <div className="circle-2"></div>
+                    <div className="circle-1" />
+                    <div className="circle-2" />
                     <span className="hide">Loading</span>
                   </div>
                 </form>
@@ -70,3 +81,9 @@ export default class Header extends Component {
     );
   }
 }
+
+Header.propTypes = {
+  header: PropTypes.string.isRequired,
+  expandHeader: PropTypes.func.isRequired,
+  shrinkHeader: PropTypes.func.isRequired
+};

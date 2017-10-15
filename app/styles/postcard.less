@@ -4,12 +4,21 @@
 // override
 .slick-slide {
   height: auto !important;
+
+  a {
+    display: block;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .postcard {
   padding: 0 15px;
   position: relative;
-  opacity: 0;
+  opacity: 0.05;
   .transition(opacity 1s cubic-bezier(0.190, 1.000, 0.220, 1.000));
   // .make-column(1, 1);
   // min-height: 400px;

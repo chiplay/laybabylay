@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-fetch';
-import Promise from 'bluebird';
 import { checkStatus, parseJSON } from 'utils';
 import algoliasearch from 'algoliasearch';
 // import algoliasearchHelper from 'algoliasearch-helper';
@@ -24,31 +23,24 @@ export const SEARCH_FETCH_ERROR = 'SEARCH_FETCH_ERROR';
 
 const POSTS_PER_PAGE = 10;
 const WP_URL = '/api';
-const postAttrs = 'nb_links,acf,styleboard_products,subtitle,comments,comment_status,attachments,categories,colors,excerpt,related_posts,comment_count,content,date,id,slug,tags,title,type,url,featured_image';
-const pageAttrs = 'acf,excerpt,categories,featured_posts,popular_posts,favorite_posts,sidebar_tiles,content,title,subtitle,attachments,id,slug,url';
 const searchAttrs = 'acf,styleboard_products,subtitle,description,link,color,vendor,price,image,related_styleboards,related_products,attachments,categories,colors,excerpt,related_posts,comment_count,comment_status,content,date,id,slug,tags,taxonomy_product_tag,taxonomy_product_type,title,type,url';
 
 // TODO: Add "featured" posts fetching for homepage - seperate action? or parameters?
 
 // page actions
-
 export function fetchPage(slug) {
-  return function (dispatch) {
+  return (dispatch) => {
     const pagesIndex = createAlgoliaIndex('wp_posts_page');
     pagesIndex.search({
-        query: '',
-        facetFilters: [`slug:${slug}`],
-        attributesToHighlight: [],
-        attributesToSnippet: [],
-        hitsPerPage: 1
-      })
-      .then(pageData => dispatch(
-        receivePage(pageData)
-      ))
-      .catch(err => dispatch(
-        pageFetchError(err)
-      ));
-  }
+      query: '',
+      facetFilters: [`slug:${slug}`],
+      attributesToHighlight: [],
+      attributesToSnippet: [],
+      hitsPerPage: 1
+    })
+      .then(pageData => dispatch(receivePage(pageData)))
+      .catch(err => dispatch(pageFetchError(err)));
+  };
 }
 
 function receivePage(response) {
@@ -66,42 +58,38 @@ function pageFetchError(err) {
 }
 
 function createAlgoliaIndex(indexName) {
-   return client.initIndex(indexName);
+  return client.initIndex(indexName);
 }
 
-
 // posts actions
-
-export function fetchPosts(pageNum = 1, postPerPage = POSTS_PER_PAGE) {
-  return function (dispatch) {
+export function fetchPosts(page = 1, hitsPerPage = POSTS_PER_PAGE) {
+  return (dispatch) => {
     dispatch(startFetchPosts());
 
     const postsIndex = createAlgoliaIndex('wp_posts_post');
     postsIndex.search({
-        query: '',
-        attributesToHighlight: [],
-        attributesToSnippet: ['content:30'],
-        attributesToRetrieve: [
-          'post_title',
-          'permalink',
-          'content',
-          'post_date_formatted',
-          'post_id',
-          'taxonomies_hierarchical',
-          'taxonomies',
-          'featured_image',
-          'subtitle',
-          'slug'
-        ],
-        hitsPerPage: 10,
-      })
-      .then(postsData => dispatch(
-        receivePosts(postsData)
-      ))
-      .catch(err => dispatch(
-        postFetchError(err)
-      ));
-  }
+      query: '',
+      attributesToHighlight: [],
+      attributesToSnippet: ['content:30'],
+      attributesToRetrieve: [
+        'post_title',
+        'permalink',
+        'content',
+        'post_date_formatted',
+        'post_id',
+        'taxonomies_hierarchical',
+        'taxonomies',
+        'featured_image',
+        'first_image',
+        'subtitle',
+        'slug'
+      ],
+      page,
+      hitsPerPage,
+    })
+      .then(postsData => dispatch(receivePosts(postsData)))
+      .catch(err => dispatch(postFetchError(err)));
+  };
 }
 
 function startFetchPosts() {
@@ -118,24 +106,20 @@ function receivePosts(response) {
 }
 
 export function fetchPost(slug) {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch(startFetchPost());
 
     const postIndex = createAlgoliaIndex('wp_posts_post');
     postIndex.search({
-        query: '',
-        facetFilters: [`slug:${slug}`],
-        attributesToHighlight: [],
-        attributesToSnippet: [],
-        hitsPerPage: 1
-      })
-      .then(postData => dispatch(
-        receivePost(postData)
-      ))
-      .catch(err => dispatch(
-        postFetchError(err)
-      ));
-  }
+      query: '',
+      facetFilters: [`slug:${slug}`],
+      attributesToHighlight: [],
+      attributesToSnippet: [],
+      hitsPerPage: 1
+    })
+      .then(postData => dispatch(receivePost(postData)))
+      .catch(err => dispatch(postFetchError(err)));
+  };
 }
 
 function startFetchPost() {
@@ -177,38 +161,34 @@ export function shrinkHeader() {
 // search actions
 
 export function search(queryObj = { search: 'cribs' }) {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch(startFetchSearch());
 
     return fetch(WP_URL + '/get_search_results/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          post_type: ['post','product'],
-          tag: '',
-          category_name: null,
-          category_exclude: null,
-          product_tag: '',
-          product_type: null,
-          paged: 1,
-          posts_per_page: 20,
-          search: null,
-          orderby: 'rand',
-          include: searchAttrs,
-          ...queryObj
-        })
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        post_type: ['post', 'product'],
+        tag: '',
+        category_name: null,
+        category_exclude: null,
+        product_tag: '',
+        product_type: null,
+        paged: 1,
+        posts_per_page: 20,
+        search: null,
+        orderby: 'rand',
+        include: searchAttrs,
+        ...queryObj
       })
+    })
       .then(checkStatus)
       .then(parseJSON)
-      .then(searchData => dispatch(
-        receiveSearch(searchData)
-      ))
-      .catch(err => dispatch(
-        searchFetchError(err)
-      ));
-  }
+      .then(searchData => dispatch(receiveSearch(searchData)))
+      .catch(err => dispatch(searchFetchError(err)));
+  };
 }
 
 function startFetchSearch() {

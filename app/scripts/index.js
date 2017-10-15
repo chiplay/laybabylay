@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import 'babel-polyfill';
+import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory, applyRouterMiddleware } from 'react-router';
@@ -13,11 +14,11 @@ import AboutPageContainer from './containers/AboutPageContainer';
 import '../styles/app.less';
 
 const store = configureStore();
-let rootElement = document.getElementById('root');
+const rootElement = document.getElementById('root');
 
 // TODO: routing for search and products
 // Rethink search url patterns for SEO?
-// 
+//
 // 'search(/)': 'search',
 // 'search/:type(/)': 'search',
 // 'search/:type/:query(/)': 'search',
@@ -34,21 +35,46 @@ let rootElement = document.getElementById('root');
 // ':slug(/)' : 'post'
 
 render(
-	<Provider store={store}>
-		<Router
-			history={browserHistory}
-			render={applyRouterMiddleware(useScroll())}
-		>
-			<Route path="/" component={ThemeContainer}>
-				<IndexRoute component={HomeContainer} />
-				<Route path="about" component={AboutPageContainer} />
-				<Route path="search" component={SearchContainer} />
-				<Route path="search/:post_type" component={SearchContainer} />
-				<Route path="search/:post_type/:keyword" component={SearchContainer} />
-				<Route path="posts/:pageNum" component={HomeContainer} />
-				<Route path=":postSlug" component={PostContainer} />
-			</Route>
-		</Router>
-	</Provider>,
-	rootElement
+  <Provider store={store}>
+    <Router
+      history={browserHistory}
+      render={applyRouterMiddleware(useScroll())}
+    >
+      <Route path="/" component={ThemeContainer}>
+        <IndexRoute component={HomeContainer} />
+        <Route path="about" component={AboutPageContainer} />
+        <Route path="search" component={SearchContainer} />
+        <Route path="search/:post_type" component={SearchContainer} />
+        <Route path="search/:post_type/:keyword" component={SearchContainer} />
+        <Route path="posts/:page" component={HomeContainer} />
+        <Route path=":postSlug" component={PostContainer} />
+      </Route>
+    </Router>
+  </Provider>,
+  rootElement
 );
+
+if (module.hot) {
+  module.hot.accept('./containers/ThemeContainer', () => {
+    const Theme = require('./containers/ThemeContainer').default;
+    render(
+      <Provider store={store}>
+        <Router
+          history={browserHistory}
+          render={applyRouterMiddleware(useScroll())}
+        >
+          <Route path="/" component={Theme}>
+            <IndexRoute component={HomeContainer} />
+            <Route path="about" component={AboutPageContainer} />
+            <Route path="search" component={SearchContainer} />
+            <Route path="search/:post_type" component={SearchContainer} />
+            <Route path="search/:post_type/:keyword" component={SearchContainer} />
+            <Route path="posts/:page" component={HomeContainer} />
+            <Route path=":postSlug" component={PostContainer} />
+          </Route>
+        </Router>
+      </Provider>,
+      rootElement
+    );
+  });
+}

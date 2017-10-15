@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import SearchFilters from '../components/SearchFilters';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import { expandHeader, shrinkHeader } from '../actions';
+// import SearchFilters from '../components/SearchFilters';
+import Header from 'components/Header';
+import Footer from 'components/Footer';
+import { expandHeader, shrinkHeader } from 'actions';
 
 class ThemeContainer extends Component {
   componentWillMount() {
@@ -16,7 +16,7 @@ class ThemeContainer extends Component {
     return (
       <div className="">
         <Header {...this.props} />
-        <div className="search-cover"></div>
+        <div className="search-cover" />
         <div className="">
           {this.props.children}
         </div>
@@ -36,4 +36,3 @@ export default connect(
   mapStateToProps,
   { expandHeader, shrinkHeader }
 )(ThemeContainer);
-

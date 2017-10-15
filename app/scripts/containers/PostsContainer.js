@@ -6,16 +6,15 @@ import Post from '../components/Post';
 
 // Smart component
 class PostsContainer extends Component {
-    componentWillMount() {
-        const { fetchPosts, pageNum = 1 } = this.props;
-
-        fetchPosts(pageNum);
-    }
+  componentWillMount() {
+    const { fetchPosts, page } = this.props;
+    fetchPosts(page);
+  }
 
     buildPosts(posts) {
-        return posts.map(post =>
-            <Post post={post} key={post.id} />
-        );
+      return posts.map(post =>
+        <Post post={post} key={post.id} />
+      );
     }
 
     handlePaginationClick(pageNum) {

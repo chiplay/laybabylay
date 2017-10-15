@@ -6,17 +6,16 @@ const defaultState = {
 
 export default function posts(state = defaultState, action) {
   switch (action.type) {
-    case EXPAND_HEADER:
-      return Object.assign({}, state, {
-        header: ''
-      });
+  case EXPAND_HEADER:
+    return Object.assign({}, state, {
+      header: ''
+    });
 
-    case SHRINK_HEADER:
-      return Object.assign({}, state, {
-        header: 'slim'
-      });
+  case SHRINK_HEADER:
+    return Object.assign({}, state, {
+      header: 'slim'
+    });
 
-    default:
-      return state;
+  default: return state;
   }
 }

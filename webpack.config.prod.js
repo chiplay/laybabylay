@@ -1,7 +1,7 @@
-var path                = require('path'),
-    webpack             = require('webpack'),
-    ExtractTextPlugin   = require('extract-text-webpack-plugin'),
-    nodeModulesPath     = path.join(__dirname, 'node_modules');
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: './app/scripts',
@@ -20,10 +20,18 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        BROWSER     : JSON.stringify(true),
-        NODE_ENV    : JSON.stringify('production')
+        BROWSER: JSON.stringify(true),
+        NODE_ENV: JSON.stringify('production')
       }
-    })
+    }),
+    new CompressionPlugin({
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 0,
+      minRatio: 0.8,
+      verbose: true
+    }),
   ],
   resolve: {
     modules: [

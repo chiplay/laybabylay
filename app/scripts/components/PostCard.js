@@ -46,6 +46,7 @@ export default class PostCard extends Component {
     );
   }
 }
+
 PostCard.propTypes = {
   post: PropTypes.object.isRequired
 };
