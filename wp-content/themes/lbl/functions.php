@@ -54,10 +54,14 @@ define( 'ALGOLIA_SPLIT_POSTS', false );
  * Fill out related post content
  */
 
-function get_related_post( $field_name, $post ) {
+function get_related_posts( $field_name, $post ) {
 	$updated_posts = array();
+	error_log($field_name);
+	error_log(echo $field_name);
+	error_log($post->ID);
 		
 	$related_posts = get_field($field_name, $post->ID);
+	error_log($related_posts);
 	foreach ( $related_posts as $related_post ) {
 		$updated_posts[] = transform_post($related_post);
 	}
@@ -103,7 +107,7 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 	// but this is much, much simplier and allows for new layouts
 	// without having to touch this file
 	if (get_field('related_posts', $post->ID)) {
-		$attributes['related_posts'] = get_related_post('related_posts', $post);
+		$attributes['related_posts'] = get_related_posts('related_posts', $post);
 	}
 	if (get_field('featured_image', $post->ID)) {
 		$attributes['featured_image'] = get_field('featured_image', $post->ID)[url];
@@ -114,13 +118,13 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 	
 	// Homepage fields
 	if (get_field('featured_posts', $post->ID)) {
-		$attributes['featured_posts'] = get_related_post('featured_post', $post);
+		$attributes['featured_posts'] = get_related_posts('featured_post', $post);
 	}
 	if (get_field('popular_posts', $post->ID)) {
-		$attributes['popular_posts'] = get_related_post('popular_posts', $post);
+		$attributes['popular_posts'] = get_related_posts('popular_posts', $post);
 	}
 	if (get_field('favorite_posts', $post->ID)) {
-		$attributes['favorite_posts'] = get_related_post('favorite_posts', $post);
+		$attributes['favorite_posts'] = get_related_posts('favorite_posts', $post);
 	}
 	if (get_field('sidebar_tiles', $post->ID)) {
 		$attributes['sidebar_tiles'] = get_field('sidebar_tiles', $post->ID);
