@@ -18,21 +18,9 @@ export default class Post extends Component {
   // TODO - related post and comments, social buttons logic (actions?)
 
   render() {
-    const { post, isFetching } = this.props,
-          {
-            content,
-            featured_image,
-            post_title,
-            date,
-            subtitle
-            // slug,
-            // taxonomies = {},
-            // category = [],
-          } = post;
+    const { post } = this.props;
 
-    const postClasses = classNames({ post: true, featured: !!post.featured_image });
-
-    if (isFetching) {
+    if (!post) {
       return (
         <article className="post">
           <div className="spinner">
@@ -42,6 +30,19 @@ export default class Post extends Component {
         </article>
       );
     }
+
+    const {
+      content,
+      featured_image,
+      post_title,
+      date,
+      subtitle
+      // slug,
+      // taxonomies = {},
+      // category = [],
+    } = post;
+
+    const postClasses = classNames({ post: true, featured: !!post.featured_image });
 
     let image = null;
 
@@ -92,6 +93,5 @@ export default class Post extends Component {
 }
 
 Post.propTypes = {
-  post: PropTypes.object.isRequired,
-  isFetching: PropTypes.bool
+  post: PropTypes.object
 };

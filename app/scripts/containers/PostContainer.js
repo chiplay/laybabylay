@@ -1,39 +1,46 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { getPostBySlug } from 'selectors';
 import { fetchPost } from '../actions';
-import { Link } from 'react-router';
+// import { Link } from 'react-router';
 import Post from '../components/Post';
 
 // Smart component
 class PostContainer extends Component {
   componentWillMount() {
-    const { fetchPost } = this.props;
+    const { actions, post } = this.props;
     const { postSlug } = this.props.params;
-    fetchPost(postSlug);
-  }
 
-  componentDidUpdate() {
+    if (!post) actions.fetchPost(postSlug);
   }
 
   render() {
     const { post } = this.props;
-
-    console.log('PostContainer:render');
-
-    return (
-      <Post {...this.props} />
-    );
+    return <Post post={post} />;
   }
 }
 
-function mapStateToProps(state) {
+PostContainer.propTypes = {
+  post: PropTypes.object,
+  actions: PropTypes.object.isRequired,
+  params: PropTypes.object.isRequired
+};
+
+function mapStateToProps(state, props) {
   return {
-    post: state.posts.activePost,
-    isFetching: state.posts.isFetching
+    post: getPostBySlug(state, props.params.postSlug)
   };
 }
 
-export default connect(
-  mapStateToProps,
-  { fetchPost }
-)(PostContainer);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({
+      fetchPost
+    }, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostContainer);

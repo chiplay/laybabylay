@@ -1,62 +1,45 @@
-import _unionBy from 'lodash/unionBy';
+import update from 'react-addons-update';
 
 import {
   RECEIVE_POSTS,
-  RECEIVE_POST,
-  START_FETCH_POSTS,
-  START_FETCH_POST
+  RECEIVE_POST
 } from '../actions';
 
 const defaultState = {
-  posts: [],
-  activePost: {},
-  activeFilter: 'recent',
-  page: 0,
-  totalPages: 1,
-  isFetching: false
+  mapOfPosts: {}
 };
 
 // TODO: model state for all post vs. featured post + pagination for both
 // also need to model state for search and products
 // How does UI state get modeled in Redux? eg. search bar active
 
-export default function posts(state = defaultState, action) {
+export default function reducer(state = defaultState, action) {
   switch (action.type) {
-  case START_FETCH_POSTS:
-    return Object.assign({}, state, {
-      isFetching: true
-    });
 
-  case START_FETCH_POST:
-    return Object.assign({}, state, {
-      isFetching: true
-    });
-
-  case RECEIVE_POSTS: {
-    const { page, nbPages, hits } = action.payload;
-
-    return Object.assign({}, state, {
-      posts: _unionBy(state.posts, hits, 'post_id'),
-      page,
-      totalPages: nbPages,
-      isFetching: false
-    });
-  }
+  case RECEIVE_POSTS:
   case RECEIVE_POST: {
-    if (!action.payload.hits.length) {
-      return Object.assign({}, state, {
-        isFetching: false
-      });
-    }
-
-    return Object.assign({}, state, {
-      posts: _unionBy(state.posts, action.payload.hits, 'post_id'),
-      activePost: action.payload.hits[0],
-      isFetching: false
+    const { postMap } = action.payload.hits.reduce(
+      (blob, post) => {
+        /* eslint-disable no-param-reassign, no-return-assign */
+        blob.postMap[post.slug] = post;
+        /* eslint-enable no-param-reassign */
+        return blob;
+      },
+      { postMap: {} }
+    );
+    return update(state, {
+      mapOfPosts: { $merge: postMap }
     });
   }
 
   default: return state;
   }
+}
 
+export function getMapOfPosts(state) {
+  return state.mapOfPosts;
+}
+
+export function getPostBySlug(state, slug) {
+  return getMapOfPosts(state)[slug];
 }

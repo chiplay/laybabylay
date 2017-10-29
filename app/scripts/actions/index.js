@@ -17,6 +17,8 @@ export const RECEIVE_POST_ERROR = 'RECEIVE_POST_ERROR';
 export const EXPAND_HEADER = 'EXPAND_HEADER';
 export const SHRINK_HEADER = 'SHRINK_HEADER';
 
+export const SET_ACTIVE_FILTER = 'SET_ACTIVE_FILTER';
+
 export const START_FETCH_SEARCH = 'START_FETCH_SEARCH';
 export const RECEIVE_SEARCH = 'RECEIVE_SEARCH';
 export const SEARCH_FETCH_ERROR = 'SEARCH_FETCH_ERROR';
@@ -114,7 +116,7 @@ export function fetchPost(slug) {
       query: '',
       facetFilters: [`slug:${slug}`],
       attributesToHighlight: [],
-      attributesToSnippet: [],
+      attributesToSnippet: ['content:30'],
       hitsPerPage: 1
     })
       .then(postData => dispatch(receivePost(postData)))
@@ -157,6 +159,12 @@ export function shrinkHeader() {
   };
 }
 
+export function setActiveFilter(filter) {
+  return {
+    type: SET_ACTIVE_FILTER,
+    payload: filter
+  };
+}
 
 // search actions
 

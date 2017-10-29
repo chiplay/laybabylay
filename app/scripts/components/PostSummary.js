@@ -22,7 +22,7 @@ export default class PostSummary extends Component {
             _snippetResult
           } = post,
           { category = [] } = taxonomies,
-          excerpt = _snippetResult.content.value,
+          excerpt = _snippetResult && _snippetResult.content.value,
           categoryTitle = category.length && category[0];
 
     let image = <div />;

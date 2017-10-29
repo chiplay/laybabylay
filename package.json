@@ -12,7 +12,7 @@
     "clean": "rimraf dist",
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
-    "start": "NODE_ENV=development webpack-dev-server --open --port=3000 --config=webpack.config.dev.js",
+    "start": "NODE_ENV=development webpack-dev-server --port=3000 --config=webpack.config.dev.js",
     "lint": "eslint src"
   },
   "dependencies": {
@@ -34,6 +34,7 @@
     "moment": "^2.17.1",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
+    "react-addons-update": "^15.6.2",
     "react-dom": "^15.6.1",
     "react-masonry-component": "^6.0.0",
     "react-redux": "^5.0.0",
@@ -44,6 +45,7 @@
     "redux": "^3.6.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.1.0",
+    "reselect": "^3.0.1",
     "slick-carousel": "^1.5.9",
     "styled-components": "^2.2.1",
     "swiper": "^3.2.7",

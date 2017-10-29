@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import SearchFilters from '../components/SearchFilters';
 import Header from 'components/Header';
@@ -25,6 +26,10 @@ class ThemeContainer extends Component {
     );
   }
 }
+
+ThemeContainer.propTypes = {
+  children: PropTypes.object.isRequired
+};
 
 function mapStateToProps(state) {
   return {

@@ -3,61 +3,32 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { fetchPosts, fetchPage } from 'actions';
+import { fetchPosts, fetchPage, setActiveFilter } from 'actions';
 import PostCards from 'components/PostCards';
 import RecentPosts from 'components/RecentPosts';
 import Sidebar from 'components/Sidebar';
 
+import { getPageBySlug, getActivePosts } from 'selectors';
+
 // Smart component
 class HomeContainer extends Component {
   componentWillMount() {
-    const {
-      actions,
-      page,
-      posts,
-      featured
-    } = this.props;
+    const { actions, home } = this.props;
 
-    // Bootstrap initial posts
-    if (!posts.length) actions.fetchPosts(page, 10);
-
-    // Fetch featured post via homepage relationship field
-    if (!featured.length) actions.fetchPage('home');
-  }
-
-  componentDidUpdate() {
+    // Fetch featured posts via homepage relationship field
+    if (!home.featured_posts.length) actions.fetchPage('home');
   }
 
   render() {
-    const {
-      posts,
-      popular,
-      favorite,
-      featured,
-      page,
-      totalPages,
-      isFetching,
-      tiles,
-      activeFilter,
-      actions
-    } = this.props;
+    const { home, actions, activePosts } = this.props;
 
     return (
       <div>
-        <PostCards featured={featured} />
+        <PostCards featured={home.featured_posts} />
 
         <div className="home__container">
-          <RecentPosts
-            posts={posts}
-            favorite={favorite}
-            popular={popular}
-            page={page}
-            totalPages={totalPages}
-            isFetching={isFetching}
-            activeFilter={activeFilter}
-            actions={actions}
-          />
-          <Sidebar tiles={tiles} />
+          <RecentPosts home={home} activePosts={activePosts} actions={actions} />
+          <Sidebar tiles={home.sidebar_tiles} />
         </div>
 
       </div>
@@ -66,30 +37,15 @@ class HomeContainer extends Component {
 }
 
 HomeContainer.propTypes = {
-  posts: PropTypes.array.isRequired,
-  featured: PropTypes.array.isRequired,
-  favorite: PropTypes.array.isRequired,
-  popular: PropTypes.array.isRequired,
-  tiles: PropTypes.array.isRequired,
+  home: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
-  page: PropTypes.number.isRequired,
-  totalPages: PropTypes.number.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  activeFilter: PropTypes.string.isRequired
+  activePosts: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    // TODO: properly map state to props for all components
-    featured: state.pages.home.featured_posts,
-    favorite: state.pages.home.favorite_posts,
-    popular: state.pages.home.popular_posts,
-    tiles: state.pages.home.sidebar_tiles,
-    posts: state.posts.posts,
-    page: state.posts.page,
-    totalPages: state.posts.totalPages,
-    isFetching: state.posts.isFetching,
-    activeFilter: state.posts.activeFilter
+    home: getPageBySlug(state, 'home'),
+    activePosts: getActivePosts(state, 'home')
   };
 }
 
@@ -97,7 +53,8 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
       fetchPosts,
-      fetchPage
+      fetchPage,
+      setActiveFilter
     }, dispatch)
   };
 }
