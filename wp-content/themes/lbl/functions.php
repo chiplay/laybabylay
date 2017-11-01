@@ -71,25 +71,29 @@ function get_related_posts( $field_name, $post ) {
 }
 
 function transform_post( $related_post ) {
+	$new_post = new stdClass();
 	$content = $related_post->post_content;
-	$related_post->first_image = get_first_image_from_content($content);
-	$related_post->post_content = '';
-	$related_post->excerpt = wp_trim_words($content, 30, '...');
-	$related_post->slug = $related_post->post_name;
-	$related_post->subtitle = get_field('subtitle', $related_post->ID);
-	$related_post->featured_image = get_field('featured_image', $related_post->ID)[url];
-	$related_post->taxonomies = new stdClass();
-	$related_post->taxonomies->category = array();
+	$new_post->first_image = get_first_image_from_content($content);
+	$new_post->excerpt = wp_trim_words($content, 30, '...');
+	$new_post->id = $related_post->ID;
+	$new_post->slug = $related_post->post_name;
+	$new_post->post_date = $related_post->post_date;
+	$new_post->post_title = $related_post->post_title;
+	$new_post->related_post = $related_post->related_post;
+	$new_post->subtitle = get_field('subtitle', $related_post->ID);
+	$new_post->featured_image = get_field('featured_image', $related_post->ID)[url];
+	$new_post->taxonomies = new stdClass();
+	$new_post->taxonomies->category = array();
 	if ($wp_categories = get_the_category($related_post->ID)) {
 		foreach ($wp_categories as $wp_category) {
 			if ($wp_category->term_id == 1 && $wp_category->slug == 'uncategorized') {
 				// Skip the 'uncategorized' category
 				continue;
 			}
-			$related_post->taxonomies->category[] = $wp_category->cat_name;
+			$new_post->taxonomies->category[] = $wp_category->cat_name;
 		}
 	}
-	return $related_post;
+	return $new_post;
 }
 
 /**
@@ -147,6 +151,7 @@ function submission_post_attributes( array $records, WP_Post $post ) {
 	$updated_records = array();
 
 	foreach ( $records as $record ) {
+		
 		$record['content'] = $record['content_full'];
 		$record['content_full'] = '';
 		$updated_records[] = $record;
