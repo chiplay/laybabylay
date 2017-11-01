@@ -71,8 +71,10 @@ function get_related_posts( $field_name, $post ) {
 }
 
 function transform_post( $related_post ) {
-	$related_post->first_image = get_first_image_from_content($related_post->post_content);
-// 	$related_post->post_content = '';
+	$content = $related_post->post_content;
+	$related_post->first_image = get_first_image_from_content($content);
+	$related_post->post_content = '';
+	$related_post->excerpt = $related_post->post_excerpt;
 	$related_post->slug = $related_post->post_name;
 	$related_post->subtitle = get_field('subtitle', $related_post->ID);
 	$related_post->featured_image = get_field('featured_image', $related_post->ID)[url];
@@ -83,7 +85,7 @@ function transform_post( $related_post ) {
 				// Skip the 'uncategorized' category
 				continue;
 			}
-			$related_post->category[] = $wp_category;
+			$related_post->taxonomies->category[] = $wp_category;
 		}
 	}
 	return $related_post;
