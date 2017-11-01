@@ -86,7 +86,7 @@ function transform_post( $related_post ) {
 				// Skip the 'uncategorized' category
 				continue;
 			}
-			$related_post->taxonomies->category[] = $wp_category;
+			$related_post->taxonomies->category[] = $wp_category->cat_name;
 		}
 	}
 	return $related_post;
