@@ -67,8 +67,9 @@ export default class RecentPosts extends Component {
 
     return (
       <ul className="post-filters">
+        <li key="label" className="filter-label">Filter by:</li>
         {[recentFilter, featuredFilter, popularFilter].map((filter) => (
-          <li key={filter.key} className={filter.active ? 'active' : ''}>
+          <li key={filter.key} className={filter.enabled ? 'active' : ''}>
             {filter.button}
           </li>
         ))}

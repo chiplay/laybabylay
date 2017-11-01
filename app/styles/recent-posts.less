@@ -8,6 +8,61 @@
   margin: 0 auto;
 }
 
+ul.post-filters {
+  width: 100%;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+  font-size: 0;
+  height: 40px;
+
+  li {
+    width: 30%;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 16px;
+    margin: 0;
+    height: 40px;
+
+    button {
+      border: 1px solid @lbl-pink;
+      border-left: none;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      width: 100%;
+      padding: 10px;
+      font-size: 12px;
+      line-height: 14px;
+      height: 40px;
+    }
+
+    &:hover:not(.active) {
+      button {
+        background: #fff;
+      }
+    }
+
+    &.filter-label {
+      border: 1px solid @lbl-pink;
+      padding: 10px;
+      width: 10%;
+      border: 1px solid @lbl-pink;
+      font-family: @font-family-serif;
+      font-style: italic;
+    }
+
+    &.active {
+      background: @lbl-pink;
+
+      button {
+        -webkit-font-smoothing: antialiased;
+        color: #fff;
+      }
+    }
+  }
+}
+
 .recent-posts {
   margin: 40px 0 100px;
   width: 700px;

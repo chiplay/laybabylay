@@ -19,10 +19,11 @@ export default class PostSummary extends Component {
             post_title,
             slug,
             subtitle,
-            _snippetResult
+            _snippetResult,
+            excerpt
           } = post,
           { category = [] } = taxonomies,
-          excerpt = _snippetResult && _snippetResult.content.value,
+          snippet = _snippetResult && _snippetResult.content.value,
           categoryTitle = category.length && category[0];
 
     let image = <div />;
@@ -50,7 +51,7 @@ export default class PostSummary extends Component {
                 <h1 className="post-summary__title">{decodeHtml(post_title)}</h1>
                 <h2 className="post-summary__subtitle">{decodeHtml(subtitle)}</h2>
               </header>
-              <p className="post-summary__excerpt">{decodeHtml(excerpt)}</p>
+              <p className="post-summary__excerpt">{decodeHtml(excerpt || snippet)}</p>
               <div className="post-summary__link">Read More</div>
             </div>
           </div>

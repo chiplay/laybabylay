@@ -15,9 +15,10 @@ export default class PostCard extends Component {
             post_title,
             slug,
             subtitle,
-            category = []
+            taxonomies,
           } = post,
-          categoryTitle = category.length && category[0].name;
+          { category = [] } = taxonomies,
+          categoryTitle = category.length && category[0];
 
     let image = <div />;
 
