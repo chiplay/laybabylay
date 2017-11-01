@@ -74,7 +74,7 @@ function transform_post( $related_post ) {
 	$content = $related_post->post_content;
 	$related_post->first_image = get_first_image_from_content($content);
 	$related_post->post_content = '';
-	$related_post->excerpt = $related_post->post_excerpt;
+	$related_post->excerpt = wp_trim_words($content, 30, '...');
 	$related_post->slug = $related_post->post_name;
 	$related_post->subtitle = get_field('subtitle', $related_post->ID);
 	$related_post->featured_image = get_field('featured_image', $related_post->ID)[url];
