@@ -78,7 +78,8 @@ function transform_post( $related_post ) {
 	$related_post->slug = $related_post->post_name;
 	$related_post->subtitle = get_field('subtitle', $related_post->ID);
 	$related_post->featured_image = get_field('featured_image', $related_post->ID)[url];
-	$related_post->category = array();
+	$related_post->taxonomies = new stdClass();
+	$related_post->taxonomies->category = array();
 	if ($wp_categories = get_the_category($related_post->ID)) {
 		foreach ($wp_categories as $wp_category) {
 			if ($wp_category->term_id == 1 && $wp_category->slug == 'uncategorized') {
