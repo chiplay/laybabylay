@@ -1,5 +1,7 @@
 <?php
 
+remove_filter( 'the_content', 'wpautop' );
+
 function catch_that_image() {
   global $post, $posts;
   $first_img = '';
