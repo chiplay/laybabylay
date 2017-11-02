@@ -115,10 +115,6 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 	$attributes['content_full'] = wpautop($post->post_content);
 	$attributes['first_image'] = get_first_image_from_content($post->post_content);
 
-
-	// The above could be used for custom shaping of the JSON,
-	// but this is much, much simplier and allows for new layouts
-	// without having to touch this file
 	if (get_field('related_posts', $post->ID)) {
 		$attributes['related_posts'] = get_related_posts('related_posts', $post);
 	}
@@ -142,6 +138,20 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 	if (get_field('sidebar_tiles', $post->ID)) {
 		$attributes['sidebar_tiles'] = get_field('sidebar_tiles', $post->ID);
 	}
+	
+	// cleanup unused props
+	unset($attributes->is_sticky);
+	unset($attributes->record_index);
+	unset($attributes->taxonomies_hierarchical);
+	unset($attributes->post_author);
+	unset($attributes->post_type);
+	unset($attributes->post_type_label);
+	unset($attributes->post_modified);
+	unset($attributes->comment_count);
+	unset($attributes->menu_order);
+	unset($attributes->post_mime_type);
+	unset($attributes->permalink);
+	unset($attributes->post_date_formatted);
 
 	// Always return the value we are filtering.
 	return $attributes;
