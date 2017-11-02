@@ -75,7 +75,7 @@ function transform_post( $related_post ) {
 	$content = $related_post->post_content;
 	$new_post->first_image = get_first_image_from_content($content);
 	$new_post->excerpt = wp_trim_words($content, 30, '...');
-	$new_post->id = $related_post->ID;
+	$new_post->ID = $related_post->ID;
 	$new_post->slug = $related_post->post_name;
 	$new_post->post_date = $related_post->post_date;
 	$new_post->post_title = $related_post->post_title;
