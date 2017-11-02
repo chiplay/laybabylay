@@ -139,6 +139,32 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 		$attributes['sidebar_tiles'] = get_field('sidebar_tiles', $post->ID);
 	}
 	
+	// Product fields
+	if (get_field('product_image', $post->ID)) {
+		$attributes['product_image'] = get_field('product_image', $post->ID)[url];
+	}
+	if (get_field('product_description', $post->ID)) {
+		$attributes['description'] = get_field('product_description', $post->ID);
+	}
+	if (get_field('product_price', $post->ID)) {
+		$attributes['price'] = get_field('product_price', $post->ID);
+	}
+	if (get_field('product_vendor', $post->ID)) {
+		$attributes['vendor'] = get_field('product_vendor', $post->ID);
+	}
+	if (get_field('product_link', $post->ID)) {
+		$attributes['link'] = get_field('product_link', $post->ID);
+	}
+	if (get_field('product_color', $post->ID)) {
+		$attributes['color'] = get_field('product_color', $post->ID);
+	}
+	if (get_field('product_alternates', $post->ID)) {
+		$attributes['alternates'] = get_field('product_alternates', $post->ID);
+	}
+	if (get_field('product_boards', $post->ID)) {
+		$attributes['found_in'] = get_related_posts('favorite_posts', $post);
+	}
+	
 	// cleanup unused props
 	unset($attributes['is_sticky']);
 	unset($attributes['record_index']);
