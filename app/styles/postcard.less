@@ -45,11 +45,13 @@
     position: absolute;
     bottom: 0;
     right: 0;
+    left: 0;
+    max-width: 600px;
     width: auto;
-    padding: 20px 60px;
-    margin: 0 30px 30px;
+    padding: 30px 60px;
+    margin: 0 auto 50px;
     text-align: center;
-    opacity: 0.9;
+    opacity: 0.95;
   }
 
   &__category, &__link {
@@ -70,12 +72,13 @@
 
   &__title {
     color: @gray-darker;
-    line-height: 24px;
+    line-height: 26px;
     font-size: 24px;
     font-weight: 600;
     letter-spacing: 2px;
     width: 100%;
     position: relative;
+    -webkit-font-smoothing: antialiased;
   }
 
   &__subtitle {

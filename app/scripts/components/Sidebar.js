@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
+import { Box } from 'grid-styled';
+import URI from 'urijs';
+
 import 'styles/sidebar.less';
 import Author from '../components/Author';
-import { Link } from 'react-router';
-import URI from 'urijs';
 
 export default class Sidebar extends Component {
 
@@ -21,13 +23,19 @@ export default class Sidebar extends Component {
     //   });
   }
 
-  createTileLink(tile, index) {
-    const { image = {}, link, link_type, title } = tile;
-    let img = <div />
+  createTileLink = (tile) => {
+    const {
+      image = {},
+      link,
+      link_type,
+      title
+    } = tile;
+
+    let img = <div />;
 
     if (image.url) {
       const filename = new URI(image.url).filename();
-      const imageSrc = 'https://res.cloudinary.com/laybabylay/image/upload/f_auto,q_35,w_540,h_360,c_fill/' + filename;
+      const imageSrc = `//res.cloudinary.com/laybabylay/image/upload/f_auto,q_35,w_540,h_360,c_fill/${filename}`;
       img = <img src={imageSrc} alt={title} />;
     }
 
@@ -38,14 +46,13 @@ export default class Sidebar extends Component {
           <h4>{title}</h4>
         </a>
       );
-    } else {
-      return (
-        <Link to={link} key={title} className="sidebar-tile">
-          {img}
-          <h4>{title}</h4>
-        </Link>
-      );
     }
+    return (
+      <Link to={link} key={title} className="sidebar-tile">
+        {img}
+        <h4>{title}</h4>
+      </Link>
+    );
   }
 
   buildTiles(tiles) {
@@ -58,7 +65,7 @@ export default class Sidebar extends Component {
     this.fetchInstagram();
 
     return (
-      <div className="sidebar">
+      <Box width={[1, 1, 1, 1/3]} pl={30} className="sidebar">
         <Author {...this.props} />
 
         <div className="sidebar-tiles">
@@ -82,7 +89,7 @@ export default class Sidebar extends Component {
             <li><a href="#">April 2013</a></li>
           </ol>
         </div>
-      </div>
+      </Box>
     );
   }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Flex, Box } from 'grid-styled';
 
 import { fetchPosts, fetchPage, setActiveFilter } from 'actions';
 import PostCards from 'components/PostCards';
@@ -23,15 +24,18 @@ class HomeContainer extends Component {
     const { home, actions, activePosts } = this.props;
 
     return (
-      <div>
-        <PostCards featured={home.featured_posts} />
+      <Flex wrap>
+        <Box width={1} mb={40}>
+          <PostCards featured={home.featured_posts} />
+        </Box>
 
-        <div className="home__container">
-          <RecentPosts home={home} activePosts={activePosts} actions={actions} />
-          <Sidebar tiles={home.sidebar_tiles} />
-        </div>
-
-      </div>
+        <Box width={1} px={100} mx="auto" className="home__container">
+          <Flex wrap>
+            <RecentPosts home={home} activePosts={activePosts} actions={actions} />
+            <Sidebar tiles={home.sidebar_tiles} />
+          </Flex>
+        </Box>
+      </Flex>
     );
   }
 }

@@ -64,12 +64,12 @@ export default class Post extends Component {
         <header className="align-center">
           <h1 className="title">{decodeHtml(post_title)}</h1>
           <h2 className="subtitle">{decodeHtml(subtitle)}</h2>
-
-          <div className="meta">
-            <div className="date">{moment(date).format('MMM Do, YYYY')}</div>
-            <div className="color-palette-region" />
-          </div>
         </header>
+
+        <div className="meta">
+          <div className="date">{moment(date).format('MMM Do, YYYY')}</div>
+          <div className="color-palette-region" />
+        </div>
 
         {/* eslint-disable react/no-danger */}
         <div className="content" dangerouslySetInnerHTML={this.createMarkup(content)} />

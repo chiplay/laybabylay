@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Flex, Box } from 'grid-styled';
+
 import { RECENT_POSTS, FAVORITE_POSTS, POPULAR_POSTS } from 'reducers/pages';
 
 import 'styles/recent-posts.less';
@@ -66,14 +68,14 @@ export default class RecentPosts extends Component {
     };
 
     return (
-      <ul className="post-filters">
-        <li key="label" className="filter-label">Filter by:</li>
+      <Flex mb={20} className="post-filters">
+        <Box width={1/7} key="label" className="filter-label">Filter by:</Box>
         {[recentFilter, featuredFilter, popularFilter].map((filter) => (
-          <li key={filter.key} className={filter.enabled ? 'active' : ''}>
+          <Box width={2/7} key={filter.key} className={filter.enabled ? 'post-filter active' : 'post-filter'}>
             {filter.button}
-          </li>
+          </Box>
         ))}
-      </ul>
+      </Flex>
     );
   }
 
@@ -87,11 +89,11 @@ export default class RecentPosts extends Component {
           } = home;
 
     return (
-      <div className="recent-posts">
+      <Box width={[1, 1, 1, 2/3]} mb={100} className="recent-posts">
         {this.buildFilters(activeFilter)}
         {this.buildPosts(activePosts)}
         {this.buildPagination(page, totalPages, isFetching)}
-      </div>
+      </Box>
     );
   }
 }

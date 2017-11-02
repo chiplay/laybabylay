@@ -6,7 +6,7 @@ export default class Author extends Component {
   render() {
     return (
       <div className="author">
-        <Link className="headshot" to={'/about'} title="About Lay Baby Lay">About Joni</Link>
+        <Link className="headshot" to="/about" title="About Lay Baby Lay">About Joni</Link>
 
         <div className="social-links">
           <a className="facebook" href="https://www.facebook.com/laybabylay" target="_blank">Facebook</a>
