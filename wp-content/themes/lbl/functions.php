@@ -1,7 +1,5 @@
 <?php
 
-remove_filter( 'the_content', 'wpautop' );
-
 function catch_that_image() {
   global $post, $posts;
   $first_img = '';
@@ -114,7 +112,7 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 	$attributes['slug'] = $post->post_name;
 	
 	// Add the post content (with html), and reassign in algolia_post_records
-	$attributes['content_full'] = $post->post_content;
+	$attributes['content_full'] = wpautop($post->post_content);
 	$attributes['first_image'] = get_first_image_from_content($post->post_content);
 
 
