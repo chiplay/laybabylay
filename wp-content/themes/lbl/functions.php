@@ -144,8 +144,6 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 	unset($attributes['record_index']);
 	unset($attributes['taxonomies_hierarchical']);
 	unset($attributes['post_author']);
-	unset($attributes['post_type']);
-	unset($attributes['post_type_label']);
 	unset($attributes['post_modified']);
 	unset($attributes['comment_count']);
 	unset($attributes['menu_order']);
