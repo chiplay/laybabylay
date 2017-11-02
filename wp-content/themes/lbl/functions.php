@@ -162,7 +162,7 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 		$attributes['alternates'] = get_field('product_alternates', $post->ID);
 	}
 	if (get_field('product_boards', $post->ID)) {
-		$attributes['found_in'] = get_related_posts('favorite_posts', $post);
+		$attributes['found_in'] = get_related_posts('product_boards', $post);
 	}
 	
 	// cleanup unused props
