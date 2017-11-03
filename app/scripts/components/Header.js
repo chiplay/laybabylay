@@ -14,7 +14,7 @@ export default class Header extends Component {
       <div>
         <header id="header">
           <div className={headerClasses}>
-            <div className="navigation-wrapper container">
+            <div className="navigation-wrapper">
 
               <Link className="logo" to="/">
                 <h1>

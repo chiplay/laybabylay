@@ -85,6 +85,7 @@ export function fetchPosts(page = 1, hitsPerPage = POSTS_PER_PAGE) {
         'taxonomies_hierarchical',
         'taxonomies',
         'featured_image',
+        'related_posts',
         'first_image',
         'subtitle',
         'slug'

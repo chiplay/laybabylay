@@ -1,3 +1,6 @@
+@import (reference) "variables.less";
+@import (reference) "mixins.less";
+
 .related-post-list {
   width: 80%;
   margin: 30px auto 0;
@@ -16,11 +19,15 @@
   min-height: 100px;
   text-align: center;
 
+  &:hover {
+    border-bottom: none;
+  }
+
   @media (max-width: @screen-xsmall-max) {
     .make-column(1, 1);
   }
 
-  .image {
+  &__bg {
     cursor: pointer;
     background: #fff;
     //.border-radius(4px);
@@ -38,14 +45,14 @@
     }
   }
 
-  header {
+  &__header {
     width: 100%;
     margin: 0 auto 10px;
     min-height: 47px;
     font-size: 0;
   }
 
-  h2.title {
+  &__title {
     text-align: center;
     font-size: 14px;
     line-height: 18px;

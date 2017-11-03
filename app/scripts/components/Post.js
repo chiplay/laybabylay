@@ -10,6 +10,7 @@ import LazyLoad from 'vanilla-lazyload';
 import { Flex, Box } from 'grid-styled';
 
 import DynamicHead from 'components/DynamicHead';
+import RelatedPosts from 'components/RelatedPosts';
 import Comments from 'components/Comments';
 import Sidebar from 'components/Sidebar';
 
@@ -66,14 +67,12 @@ export default class Post extends Component {
       // category = [],
     } = post;
 
-    const postClasses = classNames({ post: true, featured: !!post.featured_image });
-
-    let image = null;
+    let heroImage = null;
 
     if (featured_image) {
       const filename = new URI(featured_image).filename();
       const imageSrc = `//res.cloudinary.com/laybabylay/image/upload/q_30,w_2400,h_1000,c_fill/${filename}`;
-      image = (
+      heroImage = (
         <div className="post__featured-image--wrapper">
           <img className="post__featured-image" src={imageSrc} alt={post_title} />
         </div>
@@ -87,27 +86,51 @@ export default class Post extends Component {
       shareImage = `//res.cloudinary.com/laybabylay/image/upload/q_90,w_1200/${filename}`;
     }
 
+    const postClasses = classNames({ post: true, featured: !!post.featured_image });
+
     return (
-
-      <Box width={1} is="article" mx="auto" className={postClasses}>
-        {image}
-
+      <Box
+        width={1}
+        m="auto"
+        pt={150}
+        pb={20}
+        px={[10, 10, 10, 100]}
+        is="article"
+        className={postClasses}
+      >
+        {heroImage}
         <Flex wrap>
           <Box width={[1, 1, 1, 2/3]}>
             <DynamicHead post={post} />
 
-            <header className="align-center">
-              <h1 className="title">{decodeHtml(post_title)}</h1>
-              <h2 className="subtitle">{decodeHtml(subtitle)}</h2>
+            <Box
+              width={1}
+              m="auto"
+              pt={40}
+              pb={10}
+              px={[10, 10, 10, 40]}
+              is="header"
+              className="post__header"
+            >
+              <h1 className="post__title">{decodeHtml(post_title)}</h1>
+              <h2 className="post__subtitle">{decodeHtml(subtitle)}</h2>
 
-              <div className="meta">
-                <div className="date">{moment(date).format('MMM Do, YYYY')}</div>
-                <div className="color-palette-region" />
+              <div className="post__meta">
+                <div className="post__date">{moment(date).format('MMM Do, YYYY')}</div>
+                <div className="post__color-palette-region" />
               </div>
-            </header>
+            </Box>
 
             {/* eslint-disable react/no-danger */}
-            <div className="content" dangerouslySetInnerHTML={this.createMarkup(content)} />
+            <Box
+              width={1}
+              m="auto"
+              pt={10}
+              px={[10, 10, 10, 40]}
+              className="post__content"
+            >
+              <div dangerouslySetInnerHTML={this.createMarkup(content)} />
+            </Box>
             {/* eslint-enable react/no-danger */}
 
             <div className="categories-region" />
@@ -136,7 +159,7 @@ export default class Post extends Component {
             </div>
 
             <Comments post={post} />
-            <div className="related-posts-region" />
+            <RelatedPosts related={post.related_posts} />
           </Box>
 
           <Sidebar tiles={sidebarTiles} />

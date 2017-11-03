@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import _isEqual from 'lodash/isEqual';
-import LazyLoad from 'vanilla-lazyload';
+// import LazyLoad from 'vanilla-lazyload';
 
 import { decodeHtml } from 'utils';
 import URI from 'urijs';

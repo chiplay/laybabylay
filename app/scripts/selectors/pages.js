@@ -23,6 +23,20 @@ export const getActivePosts = createSelector(
   }
 );
 
+export const getProductCategories = createSelector(
+  [getPageBySlug],
+  (page) => {
+    return page ? page.product_categories : [];
+  }
+);
+
+export const getSearchCategories = createSelector(
+  [getPageBySlug],
+  (page) => {
+    return page ? page.search_categories : [];
+  }
+);
+
 // export function getIsFetching(state) {
 //   return state.isFetching;
 // }
