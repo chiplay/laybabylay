@@ -165,6 +165,14 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 		$attributes['found_in'] = get_related_posts('product_boards', $post);
 	}
 	
+	// Search Page
+	if (get_field('search_categories', $post->ID)) {
+		$attributes['search_categories'] = get_field('search_categories', $post->ID);
+	}
+	if (get_field('product_categories', $post->ID)) {
+		$attributes['product_categories'] = get_field('product_categories', $post->ID);
+	}
+	
 	// cleanup unused props
 	unset($attributes['is_sticky']);
 	unset($attributes['record_index']);
