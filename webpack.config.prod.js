@@ -3,6 +3,8 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 
+// https://www.algolia.com/doc/tutorials/seo/generate-sitemap-from-index/javascript/
+
 module.exports = {
   entry: './app/scripts',
   output: {

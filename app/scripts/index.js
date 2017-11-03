@@ -45,7 +45,7 @@ render(
         <Route path="about" component={AboutPageContainer} />
         <Route path="search" component={SearchContainer} />
         <Route path="search/:post_type" component={SearchContainer} />
-        <Route path="search/:post_type/:keyword" component={SearchContainer} />
+        <Route path="search/:post_type/:query" component={SearchContainer} />
         <Route path="posts/:page" component={HomeContainer} />
         <Route path=":postSlug" component={PostContainer} />
       </Route>
@@ -68,7 +68,7 @@ if (module.hot) {
             <Route path="about" component={AboutPageContainer} />
             <Route path="search" component={SearchContainer} />
             <Route path="search/:post_type" component={SearchContainer} />
-            <Route path="search/:post_type/:keyword" component={SearchContainer} />
+            <Route path="search/:post_type/:query" component={SearchContainer} />
             <Route path="posts/:page" component={HomeContainer} />
             <Route path=":postSlug" component={PostContainer} />
           </Route>

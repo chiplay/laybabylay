@@ -2,7 +2,8 @@ import update from 'react-addons-update';
 
 import {
   RECEIVE_POSTS,
-  RECEIVE_POST
+  RECEIVE_POST,
+  RECEIVE_COMMENTS
 } from '../actions';
 
 const defaultState = {
@@ -30,6 +31,16 @@ export default function reducer(state = defaultState, action) {
     return update(state, {
       mapOfPosts: { $merge: postMap }
     });
+  }
+
+  case RECEIVE_COMMENTS: {
+    console.log(action.payload);
+    return state;
+    // return update(state, {
+    //   mapOfPosts: {
+    //     [post.slug]: { $merge: action.payload }
+    //   }
+    // });
   }
 
   default: return state;

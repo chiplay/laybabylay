@@ -1,33 +1,58 @@
-import { RECEIVE_SEARCH, START_FETCH_SEARCH, SEARCH_FETCH_ERROR } from '../actions';
-import * as _ from 'lodash';
+import {
+  RECEIVE_SEARCH,
+  START_FETCH_SEARCH,
+  SEARCH_FETCH_ERROR,
+  RECEIVE_NEXT_SEARCH
+} from 'actions';
+
+import _unionBy from 'lodash/unionBy';
 
 const defaultState = {
   results: [],
-  queryObj: {},
+  queryObj: {
+    hitsPerPage: 20,
+    page: 1
+  },
   isSearching: false
 };
 
-export default function posts(state = defaultState, action) {
+export default function reducer(state = defaultState, action) {
   switch (action.type) {
-    case START_FETCH_SEARCH:
-      return Object.assign({}, state, {
-        isSearching: true
-      });
+  case START_FETCH_SEARCH:
+    return Object.assign({}, state, {
+      queryObj: action.payload,
+      isSearching: true
+    });
 
-    case RECEIVE_SEARCH:
-      const { posts } = action.payload;
+  case RECEIVE_SEARCH:
+    return Object.assign({}, state, {
+      results: action.payload.hits,
+      isSearching: false
+    });
 
-      return Object.assign({}, state, {
-        results: _.unionBy(state.results, posts, 'id'),
-        isSearching: false
-      });
+  case RECEIVE_NEXT_SEARCH:
+    return Object.assign({}, state, {
+      results: _unionBy(state.results, action.payload.hits, 'post_id'),
+      isSearching: false
+    });
 
-    case SEARCH_FETCH_ERROR:
-      return Object.assign({}, state, {
-        isSearching: false
-      });
+  case SEARCH_FETCH_ERROR:
+    return Object.assign({}, state, {
+      isSearching: false
+    });
 
-    default:
-      return state;
+  default: return state;
   }
+}
+
+export function getSearchResults(state) {
+  return state.results;
+}
+
+export function getSearchQuery(state) {
+  return state.queryObj;
+}
+
+export function getIsSearching(state) {
+  return state.isSearching;
 }

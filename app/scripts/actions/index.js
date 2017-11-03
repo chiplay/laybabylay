@@ -1,6 +1,8 @@
 import fetch from 'isomorphic-fetch';
 import { checkStatus, parseJSON } from 'utils';
 import algoliasearch from 'algoliasearch';
+import _startCase from 'lodash/startCase';
+
 // import algoliasearchHelper from 'algoliasearch-helper';
 
 const client = algoliasearch('Y488X1WEPX', '5a718b4a933cc7a657bbf4273df0d63c');
@@ -21,13 +23,14 @@ export const SET_ACTIVE_FILTER = 'SET_ACTIVE_FILTER';
 
 export const START_FETCH_SEARCH = 'START_FETCH_SEARCH';
 export const RECEIVE_SEARCH = 'RECEIVE_SEARCH';
+export const RECEIVE_NEXT_SEARCH = 'RECEIVE_NEXT_SEARCH';
 export const SEARCH_FETCH_ERROR = 'SEARCH_FETCH_ERROR';
 
-const POSTS_PER_PAGE = 10;
-const WP_URL = '/api';
-const searchAttrs = 'acf,styleboard_products,subtitle,description,link,color,vendor,price,image,related_styleboards,related_products,attachments,categories,colors,excerpt,related_posts,comment_count,comment_status,content,date,id,slug,tags,taxonomy_product_tag,taxonomy_product_type,title,type,url';
+export const START_FETCH_COMMENTS = 'START_FETCH_COMMENTS';
+export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
+export const FETCH_COMMENTS_ERROR = 'FETCH_COMMENTS_ERROR';
 
-// TODO: Add "featured" posts fetching for homepage - seperate action? or parameters?
+const POSTS_PER_PAGE = 10;
 
 // page actions
 export function fetchPage(slug) {
@@ -145,6 +148,50 @@ function postFetchError(err) {
 }
 
 
+// comments
+
+export function fetchComments(slug) {
+  return (dispatch) => {
+    dispatch(startFetchComments());
+
+    return fetch(`https://laybabylay.com/api/get_post/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        include: 'nb_links,comments',
+        slug,
+        post_type: 'post'
+      })
+    })
+      .then(checkStatus)
+      .then(parseJSON)
+      .then(commentData => dispatch(receiveComments(commentData)))
+      .catch(err => dispatch(commentsFetchError(err)));
+  };
+}
+
+function startFetchComments() {
+  return {
+    type: START_FETCH_COMMENTS
+  };
+}
+
+function receiveComments(response) {
+  return {
+    type: RECEIVE_COMMENTS,
+    payload: response
+  };
+}
+
+function commentsFetchError(err) {
+  return {
+    type: FETCH_COMMENTS_ERROR,
+    payload: err
+  };
+}
+
 // app state actions
 
 export function expandHeader() {
@@ -168,46 +215,83 @@ export function setActiveFilter(filter) {
 
 // search actions
 
-export function search(queryObj = { search: 'cribs' }) {
+export function search(queryObj = { query: 'cribs', page: 1, hitsPerPage: 20 }) {
   return (dispatch) => {
-    dispatch(startFetchSearch());
+    dispatch(startFetchSearch(queryObj));
 
-    return fetch(WP_URL + '/get_search_results/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        post_type: ['post', 'product'],
-        tag: '',
-        category_name: null,
-        category_exclude: null,
-        product_tag: '',
-        product_type: null,
-        paged: 1,
-        posts_per_page: 20,
-        search: null,
-        orderby: 'rand',
-        include: searchAttrs,
-        ...queryObj
-      })
+    const searchIndex = createAlgoliaIndex('wp_searchable_posts');
+    const {
+      query,
+      page,
+      hitsPerPage,
+      post_type
+    } = queryObj;
+
+    searchIndex.search({
+      query,
+      hitsPerPage,
+      page,
+      facetFilters: [`post_type_label:${_startCase(post_type)}`],
+      attributesToHighlight: [],
+      attributesToSnippet: [],
+      attributesToRetrieve: [
+        'post_title',
+        'post_date_formatted',
+        'post_id',
+        'taxonomies',
+        'featured_image',
+        'first_image',
+        'subtitle',
+        'slug',
+        'product_image'
+      ],
     })
-      .then(checkStatus)
-      .then(parseJSON)
-      .then(searchData => dispatch(receiveSearch(searchData)))
+      .then(searchData => {
+        if (page === 1) return dispatch(receiveSearch(searchData));
+        return dispatch(receiveNextSearch(searchData));
+      })
       .catch(err => dispatch(searchFetchError(err)));
+
+    // return fetch(WP_URL + '/get_search_results/', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     post_type: ['post', 'product'],
+    //     tag: '',
+    //     category_name: null,
+    //     category_exclude: null,
+    //     product_tag: '',
+    //     product_type: null,
+    //     paged: 1,
+    //     posts_per_page: 20,
+    //     search: null,
+    //     orderby: 'rand',
+    //     include: searchAttrs,
+    //     ...queryObj
+    //   })
+
   };
 }
 
-function startFetchSearch() {
+function startFetchSearch(queryObj) {
   return {
-    type: START_FETCH_SEARCH
+    type: START_FETCH_SEARCH,
+    payload: queryObj
   };
 }
 
 function receiveSearch(response) {
   return {
     type: RECEIVE_SEARCH,
+    payload: response
+  };
+}
+
+function receiveNextSearch(response) {
+  return {
+    type: RECEIVE_NEXT_SEARCH,
     payload: response
   };
 }

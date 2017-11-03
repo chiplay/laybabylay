@@ -36,5 +36,11 @@
     width: 100%;
     background-color: #fff;
     min-height: 100px;
+    // opacity: 0;
+    .transition(opacity .5s linear);
+
+    &.loaded {
+      opacity: 1;
+    }
   }
 }

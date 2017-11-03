@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet';
+import URI from 'urijs';
 
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.less';
@@ -15,7 +17,15 @@ export default class PostCards extends Component {
   }
 
   render() {
-    const { featured } = this.props;
+    const { featured } = this.props,
+          { featured_image } = featured.length && featured[0];
+
+    let imageSrc;
+
+    if (featured_image) {
+      const filename = new URI(featured_image).filename();
+      imageSrc = `//res.cloudinary.com/laybabylay/image/upload/q_90,w_1200/${filename}`;
+    }
 
     const settings = {
       dots: true,
@@ -24,34 +34,43 @@ export default class PostCards extends Component {
       // adaptiveHeight: true,
       centerMode: true,
       infinite: true,
-      centerPadding: '100px',
+      centerPadding: '180px',
       slidesToShow: 1,
       slidesToScroll: 1,
-      // responsive: [{
-      //   breakpoint: 1400,
-      //   settings: {
-      //     centerPadding: '160px'
-      //   }
-      // },{
-      //   breakpoint: 1024,
-      //   settings: {
-      //     centerPadding: '110px'
-      //   }
-      // }, {
-      //   breakpoint: 600,
-      //   settings: {
-      //     centerPadding: '80px'
-      //   }
-      // }, {
-      //   breakpoint: 480,
-      //   settings: {
-      //     centerPadding: '20px'
-      //   }
-      // }]
+      responsive: [{
+        breakpoint: 1440,
+        settings: {
+          centerPadding: '85px'
+        }
+      }, {
+        breakpoint: 1200,
+        settings: {
+          centerPadding: '85px'
+        }
+      }, {
+        breakpoint: 1024,
+        settings: {
+          centerPadding: '85px'
+        }
+      }, {
+        breakpoint: 600,
+        settings: {
+          centerPadding: '80px'
+        }
+      }, {
+        breakpoint: 480,
+        settings: {
+          centerPadding: '20px'
+        }
+      }]
     };
 
     return (
       <div className="postcards">
+        <Helmet>
+          {imageSrc && <meta property="og:image" content={imageSrc} />}
+        </Helmet>
+
         <Slider {...settings}>
           {this.buildPosts(featured)}
         </Slider>

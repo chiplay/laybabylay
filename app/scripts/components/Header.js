@@ -27,21 +27,22 @@ export default class Header extends Component {
                   <Link to="/about">About</Link>
                 </li>
                 <li className="header__nav-item">
-                  <Link to="/studio">Studio</Link>
+                  <Link to="https://society6.com/jonilay" target="_blank">Print Shop</Link>
                 </li>
                 <li className="header__nav-item header__nav-item--home">
                   <Link to="/">Home</Link>
                 </li>
+
                 <li className="header__nav-item">
-                  <Link to="/shop">Shop</Link>
+                  <Link to="/search/posts">Search</Link>
                 </li>
                 <li className="header__nav-item header__nav-item--last">
-                  <Link to="/products">Products</Link>
+                  <Link to="/search/products">Joni&rsquo;s Picks</Link>
                 </li>
               </ul>
 
               <div>
-                <form action="/search" className="search-form" id="search-header-form" role="search">
+                {/* <form action="/search" className="search-form" id="search-header-form" role="search">
                   <input
                     autoCapitalize="off"
                     autoComplete="off"
@@ -66,7 +67,7 @@ export default class Header extends Component {
                     <div className="circle-2" />
                     <span className="hide">Loading</span>
                   </div>
-                </form>
+                </form> */}
               </div>
             </div>
           </div>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPosts } from '../actions';
 import { Link } from 'react-router';
 import Post from '../components/Post';
+import { fetchPosts } from '../actions';
 
 // Smart component
 class PostsContainer extends Component {
