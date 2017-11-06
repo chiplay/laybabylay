@@ -2,12 +2,21 @@
 @import (reference) "mixins.less";
 
 .category-list {
-  padding: 20px 0 10px;
+  padding: 20px 0;
+  justify-content: center;
   margin: 0;
   clear: both;
   .clearfix();
 
-  &.active{
+  @media (max-width: @screen-small-max) {
+    justify-content: left;
+    overflow-x: scroll;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 15px 10px 10px;
+  }
+
+  &.active {
     height: auto;
   }
 }
@@ -32,7 +41,6 @@
   color: @lbl-pink;
   letter-spacing: 1px;
   padding: 2px 15px;
-  background: @white;
   border: 1px solid @lbl-light-pink;
   font-size: 11px;
   font-weight: 400;
@@ -48,8 +56,8 @@
     text-align: center;
     color: @lbl-pink;
     font-family: @font-family-sans-serif;
-    font-weight: 500;
-    font-size: 11px;
+    font-weight: 900;
+    font-size: 12px;
     line-height: 10px;
     .opacity(1);
 

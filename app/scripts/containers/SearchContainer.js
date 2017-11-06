@@ -37,7 +37,14 @@ class SearchContainer extends Component {
           { post_type, query } = params;
 
     if (!searchPage) actions.fetchPage('search');
-    actions.search({ ...queryObj, post_type: [post_type], query });
+    actions.search({
+      ...queryObj,
+      post_type,
+      query,
+      product_type: [],
+      category: [],
+      page: 0
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -48,10 +55,17 @@ class SearchContainer extends Component {
     if (!_isEqual(params, nextParams)) {
       actions.search({
         ...nextQueryObj,
-        post_type: [nextParams.post_type],
-        query: nextParams.query
+        product_type: [],
+        category: [],
+        post_type: nextParams.post_type,
+        query: nextParams.query,
+        page: 0
       });
     }
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return !_isEqual(this.props.results, nextProps.results);
   }
 
   fetchMoreResults = (props) => {
@@ -66,10 +80,27 @@ class SearchContainer extends Component {
     return results.map(item => <SearchCard item={item} key={item.post_id} />);
   }
 
+  toggleFilter(filter) {
+    const { actions, queryObj } = this.props;
+
+    actions.search({
+      ...queryObj,
+      page: 0,
+      [filter.taxonomy]: [`taxonomies.${filter.taxonomy}:${filter.name}`]
+    });
+  }
+
   renderFilters = (filters) => {
     return filters.map(filter => {
       return (
-        <Box is="button" className="tag-btn" key={filter.term_id}>{filter.name}</Box>
+        <Box
+          is="button"
+          className="tag-btn"
+          key={filter.term_id}
+          onClick={() => this.toggleFilter(filter)}
+        >
+          {filter.name}
+        </Box>
       );
     });
   }
@@ -119,7 +150,7 @@ class SearchContainer extends Component {
 
     return (
       <div className="search">
-        <Flex className="search-filters">
+        <Flex className="search-filters category-list">
           {this.renderFilters(filters)}
         </Flex>
         <Masonry
@@ -131,7 +162,7 @@ class SearchContainer extends Component {
         </Masonry>
         <Waypoint
           scrollableAncestor={window}
-          bottomOffset="-400px"
+          bottomOffset="-100px"
           onEnter={() => this.fetchMoreResults(this.props)}
         />
       </div>

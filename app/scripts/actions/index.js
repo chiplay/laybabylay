@@ -67,7 +67,7 @@ function createAlgoliaIndex(indexName) {
 }
 
 // posts actions
-export function fetchPosts(page = 1, hitsPerPage = POSTS_PER_PAGE) {
+export function fetchPosts(page = 0, hitsPerPage = POSTS_PER_PAGE) {
   return (dispatch) => {
     dispatch(startFetchPosts());
 
@@ -216,7 +216,7 @@ export function setActiveFilter(filter) {
 
 // search actions
 
-export function search(queryObj = { query: 'cribs', page: 1, hitsPerPage: 20 }) {
+export function search(queryObj = { query: 'cribs', page: 0, hitsPerPage: 20 }) {
   return (dispatch) => {
     dispatch(startFetchSearch(queryObj));
 
@@ -225,14 +225,20 @@ export function search(queryObj = { query: 'cribs', page: 1, hitsPerPage: 20 }) 
       query,
       page,
       hitsPerPage,
-      post_type
+      post_type,
+      product_type = [],
+      category = []
     } = queryObj;
 
     searchIndex.search({
       query,
       hitsPerPage,
       page,
-      facetFilters: [`post_type_label:${_startCase(post_type)}`],
+      facetFilters: [
+        `post_type_label:${_startCase(post_type)}`,
+        product_type,
+        category
+      ],
       attributesToHighlight: [],
       attributesToSnippet: [],
       attributesToRetrieve: [
@@ -248,7 +254,7 @@ export function search(queryObj = { query: 'cribs', page: 1, hitsPerPage: 20 }) 
       ],
     })
       .then(searchData => {
-        if (page === 1) return dispatch(receiveSearch(searchData));
+        if (page === 0) return dispatch(receiveSearch(searchData));
         return dispatch(receiveNextSearch(searchData));
       })
       .catch(err => dispatch(searchFetchError(err)));

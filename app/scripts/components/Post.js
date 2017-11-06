@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import URI from 'urijs';
 import moment from 'moment';
 import classNames from 'classnames';
-import { decodeHtml } from 'utils';
+import { decodeHtml, windowOptions } from 'utils';
 import { FacebookButton, PinterestButton, TwitterButton } from 'react-social';
 import LazyLoad from 'vanilla-lazyload';
 import { Flex, Box } from 'grid-styled';
@@ -140,6 +140,7 @@ export default class Post extends Component {
                 className="pinterest-button"
                 url={`https://www.laybabylay.com/${slug}`}
                 media={shareImage}
+                windowOptions={windowOptions()}
               >
                 Pin It
               </PinterestButton>
@@ -147,12 +148,14 @@ export default class Post extends Component {
                 className="facebook-button"
                 url={`https://www.laybabylay.com/${slug}`}
                 appId="179291298758035"
+                windowOptions={windowOptions()}
               >
                 Share on Facebook
               </FacebookButton>
               <TwitterButton
                 className="tweet-button"
                 url={`https://www.laybabylay.com/${slug}`}
+                windowOptions={windowOptions()}
               >
                 Tweet
               </TwitterButton>
