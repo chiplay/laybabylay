@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import { getPostBySlug, getPageBySlug } from 'selectors';
 import { fetchPost, fetchPage } from '../actions';
-// import { Link } from 'react-router';
+// import { Link } from 'react-router-dom';
 import Post from '../components/Post';
 
 // Smart component
@@ -14,7 +14,7 @@ class PostContainer extends Component {
     const { actions, post, home } = this.props;
     const { postSlug } = this.props.params;
 
-    if (!post) actions.fetchPost(postSlug);
+    if (!post || !post.content) actions.fetchPost(postSlug);
     if (!home.sidebar_tiles.length) actions.fetchPage('home');
   }
 

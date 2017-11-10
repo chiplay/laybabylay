@@ -3,7 +3,8 @@ import update from 'react-addons-update';
 import {
   RECEIVE_POSTS,
   RECEIVE_POST,
-  RECEIVE_COMMENTS
+  RECEIVE_COMMENTS,
+  RECEIVE_SEARCH
 } from '../actions';
 
 const defaultState = {
@@ -18,6 +19,7 @@ export default function reducer(state = defaultState, action) {
   switch (action.type) {
 
   case RECEIVE_POSTS:
+  case RECEIVE_SEARCH:
   case RECEIVE_POST: {
     const { postMap } = action.payload.hits.reduce(
       (blob, post) => {

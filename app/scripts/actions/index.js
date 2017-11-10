@@ -80,7 +80,7 @@ export function fetchPosts(page = 0, hitsPerPage = POSTS_PER_PAGE) {
         'post_title',
         'permalink',
         'content',
-        'post_date_formatted',
+        'post_date',
         'post_id',
         'taxonomies_hierarchical',
         'taxonomies',
@@ -243,14 +243,16 @@ export function search(queryObj = { query: 'cribs', page: 0, hitsPerPage: 20 }) 
       attributesToSnippet: [],
       attributesToRetrieve: [
         'post_title',
-        'post_date_formatted',
+        'post_date',
         'post_id',
         'taxonomies',
         'featured_image',
         'first_image',
         'subtitle',
         'slug',
-        'product_image'
+        'product_image',
+        'vendor',
+        'link'
       ],
     })
       .then(searchData => {

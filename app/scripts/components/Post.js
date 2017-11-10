@@ -60,7 +60,7 @@ export default class Post extends Component {
       featured_image,
       first_image,
       post_title,
-      date,
+      post_date,
       subtitle,
       slug
       // taxonomies = {},
@@ -116,7 +116,7 @@ export default class Post extends Component {
               <h2 className="post__subtitle">{decodeHtml(subtitle)}</h2>
 
               <div className="post__meta">
-                <div className="post__date">{moment(date).format('MMM Do, YYYY')}</div>
+                <div className="post__date">{moment.unix(post_date).format('MMM Do, YYYY')}</div>
                 <div className="post__color-palette-region" />
               </div>
             </Box>
@@ -129,7 +129,13 @@ export default class Post extends Component {
               px={[10, 10, 10, 40]}
               className="post__content"
             >
-              <div dangerouslySetInnerHTML={this.createMarkup(content)} />
+              {post.content ?
+                <div dangerouslySetInnerHTML={this.createMarkup(content)} /> :
+                <div className="spinner">
+                  <div className="double-bounce1" />
+                  <div className="double-bounce2" />
+                </div>
+              }
             </Box>
             {/* eslint-enable react/no-danger */}
 
@@ -162,7 +168,7 @@ export default class Post extends Component {
             </div>
 
             <Comments post={post} />
-            <RelatedPosts related={post.related_posts} />
+            {post.related_posts ? <RelatedPosts related={post.related_posts} /> : null}
           </Box>
 
           <Sidebar tiles={sidebarTiles} />
