@@ -92,7 +92,6 @@ export default class Post extends Component {
       <Box
         width={1}
         m="auto"
-        pt={150}
         pb={20}
         px={[10, 10, 10, 100]}
         is="article"

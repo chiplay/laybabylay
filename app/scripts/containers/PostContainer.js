@@ -18,6 +18,15 @@ class PostContainer extends Component {
     if (!home.sidebar_tiles.length) actions.fetchPage('home');
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { actions, post } = nextProps;
+    const { postSlug } = nextProps.params;
+    const { postSlug: currentPostSlug } = this.props.params;
+
+    if (currentPostSlug === postSlug) return;
+    if (!post || !post.content) actions.fetchPost(postSlug);
+  }
+
   render() {
     const { post, home } = this.props;
     return <Post post={post} sidebarTiles={home.sidebar_tiles} />;

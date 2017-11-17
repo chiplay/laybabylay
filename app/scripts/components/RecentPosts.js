@@ -71,7 +71,7 @@ export default class RecentPosts extends Component {
       <Flex mb={20} className="post-filters">
         <Box width={1/7} key="label" className="filter-label">Filter by:</Box>
         {[recentFilter, featuredFilter, popularFilter].map((filter) => (
-          <Box width={2/7} key={filter.key} className={filter.enabled ? 'post-filter active' : 'post-filter'}>
+          <Box width={[1/3, 2/7, 2/7, 2/7]} key={filter.key} className={filter.enabled ? 'post-filter active' : 'post-filter'}>
             {filter.button}
           </Box>
         ))}

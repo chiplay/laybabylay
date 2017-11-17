@@ -50,3 +50,11 @@ export function popup(url, inputOptions, callback) {
   }
   return x;
 }
+
+const metrics = {
+  isPhone: window.innerWidth < 576
+};
+
+export default {
+  metrics
+};

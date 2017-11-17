@@ -25,7 +25,7 @@ class HomeContainer extends Component {
 
     return (
       <Flex wrap>
-        <Box width={1} mb={40}>
+        <Box width={1} mb={[10, 10, 40, 40]}>
           <PostCards featured={home.featured_posts} />
         </Box>
 

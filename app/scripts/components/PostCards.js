@@ -48,19 +48,23 @@ export default class PostCards extends Component {
           centerPadding: '85px'
         }
       }, {
-        breakpoint: 1024,
+        breakpoint: 992,
         settings: {
           centerPadding: '85px'
         }
       }, {
-        breakpoint: 600,
+        breakpoint: 768,
         settings: {
-          centerPadding: '80px'
+          arrows: false,
+          // autoplay: true,
+          centerPadding: '0'
         }
       }, {
-        breakpoint: 480,
+        breakpoint: 576,
         settings: {
-          centerPadding: '20px'
+          centerPadding: '0px',
+          // autoplay: true,
+          arrows: false
         }
       }]
     };

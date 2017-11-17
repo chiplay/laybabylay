@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 import { checkStatus, parseJSON } from 'utils';
 import algoliasearch from 'algoliasearch';
 import _startCase from 'lodash/startCase';
+import WPAPI from 'wpapi';
 
 // import algoliasearchHelper from 'algoliasearch-helper';
 
@@ -151,24 +152,17 @@ function postFetchError(err) {
 
 // comments
 
-export function fetchComments(slug) {
+export function fetchComments(id) {
   return (dispatch) => {
     dispatch(startFetchComments());
 
-    return fetch(`https://laybabylay.com/api/get_post/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        include: 'nb_links,comments',
-        slug,
-        post_type: 'post'
-      })
-    })
-      .then(checkStatus)
-      .then(parseJSON)
-      .then(commentData => dispatch(receiveComments(commentData)))
+    const wp = new WPAPI({ endpoint: 'https://laybabylay.com/wp-json' });
+
+    wp.comments()
+      .param('post', id)
+      .param('orderby', 'parent')
+      .param('per_page', 100)
+      .then(commentData => dispatch(receiveComments(commentData, id)))
       .catch(err => dispatch(commentsFetchError(err)));
   };
 }
@@ -179,10 +173,13 @@ function startFetchComments() {
   };
 }
 
-function receiveComments(response) {
+function receiveComments(comments = [], postId) {
   return {
     type: RECEIVE_COMMENTS,
-    payload: response
+    payload: {
+      comments,
+      postId
+    }
   };
 }
 

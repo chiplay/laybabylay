@@ -5,8 +5,6 @@ html {
 	// -webkit-font-smoothing: antialiased;
 	color: @black;
 	background-color: #F9F9F9;
-	.transition(all .3s cubic-bezier(.5,0,.5,1));
-
 
 	h1, h2, h3, h4, h5, h6{
 		font-weight: 100;
@@ -19,7 +17,7 @@ html {
 	}
 
 	p,
-	span{
+	span {
 		font-family: @font-family-serif;
 		font-size: 20px;
 		line-height: 32px;
@@ -80,8 +78,6 @@ html {
 	padding-top: 96px;
 	position: relative;
 	overflow: hidden;
-	.backface-visibility(visible);
-	.transition(all .25s cubic-bezier(0.5, 0.3, 0.5, .7));
 
 	&.shift {
 		.translate3d(-160px, 0, 0);
@@ -133,4 +129,3 @@ html {
 	// width: 100%;
 	margin: 20px 0;
 }
-

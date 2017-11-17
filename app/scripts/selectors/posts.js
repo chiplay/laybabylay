@@ -1,16 +1,22 @@
 import { createSelector } from 'reselect';
+import _find from 'lodash/find';
 
 import * as fromPosts from 'reducers/posts';
+
+export function getMapOfPosts(state) {
+  return fromPosts.getMapOfPosts(state.posts);
+}
 
 export function getPostBySlug(state, slug) {
   return fromPosts.getPostBySlug(state.posts, slug);
 }
 
-// export const isLoggedOut = createSelector(
-//   [isLoggedIn],
-//   (loggedIn) => !loggedIn
-// );
-//
+export const getPostById = createSelector(
+  [getMapOfPosts, (state, props) => props],
+  (posts, { postId }) => _find(posts, ['post_id', postId])
+);
+
+
 // export function getUserProfile(state) {
 //   return fromAuth.getUserProfile(state.auth);
 // }

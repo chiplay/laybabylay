@@ -1,11 +1,15 @@
 import update from 'react-addons-update';
+import _find from 'lodash/find';
+import _sortBy from 'lodash/sortBy';
+import _findIndex from 'lodash/findIndex';
+import moment from 'moment';
 
 import {
   RECEIVE_POSTS,
   RECEIVE_POST,
   RECEIVE_COMMENTS,
   RECEIVE_SEARCH
-} from '../actions';
+} from 'actions';
 
 const defaultState = {
   mapOfPosts: {}
@@ -36,13 +40,27 @@ export default function reducer(state = defaultState, action) {
   }
 
   case RECEIVE_COMMENTS: {
-    console.log(action.payload);
-    return state;
-    // return update(state, {
-    //   mapOfPosts: {
-    //     [post.slug]: { $merge: action.payload }
-    //   }
-    // });
+    const { comments, postId } = action.payload;
+    const post = getPostById(state, postId);
+
+    const sortedComments = _sortBy(comments, (comment) => {
+      const { parent, date_gmt } = comment;
+      let parentComment;
+
+      if (parent) {
+        parentComment = _find(comments, ['id', parent]);
+        if (parentComment) {
+          return moment(parentComment.date_gmt).valueOf() + 1;
+        }
+      }
+      return moment(date_gmt).valueOf();
+    });
+
+    return update(state, {
+      mapOfPosts: {
+        [post.slug]: { $merge: { comments: sortedComments } }
+      }
+    });
   }
 
   default: return state;
@@ -55,4 +73,9 @@ export function getMapOfPosts(state) {
 
 export function getPostBySlug(state, slug) {
   return getMapOfPosts(state)[slug];
+}
+
+export function getPostById(state, postId) {
+  const posts = getMapOfPosts(state);
+  return _find(posts, ['post_id', postId]);
 }

@@ -3,6 +3,10 @@
 
 .home__container {
   max-width: 1200px;
+
+  @media (max-width: @screen-small-max) {
+    padding: 0 10px;
+  }
 }
 
 .post-filters {
@@ -26,6 +30,13 @@
       font-size: 12px;
       line-height: 14px;
       height: 40px;
+    }
+
+    &:first-of-type {
+      display: none;
+      button {
+        border-left: 1px solid @lbl-pink;
+      }
     }
 
     &:hover:not(.active) {
@@ -52,6 +63,11 @@
     height: 40px;
     font-family: @font-family-serif;
     font-style: italic;
+    display: none;
+
+    @media (min-width: @screen-tablet) {
+      display: inline-block;
+    }
   }
 }
 
