@@ -19,6 +19,14 @@ if( !is_admin() ){
 	wp_deregister_script('jquery');
 }
 
+add_action('send_headers', function() {
+	if ( ! did_action('rest_api_init') && $_SERVER['REQUEST_METHOD'] == 'HEAD' ) {
+		header( 'Access-Control-Allow-Origin: *' );
+		header( 'Access-Control-Expose-Headers: Link' );
+		header( 'Access-Control-Allow-Methods: HEAD' );
+	}
+});
+
 add_filter('show_admin_bar', '__return_false');
 
 function my_attachment_image_thumb($postid=0, $size='full', $attributes='') {
