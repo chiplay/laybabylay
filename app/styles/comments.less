@@ -3,11 +3,29 @@
 
 .comments {
   width: 600px;
-  margin: 0 auto 20px;
+  margin: 40px auto 20px;
   font-size: 0;
 
   @media (max-width: @screen-small-max) {
     width: 97%;
+  }
+
+  p {
+    margin: 20px 0;
+    letter-spacing: .01rem;
+    line-height: 1.4;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  a,
+  button {
+    color: @lbl-pink;
+
+    &:hover {
+      border-bottom: 1px @lbl-pink dotted;
+      color: darken(@lbl-pink,16%);
+    }
   }
 
   h2 {
@@ -24,8 +42,8 @@
     text-align: right;
   }
 
-  a.see-all-comments,
-  a.see-all-comments span {
+  button.see-all-comments,
+  button.see-all-comments span {
     width: auto;
     text-align: center;
     color: @lbl-pink;
@@ -38,7 +56,7 @@
   }
 
 
-  a.see-all-comments {
+  button.see-all-comments {
     padding: 15px;
     width: 240px;
     margin: 10px auto 10px;
@@ -57,7 +75,7 @@
   }
 
   &.expanded {
-    a.see-all-comments {
+    button.see-all-comments {
       display: none;
     }
   }
@@ -84,7 +102,7 @@ li.comment {
   }
 
   &.child {
-    padding-left: 13%;
+    padding-left: 10%;
 
     .comment-author-avatar {
       width: 10%;
@@ -266,6 +284,7 @@ li.comment {
 
   .cancel {
     margin: 5px 0;
+    font-size: 18px;
     font-family: @font-family-serif;
   }
 
@@ -290,7 +309,7 @@ li.comment {
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 12px;
-    margin: 15px 0 5px;
+    margin: 15px 0 10px;
   }
 
   input, textarea {
@@ -299,6 +318,8 @@ li.comment {
     border: none;
     .box-shadow(none);
     .border-radius(4px);
+    font-size: 18px;
+    margin-top: 5px;
   }
 
   textarea {
@@ -325,7 +346,6 @@ li.comment {
         .box-shadow(none);
       }
     }
-
   }
 
 

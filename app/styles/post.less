@@ -36,8 +36,16 @@
 
   &.featured {
     .post__header {
-      margin: -140px auto 0;
+      margin: -40px auto 0;
       box-shadow: 0 20px 100px rgba(0, 0, 0, 0.05);
+
+      @media (min-width: @screen-desktop) {
+        margin: -100px auto 0;
+      }
+
+      @media (min-width: @screen-large-desktop) {
+        margin: -140px auto 0;
+      }
     }
   }
 
@@ -99,6 +107,7 @@
     z-index: 2;
     background: #f9f9f9;
     max-width: 680px;
+    margin: 0 auto;
   }
 
   &__content {
