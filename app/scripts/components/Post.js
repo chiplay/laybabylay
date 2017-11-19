@@ -18,23 +18,82 @@ import 'styles/post.less';
 import 'styles/share-buttons.less';
 
 export default class Post extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      pinButtons: false
+    };
+  }
 
   componentDidMount() {
     this.lazyload = new LazyLoad();
+    this.buildImagePinButtons();
   }
 
   componentDidUpdate() {
     this.lazyload.update();
+    this.buildImagePinButtons();
   }
 
   componentWillUnmount() {
     this.lazyload.destroy();
+    this.buildImagePinButtons(true);
+  }
+
+  buildImagePinButtons = (remove = false) => {
+    if (!this.postContent || this.state.pinButtons) return;
+
+    const images = this.postContent.getElementsByTagName('img');
+    const method = remove ? 'removeEventListener' : 'addEventListener';
+    [...images].forEach((img) => {
+      // Add click handler for whole image
+      img[method]('click', this.pinImage, false);
+      if (remove) return;
+
+      // wrap each image
+      const wrapper = document.createElement('div');
+      wrapper.classList.add('image-wrapper');
+      img.parentNode.insertBefore(wrapper, img);
+      wrapper.appendChild(img);
+
+      // Add pinterest button
+      const button = document.createElement('a');
+      button.classList.add('pin-it-button');
+      button.href = 'https://www.pinterest.com/pin/create/button/';
+      button.setAttribute('data-pin-do', 'buttonPin');
+      button.setAttribute('data-pin-round', true);
+      button.setAttribute('data-pin-tall', true);
+      button.setAttribute('data-pin-description', this.props.post.post_title);
+      button.setAttribute('data-pin-media', img.src);
+      button.setAttribute('data-pin-custom', true);
+      img.parentNode.insertBefore(button, img.nextSibling);
+    });
+
+    // Rebuild Pinterest button
+    if (window.PinUtils) window.PinUtils.build();
+    this.setState({ pinButtons: true });
+  }
+
+  pinImage = (img) => {
+    if (!window.PinUtils) return;
+
+    window.PinUtils.pinOne({
+      url: `https://laybabylay.com/${this.props.post.slug}`,
+      media: img.currentTarget.src,
+      description: `${this.props.post.post_title} on LayBabyLay.com`
+    });
   }
 
   createMarkup = (html) => {
     let content = html.replace(/upload\/v/g, 'upload/f_auto,q_5,w_200/v');
     // let content = html.replace(/upload\/v/g, 'upload/f_auto,q_95,w_1200/v');
     content = content.replace(/src=/ig, 'data-original=');
+
+    // data-pin-url="http://mysite.com/mypage.html"
+    // data-pin-media="http://cdn.mysite.com/myimage_fullsize.jpg"
+    // data-pin-description="Baked Mozzarrella Cheese Sticks"/>
+
     return {
       __html: content
     };
@@ -130,7 +189,10 @@ export default class Post extends Component {
               className="post__content"
             >
               {post.content ?
-                <div dangerouslySetInnerHTML={this.createMarkup(content)} /> :
+                <div
+                  dangerouslySetInnerHTML={this.createMarkup(content)}
+                  ref={(postContent) => { this.postContent = postContent; }}
+                /> :
                 <div className="spinner">
                   <div className="double-bounce1" />
                   <div className="double-bounce2" />
