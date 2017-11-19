@@ -34,15 +34,24 @@ class SearchContainer extends Component {
             queryObj,
             searchPage
           } = this.props,
-          { post_type, query } = params;
+          {
+            post_type,
+            post_tag,
+            query,
+            category = []
+          } = params;
 
     if (!searchPage) actions.fetchPage('search');
     actions.search({
       ...queryObj,
       post_type,
       query,
-      product_type: [],
-      category: [],
+      ...category && (post_type === 'posts' ?
+        { category: [`taxonomies.category:${category}`] } :
+        { product_type: [`taxonomies.product_type:${category}`] }),
+      ...post_tag && (post_type === 'posts' ?
+        { post_tag: [`taxonomies.post_tag:${post_tag}`] } :
+        { product_tag: [`taxonomies.product_tag:${post_tag}`] }),
       page: 0
     });
   }
@@ -55,10 +64,14 @@ class SearchContainer extends Component {
     if (!_isEqual(params, nextParams)) {
       actions.search({
         ...nextQueryObj,
-        product_type: [],
-        category: [],
         post_type: nextParams.post_type,
         query: nextParams.query,
+        ...nextParams.category && (nextParams.post_type === 'posts' ?
+          { category: [`taxonomies.category:${nextParams.category}`] } :
+          { product_type: [`taxonomies.product_type:${nextParams.category}`] }),
+        ...nextParams.post_tag && (nextParams.post_type === 'posts' ?
+          { post_tag: [`taxonomies.post_tag:${nextParams.post_tag}`] } :
+          { product_tag: [`taxonomies.product_tag:${nextParams.post_tag}`] }),
         page: 0
       });
     }

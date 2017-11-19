@@ -213,7 +213,7 @@ export function setActiveFilter(filter) {
 
 // search actions
 
-export function search(queryObj = { query: 'cribs', page: 0, hitsPerPage: 20 }) {
+export function search(queryObj = { query: '', page: 0, hitsPerPage: 20 }) {
   return (dispatch) => {
     dispatch(startFetchSearch(queryObj));
 
@@ -223,6 +223,7 @@ export function search(queryObj = { query: 'cribs', page: 0, hitsPerPage: 20 }) 
       page,
       hitsPerPage,
       post_type,
+      post_tag = [],
       product_type = [],
       category = []
     } = queryObj;
@@ -234,6 +235,7 @@ export function search(queryObj = { query: 'cribs', page: 0, hitsPerPage: 20 }) 
       facetFilters: [
         `post_type_label:${_startCase(post_type)}`,
         product_type,
+        post_tag,
         category
       ],
       attributesToHighlight: [],

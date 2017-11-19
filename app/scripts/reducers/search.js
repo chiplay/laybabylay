@@ -13,7 +13,9 @@ const defaultState = {
     hitsPerPage: 20,
     page: 0,
     category: [],
-    product_type: []
+    product_type: [],
+    post_tag: [],
+    post_type: 'posts'
   },
   isSearching: false
 };
