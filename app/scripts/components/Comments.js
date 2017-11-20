@@ -6,7 +6,7 @@ import Waypoint from 'react-waypoint';
 import moment from 'moment';
 import classNames from 'classnames';
 
-import { fetchComments } from 'actions';
+import { fetchComments, submitComment } from 'actions';
 import 'styles/comments.less';
 
 class Comments extends Component {
@@ -16,7 +16,12 @@ class Comments extends Component {
     this.state = {
       expanded: false,
       form: false,
-      complete: false
+      complete: false,
+      content: '',
+      parent: '',
+      author: '',
+      email: '',
+      url: ''
     };
   }
 
@@ -37,7 +42,37 @@ class Comments extends Component {
     this.setState({ form: false });
   }
 
-  submitForm = () => {
+  handleInputChange = (event) => {
+    const { target } = event,
+          { value, name } = target;
+    this.setState({ [name]: value });
+  }
+
+  handleSubmit = (event) => {
+    const { actions, post } = this.props,
+          { post_id } = post,
+          {
+            email,
+            url,
+            author,
+            content,
+            parent
+          } = this.state;
+
+    actions.submitComment({
+      post_id,
+      content,
+      email,
+      url,
+      author,
+      parent
+    });
+    event.preventDefault();
+  }
+
+  showReplyForm = () => {
+    // this.newComment.set({ parent: model.get('id'), reply: model.get('name') });
+    // this.$('textarea').attr('placeholder','Reply to ' + model.get('name')).focus();
 
   }
 
@@ -90,20 +125,56 @@ class Comments extends Component {
       <div>
         <label htmlFor="author">
           Name
-          <input className="form-input" type="text" id="author" placeholder="What’s your name?" value="" />
+          <input
+            className="form-input"
+            type="text"
+            name="author"
+            id="author"
+            placeholder="What’s your name?"
+            value={this.state.author}
+            onChange={this.handleInputChange}
+          />
         </label>
         <label htmlFor="email">
           Email
-          <input className="form-input" type="email" id="email" placeholder="What’s your email address?" value="" />
+          <input
+            className="form-input"
+            type="email"
+            name="email"
+            id="email"
+            placeholder="What’s your email address?"
+            value={this.state.email}
+            onChange={this.handleInputChange}
+          />
         </label>
         <label htmlFor="url">
           Website
-          <input className="form-input" type="text" id="url" placeholder="What's your website url? (optional)" value="" />
+          <input
+            className="form-input"
+            type="text"
+            name="url"
+            id="url"
+            placeholder="What's your website url? (optional)"
+            value={this.state.url}
+            onChange={this.handleInputChange}
+          />
         </label>
         <p className="form-submit">
-          <input name="submit" type="submit" id="submit" value="Submit" onClick={this.submitForm} />
+          <input
+            name="submit"
+            type="submit"
+            id="submit"
+            value="Submit"
+            onClick={this.handleSubmit}
+          />
         </p>
-        <button href="#" className="cancel pull-right" onClick={this.collapseForm}>cancel</button>
+        <button
+          href="#"
+          className="cancel pull-right"
+          onClick={this.collapseForm}
+        >
+          cancel
+        </button>
       </div>
     );
   }
@@ -146,9 +217,12 @@ class Comments extends Component {
 
               <textarea
                 className="form-area"
-                name="comment"
+                name="content"
+                id="content"
                 placeholder="Leave a comment"
                 onFocus={this.expandForm}
+                value={this.state.content}
+                onChange={this.handleInputChange}
               />
 
               {form && this.renderForm()}
@@ -168,7 +242,8 @@ Comments.propTypes = {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators({
-      fetchComments
+      fetchComments,
+      submitComment
     }, dispatch)
   };
 }

@@ -18,7 +18,7 @@ export default class RelatedPost extends Component {
           } = post,
           originalSrc = product_image || first_image,
           filename = originalSrc ? new URI(originalSrc).filename() : null,
-          imageSrc = filename ? `//res.cloudinary.com/laybabylay/image/upload/q_40,w_500/${filename.replace(/\.[^/.]+$/, '')}.jpg` : null;
+          imageSrc = filename ? `//res.cloudinary.com/laybabylay/image/upload/f_auto,q_36,w_500,h_800,c_fill/${filename.replace(/\.[^/.]+$/, '')}.jpg` : null;
 
     return (
       <Link to={`/${slug}`} className="related-post">

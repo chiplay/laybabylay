@@ -30,6 +30,10 @@ export const SEARCH_FETCH_ERROR = 'SEARCH_FETCH_ERROR';
 export const START_FETCH_COMMENTS = 'START_FETCH_COMMENTS';
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
 export const FETCH_COMMENTS_ERROR = 'FETCH_COMMENTS_ERROR';
+export const START_SUBMIT_COMMENT = 'START_SUBMIT_COMMENT';
+export const SUBMIT_COMMENT_SUCCESS = 'SUBMIT_COMMENT_SUCCESS';
+export const SUBMIT_COMMENT_ERROR = 'SUBMIT_COMMENT_ERROR';
+
 
 const POSTS_PER_PAGE = 10;
 
@@ -167,6 +171,24 @@ export function fetchComments(id) {
   };
 }
 
+export function submitComment(comment) {
+  return (dispatch) => {
+    dispatch(startSubmitComment());
+
+    return fetch('/api/respond/submit_comment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(comment)
+    })
+      .then(checkStatus)
+      .then(parseJSON)
+      .then(response => dispatch(submitCommentSuccess(response)))
+      .catch(err => dispatch(submitCommentError(err)));
+  };
+}
+
 function startFetchComments() {
   return {
     type: START_FETCH_COMMENTS
@@ -186,6 +208,25 @@ function receiveComments(comments = [], postId) {
 function commentsFetchError(err) {
   return {
     type: FETCH_COMMENTS_ERROR,
+    payload: err
+  };
+}
+
+function startSubmitComment() {
+  return {
+    type: START_SUBMIT_COMMENT
+  };
+}
+
+function submitCommentSuccess() {
+  return {
+    type: SUBMIT_COMMENT_SUCCESS
+  };
+}
+
+function submitCommentError(err) {
+  return {
+    type: SUBMIT_COMMENT_ERROR,
     payload: err
   };
 }
@@ -276,27 +317,6 @@ export function search(queryObj = { query: '', page: 0, hitsPerPage: 20 }) {
         return dispatch(receiveNextSearch(searchData));
       })
       .catch(err => dispatch(searchFetchError(err)));
-
-    // return fetch(WP_URL + '/get_search_results/', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     post_type: ['post', 'product'],
-    //     tag: '',
-    //     category_name: null,
-    //     category_exclude: null,
-    //     product_tag: '',
-    //     product_type: null,
-    //     paged: 1,
-    //     posts_per_page: 20,
-    //     search: null,
-    //     orderby: 'rand',
-    //     include: searchAttrs,
-    //     ...queryObj
-    //   })
-
   };
 }
 
