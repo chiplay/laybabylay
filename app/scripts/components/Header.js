@@ -24,20 +24,19 @@ export default class Header extends Component {
 
               <ul className="header__nav">
                 <li className="header__nav-item">
-                  <Link to="/about">About</Link>
+                  <Link to="/explore/posts">Explore</Link>
                 </li>
-                <li className="header__nav-item">
-                  <Link to="https://society6.com/jonilay" target="_blank">Print Shop</Link>
+                <li className="header__nav-item header__nav-item--last">
+                  <Link to="/explore/products">Joni&rsquo;s Picks</Link>
                 </li>
                 <li className="header__nav-item header__nav-item--home">
                   <Link to="/">Home</Link>
                 </li>
-
                 <li className="header__nav-item">
-                  <Link to="/search/posts">Explore</Link>
+                  <Link to="https://society6.com/jonilay" target="_blank">Print Shop</Link>
                 </li>
-                <li className="header__nav-item header__nav-item--last">
-                  <Link to="/search/products">Joni&rsquo;s Picks</Link>
+                <li className="header__nav-item">
+                  <Link to="/about">About</Link>
                 </li>
               </ul>
 

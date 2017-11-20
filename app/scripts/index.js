@@ -43,12 +43,19 @@ render(
       <Route path="/" component={ThemeContainer}>
         <IndexRoute component={HomeContainer} />
         <Route path="about" component={AboutPageContainer} />
+        <Route path="explore" component={SearchContainer} />
+        <Route path="explore/:post_type" component={SearchContainer} />
+        <Route path="explore/:post_type/:category" component={SearchContainer} />
+        <Route path="explore/:post_type/:category/:tag" component={SearchContainer} />
+        <Route path="explore/:post_type/:category/:tag/:query" component={SearchContainer} />
         <Route path="search" component={SearchContainer} />
         <Route path="search/:post_type" component={SearchContainer} />
         <Route path="search/:post_type/:category" component={SearchContainer} />
-        <Route path="search/:post_type/:category/:post_tag" component={SearchContainer} />
-        <Route path="search/:post_type/:category/:post_tag/:query" component={SearchContainer} />
-        <Route path="posts/:page" component={HomeContainer} />
+        <Route path="search/:post_type/:category/:tag" component={SearchContainer} />
+        <Route path="search/:post_type/:category/:tag/:query" component={SearchContainer} />
+        <Route path=":post_type/:category" component={SearchContainer} />
+        <Route path=":post_type/:category/:tag" component={SearchContainer} />
+        <Route path=":post_type/:category/:tag/:query" component={SearchContainer} />
         <Route path=":postSlug" component={PostContainer} />
       </Route>
     </Router>

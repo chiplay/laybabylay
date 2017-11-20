@@ -12,9 +12,8 @@ const defaultState = {
   queryObj: {
     hitsPerPage: 20,
     page: 0,
-    category: [],
-    product_type: [],
-    post_tag: [],
+    category: '',
+    tag: '',
     post_type: 'posts'
   },
   isSearching: false

@@ -222,22 +222,39 @@ export function search(queryObj = { query: '', page: 0, hitsPerPage: 20 }) {
       query,
       page,
       hitsPerPage,
-      post_type,
-      post_tag = [],
-      product_type = [],
-      category = []
+      post_type
     } = queryObj;
+    let { tag, category } = queryObj;
+
+    const facetFilters = [];
+
+    if (post_type) {
+      facetFilters.push(`post_type_label:${_startCase(post_type)}`);
+    }
+
+    if (category) {
+      category = category.replace(/-/g, ' ');
+      if (post_type === 'posts') {
+        facetFilters.push(`taxonomies.category:${category}`);
+      } else {
+        facetFilters.push(`taxonomies.product_type:${category}`);
+      }
+    }
+
+    if (tag) {
+      tag = tag.replace(/-/g, ' ');
+      if (post_type === 'posts') {
+        facetFilters.push(`taxonomies.post_tag:${tag}`);
+      } else {
+        facetFilters.push(`taxonomies.product_tag:${tag}`);
+      }
+    }
 
     searchIndex.search({
       query,
       hitsPerPage,
       page,
-      facetFilters: [
-        `post_type_label:${_startCase(post_type)}`,
-        product_type,
-        post_tag,
-        category
-      ],
+      facetFilters,
       attributesToHighlight: [],
       attributesToSnippet: [],
       attributesToRetrieve: [

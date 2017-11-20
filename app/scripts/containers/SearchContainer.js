@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Masonry from 'react-masonry-component';
@@ -29,29 +30,17 @@ const masonryOptions = {
 class SearchContainer extends Component {
   componentWillMount() {
     const {
-            actions,
-            params,
-            queryObj,
-            searchPage
-          } = this.props,
-          {
-            post_type,
-            post_tag,
-            query,
-            category = []
-          } = params;
+      actions,
+      params,
+      queryObj,
+      searchPage
+    } = this.props;
 
     if (!searchPage) actions.fetchPage('search');
+
     actions.search({
       ...queryObj,
-      post_type,
-      query,
-      ...category && (post_type === 'posts' ?
-        { category: [`taxonomies.category:${category}`] } :
-        { product_type: [`taxonomies.product_type:${category}`] }),
-      ...post_tag && (post_type === 'posts' ?
-        { post_tag: [`taxonomies.post_tag:${post_tag}`] } :
-        { product_tag: [`taxonomies.product_tag:${post_tag}`] }),
+      ...params,
       page: 0
     });
   }
@@ -64,14 +53,8 @@ class SearchContainer extends Component {
     if (!_isEqual(params, nextParams)) {
       actions.search({
         ...nextQueryObj,
-        post_type: nextParams.post_type,
-        query: nextParams.query,
-        ...nextParams.category && (nextParams.post_type === 'posts' ?
-          { category: [`taxonomies.category:${nextParams.category}`] } :
-          { product_type: [`taxonomies.product_type:${nextParams.category}`] }),
-        ...nextParams.post_tag && (nextParams.post_type === 'posts' ?
-          { post_tag: [`taxonomies.post_tag:${nextParams.post_tag}`] } :
-          { product_tag: [`taxonomies.product_tag:${nextParams.post_tag}`] }),
+        ...nextParams,
+        ...!nextParams.category && { category: '' },
         page: 0
       });
     }
@@ -94,13 +77,9 @@ class SearchContainer extends Component {
   }
 
   toggleFilter(filter) {
-    const { actions, queryObj } = this.props;
-
-    actions.search({
-      ...queryObj,
-      page: 0,
-      [filter.taxonomy]: [`taxonomies.${filter.taxonomy}:${filter.name}`]
-    });
+    const { queryObj } = this.props;
+    const path = `/explore/${queryObj.post_type}/${filter.name.replace(/\s/g, '-')}`;
+    browserHistory.push(path);
   }
 
   renderFilters = (filters) => {
@@ -145,7 +124,7 @@ class SearchContainer extends Component {
       );
     }
 
-    const filters = post_type === 'posts' ? searchCategories : productCategories;
+    const filters = post_type === 'products' ? productCategories : searchCategories;
 
     // Make selector from queryObj
     // var str = values[1],
