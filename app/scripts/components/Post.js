@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import URI from 'urijs';
 import moment from 'moment';
 import classNames from 'classnames';
-import { decodeHtml, windowOptions } from 'utils';
+import utils, { decodeHtml, windowOptions } from 'utils';
 import { FacebookButton, PinterestButton, TwitterButton } from 'react-social';
 import LazyLoad from 'vanilla-lazyload';
 import { Flex, Box } from 'grid-styled';
@@ -131,8 +131,9 @@ export default class Post extends Component {
     let heroImage = null;
 
     if (featured_image) {
+      const imageSize = utils.metrics.isPhone ? 'w_800,h_400' : 'w_2400,h_1000';
       const filename = new URI(featured_image).filename();
-      const imageSrc = `//res.cloudinary.com/laybabylay/image/upload/q_30,w_2400,h_1000,c_fill/${filename}`;
+      const imageSrc = `//res.cloudinary.com/laybabylay/image/upload/q_36,${imageSize},c_fill/${filename}`;
       heroImage = (
         <div className="post__featured-image--wrapper">
           <img className="post__featured-image" src={imageSrc} alt={post_title} />
@@ -154,7 +155,7 @@ export default class Post extends Component {
         width={1}
         m="auto"
         pb={20}
-        px={[10, 10, 10, 100]}
+        px={[10, 10, 10, 40]}
         is="article"
         className={postClasses}
       >
@@ -166,7 +167,7 @@ export default class Post extends Component {
             <Box
               width={1}
               m="auto"
-              pt={40}
+              pt={[30, 30, 30, 50]}
               pb={10}
               px={[10, 10, 10, 40]}
               is="header"
@@ -202,36 +203,44 @@ export default class Post extends Component {
             </Box>
             {/* eslint-enable react/no-danger */}
 
-            <div className="categories-region" />
+            <Box
+              width={1}
+              m="auto"
+              px={[10, 10, 10, 40]}
+              className="post__extra"
+            >
+              <div className="categories-region" />
 
-            <div className="addthis-region">
-              <PinterestButton
-                className="pinterest-button"
-                url={`https://www.laybabylay.com/${slug}`}
-                media={shareImage}
-                windowOptions={windowOptions()}
-              >
-                Pin It
-              </PinterestButton>
-              <FacebookButton
-                className="facebook-button"
-                url={`https://www.laybabylay.com/${slug}`}
-                appId="179291298758035"
-                windowOptions={windowOptions()}
-              >
-                Share on Facebook
-              </FacebookButton>
-              <TwitterButton
-                className="tweet-button"
-                url={`https://www.laybabylay.com/${slug}`}
-                windowOptions={windowOptions()}
-              >
-                Tweet
-              </TwitterButton>
-            </div>
+              <div className="addthis-region">
+                <PinterestButton
+                  className="pinterest-button"
+                  url={`https://www.laybabylay.com/${slug}`}
+                  media={shareImage}
+                  windowOptions={windowOptions()}
+                >
+                  Pin It
+                </PinterestButton>
+                <FacebookButton
+                  className="facebook-button"
+                  url={`https://www.laybabylay.com/${slug}`}
+                  appId="179291298758035"
+                  windowOptions={windowOptions()}
+                >
+                  Share on Facebook
+                </FacebookButton>
+                <TwitterButton
+                  className="tweet-button"
+                  url={`https://www.laybabylay.com/${slug}`}
+                  windowOptions={windowOptions()}
+                >
+                  Tweet
+                </TwitterButton>
+              </div>
 
-            <Comments post={post} />
-            {post.related_posts ? <RelatedPosts related={post.related_posts} /> : null}
+              <Comments post={post} />
+              {post.related_posts ? <RelatedPosts related={post.related_posts} /> : null}
+
+            </Box>
           </Box>
 
           <Sidebar tiles={sidebarTiles} />

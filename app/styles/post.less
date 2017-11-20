@@ -4,7 +4,7 @@
 .post {
   position: relative;
   min-height: 800px;
-  max-width: 1200px;
+  max-width: 1100px;
 
   .palette {
     margin: 10px 0 -20px 0;
@@ -37,15 +37,7 @@
   &.featured {
     .post__header {
       margin: -40px auto 0;
-      box-shadow: 0 20px 100px rgba(0, 0, 0, 0.05);
-
-      @media (min-width: @screen-desktop) {
-        margin: -100px auto 0;
-      }
-
-      @media (min-width: @screen-large-desktop) {
-        margin: -140px auto 0;
-      }
+      box-shadow: 0 -30px 300px rgba(0, 0, 0, 0.04);
     }
   }
 
@@ -179,6 +171,7 @@
     background-position: 0 -90px;
     background-repeat: no-repeat;
     background-size: 212px 130px;
+    cursor: pointer;
 
     &:hover, &:active {
       background-position: 0 -110px;

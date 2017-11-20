@@ -42,17 +42,31 @@ export default class Sidebar extends Component {
 
     if (link_type === 'external') {
       return (
-        <a href={link} target="_blank" key={title} className="sidebar-tile">
-          {img}
-          <h4>{title}</h4>
-        </a>
+        <Box
+          width={[1/2, 1/2, 1/3, 1]}
+          px={[6, 8, 8, 0]}
+          mb={[10, 10, 20, 30]}
+          className="sidebar-tile"
+        >
+          <a href={link} target="_blank" key={title}>
+            {img}
+            <h4>{title}</h4>
+          </a>
+        </Box>
       );
     }
     return (
-      <Link to={link} key={title} className="sidebar-tile">
-        {img}
-        <h4>{title}</h4>
-      </Link>
+      <Box
+        width={[1/2, 1/2, 1/2, 1]}
+        px={[6, 8, 8, 0]}
+        mb={[10, 10, 20, 30]}
+        className="sidebar-tile"
+      >
+        <Link to={link} key={title}>
+          {img}
+          <h4>{title}</h4>
+        </Link>
+      </Box>
     );
   }
 
@@ -64,7 +78,7 @@ export default class Sidebar extends Component {
     const { tiles } = this.props;
 
     return (
-      <Box width={[1, 1, 1, 1/3]} pl={30} className="sidebar">
+      <Box width={[1, 1, 1, 1/3]} pl={[0, 0, 0, 30]} className="sidebar">
         <Author {...this.props} />
 
         <div className="sidebar-tiles">

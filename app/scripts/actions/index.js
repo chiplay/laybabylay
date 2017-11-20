@@ -175,7 +175,7 @@ export function submitComment(comment) {
   return (dispatch) => {
     dispatch(startSubmitComment());
 
-    return fetch('/api/respond/submit_comment', {
+    return fetch('https://laybabylay.com/wp-comments-post.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -186,6 +186,18 @@ export function submitComment(comment) {
       .then(parseJSON)
       .then(response => dispatch(submitCommentSuccess(response)))
       .catch(err => dispatch(submitCommentError(err)));
+
+    // return fetch('/api/respond/submit_comment', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(comment)
+    // })
+    //   .then(checkStatus)
+    //   .then(parseJSON)
+    //   .then(response => dispatch(submitCommentSuccess(response)))
+    //   .catch(err => dispatch(submitCommentError(err)));
   };
 }
 

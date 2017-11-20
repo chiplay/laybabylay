@@ -1,6 +1,129 @@
+@import (reference) "variables.less";
+@import (reference) "mixins.less";
+
 .footer {
   background: #fff;
   width: 100%;
-  padding: 60px;
+  padding: 20px 15px;
   margin-top: 20px;
+  position: relative;
+  .clearfix();
+
+  @media (min-width: @screen-tablet) {
+    padding: 40px 20px;
+  }
+
+  @media (min-width: @screen-desktop) {
+    padding: 60px;
+  }
+
+  .logo {
+    position: relative;
+    float: none;
+    margin: 0 auto 20px;
+
+    &:before {
+      display: none;
+    }
+
+    @media (min-width: @screen-tablet) {
+      position: relative;
+      float: left;
+      margin: 0;
+
+      &:before {
+        display: block;
+      }
+    }
+  }
+
+  &__links {
+    text-align: center;
+    margin: 0 auto 20px;
+
+    @media (min-width: @screen-tablet) {
+      clear: right;
+      float: right;
+      margin: 0 auto 25px;
+    }
+
+    a {
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+      padding: 5px 10px;
+      font-size: 11px;
+
+      @media (min-width: @screen-desktop) {
+        font-size: 12px;
+      }
+
+      &:hover {
+        color: @lbl-pink;
+      }
+    }
+  }
+
+  .social-links {
+    text-align: center;
+    margin: 0 auto 20px;
+
+    @media (min-width: @screen-tablet) {
+      clear: right;
+      float: right;
+      margin: 0 auto 30px;
+    }
+
+    a {
+      background-position-y: -25px !important;
+      margin-right: 10px;
+    }
+  }
+
+  .email-signup {
+    width: initial;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+
+    @media (min-width: @screen-tablet) {
+      clear: right;
+      float: right;
+      margin: 0 10px 0 0;
+    }
+
+    label {
+      display: inline-block;
+      position: relative;
+      top: -10px;
+      line-height: 30px;
+      margin-right: 8px;
+    }
+
+    .field-wrapper {
+      display: inline-block;
+      margin: 0;
+      width: 250px;
+    }
+
+    .email {
+      width: 165px;
+    }
+  }
+
+  .footer-legal {
+    width: 180px;
+    text-align: center;
+    margin: 20px auto 0;
+
+    @media (min-width: @screen-tablet) {
+      float: left;
+      clear: left;
+    }
+
+    @media (min-width: @screen-desktop) {
+      width: 210px;
+    }
+  }
 }

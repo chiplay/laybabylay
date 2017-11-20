@@ -16,6 +16,8 @@ export default class RelatedPosts extends Component {
 
     return (
       <div className="related-posts">
+        <h2 className="related-posts__title">Check Out These Similar Posts</h2>
+
         {this.buildPosts(related)}
       </div>
     );

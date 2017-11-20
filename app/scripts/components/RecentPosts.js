@@ -89,7 +89,7 @@ export default class RecentPosts extends Component {
           } = home;
 
     return (
-      <Box width={[1, 1, 1, 2/3]} mb={100} className="recent-posts">
+      <Box width={[1, 1, 1, 2/3]} mb={20} className="recent-posts">
         {this.buildFilters(activeFilter)}
         {this.buildPosts(activePosts)}
         {this.buildPagination(page, totalPages, isFetching)}

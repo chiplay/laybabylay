@@ -21,7 +21,8 @@ class Comments extends Component {
       parent: '',
       author: '',
       email: '',
-      url: ''
+      url: '',
+      replyTo: ''
     };
   }
 
@@ -39,7 +40,7 @@ class Comments extends Component {
   }
 
   collapseForm = () => {
-    this.setState({ form: false });
+    this.setState({ form: false, parent: '' });
   }
 
   handleInputChange = (event) => {
@@ -67,13 +68,24 @@ class Comments extends Component {
       author,
       parent
     });
+    this.setState({
+      complete: true,
+      form: false,
+      author: '',
+      content: '',
+      url: '',
+      email: '',
+      parent: ''
+    });
     event.preventDefault();
   }
 
-  showReplyForm = () => {
-    // this.newComment.set({ parent: model.get('id'), reply: model.get('name') });
-    // this.$('textarea').attr('placeholder','Reply to ' + model.get('name')).focus();
-
+  showReplyForm = (id, author_name) => {
+    this.setState({
+      replyTo: author_name,
+      parent: id,
+      form: true
+    });
   }
 
   createMarkup = (content) => {
@@ -84,6 +96,7 @@ class Comments extends Component {
 
   renderCommentList = (comments = [], expanded) => {
     const commentList = expanded ? comments : comments.slice(0, 5);
+    const { parent: replyParent } = this.state;
 
     return commentList.map(comment => {
       const {
@@ -112,15 +125,54 @@ class Comments extends Component {
               <a href={author_url} target="_blank">{author_name}</a>
             </h1>
             <p className="comment-date">{moment(date).format('MMMM Do, YYYY')}</p>
-            <button className="comment-reply-link">reply</button>
+            <button className="comment-reply-link" onClick={() => this.showReplyForm(id, author_name)}>reply</button>
             <div className="comment-body" dangerouslySetInnerHTML={this.createMarkup(content)} />
+            {replyParent === id && this.renderCommentForm()}
           </div>
         </li>
       );
     });
   }
 
-  renderForm = () => {
+  renderCommentForm = () => {
+    const { form, replyTo } = this.state;
+
+    return (
+      <div className="comment-form form">
+        <div id="respond" className="comment-respond">
+
+          {replyTo ?
+            <h3 id="reply-title" className="comment-reply-title">
+              Reply to {replyTo}
+            </h3> : null
+          }
+
+          <form
+            action="https://laybabylay.com/wp-comments-post.php"
+            method="post"
+            id="commentform"
+            onSubmit={this.handleSubmit}
+          >
+            <p className="comment-complete">Thank you for posting a comment!</p>
+
+            <textarea
+              className="form-area"
+              name="content"
+              id="content"
+              placeholder="Leave a comment"
+              onFocus={this.expandForm}
+              value={this.state.content}
+              onChange={this.handleInputChange}
+            />
+
+            {form && this.renderFormFields()}
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  renderFormFields = () => {
     return (
       <div>
         <label htmlFor="author">
@@ -165,7 +217,6 @@ class Comments extends Component {
             type="submit"
             id="submit"
             value="Submit"
-            onClick={this.handleSubmit}
           />
         </p>
         <button
@@ -181,7 +232,12 @@ class Comments extends Component {
 
   render() {
     const { post } = this.props,
-          { expanded, form, complete } = this.state,
+          {
+            expanded,
+            form,
+            complete,
+            parent
+          } = this.state,
           { comments = [] } = post;
 
     const commentClasses = classNames('comments', { complete, form });
@@ -205,30 +261,7 @@ class Comments extends Component {
           </button> : null
         }
 
-        <div className="comment-form form">
-          <div id="respond" className="comment-respond">
-
-            <h3 id="reply-title" className="comment-reply-title">
-              Reply to <button href="#" className="reply-to-name" />
-            </h3>
-
-            <form action="http://laybabylay.com/wp-comments-post.php" method="post" id="commentform">
-              <p className="comment-complete">Thank you for posting a comment!</p>
-
-              <textarea
-                className="form-area"
-                name="content"
-                id="content"
-                placeholder="Leave a comment"
-                onFocus={this.expandForm}
-                value={this.state.content}
-                onChange={this.handleInputChange}
-              />
-
-              {form && this.renderForm()}
-            </form>
-          </div>
-        </div>
+        {!parent && this.renderCommentForm()}
       </div>
     );
   }
