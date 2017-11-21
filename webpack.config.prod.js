@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // https://www.algolia.com/doc/tutorials/seo/generate-sitemap-from-index/javascript/
 
@@ -9,10 +10,13 @@ module.exports = {
   entry: './app/scripts',
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].bundle.js'
-    // publicPath: '/static/'
+    filename: '[name].bundle.js',
+    publicPath: '/'
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: 'index.tpl.html',
+    }),
     new webpack.NoEmitOnErrorsPlugin(),
     new ExtractTextPlugin({
       filename: 'app.css'
@@ -47,7 +51,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /fbsdk/, loader: 'script' },
+      { test: /fbsdk/, loader: 'script-loader' },
       {
         test: /\.less$/,
         use: ExtractTextPlugin.extract({
@@ -77,21 +81,6 @@ module.exports = {
             options: {
               bypassOnDebug: true
             }
-          }
-        ]
-      },
-      {
-        test: /\.jade$/,
-        use: [
-          {
-            loader: 'html-loader',
-            options: {
-              attrs: ['img:src', 'source:src'],
-              minimize: false
-            }
-          },
-          {
-            loader: 'jade-html-loader'
           }
         ]
       },

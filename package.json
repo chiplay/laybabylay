@@ -10,7 +10,7 @@
   "author": "Chip Lay",
   "scripts": {
     "heroku-prebuild": "npm install --dev",
-    "heroku-postbuild": "npm run build:webpack",
+    "heroku-postbuild": "npm run build",
     "clean": "rimraf dist",
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js --progress",
     "build": "npm run clean && npm run build:webpack",
