@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory, applyRouterMiddleware } from 'react-router';
 import { useScroll } from 'react-router-scroll';
+import LogRocket from 'logrocket';
 
 import configureStore from './store/configureStore';
 import ThemeContainer from './containers/ThemeContainer';
@@ -12,6 +13,8 @@ import PostContainer from './containers/PostContainer';
 import SearchContainer from './containers/SearchContainer';
 import AboutPageContainer from './containers/AboutPageContainer';
 import '../styles/app.less';
+
+LogRocket.init('ivtkem/lay-baby-lay-prod');
 
 const store = configureStore();
 const rootElement = document.getElementById('root');
@@ -48,11 +51,11 @@ render(
         <Route path="explore/:post_type/:category" component={SearchContainer} />
         <Route path="explore/:post_type/:category/:tag" component={SearchContainer} />
         <Route path="explore/:post_type/:category/:tag/:query" component={SearchContainer} />
-        <Route path="search" component={SearchContainer} />
-        <Route path="search/:post_type" component={SearchContainer} />
-        <Route path="search/:post_type/:category" component={SearchContainer} />
-        <Route path="search/:post_type/:category/:tag" component={SearchContainer} />
-        <Route path="search/:post_type/:category/:tag/:query" component={SearchContainer} />
+        <Route path="explore" component={SearchContainer} />
+        <Route path="explore/:post_type" component={SearchContainer} />
+        <Route path="explore/:post_type/:category" component={SearchContainer} />
+        <Route path="explore/:post_type/:category/:tag" component={SearchContainer} />
+        <Route path="explore/:post_type/:category/:tag/:query" component={SearchContainer} />
         <Route path=":post_type/:category" component={SearchContainer} />
         <Route path=":post_type/:category/:tag" component={SearchContainer} />
         <Route path=":post_type/:category/:tag/:query" component={SearchContainer} />
