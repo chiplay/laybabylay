@@ -18,6 +18,7 @@ Thumbs.db
 !.eslintrc.js
 !server.js
 !index.tpl.html
+!favicon.ico
 
 # But ignore these subdirectories
 /wp-content/upgrade

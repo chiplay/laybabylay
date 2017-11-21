@@ -16,6 +16,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.tpl.html',
+      favicon: 'favicon.ico'
     }),
     new webpack.NoEmitOnErrorsPlugin(),
     new ExtractTextPlugin({
