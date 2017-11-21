@@ -8,19 +8,16 @@ Thumbs.db
 
 # But not these files...
 !.gitignore
-!.jshintrc
-!.bowerrc
 !.babelrc
 !.favicon.ico
 !package.json
 !webpack.config.*
-!bower.json
-!GruntFile.js
 !/wp-content
 !/app
 !Procfile
 !.eslintrc.js
 !server.js
+!index.tpl.html
 
 # But ignore these subdirectories
 /wp-content/upgrade
