@@ -31,7 +31,6 @@ export default class PostCards extends Component {
       dots: true,
       arrows: true,
       // className: 'center',
-      // adaptiveHeight: true,
       centerMode: true,
       infinite: true,
       centerPadding: '180px',
@@ -56,15 +55,17 @@ export default class PostCards extends Component {
         breakpoint: 768,
         settings: {
           arrows: false,
-          // autoplay: true,
+          autoplay: true,
+          adaptiveHeight: true,
           centerPadding: '0'
         }
       }, {
         breakpoint: 576,
         settings: {
           centerPadding: '0px',
-          // autoplay: true,
-          arrows: false
+          autoplay: true,
+          arrows: false,
+          adaptiveHeight: true
         }
       }]
     };

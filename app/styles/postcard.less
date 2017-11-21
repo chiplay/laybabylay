@@ -4,6 +4,11 @@
 // override
 .slick-slide {
   height: auto !important;
+  padding-bottom: 35px;
+
+  @media (min-width: @screen-small) {
+    padding-bottom: 0;
+  }
 
   a {
     display: block;
@@ -43,7 +48,7 @@
     background: #fff;
     position: relative;
     width: auto;
-    padding: 15px 20px;
+    padding: 15px 30px;
     margin: 0;
     width: 100%;
     text-align: center;
@@ -156,17 +161,32 @@
 
   &__image { // img
     width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    @media (min-width: @screen-small) {
+      position: relative;
+      top: 0;
+      left: 0;
+    }
 
     &--wrapper { // figure
       max-height: 340px;
       overflow: hidden;
+      position: relative;
+      padding-bottom: 75%;
+      height: 0;
 
       @media (min-width: @screen-xsmall) {
         max-height: 300px;
+        padding-bottom: 50%;
       }
 
       @media (min-width: @screen-small) {
         max-height: 460px;
+        padding-bottom: 0;
+        height: auto;
       }
 
       @media (min-width: @screen-large) {

@@ -23,7 +23,7 @@ export default class PostCard extends Component {
     let image = <div />;
 
     if (featured_image) {
-      const imageSize = utils.metrics.isPhone ? 'w_800,h_600' : 'w_2000,h_1000';
+      const imageSize = utils.metrics.isPhone ? 'w_1000,h_750' : 'w_2000,h_1000';
       const filename = new URI(featured_image).filename();
       const imageSrc = `//res.cloudinary.com/laybabylay/image/upload/f_auto,q_35,${imageSize},c_fill/${filename}`;
       image = (
