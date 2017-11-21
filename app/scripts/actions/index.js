@@ -160,7 +160,7 @@ export function fetchComments(id) {
   return (dispatch) => {
     dispatch(startFetchComments());
 
-    const wp = new WPAPI({ endpoint: 'https://laybabylay.com/wp-json' });
+    const wp = new WPAPI({ endpoint: 'https://www.laybabylay.com/wp-json' });
 
     wp.comments()
       .param('post', id)
@@ -175,7 +175,7 @@ export function submitComment(comment) {
   return (dispatch) => {
     dispatch(startSubmitComment());
 
-    return fetch('https://laybabylay.com/wp-comments-post.php', {
+    return fetch('https://new.laybabylay.com/wp-comments-post.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
