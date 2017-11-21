@@ -46,10 +46,10 @@ export default class DynamicHead extends Component {
         <meta property="article:publisher" content="https://www.facebook.com/laybabylay" />
         <meta property="article:section" content={_startCase(categoryTitle)} />
         <meta property="og:description" content={excerpt || snippet} />
-        <meta property="og:url" content={`https://laybabylay.com/${slug}`} />
+        <meta property="og:url" content={`https://www.laybabylay.com/${slug}`} />
         <meta property="og:image" content={imageSrc} />
 
-        <link rel="canonical" href={`https://laybabylay.com/${slug}`} />
+        <link rel="canonical" href={`https://www.laybabylay.com/${slug}`} />
       </Helmet>
     );
   }

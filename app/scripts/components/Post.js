@@ -81,7 +81,7 @@ export default class Post extends Component {
     if (!window.PinUtils) return;
 
     window.PinUtils.pinOne({
-      url: `https://laybabylay.com/${this.props.post.slug}`,
+      url: `https://www.laybabylay.com/${this.props.post.slug}`,
       media: img.currentTarget.src,
       description: `${this.props.post.post_title} on LayBabyLay.com`
     });
