@@ -59,7 +59,7 @@
     "swiper": "^3.2.7",
     "underscore": "~1.5.2",
     "urijs": "^1.17.0",
-    "vanilla-lazyload": "^8.2.1",
+    "vanilla-lazyload": "8.2.1",
     "wpapi": "^1.1.2"
   },
   "devDependencies": {
