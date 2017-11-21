@@ -6,6 +6,9 @@ const compression = require('compression');
 const app = express();
 app.use(compression());
 
+// Prerender
+app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_TOKEN));
+
 // serve our static stuff like index.css
 app.use(express.static(path.join(__dirname, 'dist')));
 
