@@ -41,6 +41,7 @@ class SearchContainer extends Component {
     actions.search({
       ...queryObj,
       ...params,
+      ...!params.category && { category: '' },
       page: 0
     });
   }
