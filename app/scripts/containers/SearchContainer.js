@@ -110,7 +110,7 @@ class SearchContainer extends Component {
 
     if (!results.length) {
       return (
-        <div>No results</div>
+        <div className="no-results">No results</div>
       );
     }
 
