@@ -4,8 +4,6 @@ import algoliasearch from 'algoliasearch';
 import _startCase from 'lodash/startCase';
 import WPAPI from 'wpapi';
 
-// import algoliasearchHelper from 'algoliasearch-helper';
-
 const client = algoliasearch('Y488X1WEPX', '5a718b4a933cc7a657bbf4273df0d63c');
 
 export const RECEIVE_PAGE = 'RECEIVE_PAGE';

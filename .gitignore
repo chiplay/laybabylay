@@ -19,6 +19,7 @@ Thumbs.db
 !server.js
 !index.tpl.html
 !favicon.ico
+!yarn.lock
 
 # But ignore these subdirectories
 /wp-content/upgrade
