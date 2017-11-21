@@ -203,23 +203,18 @@
     position: relative;
     width: 100%;
     text-align: center;
-    padding: 0;
+    padding-top: 25px;
 
-    @media (max-width: @screen-tablet-max) {
-      padding-top: 25px;
-      width: 100%;
-
-      &:before {
-        color: #aaa;
-        font-weight: 100;
-        font-size: 24px;
-        line-height: 24px;
-        margin-left: -15px;
-        content: '\2014';
-        position: absolute;
-        top: 0;
-        left: 50%;
-      }
+    &:before {
+      color: #aaa;
+      font-weight: 100;
+      font-size: 24px;
+      line-height: 24px;
+      margin-left: -15px;
+      content: '\2014';
+      position: absolute;
+      top: 0;
+      left: 50%;
     }
   }
 
@@ -231,7 +226,6 @@
     font-size: 11px;
     line-height: 24px;
     letter-spacing: 2px;
-    margin: 0 0 10px;
     display: block;
 
     @media (min-width: @screen-tablet) {

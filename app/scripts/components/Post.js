@@ -168,8 +168,7 @@ export default class Post extends Component {
               width={1}
               m="auto"
               pt={[30, 30, 30, 50]}
-              pb={10}
-              px={[10, 10, 10, 40]}
+              px={[15, 15, 15, 40]}
               is="header"
               className="post__header"
             >
@@ -187,7 +186,7 @@ export default class Post extends Component {
               width={1}
               m="auto"
               pt={10}
-              px={[10, 10, 10, 40]}
+              px={[15, 15, 15, 40]}
               className="post__content"
             >
               {post.content ?
@@ -206,7 +205,7 @@ export default class Post extends Component {
             <Box
               width={1}
               m="auto"
-              px={[10, 10, 10, 40]}
+              px={[15, 15, 15, 40]}
               className="post__extra"
             >
               <div className="categories-region" />

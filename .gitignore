@@ -18,6 +18,9 @@ Thumbs.db
 !GruntFile.js
 !/wp-content
 !/app
+!Procfile
+!.eslintrc.js
+!server.js
 
 # But ignore these subdirectories
 /wp-content/upgrade
