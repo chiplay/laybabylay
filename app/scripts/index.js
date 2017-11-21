@@ -15,6 +15,7 @@ import AboutPageContainer from './containers/AboutPageContainer';
 import '../styles/app.less';
 
 LogRocket.init('ivtkem/lay-baby-lay-prod');
+require('logrocket-react')(LogRocket);
 
 const store = configureStore();
 const rootElement = document.getElementById('root');

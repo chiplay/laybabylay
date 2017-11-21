@@ -14,6 +14,9 @@
           }]
         }]
       ]
+    },
+    "production": {
+      "plugins": ["add-react-displayname"]
     }
   }
 }
