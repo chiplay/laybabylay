@@ -173,7 +173,7 @@ export function submitComment(comment) {
   return (dispatch) => {
     dispatch(startSubmitComment());
 
-    return fetch('https://new.laybabylay.com/wp-comments-post.php', {
+    return fetch('https://wp.laybabylay.com/wp-comments-post.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

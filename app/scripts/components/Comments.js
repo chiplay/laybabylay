@@ -148,7 +148,7 @@ class Comments extends Component {
           }
 
           <form
-            action="https://new.laybabylay.com/wp-comments-post.php"
+            action="https://wp.laybabylay.com/wp-comments-post.php"
             method="post"
             id="commentform"
             onSubmit={this.handleSubmit}
