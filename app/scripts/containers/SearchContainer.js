@@ -108,11 +108,6 @@ class SearchContainer extends Component {
           } = this.props,
           { post_type } = params;
 
-    if (!results.length) {
-      return (
-        <div className="no-results">No results</div>
-      );
-    }
 
     if (isSearching) {
       return (
@@ -122,6 +117,12 @@ class SearchContainer extends Component {
             <div className="double-bounce2" />
           </div>
         </article>
+      );
+    }
+
+    if (!results.length) {
+      return (
+        <div className="no-results">No results</div>
       );
     }
 
