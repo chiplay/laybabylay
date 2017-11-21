@@ -47,6 +47,7 @@ export default class Sidebar extends Component {
           px={[6, 8, 8, 0]}
           mb={[10, 10, 20, 30]}
           className="sidebar-tile"
+          key={link}
         >
           <a href={link} target="_blank" key={title}>
             {img}
@@ -61,6 +62,7 @@ export default class Sidebar extends Component {
         px={[6, 8, 8, 0]}
         mb={[10, 10, 20, 30]}
         className="sidebar-tile"
+        key={link}
       >
         <Link to={link} key={title}>
           {img}
