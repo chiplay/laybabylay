@@ -89,6 +89,7 @@ export default class Post extends Component {
 
   createMarkup = (html) => {
     let content = html.replace(/upload\/v/g, 'upload/f_auto,q_36,w_1200/v');
+    content = content.replace(/http:/g, 'https:');
     content = content.replace(/src=/ig, 'data-original=');
 
     // data-pin-url="http://mysite.com/mypage.html"
