@@ -175,7 +175,6 @@ export function submitComment(comment) {
 
     return fetch('https://wp.laybabylay.com/wp-comments-post.php', {
       method: 'POST',
-      mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json'
       },
