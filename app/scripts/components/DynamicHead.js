@@ -22,13 +22,13 @@ export default class DynamicHead extends Component {
 
     let imageSrc;
 
-    if (featured_image) {
-      const filename = new URI(featured_image).filename();
+    if (first_image) {
+      const filename = new URI(first_image).filename();
       imageSrc = `//res.cloudinary.com/laybabylay/image/upload/q_90,w_1200/${filename}`;
     }
 
-    if (first_image) {
-      const filename = new URI(first_image).filename();
+    if (featured_image) {
+      const filename = new URI(featured_image).filename();
       imageSrc = `//res.cloudinary.com/laybabylay/image/upload/q_90,w_1200/${filename}`;
     }
 
