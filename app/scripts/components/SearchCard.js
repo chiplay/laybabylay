@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import _isEqual from 'lodash/isEqual';
 
-import { decodeHtml } from 'utils';
+import utils, { decodeHtml } from 'utils';
 import URI from 'urijs';
 import 'styles/search-card.less';
 
@@ -25,7 +25,8 @@ export default class SearchCard extends Component {
           } = item,
           originalSrc = product_image || first_image,
           filename = originalSrc ? new URI(originalSrc).filename() : null,
-          imageSrc = filename ? `//res.cloudinary.com/laybabylay/image/upload/q_40,w_500/${filename.replace(/\.[^/.]+$/, '')}.jpg` : null;
+          imageSize = utils.metrics.isPhone ? 'w_300' : 'w_500',
+          imageSrc = filename ? `//res.cloudinary.com/laybabylay/image/upload/q_36,${imageSize}/${filename.replace(/\.[^/.]+$/, '')}.jpg` : null;
 
     const cardLink = (isExternal, to, card) => {
       return isExternal ? (

@@ -16,7 +16,7 @@ const defaultState = {
     tag: '',
     post_type: 'posts'
   },
-  isSearching: false
+  isSearching: true
 };
 
 export default function reducer(state = defaultState, action) {

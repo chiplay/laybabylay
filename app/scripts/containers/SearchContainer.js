@@ -62,7 +62,8 @@ class SearchContainer extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return !_isEqual(this.props.results, nextProps.results);
+    return !_isEqual(this.props.results, nextProps.results) ||
+      !_isEqual(this.props.isSearching, nextProps.isSearching);
   }
 
   fetchMoreResults = (props) => {
@@ -108,19 +109,7 @@ class SearchContainer extends Component {
           } = this.props,
           { post_type } = params;
 
-
-    if (isSearching) {
-      return (
-        <article className="post">
-          <div className="spinner">
-            <div className="double-bounce1" />
-            <div className="double-bounce2" />
-          </div>
-        </article>
-      );
-    }
-
-    if (!results.length) {
+    if (!results.length && !isSearching) {
       return (
         <div className="no-results">No results</div>
       );
@@ -154,6 +143,14 @@ class SearchContainer extends Component {
         >
           {this.buildResults(results)}
         </Masonry>
+        {isSearching ?
+          <article className="post">
+            <div className="spinner">
+              <div className="double-bounce1" />
+              <div className="double-bounce2" />
+            </div>
+          </article> : null
+        }
         <Waypoint
           scrollableAncestor={window}
           bottomOffset="-100px"
