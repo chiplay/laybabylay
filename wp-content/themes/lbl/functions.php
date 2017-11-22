@@ -76,14 +76,14 @@ function get_first_image_from_content( $content ) {
 
 function get_first_image_height_from_content( $content ) {
 	preg_match_all('/<img.+height=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches);
-	$first_img = $matches[1][0];
-	return basename($first_img);	
+	$first_image_height = $matches[1][0];
+	return $first_image_height;	
 }
 
 function get_first_image_width_from_content( $content ) {
 	preg_match_all('/<img.+width=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches);
-	$first_img = $matches[1][0];
-	return basename($first_img);	
+	$first_image_width = $matches[1][0];
+	return $first_image_width;	
 }
 
 function get_related_posts( $field_name, $post ) {
