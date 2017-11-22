@@ -74,6 +74,18 @@ function get_first_image_from_content( $content ) {
 	return basename($first_img);	
 }
 
+function get_first_image_height_from_content( $content ) {
+	preg_match_all('/<img.+height=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches);
+	$first_img = $matches[1][0];
+	return basename($first_img);	
+}
+
+function get_first_image_width_from_content( $content ) {
+	preg_match_all('/<img.+width=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches);
+	$first_img = $matches[1][0];
+	return basename($first_img);	
+}
+
 function get_related_posts( $field_name, $post ) {
 	$updated_posts = array();
 
@@ -128,6 +140,8 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 	// Add the post content (with html), and reassign in algolia_post_records
 	$attributes['content_full'] = wpautop($post->post_content);
 	$attributes['first_image'] = get_first_image_from_content($post->post_content);
+	$attributes['first_image_height'] = get_first_image_height_from_content($post->post_content);
+	$attributes['first_image_width'] = get_first_image_width_from_content($post->post_content);
 
 	if (get_field('related_posts', $post->ID)) {
 		$attributes['related_posts'] = get_related_posts('related_posts', $post);
@@ -156,6 +170,8 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 	// Product fields
 	if (get_field('product_image', $post->ID)) {
 		$attributes['product_image'] = get_field('product_image', $post->ID)[url];
+		$attributes['product_image_width'] = get_field('product_image', $post->ID)[width];
+		$attributes['product_image_height'] = get_field('product_image', $post->ID)[height];
 	}
 	if (get_field('product_description', $post->ID)) {
 		$attributes['description'] = get_field('product_description', $post->ID);
