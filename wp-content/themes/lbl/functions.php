@@ -44,7 +44,7 @@ function my_attachment_image_thumb($postid=0, $size='full', $attributes='') {
   }
 }
 
-add_filter( 'the_content', 'cloudinary_image_transform', 20 );
+// add_filter( 'the_content', 'cloudinary_image_transform', 20 );
 /**
  * Let's save us some bandwidth
  *
