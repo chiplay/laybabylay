@@ -39,35 +39,6 @@ export default class Header extends Component {
                   <Link to="/about">About</Link>
                 </li>
               </ul>
-
-              <div>
-                {/* <form action="/search" className="search-form" id="search-header-form" role="search">
-                  <input
-                    autoCapitalize="off"
-                    autoComplete="off"
-                    autoCorrect="off"
-                    className="search-input"
-                    id="search-input"
-                    name="query"
-                    placeholder="Search"
-                    type="search"
-                  />
-
-                  <button className="icon-search search-show">
-                    <span className="hide">Search</span>
-                  </button>
-
-                  <button className="icon-close search-clear">
-                    <span className="hide">Clear</span>
-                  </button>
-
-                  <div className="load-indicator">
-                    <div className="circle-1" />
-                    <div className="circle-2" />
-                    <span className="hide">Loading</span>
-                  </div>
-                </form> */}
-              </div>
             </div>
           </div>
         </header>
