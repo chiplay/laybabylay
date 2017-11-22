@@ -15,6 +15,12 @@ function catch_that_image() {
   return $first_img;
 }
 
+add_filter( 'allowed_http_origins', 'add_allowed_origins' );
+function add_allowed_origins( $origins ) {
+    $origins[] = 'https://www.laybabylay.com';
+    return $origins;
+}
+
 if( !is_admin() ){
 	wp_deregister_script('jquery');
 }
