@@ -27,10 +27,16 @@ export default class Post extends Component {
   }
 
   componentDidMount() {
-    this.lazyload = new LazyLoad({
-      threshold: 500
-    });
+    this.lazyload = new LazyLoad();
     this.buildImagePinButtons();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // If we visit a new post without unmounting the component,
+    // we need to clear out the event listeners and reset state
+    if (!nextProps.post && this.props.post) {
+      this.buildImagePinButtons(true);
+    }
   }
 
   componentDidUpdate() {
@@ -44,7 +50,7 @@ export default class Post extends Component {
   }
 
   buildImagePinButtons = (remove = false) => {
-    if (!this.postContent || this.state.pinButtons) return;
+    if (!this.postContent || (this.state.pinButtons && !remove)) return;
 
     const images = this.postContent.getElementsByTagName('img');
     const method = remove ? 'removeEventListener' : 'addEventListener';
@@ -53,9 +59,11 @@ export default class Post extends Component {
       img[method]('click', this.pinImage, false);
       if (remove) return;
 
-      // wrap each image
+      // wrap each image and set pre-load height styles
       const wrapper = document.createElement('div');
       wrapper.classList.add('image-wrapper');
+      const ratio = (img.attributes.height.nodeValue / img.attributes.width.nodeValue) * 100;
+      wrapper.setAttribute('style', `padding-bottom:${ratio}%;`);
       img.parentNode.insertBefore(wrapper, img);
       wrapper.appendChild(img);
 
@@ -72,6 +80,11 @@ export default class Post extends Component {
       img.parentNode.insertBefore(button, img.nextSibling);
     });
 
+    if (remove) {
+      this.setState({ pinButtons: false });
+      return;
+    }
+
     // Rebuild Pinterest button
     if (window.PinUtils) window.PinUtils.build();
     this.setState({ pinButtons: true });
@@ -80,21 +93,23 @@ export default class Post extends Component {
   pinImage = (img) => {
     if (!window.PinUtils) return;
 
+    const imageSize = utils.metrics.isPhone ? 'upload/f_auto,q_36,w_700' : 'upload/f_auto,q_36,w_1200';
+    const re = new RegExp(imageSize, 'g');
+    const { src } = img.currentTarget;
+    const media = src.replace(re, `upload/w_2000`);
+
     window.PinUtils.pinOne({
       url: `https://www.laybabylay.com/${this.props.post.slug}`,
-      media: img.currentTarget.src,
+      media,
       description: `${this.props.post.post_title} on LayBabyLay.com`
     });
   }
 
   createMarkup = (html) => {
-    let content = html.replace(/upload\/v/g, 'upload/f_auto,q_36,w_1200/v');
+    const imageSize = utils.metrics.isPhone ? 'w_700' : 'w_1200';
+    let content = html.replace(/upload\/.+?(?=\/)/g, `upload/f_auto,q_36,${imageSize}`);
     content = content.replace(/http:/g, 'https:');
     content = content.replace(/src=/ig, 'data-original=');
-
-    // data-pin-url="http://mysite.com/mypage.html"
-    // data-pin-media="http://cdn.mysite.com/myimage_fullsize.jpg"
-    // data-pin-description="Baked Mozzarrella Cheese Sticks"/>
 
     return {
       __html: content

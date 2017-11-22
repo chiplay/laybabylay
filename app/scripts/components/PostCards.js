@@ -36,6 +36,7 @@ export default class PostCards extends Component {
       centerPadding: '180px',
       slidesToShow: 1,
       slidesToScroll: 1,
+      lazyLoad: true,
       responsive: [{
         breakpoint: 1440,
         settings: {
@@ -57,7 +58,8 @@ export default class PostCards extends Component {
           arrows: false,
           autoplay: true,
           adaptiveHeight: true,
-          centerPadding: '0'
+          centerPadding: '0',
+          lazyLoad: false
         }
       }, {
         breakpoint: 576,
@@ -65,7 +67,8 @@ export default class PostCards extends Component {
           centerPadding: '0px',
           autoplay: true,
           arrows: false,
-          adaptiveHeight: true
+          adaptiveHeight: true,
+          lazyLoad: false
         }
       }]
     };
