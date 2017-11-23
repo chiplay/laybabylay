@@ -152,7 +152,7 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 	// Product fields
 	if (get_field('product_image', $post->ID)) {
 		$attributes['product_image'] = get_field('product_image', $post->ID)[url];
-		$attributes['product_image_width'] = get_field('product_image', $post->ID)[url];
+		$attributes['product_image_width'] = get_field('product_image', $post->ID)[width];
 		$attributes['product_image_height'] = get_field('product_image', $post->ID)[height];
 	}
 	if (get_field('product_description', $post->ID)) {
