@@ -24,7 +24,7 @@ export default class Footer extends Component {
         <div className="footer__links">
           <Link to="/about">About</Link>
           <a href="mailto:joni@laybabylay.com">Contact Me</a>
-          <Link to="/explore">Archives</Link>
+          <Link to="/explore/posts">Archives</Link>
           <Link to="/explore/products">Products</Link>
           <a href="https://society6.com/jonilay">Print Shop</a>
         </div>
