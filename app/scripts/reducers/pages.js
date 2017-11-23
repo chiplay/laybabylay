@@ -55,7 +55,8 @@ export default function reducer(state = defaultState, action) {
     return Object.assign({}, state, {
       home: {
         ...state.home,
-        activeFilter: action.payload
+        activeFilter: action.payload,
+        isFetching: false
       }
     });
 

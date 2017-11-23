@@ -15,6 +15,8 @@ export default class PostSummary extends Component {
     const { post } = this.props,
           {
             first_image,
+            first_image_height,
+            first_image_width,
             taxonomies = {},
             post_title,
             slug,
@@ -23,6 +25,7 @@ export default class PostSummary extends Component {
             excerpt
           } = post,
           { category = [] } = taxonomies,
+          ratio = (first_image_height / first_image_width) * 100,
           snippet = _snippetResult && _snippetResult.content.value,
           categoryTitle = category.length && category[0];
 
@@ -34,7 +37,9 @@ export default class PostSummary extends Component {
       const imageSrc = `//res.cloudinary.com/laybabylay/image/upload/f_auto,q_36,${imageSize}/${filename}`;
       image = (
         <figure className="post-summary__image--wrapper">
-          <img className="post-summary__image" src={imageSrc} alt={post_title} />
+          <div className="post-summary__image--responsive" style={{ paddingBottom: `${ratio}%` }}>
+            <img className="post-summary__image" src={imageSrc} alt={post_title} />
+          </div>
         </figure>
       );
     }

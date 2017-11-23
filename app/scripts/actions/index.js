@@ -90,6 +90,8 @@ export function fetchPosts(page = 0, hitsPerPage = POSTS_PER_PAGE) {
         'featured_image',
         'related_posts',
         'first_image',
+        'first_image_width',
+        'first_image_height',
         'subtitle',
         'slug'
       ],

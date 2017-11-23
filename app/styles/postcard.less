@@ -6,7 +6,7 @@
   height: auto !important;
   padding-bottom: 35px;
 
-  @media (min-width: @screen-small) {
+  @media (min-width: @screen-medium) {
     padding-bottom: 0;
   }
 
@@ -27,12 +27,8 @@
   opacity: 0.05;
   .transition(opacity 1s cubic-bezier(0.190, 1.000, 0.220, 1.000));
 
-  @media (min-width: @screen-small) {
-    padding: 0 15px;
-  }
-
   @media (min-width: @screen-medium) {
-
+    padding: 0 15px;
   }
 
   @media (min-width: @screen-large) {
@@ -48,10 +44,12 @@
     background: #fff;
     position: relative;
     width: auto;
-    padding: 15px 30px;
-    margin: 0;
-    width: 100%;
+    padding: 25px;
+    margin: -60px auto 0;
+    width: calc(~"100% - 60px");
     text-align: center;
+    border-radius: 0px;
+    .box-shadow(0 6px 80px rgba(0,0,0,.05));
 
     @media (min-width: @screen-small) {
       position: absolute;
@@ -63,6 +61,7 @@
       width: inherit;
       opacity: 0.95;
       max-width: 500px;
+      border-radius: 0px;
     }
 
     @media (min-width: @screen-medium) {
@@ -86,24 +85,8 @@
   }
 
   &__category {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font-weight: 500;
-    background: white;
-    padding: 15px 10px 0;
-    margin-top: -40px;
-    border-radius: 4px;
-
-    @media (min-width: @screen-small) {
-      margin-bottom: 10px;
-      padding: 0;
-      margin-top: 0;
-      border-radius: inherit;
-      background: inherit;
-    }
-
-    @media (min-width: @screen-large) {
-
-    }
   }
 
   &__title {
@@ -186,6 +169,10 @@
 
       @media (min-width: @screen-small) {
         max-height: 460px;
+        padding-bottom: 50%;
+      }
+
+      @media (min-width: @screen-medium) {
         padding-bottom: 0;
         height: auto;
       }

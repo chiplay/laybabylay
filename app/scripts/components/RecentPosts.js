@@ -30,7 +30,7 @@ export default class RecentPosts extends Component {
     return activePosts.map(post => <PostSummary post={post} key={post.post_id} />);
   }
 
-  buildPagination(page, totalPages, isFetching) {
+  buildPagination(page, totalPages, isFetching, activeFilter) {
     if (isFetching) {
       return (
         <div className="spinner">
@@ -38,11 +38,12 @@ export default class RecentPosts extends Component {
           <div className="double-bounce2" />
         </div>
       );
-    } else if (page !== totalPages) {
+    } else if (page !== totalPages && activeFilter === RECENT_POSTS) {
       return (
         <button type="button" className="load-more" onClick={() => this.handlePaginationClick(page + 1)}>Show More +</button>
       );
     }
+    if (activeFilter !== RECENT_POSTS) return null;
     return (
       <button type="button" className="load-more load-more--fin">That is all!</button>
     );
@@ -92,7 +93,7 @@ export default class RecentPosts extends Component {
       <Box width={[1, 1, 1, 2/3]} mb={20} className="recent-posts">
         {this.buildFilters(activeFilter)}
         {this.buildPosts(activePosts)}
-        {this.buildPagination(page, totalPages, isFetching)}
+        {this.buildPagination(page, totalPages, isFetching, activeFilter)}
       </Box>
     );
   }

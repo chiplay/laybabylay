@@ -50,13 +50,19 @@ export default class PostCards extends Component {
       }, {
         breakpoint: 992,
         settings: {
-          centerPadding: '85px'
+          arrows: false,
+          autoplay: true,
+          autoplaySpeed: 5000,
+          adaptiveHeight: true,
+          centerPadding: '0',
+          lazyLoad: false
         }
       }, {
         breakpoint: 768,
         settings: {
           arrows: false,
           autoplay: true,
+          autoplaySpeed: 5000,
           adaptiveHeight: true,
           centerPadding: '0',
           lazyLoad: false
@@ -65,7 +71,8 @@ export default class PostCards extends Component {
         breakpoint: 576,
         settings: {
           centerPadding: '0px',
-          autoplay: true,
+          // autoplay: true,
+          autoplaySpeed: 5000,
           arrows: false,
           adaptiveHeight: true,
           lazyLoad: false
