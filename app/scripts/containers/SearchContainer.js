@@ -82,7 +82,14 @@ class SearchContainer extends Component {
   }
 
   fetchMoreResults = (props) => {
-    const { queryObj, actions } = props;
+    const {
+      queryObj,
+      actions,
+      results,
+      totalResults
+    } = props;
+    if (results.length === totalResults) return;
+
     actions.search({
       ...queryObj,
       page: queryObj.page + 1
