@@ -9,6 +9,7 @@ import _unionBy from 'lodash/unionBy';
 
 const defaultState = {
   results: [],
+  totalResults: 0,
   queryObj: {
     hitsPerPage: 20,
     page: 0,
@@ -30,6 +31,7 @@ export default function reducer(state = defaultState, action) {
   case RECEIVE_SEARCH:
     return Object.assign({}, state, {
       results: action.payload.hits,
+      totalResults: action.payload.nbHits,
       isSearching: false
     });
 
@@ -50,6 +52,10 @@ export default function reducer(state = defaultState, action) {
 
 export function getSearchResults(state) {
   return state.results;
+}
+
+export function getSearchTotalResults(state) {
+  return state.totalResults;
 }
 
 export function getSearchQuery(state) {

@@ -13,3 +13,7 @@ export function getSearchQuery(state) {
 export function getIsSearching(state) {
   return fromSearch.getIsSearching(state.search);
 }
+
+export function getSearchTotalResults(state) {
+  return fromSearch.getSearchTotalResults(state.search);
+}

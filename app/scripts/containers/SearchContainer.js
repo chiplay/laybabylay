@@ -7,6 +7,8 @@ import Masonry from 'react-masonry-component';
 import Waypoint from 'react-waypoint';
 import _isEqual from 'lodash/isEqual';
 import { Flex, Box } from 'grid-styled';
+import classNames from 'classnames';
+import LazyLoad from 'vanilla-lazyload';
 
 import { search, fetchPage } from 'actions';
 import {
@@ -15,7 +17,8 @@ import {
   getSearchQuery,
   getPageBySlug,
   getProductCategories,
-  getSearchCategories
+  getSearchCategories,
+  getSearchTotalResults
 } from 'selectors';
 
 import SearchCard from 'components/SearchCard';
@@ -46,6 +49,10 @@ class SearchContainer extends Component {
     });
   }
 
+  componentDidMount() {
+    this.lazyload = new LazyLoad();
+  }
+
   componentWillReceiveProps(nextProps) {
     const { actions, params } = this.props,
           { params: nextParams, queryObj: nextQueryObj } = nextProps;
@@ -66,6 +73,14 @@ class SearchContainer extends Component {
       !_isEqual(this.props.isSearching, nextProps.isSearching);
   }
 
+  componentDidUpdate() {
+    this.lazyload.update();
+  }
+
+  componentWillUnmount() {
+    this.lazyload.destroy();
+  }
+
   fetchMoreResults = (props) => {
     const { queryObj, actions } = props;
     actions.search({
@@ -84,12 +99,14 @@ class SearchContainer extends Component {
     browserHistory.push(path);
   }
 
-  renderFilters = (filters) => {
+  renderFilters = (filters, category) => {
     return filters.map(filter => {
+      const active = category === filter.name.replace(/\s/g, '-');
+      const filterClasses = classNames('tag-btn', { active });
       return (
         <Box
           is="button"
-          className="tag-btn"
+          className={filterClasses}
           key={filter.term_id}
           onClick={() => this.toggleFilter(filter)}
         >
@@ -105,6 +122,8 @@ class SearchContainer extends Component {
             isSearching,
             productCategories,
             searchCategories,
+            queryObj,
+            totalResults,
             params
           } = this.props,
           { post_type } = params;
@@ -118,23 +137,20 @@ class SearchContainer extends Component {
     const filters = post_type === 'products' ? productCategories : searchCategories;
 
     // Make selector from queryObj
-    // var str = values[1],
-    //     data = this.model.defaultData;
-    // // if (values[0] < values[1]) str += ' of ' + values[1];
-    // str += ' Result';
-    // if (values[2]) return 'Searching...';
-    // if (values[0] !== 1) str += 's';
-    // if (data.search) str += ' for "' + data.search + '"';
-    // if (data.category) str += ' in "' + data.category + '"';
-    // if (data.product_type) str += ' in "' + data.product_type + '"';
-    // if (data.product_tags) str += ' tagged "' + data.product_tags.replace(/\,/g,', ') + '"';
-    // if (data.tags) str += ' tagged "' + data.tags.replace(/\,/g,', ') + '"';
-    // return str;
+    let resultsTitle = totalResults;
+    resultsTitle += (queryObj.post_type === 'posts') ? ' Post' : ' Product';
+    if (results.length !== 1) resultsTitle += 's';
+    if (queryObj.query) resultsTitle += ` for "${queryObj.query}"`;
+    if (queryObj.category) resultsTitle += ` in "${queryObj.category}"`;
+    if (queryObj.tag) resultsTitle += ` tagged "${queryObj.tag}"`;
 
     return (
       <div className="search">
         <Flex className="search-filters category-list">
-          {this.renderFilters(filters)}
+          {this.renderFilters(filters, queryObj.category)}
+        </Flex>
+        <Flex className="search-results-title">
+          {resultsTitle}
         </Flex>
         <Masonry
           className="search-results article-listing"
@@ -166,6 +182,7 @@ SearchContainer.propTypes = {
   actions: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired,
   results: PropTypes.array.isRequired,
+  totalResults: PropTypes.number.isRequired,
   searchCategories: PropTypes.array,
   productCategories: PropTypes.array,
   queryObj: PropTypes.object.isRequired,
@@ -176,6 +193,7 @@ function mapStateToProps(state) {
   return {
     productCategories: getProductCategories(state, 'search'),
     searchCategories: getSearchCategories(state, 'search'),
+    totalResults: getSearchTotalResults(state),
     results: getSearchResults(state),
     queryObj: getSearchQuery(state),
     isSearching: getIsSearching(state),

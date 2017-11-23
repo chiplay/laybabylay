@@ -316,9 +316,13 @@ export function search(queryObj = { query: '', page: 0, hitsPerPage: 20 }) {
         'taxonomies',
         'featured_image',
         'first_image',
+        'first_image_width',
+        'first_image_height',
         'subtitle',
         'slug',
         'product_image',
+        'product_image_width',
+        'product_image_height',
         'vendor',
         'link'
       ],

@@ -18,12 +18,19 @@ export default class SearchCard extends Component {
           {
             post_title,
             first_image,
+            first_image_height,
+            first_image_width,
             product_image,
+            product_image_height,
+            product_image_width,
             slug,
             link,
             vendor
           } = item,
           originalSrc = product_image || first_image,
+          imageHeight = product_image_height || first_image_height,
+          imageWidth = product_image_width || first_image_width,
+          ratio = Math.ceil((imageHeight / imageWidth) * 100),
           filename = originalSrc ? new URI(originalSrc).filename() : null,
           imageSize = utils.metrics.isPhone ? 'w_300' : 'w_500',
           imageSrc = filename ? `//res.cloudinary.com/laybabylay/image/upload/q_36,${imageSize}/${filename.replace(/\.[^/.]+$/, '')}.jpg` : null;
@@ -46,7 +53,9 @@ export default class SearchCard extends Component {
     const card = (
       <article>
         <div className="search-card__bg">
-          <img className="search-card__image" src={imageSrc} alt={post_title} />
+          <div className="search-card__image-wrapper" style={{ paddingBottom: `${ratio}%` }}>
+            <img className="search-card__image" data-original={imageSrc} alt={post_title} />
+          </div>
         </div>
 
         <header className="search-card__header">
