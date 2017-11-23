@@ -44,24 +44,6 @@ function my_attachment_image_thumb($postid=0, $size='full', $attributes='') {
   }
 }
 
-// add_filter( 'the_content', 'cloudinary_image_transform', 20 );
-/**
- * Let's save us some bandwidth
- *
- * @uses is_single()
- */
-function cloudinary_image_transform( $content ) {
-  $doc = new DOMDocument();
-  $doc->LoadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
-  $images = $doc->getElementsByTagName('img');
-  foreach ($images as $image) {
-    $src = $image->getAttribute('src');
-    $filename = basename($src);
-    $image->setAttribute('src', 'https://res.cloudinary.com/laybabylay/image/upload/q_60,w_1200/' . $filename);
-  }
-  return $doc->saveHTML();
-}
-
 define( 'ALGOLIA_SPLIT_POSTS', false );
 
 /**
