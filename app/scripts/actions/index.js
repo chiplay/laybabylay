@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch';
+import 'whatwg-fetch';
 import { checkStatus, parseJSON } from 'utils';
 import algoliasearch from 'algoliasearch';
 import _startCase from 'lodash/startCase';
@@ -171,29 +171,13 @@ export function fetchComments(id) {
   };
 }
 
-export function submitComment(comment) {
+export function submitComment(searchParams) {
   return (dispatch) => {
     dispatch(startSubmitComment());
-    //
-    // return fetch('https://wp.laybabylay.com/wp-comments-post.php', {
-    //   method: 'POST',
-    //   mode: 'no-cors',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(comment)
-    // })
-    //   .then(checkStatus)
-    //   .then(parseJSON)
-    //   .then(response => dispatch(submitCommentSuccess(response)))
-    //   .catch(err => dispatch(submitCommentError(err)));
 
     return fetch('https://wp.laybabylay.com/api/respond/submit_comment', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(comment)
+      body: searchParams
     })
       .then(checkStatus)
       .then(parseJSON)

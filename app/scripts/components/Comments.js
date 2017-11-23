@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import Waypoint from 'react-waypoint';
 import moment from 'moment';
 import classNames from 'classnames';
+import URLSearchParams from 'url-search-params';
 
 import { fetchComments, submitComment } from 'actions';
 import 'styles/comments.less';
@@ -60,14 +61,15 @@ class Comments extends Component {
             parent
           } = this.state;
 
-    actions.submitComment({
-      post_id,
-      content,
-      email,
-      url,
-      author,
-      parent
-    });
+    const searchParams = new URLSearchParams();
+    searchParams.set('post_id', post_id);
+    searchParams.set('url', url);
+    searchParams.set('name', author);
+    searchParams.set('content', content);
+    searchParams.set('parent', parent);
+    searchParams.set('email', email);
+
+    actions.submitComment(searchParams);
     this.setState({
       complete: true,
       form: false,

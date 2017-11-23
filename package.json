@@ -53,7 +53,9 @@
     "slick-carousel": "^1.5.9",
     "styled-components": "^2.2.1",
     "urijs": "^1.17.0",
+    "url-search-params": "^0.10.0",
     "vanilla-lazyload": "8.2.1",
+    "whatwg-fetch": "^2.0.3",
     "wpapi": "^1.1.2"
   },
   "devDependencies": {
