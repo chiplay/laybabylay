@@ -174,8 +174,21 @@ export function fetchComments(id) {
 export function submitComment(comment) {
   return (dispatch) => {
     dispatch(startSubmitComment());
+    //
+    // return fetch('https://wp.laybabylay.com/wp-comments-post.php', {
+    //   method: 'POST',
+    //   mode: 'no-cors',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(comment)
+    // })
+    //   .then(checkStatus)
+    //   .then(parseJSON)
+    //   .then(response => dispatch(submitCommentSuccess(response)))
+    //   .catch(err => dispatch(submitCommentError(err)));
 
-    return fetch('https://wp.laybabylay.com/wp-comments-post.php', {
+    return fetch('https://wp.laybabylay.com/api/respond/submit_comment', {
       method: 'POST',
       mode: 'no-cors',
       headers: {
@@ -187,18 +200,6 @@ export function submitComment(comment) {
       .then(parseJSON)
       .then(response => dispatch(submitCommentSuccess(response)))
       .catch(err => dispatch(submitCommentError(err)));
-
-    // return fetch('/api/respond/submit_comment', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(comment)
-    // })
-    //   .then(checkStatus)
-    //   .then(parseJSON)
-    //   .then(response => dispatch(submitCommentSuccess(response)))
-    //   .catch(err => dispatch(submitCommentError(err)));
   };
 }
 

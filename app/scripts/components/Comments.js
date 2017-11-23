@@ -61,12 +61,12 @@ class Comments extends Component {
           } = this.state;
 
     actions.submitComment({
-      comment_post_ID: post_id,
-      comment: content,
+      post_id,
+      content,
       email,
       url,
       author,
-      comment_parent: parent
+      parent
     });
     this.setState({
       complete: true,
