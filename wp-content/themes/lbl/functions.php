@@ -82,6 +82,8 @@ function transform_post( $related_post ) {
 	$new_post = new stdClass();
 	$content = $related_post->post_content;
 	$new_post->first_image = get_first_image_from_content($content);
+	$new_post->first_image_height = get_first_image_height_from_content($content);
+	$new_post->first_image_width = get_first_image_width_from_content($content);
 	$new_post->excerpt = wp_trim_words($content, 30, '...');
 	$new_post->ID = $related_post->ID;
 	$new_post->slug = $related_post->post_name;
