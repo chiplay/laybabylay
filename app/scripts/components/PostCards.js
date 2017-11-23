@@ -71,7 +71,7 @@ export default class PostCards extends Component {
         breakpoint: 576,
         settings: {
           centerPadding: '0px',
-          // autoplay: true,
+          autoplay: true,
           autoplaySpeed: 5000,
           arrows: false,
           adaptiveHeight: true,
