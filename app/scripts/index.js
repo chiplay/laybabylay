@@ -11,7 +11,8 @@ import ThemeContainer from './containers/ThemeContainer';
 import HomeContainer from './containers/HomeContainer';
 import PostContainer from './containers/PostContainer';
 import SearchContainer from './containers/SearchContainer';
-import AboutPageContainer from './containers/AboutPageContainer';
+import AboutPage from './components/AboutPage';
+// import AboutPageContainer from './containers/AboutPageContainer';
 import '../styles/app.less';
 
 LogRocket.init('ivtkem/lay-baby-lay-prod');
@@ -46,7 +47,7 @@ render(
     >
       <Route path="/" component={ThemeContainer}>
         <IndexRoute component={HomeContainer} />
-        <Route path="about" component={AboutPageContainer} />
+        <Route path="about" component={AboutPage} />
         <Route path="explore" component={SearchContainer} />
         <Route path="explore/:post_type" component={SearchContainer} />
         <Route path="explore/:post_type/:category" component={SearchContainer} />

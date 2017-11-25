@@ -25,7 +25,7 @@ app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_TO
 // Redirects
 app.get('/sitemap.xml', (req, res) => res.redirect(301, 'https://wp.laybabylay.com/sitemap.xml'));
 app.get('/wp-admin', (req, res) => res.redirect(301, 'https://wp.laybabylay.com/wp-admin'));
-app.get('/search/posts/tagged/portfolio', (req, res) => res.redirect(301, '/explore/posts/portfolio'));
+app.get('/search/posts/tagged/portfolio', (req, res) => res.redirect(301, '/explore/posts/real-nursery'));
 app.get('/big-kid-room', (req, res) => res.redirect(301, '/explore/posts/big-kid-room'));
 app.get('/bits-of-experience', (req, res) => res.redirect(301, '/explore/posts/bits-of-experience'));
 app.get('/boy-nursery', (req, res) => res.redirect(301, '/explore/posts/boy-nursery'));
@@ -70,7 +70,12 @@ app.get('/toys', (req, res) => res.redirect(301, '/explore/posts/toys'));
 app.get('/search', (req, res) => res.redirect(301, '/explore/posts'));
 app.get('/home', (req, res) => res.redirect(301, '/'));
 app.get('/products', (req, res) => res.redirect(301, '/explore/products'));
-
+// Misc
+app.get('/search/all/in/style-boards', (req, res) => res.redirect(301, '/explore/posts/style-boards'));
+app.get('/search/all/in/style-boards/tagged/boy-nursery', (req, res) => res.redirect(301, '/explore/posts/boy-nursery'));
+app.get('/search/posts/in/style-boards/tagged/boy-nursery', (req, res) => res.redirect(301, '/explore/posts/boy-nursery'));
+app.get('/search/all/in/style-boards/tagged/girl-nursery', (req, res) => res.redirect(301, '/explore/posts/girl-nursery'));
+app.get('/search/posts/in/style-boards/tagged/girl-nursery', (req, res) => res.redirect(301, '/explore/posts/girl-nursery'));
 
 // serve our static stuff like index.css
 app.use(express.static(path.join(__dirname, 'dist')));

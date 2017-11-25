@@ -5,10 +5,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Masonry from 'react-masonry-component';
 import Waypoint from 'react-waypoint';
+import { Helmet } from 'react-helmet';
 import _isEqual from 'lodash/isEqual';
 import { Flex, Box } from 'grid-styled';
 import classNames from 'classnames';
 import LazyLoad from 'vanilla-lazyload';
+import _startCase from 'lodash/startCase';
 
 import { search, fetchPage } from 'actions';
 import {
@@ -153,6 +155,15 @@ class SearchContainer extends Component {
 
     return (
       <div className="search">
+        <Helmet
+          titleTemplate="%s - Lay Baby Lay"
+          defaultTitle="Lay Baby Lay"
+        >
+          <title itemProp="name" lang="en">{_startCase(resultsTitle)}</title>
+          <meta property="og:title" content={`${_startCase(resultsTitle)} - Lay Baby Lay`} />
+          <meta property="og:url" content={window.location.href} />
+          <link rel="canonical" href={window.location.href} />
+        </Helmet>
         <Flex className="search-filters category-list">
           {this.renderFilters(filters, queryObj.category)}
         </Flex>
