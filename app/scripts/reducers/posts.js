@@ -8,7 +8,8 @@ import {
   RECEIVE_POSTS,
   RECEIVE_POST,
   RECEIVE_COMMENTS,
-  RECEIVE_SEARCH
+  RECEIVE_SEARCH,
+  RECEIVE_POST_ERROR
 } from 'actions';
 
 const defaultState = {
@@ -34,6 +35,17 @@ export default function reducer(state = defaultState, action) {
       },
       { postMap: {} }
     );
+    return update(state, {
+      mapOfPosts: { $merge: postMap }
+    });
+  }
+
+  case RECEIVE_POST_ERROR: {
+    const postMap = {};
+    postMap[action.payload.slug] = {
+      error: action.payload.error,
+      content: ''
+    };
     return update(state, {
       mapOfPosts: { $merge: postMap }
     });

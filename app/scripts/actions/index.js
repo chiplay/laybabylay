@@ -128,8 +128,13 @@ export function fetchPost(slug) {
       attributesToSnippet: ['content:30'],
       hitsPerPage: 1
     })
-      .then(postData => dispatch(receivePost(postData)))
-      .catch(err => dispatch(postFetchError(err)));
+      .then(postData => {
+        if (!postData.hits.length) {
+          return dispatch(postFetchError({ slug, error: '404 Post Not Found' }));
+        }
+        return dispatch(receivePost(postData));
+      })
+      .catch(err => dispatch(postFetchError({ slug, error: err })));
   };
 }
 

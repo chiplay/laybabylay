@@ -7,6 +7,7 @@ import { getPostBySlug, getPageBySlug } from 'selectors';
 import { fetchPost, fetchPage } from '../actions';
 // import { Link } from 'react-router-dom';
 import Post from '../components/Post';
+import Post404 from '../components/Post404';
 
 // Smart component
 class PostContainer extends Component {
@@ -29,6 +30,9 @@ class PostContainer extends Component {
 
   render() {
     const { post, home } = this.props;
+    if (post && post.error) {
+      return <Post404 post={post} sidebarTiles={home.sidebar_tiles} />;
+    }
     return <Post post={post} sidebarTiles={home.sidebar_tiles} />;
   }
 }
