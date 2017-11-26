@@ -146,8 +146,8 @@ class SearchContainer extends Component {
     resultsTitle += (queryObj.post_type === 'posts') ? ' Post' : ' Product';
     if (results.length !== 1) resultsTitle += 's';
     if (queryObj.query) resultsTitle += ` for "${queryObj.query}"`;
-    if (queryObj.category) resultsTitle += ` in "${queryObj.category}"`;
-    if (queryObj.tag) resultsTitle += ` tagged "${queryObj.tag}"`;
+    if (queryObj.category) resultsTitle += ` in "${_startCase(queryObj.category.replace(/-/g, ' '))}"`;
+    if (queryObj.tag) resultsTitle += ` tagged "${_startCase(queryObj.tag.replace(/-/g, ' '))}"`;
 
     return (
       <div className="search">
