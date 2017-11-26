@@ -46,6 +46,7 @@ class SearchContainer extends Component {
     actions.search({
       ...queryObj,
       ...params,
+      ...!params.query && { query: '' },
       ...!params.category && { category: '' },
       page: 0
     });
@@ -64,6 +65,7 @@ class SearchContainer extends Component {
       actions.search({
         ...nextQueryObj,
         ...nextParams,
+        ...!nextParams.query && { query: '' },
         ...!nextParams.category && { category: '' },
         page: 0
       });
@@ -136,12 +138,6 @@ class SearchContainer extends Component {
             params
           } = this.props,
           { post_type } = params;
-
-    if (!results.length && !isSearching) {
-      return (
-        <div className="no-results">No results</div>
-      );
-    }
 
     const filters = post_type === 'products' ? productCategories : searchCategories;
 

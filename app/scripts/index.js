@@ -49,11 +49,7 @@ render(
         <IndexRoute component={HomeContainer} />
         <Route path="about" component={AboutPage} />
         <Route path="explore" component={SearchContainer} />
-        <Route path="explore/:post_type" component={SearchContainer} />
-        <Route path="explore/:post_type/:category" component={SearchContainer} />
-        <Route path="explore/:post_type/:category/:tag" component={SearchContainer} />
-        <Route path="explore/:post_type/:category/:tag/:query" component={SearchContainer} />
-        <Route path="explore" component={SearchContainer} />
+        <Route path="search/:query" component={SearchContainer} />
         <Route path="explore/:post_type" component={SearchContainer} />
         <Route path="explore/:post_type/:category" component={SearchContainer} />
         <Route path="explore/:post_type/:category/:tag" component={SearchContainer} />
@@ -79,13 +75,9 @@ if (module.hot) {
         >
           <Route path="/" component={Theme}>
             <IndexRoute component={HomeContainer} />
-            <Route path="about" component={AboutPageContainer} />
+            <Route path="about" component={AboutPage} />
             <Route path="explore" component={SearchContainer} />
-            <Route path="explore/:post_type" component={SearchContainer} />
-            <Route path="explore/:post_type/:category" component={SearchContainer} />
-            <Route path="explore/:post_type/:category/:tag" component={SearchContainer} />
-            <Route path="explore/:post_type/:category/:tag/:query" component={SearchContainer} />
-            <Route path="explore" component={SearchContainer} />
+            <Route path="search/:query" component={SearchContainer} />
             <Route path="explore/:post_type" component={SearchContainer} />
             <Route path="explore/:post_type/:category" component={SearchContainer} />
             <Route path="explore/:post_type/:category/:tag" component={SearchContainer} />

@@ -47,4 +47,105 @@
       }
     }
   }
+
+
+  .search-form {
+    position: relative;
+    width: 100%;
+
+    @media (max-width: @screen-xsmall-max) {
+      padding: 0 6px;
+    }
+
+    input {
+      box-sizing: border-box;
+      overflow: hidden;
+      vertical-align: middle;
+      border: 0;
+      background: #fff;
+      font-weight: 300;
+      padding: 6px 12px;
+      width: 100%;
+      font-size: 20px;
+      line-height: 48px;
+      height: 48px;
+      color: #373737;
+      margin-bottom: 20px;
+      font-family: @font-family-serif;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      -webkit-font-smoothing: antialiased;
+    }
+  }
+
+  .icon-search,
+  .icon-menu,
+  .icon-close,
+  .load-indicator {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    margin: 15px 10px;
+    background-repeat: no-repeat;
+    background-position-y: -20px;
+    background-size: 212px 130px;
+  }
+
+  .icon-search,
+  .icon-menu,
+  .icon-close {
+    position: relative;
+
+    &:hover {
+      background-position-y: 0px;
+    }
+    &:before {
+      content: ' ';
+      position: absolute;
+      height: 60px;
+      width: 50px;
+      top: -20px;
+      left: -15px;
+    }
+  }
+
+  .icon-search,
+  .icon-close,
+  .load-indicator {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    @media (max-width: @screen-xsmall-max) {
+      right: 6px;
+    }
+  }
+
+
+  .icon-search {
+    position: absolute;
+    background-image: url('https://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
+    background-position-x: -150px;
+
+    .active & {
+      display: none;
+    }
+  }
+
+  .icon-menu {
+    background-image: url('https://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
+    background-position-x: -170px;
+  }
+
+  .icon-close {
+    background-image: url('https://res.cloudinary.com/laybabylay/image/upload/sprites_lblvio.png');
+    background-position-x: -192px;
+    display: none;
+
+    .active & {
+      display: inline-block;
+    }
+  }
 }

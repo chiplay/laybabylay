@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Flex, Box } from 'grid-styled';
+import utils from 'utils';
 
 import { RECENT_POSTS, FAVORITE_POSTS, POPULAR_POSTS } from 'reducers/pages';
 
@@ -23,6 +24,7 @@ export default class RecentPosts extends Component {
 
   handleFilterClick(filter) {
     // scroll(0, 0);
+    window.scrollTo(0, utils.metrics.isPhone ? 480 : 560);
     this.props.actions.setActiveFilter(filter);
   }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // import { checkStatus, parseJSON } from 'utils';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { Box } from 'grid-styled';
 import URI from 'urijs';
 
@@ -9,6 +9,13 @@ import 'styles/sidebar.less';
 import Author from '../components/Author';
 
 export default class Sidebar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      query: ''
+    };
+  }
 
   componentDidMount() {
     // fetch({
@@ -22,6 +29,20 @@ export default class Sidebar extends Component {
     //       console.log(response.user.media[0]);
     //     }
     //   });
+  }
+
+  handleSubmit = (event) => {
+    const { query } = this.state;
+    const path = `/search/${query}`;
+    browserHistory.push(path);
+    this.setState({ query: '' });
+    event.preventDefault();
+  }
+
+  handleInputChange = (event) => {
+    const { target } = event,
+          { value, name } = target;
+    this.setState({ [name]: value });
   }
 
   createTileLink = (tile) => {
@@ -84,7 +105,13 @@ export default class Sidebar extends Component {
         <Author {...this.props} />
 
         <div>
-          {/* <form action="/search" className="search-form" id="search-header-form" role="search">
+          <form
+            action="/search"
+            className="search-form"
+            id="search-form"
+            role="search"
+            onSubmit={this.handleSubmit}
+          >
             <input
               autoCapitalize="off"
               autoComplete="off"
@@ -92,24 +119,23 @@ export default class Sidebar extends Component {
               className="search-input"
               id="search-input"
               name="query"
-              placeholder="Search"
+              placeholder="Search Lay Baby Lay"
               type="search"
+              value={this.state.query}
+              onChange={this.handleInputChange}
             />
-
-            <button className="icon-search search-show">
-              <span className="hide">Search</span>
-            </button>
-
-            <button className="icon-close search-clear">
-              <span className="hide">Clear</span>
-            </button>
-
             <div className="load-indicator">
               <div className="circle-1" />
               <div className="circle-2" />
               <span className="hide">Loading</span>
             </div>
-          </form> */}
+            <button className="icon-close search-clear">
+              <span className="hide">Clear</span>
+            </button>
+            <button className="icon-search search-show">
+              <span className="hide">Search</span>
+            </button>
+          </form>
         </div>
 
         <div className="sidebar-tiles">
@@ -121,5 +147,6 @@ export default class Sidebar extends Component {
 }
 
 Sidebar.propTypes = {
-  tiles: PropTypes.array.isRequired
+  tiles: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
 };
