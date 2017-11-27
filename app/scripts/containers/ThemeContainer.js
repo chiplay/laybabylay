@@ -42,11 +42,11 @@ class ThemeContainer extends Component {
             <meta property="og:title" content="Lay Baby Lay" />
             <meta property="og:type" content="website" />
             <meta property="og:description" content="Nursery Decor &amp; Baby Room Ideas" />
-            <meta property="og:url" content="http://laybabylay.com" />
+            <meta property="og:url" content="https://www.laybabylay.com" />
             <meta property="og:site_name" content="Lay Baby Lay" />
             <meta property="fb:app_id" content="179291298758035" />
 
-            <link rel="canonical" href="http://laybabylay.com" />
+            <link rel="canonical" href="https://www.laybabylay.com" />
           </Helmet>
 
           <Header {...this.props} />
