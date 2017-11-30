@@ -79,6 +79,7 @@ app.get('/search/posts/in/style-boards/tagged/girl-nursery', (req, res) => res.r
 
 // serve our static stuff like index.css
 app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static('public'));
 
 // send all requests to index.html so browserHistory in React Router works
 app.get('*', (req, res) => {
