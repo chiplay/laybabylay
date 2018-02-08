@@ -5,9 +5,8 @@ import rootReducer from 'reducers';
 import LogRocket from 'logrocket';
 
 const fslogger = store => next => action => {
-  window.FS && window.FS.log('dispatching', action)
   let result = next(action)
-  window.FS && window.FS.log('next state', store.getState())
+  window.amplitude && window.amplitude.getInstance().logEvent(action.type, store.getState());
   return result
 }
 
