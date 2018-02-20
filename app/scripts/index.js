@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory, applyRouterMiddleware } from 'react-router';
 import { useScroll } from 'react-router-scroll';
-import LogRocket from 'logrocket';
+// import LogRocket from 'logrocket';
 
 import configureStore from './store/configureStore';
 import ThemeContainer from './containers/ThemeContainer';
@@ -15,8 +15,8 @@ import AboutPage from './components/AboutPage';
 // import AboutPageContainer from './containers/AboutPageContainer';
 import '../styles/app.less';
 
-LogRocket.init('ivtkem/lay-baby-lay-prod');
-require('logrocket-react')(LogRocket);
+// LogRocket.init('ivtkem/lay-baby-lay-prod');
+// require('logrocket-react')(LogRocket);
 
 const store = configureStore();
 const rootElement = document.getElementById('root');
