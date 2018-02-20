@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import rootReducer from 'reducers';
-import LogRocket from 'logrocket';
+// import LogRocket from 'logrocket';
 
 const fslogger = store => next => action => {
   let result = next(action)
@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === `development`) {
 
 if (process.env.NODE_ENV === `production`) {
   middlewares.push(fslogger);
-  middlewares.push(LogRocket.reduxMiddleware());
+//   middlewares.push(LogRocket.reduxMiddleware());
 }
 
 const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
