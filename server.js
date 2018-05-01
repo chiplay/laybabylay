@@ -76,6 +76,8 @@ app.get('/search/all/in/style-boards/tagged/boy-nursery', (req, res) => res.redi
 app.get('/search/posts/in/style-boards/tagged/boy-nursery', (req, res) => res.redirect(301, '/explore/posts/boy-nursery'));
 app.get('/search/all/in/style-boards/tagged/girl-nursery', (req, res) => res.redirect(301, '/explore/posts/girl-nursery'));
 app.get('/search/posts/in/style-boards/tagged/girl-nursery', (req, res) => res.redirect(301, '/explore/posts/girl-nursery'));
+// RSS
+app.get('/feed', (req, res) => res.redirect(301, 'https://wp.laybabylay.com/feed'));
 
 // serve our static stuff like index.css
 app.use(express.static(path.join(__dirname, 'dist')));
