@@ -147,6 +147,5 @@ export default class Sidebar extends Component {
 }
 
 Sidebar.propTypes = {
-  tiles: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  tiles: PropTypes.array.isRequired
 };

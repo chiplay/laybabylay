@@ -29,6 +29,7 @@ export default class Post extends Component {
   componentDidMount() {
     this.lazyload = new LazyLoad();
     this.buildImagePinButtons();
+    this.loadScripts();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,6 +43,7 @@ export default class Post extends Component {
   componentDidUpdate() {
     this.lazyload.update();
     this.buildImagePinButtons();
+    this.loadScripts();
   }
 
   componentWillUnmount() {
@@ -90,6 +92,27 @@ export default class Post extends Component {
     this.setState({ pinButtons: true });
   }
 
+  loadScripts = () => {
+    if (!this.postContent) return;
+    const scripts = this.postContent.getElementsByTagName('script');
+
+    [...scripts].forEach((script, i) => {
+      const { src, innerHTML } = script,
+            id = `script-${i}`;
+      if (!document.getElementById(id)) {
+        const s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.id = id;
+        document.getElementsByTagName('head')[0].appendChild(s);
+        if (src) {
+          s.src = src;
+        } else {
+          s.innerHTML = innerHTML;
+        }
+      }
+    });
+  }
+
   pinImage = (img) => {
     if (!window.PinUtils) return;
 
@@ -107,9 +130,11 @@ export default class Post extends Component {
 
   createMarkup = (html) => {
     const imageSize = utils.metrics.isPhone ? 'w_750' : 'w_1200';
-    let content = html.replace(/upload\/.+?(?=\/)/g, `upload/f_auto,q_48,${imageSize}`);
-    content = content.replace(/http:/g, 'https:');
-    content = content.replace(/src=/ig, 'data-original=');
+    let content = html.replace(/upload\/.+?(?=\/)/g, `upload/f_auto,q_48,${imageSize}`).replace(/http:/g, 'https:');
+    const matches = content.match(/<img.+src=(?:"|')(.+?)(?:"|')(?:.+?)>/gi);
+    matches.forEach(match => {
+      content = content.replace(match, match.replace(/src=/ig, 'data-original='));
+    });
 
     return {
       __html: content
