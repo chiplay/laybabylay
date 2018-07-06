@@ -98,11 +98,11 @@ export function fetchPosts(page = 0, hitsPerPage = POSTS_PER_PAGE) {
       page,
       hitsPerPage,
     })
-      .then(postsData => dispatch({
+      .then(postsData => {
         window.amplitude && window.amplitude.getInstance().logEvent('Receive Posts', {
           posts: postsData.hits
         });
-        return receivePosts(postsData);
+        return dispatch(receivePosts(postsData));
       })
       .catch(err => dispatch(postFetchError(err)));
   };
