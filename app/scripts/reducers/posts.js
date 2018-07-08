@@ -26,7 +26,7 @@ export default function reducer(state = defaultState, action) {
   case RECEIVE_POSTS:
   case RECEIVE_SEARCH:
   case RECEIVE_POST: {
-    const { postMap } = action.payload.hits.reduce(
+    const { postMap } = [...action.payload.hits].reduce(
       (blob, post) => {
         /* eslint-disable no-param-reassign, no-return-assign */
         blob.postMap[post.slug] = post;
