@@ -100,7 +100,7 @@ export function fetchPosts(page = 0, hitsPerPage = POSTS_PER_PAGE) {
     })
       .then(postsData => {
         window.amplitude && window.amplitude.getInstance().logEvent('Receive Posts', {
-          posts: postsData.hits
+          posts: [...postsData.hits].map(post => {{ title: post.post_title, id: post.post_id }})
         });
         return dispatch(receivePosts(postsData));
       })
