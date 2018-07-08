@@ -6,7 +6,7 @@ import rootReducer from 'reducers';
 
 const fslogger = store => next => action => {
   let result = next(action)
-  window.amplitude && window.amplitude.getInstance().logEvent(action.type, store.getState());
+  window.amplitude && window.amplitude.getInstance().logEvent(action.type, action.payload);
   return result
 }
 
