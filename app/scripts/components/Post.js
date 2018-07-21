@@ -94,11 +94,12 @@ export default class Post extends Component {
 
   loadScripts = () => {
     if (!this.postContent) return;
+    const { slug } = this.props.post;
     const scripts = this.postContent.getElementsByTagName('script');
 
     [...scripts].forEach((script, i) => {
       const { src, innerHTML } = script,
-            id = `script-${i}`;
+            id = `script-${slug}-${i}`;
       if (!document.getElementById(id)) {
         const s = document.createElement('script');
         s.type = 'text/javascript';
