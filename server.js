@@ -20,7 +20,11 @@ app.use((req, res, next) => {
 });
 
 // Prerender
-app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_TOKEN));
+const prerender = require('prerender-node').set('prerenderToken', process.env.PRERENDER_TOKEN);
+prerender.crawlerUserAgents.push('googlebot');
+prerender.crawlerUserAgents.push('bingbot');
+prerender.crawlerUserAgents.push('yandex');
+app.use(prerender);
 
 // Redirects
 app.get('/sitemap.xml', (req, res) => res.redirect(301, 'https://wp.laybabylay.com/sitemap.xml'));
