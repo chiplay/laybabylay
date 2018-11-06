@@ -11,8 +11,12 @@ class AboutPageContainer extends Component {
   componentWillMount() {
     const { fetchPage } = this.props;
     fetchPage(PAGE_NAME);
-    if (window.ga) {
-      window.ga('send', 'pageview');
+    if (window.gtag) {
+      window.gtag('config', 'UA-5123840-19', {
+        'page_title': 'About Lay Baby Lay,
+        'page_location': 'https://www.laybabylay.com/about',
+        'page_path': '/about'
+      });
     }
   }
 
