@@ -11,6 +11,9 @@ class AboutPageContainer extends Component {
   componentWillMount() {
     const { fetchPage } = this.props;
     fetchPage(PAGE_NAME);
+    if (window.ga) {
+      window.ga('send', 'pageview');
+    }
   }
 
   render() {
