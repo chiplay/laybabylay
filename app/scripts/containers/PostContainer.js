@@ -17,7 +17,12 @@ class PostContainer extends Component {
 
     if (!post || !post.content) actions.fetchPost(postSlug);
     if (!home.sidebar_tiles.length) actions.fetchPage('home');
-    window.gtag && window.gtag('config', 'UA-5123840-19');
+    if (window.gtag && post.post_title) {
+      window.gtag('config', 'UA-5123840-19', {
+        'page_title': post.post_title,
+        'page_path': `/${postSlug}`
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -27,7 +32,12 @@ class PostContainer extends Component {
 
     if (currentPostSlug === postSlug) return;
     if (!post || !post.content) actions.fetchPost(postSlug);
-    window.gtag && window.gtag('config', 'UA-5123840-19');
+    if (window.gtag && post.post_title) {
+      window.gtag('config', 'UA-5123840-19', {
+        'page_title': post.post_title,
+        'page_path': `/${postSlug}`
+      });
+    }
   }
 
   render() {
