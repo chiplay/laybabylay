@@ -324,7 +324,14 @@ export function search(queryObj = { query: '', page: 0, hitsPerPage: 20 }) {
       ],
     })
       .then(searchData => {
-        if (page === 0) return dispatch(receiveSearch(searchData));
+        if (page === 0) {
+          const resultsTitle = createResultsTitle(searchData.hits, searchData.nbHits, queryObj);
+          window.gtag && window.gtag('config', 'UA-5123840-19', {
+            'page_title': `${_startCase(resultsTitle)} - Lay Baby Lay`,
+            'page_path': window.location.href
+          });
+          return dispatch(receiveSearch(searchData));
+        }
         return dispatch(receiveNextSearch(searchData));
       })
       .catch(err => dispatch(searchFetchError(err)));
@@ -357,4 +364,14 @@ function searchFetchError(err) {
     type: SEARCH_FETCH_ERROR,
     payload: err
   };
+}
+
+function createResultsTitle(results, totalResults, queryObj) {
+  let resultsTitle = totalResults;
+  resultsTitle += (queryObj.post_type === 'posts') ? ' Post' : ' Product';
+  if (results.length !== 1) resultsTitle += 's';
+  if (queryObj.query) resultsTitle += ` for "${queryObj.query}"`;
+  if (queryObj.category) resultsTitle += ` in "${_startCase(queryObj.category.replace(/-/g, ' '))}"`;
+  if (queryObj.tag) resultsTitle += ` tagged "${_startCase(queryObj.tag.replace(/-/g, ' '))}"`;
+  return resultsTitle;
 }
