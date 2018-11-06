@@ -335,7 +335,8 @@ export function search(queryObj = { query: '', page: 0, hitsPerPage: 20 }) {
           const resultsTitle = createResultsTitle(searchData.hits, searchData.nbHits, queryObj);
           window.gtag && window.gtag('config', 'UA-5123840-19', {
             'page_title': `${_startCase(resultsTitle)} - Lay Baby Lay`,
-            'page_path': window.location.href
+            'page_location': window.location.href,
+            'page_path': window.location.pathname
           });
           return dispatch(receiveSearch(searchData));
         }
