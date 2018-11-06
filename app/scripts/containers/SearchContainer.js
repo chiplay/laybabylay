@@ -50,6 +50,10 @@ class SearchContainer extends Component {
       ...!params.category && { category: '' },
       page: 0
     });
+    
+    if (window.ga) {
+      window.ga('send', 'pageview');
+    }
   }
 
   componentDidMount() {
@@ -69,6 +73,9 @@ class SearchContainer extends Component {
         ...!nextParams.category && { category: '' },
         page: 0
       });
+      if (window.ga) {
+        window.ga('send', 'pageview');
+      }
     }
   }
 
