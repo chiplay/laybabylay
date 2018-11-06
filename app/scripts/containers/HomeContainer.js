@@ -20,7 +20,8 @@ class HomeContainer extends Component {
     if (!home.featured_posts.length) actions.fetchPage('home');
     
     window.gtag && window.gtag('config', 'UA-5123840-19', {
-      'page_title' : 'Nursery Decor & Baby Room Ideas - Lay Baby Lay',
+      'page_title': 'Nursery Decor & Baby Room Ideas - Lay Baby Lay',
+      'page_location': 'https://www.laybabylay.com',
       'page_path': '/'
     });
   }
