@@ -17,9 +17,7 @@ class PostContainer extends Component {
 
     if (!post || !post.content) actions.fetchPost(postSlug);
     if (!home.sidebar_tiles.length) actions.fetchPage('home');
-    if (window.ga) {
-      window.ga('send', 'pageview');
-    }
+    window.gtag && window.gtag('config', 'UA-5123840-19');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,9 +27,7 @@ class PostContainer extends Component {
 
     if (currentPostSlug === postSlug) return;
     if (!post || !post.content) actions.fetchPost(postSlug);
-    if (window.ga) {
-      window.ga('send', 'pageview');
-    }
+    window.gtag && window.gtag('config', 'UA-5123840-19');
   }
 
   render() {
