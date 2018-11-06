@@ -140,6 +140,7 @@ export function fetchPost(slug) {
         if (window.gtag) {
           window.gtag('config', 'UA-5123840-19', {
             'page_title': postData.hits[0].post_title,
+            'page_location': `https://www.laybabylay.com/${slug}`,
             'page_path': `/${slug}`
           });
         }
