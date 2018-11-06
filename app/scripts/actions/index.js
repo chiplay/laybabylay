@@ -137,6 +137,12 @@ export function fetchPost(slug) {
         if (!postData.hits.length) {
           return dispatch(postFetchError({ slug, error: '404 Post Not Found' }));
         }
+        if (window.gtag) {
+          window.gtag('config', 'UA-5123840-19', {
+            'page_title': postData.hits[0].post_title,
+            'page_path': `/${slug}`
+          });
+        }
         return dispatch(receivePost(postData));
       })
       .catch(err => dispatch(postFetchError({ slug, error: err })));
