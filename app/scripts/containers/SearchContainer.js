@@ -50,8 +50,6 @@ class SearchContainer extends Component {
       ...!params.category && { category: '' },
       page: 0
     });
-
-    window.gtag && window.gtag('config', 'UA-5123840-19');
   }
 
   componentDidMount() {
@@ -71,7 +69,6 @@ class SearchContainer extends Component {
         ...!nextParams.category && { category: '' },
         page: 0
       });
-      window.gtag && window.gtag('config', 'UA-5123840-19');
     }
   }
 
