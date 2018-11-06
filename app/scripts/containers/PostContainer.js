@@ -20,6 +20,7 @@ class PostContainer extends Component {
     } else if (window.gtag) {
       window.gtag('config', 'UA-5123840-19', {
         'page_title': post.post_title,
+        'page_location': `https://www.laybabylay.com/${postSlug}`,
         'page_path': `/${postSlug}`
       });
     }
@@ -37,6 +38,7 @@ class PostContainer extends Component {
     } else if (window.gtag) {
       window.gtag('config', 'UA-5123840-19', {
         'page_title': post.post_title,
+        'page_location': `https://www.laybabylay.com/${postSlug}`,
         'page_path': `/${postSlug}`
       });
     }
