@@ -131,7 +131,7 @@ export default class Post extends Component {
 
   createMarkup = (html) => {
     const imageSize = utils.metrics.isPhone ? 'w_750' : 'w_1200';
-    let content = html.replace(/upload\/.+?(?=\/)/g, `upload/f_auto,q_48,${imageSize}`).replace(/http:/g, 'https:');
+    let content = html.replace(/upload\/.[^>]+?(?=\/)/g, `upload/f_auto,q_48,${imageSize}`).replace(/http:/g, 'https:');
     const matches = content.match(/<img.+src=(?:"|')(.+?)(?:"|')(?:.+?)>/gi);
     matches.forEach(match => {
       content = content.replace(match, match.replace(/src=/ig, 'data-original='));
