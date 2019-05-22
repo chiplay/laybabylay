@@ -8,3 +8,4 @@ yarn-error.log
 /wp-content/*
 !/wp-content/themes
 /dist
+/views
