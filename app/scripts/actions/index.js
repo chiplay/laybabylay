@@ -38,7 +38,7 @@ const POSTS_PER_PAGE = 10;
 export function fetchPage(slug) {
   return (dispatch) => {
     const pagesIndex = createAlgoliaIndex('wp_posts_page');
-    pagesIndex.search({
+    return pagesIndex.search({
       query: '',
       facetFilters: [`slug:${slug}`],
       attributesToHighlight: [],
@@ -74,7 +74,7 @@ export function fetchPosts(page = 0, hitsPerPage = POSTS_PER_PAGE) {
     dispatch(startFetchPosts());
 
     const postsIndex = createAlgoliaIndex('wp_posts_post');
-    postsIndex.search({
+    return postsIndex.search({
       query: '',
       attributesToHighlight: [],
       attributesToSnippet: ['content:30'],
@@ -125,7 +125,7 @@ export function fetchPost(slug) {
     dispatch(startFetchPost());
 
     const postIndex = createAlgoliaIndex('wp_posts_post');
-    postIndex.search({
+    return postIndex.search({
       query: '',
       facetFilters: [`slug:${slug}`],
       attributesToHighlight: [],

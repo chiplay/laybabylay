@@ -1,25 +1,48 @@
-// server.js
+require('@babel/register');
+
+// Polyfill document for vanilla-lazyload... :(
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
+
+const doc = new JSDOM('<!doctype html><html><body></body></html>').window.document;
+const win = doc.defaultView;
+
+global.document = doc;
+global.window = win;
+global.navigator = {
+  userAgent: 'Windows'
+};
+
+// And polyfill react-slick
+require('matchmedia-polyfill');
+require('matchmedia-polyfill/matchMedia.addListener');
+
 const express = require('express');
 const path = require('path');
 const compression = require('compression');
-const template = require('./views/server/template');
-const ssr = require('./views/server/ssr');
+const { matchPath } = require('react-router-dom');
+const template = require('./app/server/template');
+const ssr = require('./app/server/ssr');
+const configureStore = require('./app/scripts/store/configureStore').default;
+const routes = require('./app/scripts/routes').default;
 
 const app = express();
 app.use(compression());
 
 app.use((req, res, next) => {
-  if (req.get('X-Forwarded-Proto') !== 'https') {
-    return res.redirect(`https://${req.get('Host')}${req.url}`);
-  }
+  // if (req.get('X-Forwarded-Proto') !== 'https') {
+  //   return res.redirect(`https://${req.get('Host')}${req.url}`);
+  // }
 
   // permanently redirect non-www request (except dev)
-  if (!(/^(www|dev)\..*/.test(req.get('Host')))) {
-    return res.redirect(301, `https://www.laybabylay.com${req.url}`);
-  }
+  // if (!(/^(www|dev)\..*/.test(req.get('Host')))) {
+  //   return res.redirect(301, `https://www.laybabylay.com${req.url}`);
+  // }
 
   return next();
 });
+
+
 
 // Redirects
 app.get('/sitemap.xml', (req, res) => res.redirect(301, 'https://wp.laybabylay.com/sitemap.xml'));
@@ -86,40 +109,73 @@ app.use(express.static('public'));
 app.get('*', (req, res) => {
   // res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 
-  const initialState = {
-    posts: {
-      mapOfPosts: {
-        "a-greatest-showman-inspired-birthday-party": {
-          content: "<p>test</p>",
-          featured_image: "https://res.cloudinary.com/laybabylay/image/upload/v1547086302/greatest-showman-party-preview_htvda0.jpg",
-          first_image: "Vivi_Turns_8_Greatest_Showman-52_yrv2tz.jpg",
-          first_image_height: "2533",
-          first_image_width: "2119",
-          objectID: "12856-0",
-          post_date: 1547068295,
-          post_id: 12856,
-          post_title: "A Greatest Showman Inspired Birthday Party"
-        }
-      }
-    },
-    app: {
-      header: ""
-    },
-    pages: {
-      home: {
+  // const initialState = {
+  //   posts: {
+  //     mapOfPosts: {
+  //       "a-greatest-showman-inspired-birthday-party": {
+  //         content: "<p>test</p>",
+  //         featured_image: "https://res.cloudinary.com/laybabylay/image/upload/v1547086302/greatest-showman-party-preview_htvda0.jpg",
+  //         first_image: "Vivi_Turns_8_Greatest_Showman-52_yrv2tz.jpg",
+  //         first_image_height: "2533",
+  //         first_image_width: "2119",
+  //         objectID: "12856-0",
+  //         post_date: 1547068295,
+  //         post_id: 12856,
+  //         post_title: "A Greatest Showman Inspired Birthday Party"
+  //       }
+  //     }
+  //   },
+  //   app: {
+  //     header: ""
+  //   },
+  //   pages: {
+  //     home: {
 
-      }
-    },
-    search: {
+  //     }
+  //   },
+  //   search: {
 
-    }
-  };
+  //   }
+  // };
 
-  const { preloadedState, content } = ssr(initialState);
-  console.log(preloadedState);
-  const response = template("Server Rendered Page", preloadedState, content);
-  res.setHeader('Cache-Control', 'assets, max-age=604800');
-  res.send(response);
+  // Configure the store with the initial state provided
+  const store = configureStore();
+
+  // Dynamic data fetching based on route... but not sure we need this to just handle the homepage and individual post
+  const dataRequirements =
+    routes
+      .filter(route => matchPath(req.url, route)) // filter matching paths
+      .map(route => {
+        console.log(route);
+        return route.component;
+      }) // map to components
+      .filter(comp => comp.fetchData) // check if components have data requirement
+      .map(comp => {
+        // dispatch data requirement
+        const urlParts = req.path.split('/');
+
+        // for "/some-post" -> ["", "some-post"]
+        // for homepage, "/" -> ["", ""]
+        const slug = urlParts[1] || 'home';
+        console.log(slug);
+        return store.dispatch(comp.fetchData(slug));
+      });
+
+  console.log(dataRequirements);
+
+  Promise.all(dataRequirements)
+    .then(() => {
+      const { preloadedState, content, styleTags } = ssr(store, req);
+      console.log(preloadedState);
+      const response = template("Server Rendered Page", preloadedState, content, styleTags);
+      res.setHeader('Cache-Control', 'assets, max-age=604800');
+      res.send(response);
+    })
+    .catch((err) => {
+      console.log(err);
+      // What to do when the data fetching fails? 
+      // res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+    });
 });
 
 const PORT = process.env.PORT || 8080;

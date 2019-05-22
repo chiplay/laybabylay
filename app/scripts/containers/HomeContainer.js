@@ -52,6 +52,8 @@ HomeContainer.propTypes = {
   activePosts: PropTypes.array.isRequired
 };
 
+HomeContainer.fetchData = fetchPage;
+
 function mapStateToProps(state) {
   return {
     home: getPageBySlug(state, 'home'),

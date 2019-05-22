@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Flex, Box } from '@rebass/grid';
-import utils from 'utils';
+import utils from '../utils';
 
 import { RECENT_POSTS, FAVORITE_POSTS, POPULAR_POSTS } from '../reducers/pages';
 

@@ -76,4 +76,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+PostContainer.fetchData = fetchPost;
+
 export default connect(mapStateToProps, mapDispatchToProps)(PostContainer);

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import * as fromPages from 'reducers/pages';
+import * as fromPages from '../reducers/pages';
 
 export function getPageBySlug(state, slug) {
   return fromPages.getPageBySlug(state.pages, slug);

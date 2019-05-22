@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
-import utils, { decodeHtml } from 'utils';
+import utils, { decodeHtml } from '../utils';
 
 import URI from 'urijs';
 import '../../styles/post-summary.less';

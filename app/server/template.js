@@ -1,12 +1,12 @@
 // html skeleton provider
-function template(title, initialState = {}, content = "") {
+function template(title, initialState = {}, content = "", styleTags = "") {
   let scripts = ''; // Dynamically ship scripts based on render type
   if (content) {
-    scripts = `<script>
-                window.__STATE__ = ${JSON.stringify(initialState)}
-               </script>
-               <script src="/client.js"></script>
-              `;
+    // scripts = `<script>
+    //             window.__STATE__ = ${JSON.stringify(initialState)}
+    //            </script>
+    //            <script src="/client.js"></script>
+    //           `;
   } else {
     scripts = `<script src="/main.js"></script>`;
   }
@@ -30,6 +30,7 @@ function template(title, initialState = {}, content = "") {
     </script>
     <link rel="shortcut icon" href="/favicon.ico">
     <link href="/main.css" rel="stylesheet">
+    ${styleTags}
   </head>
 
   <body>

@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import URI from 'urijs';
 import moment from 'moment';
 import classNames from 'classnames';
-import utils, { decodeHtml, windowOptions } from 'utils';
 import { FacebookButton, PinterestButton, TwitterButton } from 'react-social';
 import LazyLoad from 'vanilla-lazyload';
 import { Flex, Box } from '@rebass/grid';
 
+import utils, { decodeHtml, windowOptions } from '../utils';
 import DynamicHead from '../components/DynamicHead';
 import RelatedPosts from '../components/RelatedPosts';
 import Comments from '../components/Comments';
@@ -134,6 +134,7 @@ export default class Post extends Component {
     let content = html.replace(/upload\/.[^>]+?(?=\/)/g, `upload/f_auto,q_48,${imageSize}`).replace(/http:/g, 'https:');
     const matches = content.match(/<img.+src=(?:"|')(.+?)(?:"|')(?:.+?)>/gi);
     matches.forEach(match => {
+      // TODO - how do we correctly render images for crawlers/SEO, but still lazyload for clients?
       content = content.replace(match, match.replace(/src=/ig, 'data-src='));
     });
 
@@ -141,8 +142,6 @@ export default class Post extends Component {
       __html: content
     };
   }
-
-  // TODO - related post and comments, social buttons logic (actions?)
 
   render() {
     const { post, sidebarTiles } = this.props;

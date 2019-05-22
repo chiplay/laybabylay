@@ -1,23 +1,34 @@
+import 'ignore-styles';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
+import { StaticRouter } from 'react-router-dom';
+import { ServerStyleSheet, StyleSheetManager, __DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS } from 'styled-components'
 
 import { Provider } from 'react-redux';
-import configureStore from '../scripts/store/configureStore';
 import App from '../scripts/App';
 
-module.exports = function render(initialState) {
-  // Configure the store with the initial state provided
-  const store = configureStore(initialState)
+module.exports = function render(store, req) {
+  const context = {};
+  const { StyleSheet } = __DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS;
+  StyleSheet.reset(true);
+  const sheet = new ServerStyleSheet();
 
   // render the App store static markup ins content variable
   let content = renderToString(
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <StyleSheetManager sheet={sheet.instance}>
+      <Provider store={store}>
+        <StaticRouter context={context} location={req.url}>
+          <App />
+        </StaticRouter>
+      </Provider>
+    </StyleSheetManager>
   );
+
+  const styleTags = sheet.getStyleTags();
+  sheet.seal();
 
   // Get a copy of store data to create the same store on client side 
   const preloadedState = store.getState();
 
-  return { content, preloadedState };
+  return { content, preloadedState, styleTags };
 }

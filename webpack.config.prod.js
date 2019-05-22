@@ -1,7 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // https://www.algolia.com/doc/tutorials/seo/generate-sitemap-from-index/javascript/
 
@@ -17,14 +16,13 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: 'index.tpl.html',
-      favicon: 'favicon.ico'
-    }),
     new MiniCssExtractPlugin({
       filename: '[name].css'
     }),
-    new CompressionPlugin()
+    new CompressionPlugin(),
+    new webpack.DefinePlugin({
+      __CLIENT__: true
+    })
   ],
   resolve: {
     modules: [

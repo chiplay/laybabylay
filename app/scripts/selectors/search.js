@@ -1,6 +1,6 @@
 // import { createSelector } from 'reselect';
 
-import * as fromSearch from 'reducers/search';
+import * as fromSearch from '../reducers/search';
 
 export function getSearchResults(state) {
   return fromSearch.getSearchResults(state.search);

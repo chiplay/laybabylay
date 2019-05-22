@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import _find from 'lodash/find';
 
-import * as fromPosts from 'reducers/posts';
+import * as fromPosts from '../reducers/posts';
 
 export function getMapOfPosts(state) {
   return fromPosts.getMapOfPosts(state.posts);

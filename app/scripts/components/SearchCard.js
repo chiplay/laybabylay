@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import _isEqual from 'lodash/isEqual';
 
-import utils, { decodeHtml } from 'utils';
+import utils, { decodeHtml } from '../utils';
 import URI from 'urijs';
 import '../../styles/search-card.less';
 
