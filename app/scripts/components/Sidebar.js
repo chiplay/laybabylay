@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // import { checkStatus, parseJSON } from 'utils';
-import { Link, browserHistory } from 'react-router';
-import { Box } from 'grid-styled';
+import { Link, withRouter } from 'react-router-dom';
+import { Box } from '@rebass/grid';
 import URI from 'urijs';
 
 import 'styles/sidebar.less';
 import Author from '../components/Author';
 
-export default class Sidebar extends Component {
+class Sidebar extends Component {
   constructor(props) {
     super(props);
 
@@ -34,7 +34,7 @@ export default class Sidebar extends Component {
   handleSubmit = (event) => {
     const { query } = this.state;
     const path = `/search/${query}`;
-    browserHistory.push(path);
+    this.props.history.push(path);
     this.setState({ query: '' });
     event.preventDefault();
   }
@@ -149,3 +149,5 @@ export default class Sidebar extends Component {
 Sidebar.propTypes = {
   tiles: PropTypes.array.isRequired
 };
+
+export default withRouter(Sidebar);

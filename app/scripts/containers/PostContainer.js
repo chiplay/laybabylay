@@ -13,7 +13,7 @@ import Post404 from '../components/Post404';
 class PostContainer extends Component {
   componentWillMount() {
     const { actions, post, home } = this.props;
-    const { postSlug } = this.props.params;
+    const { postSlug } = this.props.match.params;
 
     if (!post || !post.content) {
       actions.fetchPost(postSlug);
@@ -29,8 +29,8 @@ class PostContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { actions, post } = nextProps;
-    const { postSlug } = nextProps.params;
-    const { postSlug: currentPostSlug } = this.props.params;
+    const { postSlug } = nextProps.match.params;
+    const { postSlug: currentPostSlug } = this.props.match.params;
 
     if (currentPostSlug === postSlug) return;
     if (!post || !post.content) {
@@ -57,13 +57,13 @@ PostContainer.propTypes = {
   post: PropTypes.object,
   home: PropTypes.object,
   actions: PropTypes.object.isRequired,
-  params: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, props) {
   return {
     home: getPageBySlug(state, 'home'),
-    post: getPostBySlug(state, props.params.postSlug)
+    post: getPostBySlug(state, props.match.params.postSlug)
   };
 }
 

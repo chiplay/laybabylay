@@ -1,10 +1,7 @@
-import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, browserHistory, applyRouterMiddleware } from 'react-router';
-import { useScroll } from 'react-router-scroll';
-// import LogRocket from 'logrocket';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import configureStore from './store/configureStore';
 import ThemeContainer from './containers/ThemeContainer';
@@ -12,11 +9,9 @@ import HomeContainer from './containers/HomeContainer';
 import PostContainer from './containers/PostContainer';
 import SearchContainer from './containers/SearchContainer';
 import AboutPage from './components/AboutPage';
-// import AboutPageContainer from './containers/AboutPageContainer';
-import '../styles/app.less';
+import ScrollToTop from './components/ScrollToTop';
 
-// LogRocket.init('ivtkem/lay-baby-lay-prod');
-// require('logrocket-react')(LogRocket);
+import 'styles/app.less';
 
 const store = configureStore();
 const rootElement = document.getElementById('root');
@@ -41,25 +36,26 @@ const rootElement = document.getElementById('root');
 
 render(
   <Provider store={store}>
-    <Router
-      history={browserHistory}
-      render={applyRouterMiddleware(useScroll())}
-    >
-      <Route path="/" component={ThemeContainer}>
-        <IndexRoute component={HomeContainer} />
-        <Route path="about" component={AboutPage} />
-        <Route path="explore" component={SearchContainer} />
-        <Route path="search/:query" component={SearchContainer} />
-        <Route path="explore/:post_type" component={SearchContainer} />
-        <Route path="explore/:post_type/:category" component={SearchContainer} />
-        <Route path="explore/:post_type/:category/:tag" component={SearchContainer} />
-        <Route path="explore/:post_type/:category/:tag/:query" component={SearchContainer} />
-        <Route path=":post_type/:category" component={SearchContainer} />
-        <Route path=":post_type/:category/:tag" component={SearchContainer} />
-        <Route path=":post_type/:category/:tag/:query" component={SearchContainer} />
-        <Route path=":postSlug" component={PostContainer} />
-      </Route>
-    </Router>
+    <BrowserRouter>
+      <ScrollToTop>
+        <ThemeContainer>
+          <Switch>
+            <Route exact path="/" component={HomeContainer} />
+            <Route exact path="/about" component={AboutPage} />
+            <Route path="/explore/:post_type/:category/:tag/:query" component={SearchContainer} />
+            <Route path="/explore/:post_type/:category/:tag" component={SearchContainer} />
+            <Route path="/explore/:post_type/:category" component={SearchContainer} />
+            <Route path="/explore/:post_type" component={SearchContainer} />
+            <Route exact path="/explore" component={SearchContainer} />
+            <Route exact path="/search/:query" component={SearchContainer} />
+            <Route path="/:post_type/:category" component={SearchContainer} />
+            <Route path="/:post_type/:category/:tag" component={SearchContainer} />
+            <Route path="/:post_type/:category/:tag/:query" component={SearchContainer} />
+            <Route path="/:postSlug" component={PostContainer} />
+          </Switch>
+        </ThemeContainer>
+      </ScrollToTop>
+    </BrowserRouter>
   </Provider>,
   rootElement
 );
@@ -69,25 +65,26 @@ if (module.hot) {
     const Theme = require('./containers/ThemeContainer').default;
     render(
       <Provider store={store}>
-        <Router
-          history={browserHistory}
-          render={applyRouterMiddleware(useScroll())}
-        >
-          <Route path="/" component={Theme}>
-            <IndexRoute component={HomeContainer} />
-            <Route path="about" component={AboutPage} />
-            <Route path="explore" component={SearchContainer} />
-            <Route path="search/:query" component={SearchContainer} />
-            <Route path="explore/:post_type" component={SearchContainer} />
-            <Route path="explore/:post_type/:category" component={SearchContainer} />
-            <Route path="explore/:post_type/:category/:tag" component={SearchContainer} />
-            <Route path="explore/:post_type/:category/:tag/:query" component={SearchContainer} />
-            <Route path=":post_type/:category" component={SearchContainer} />
-            <Route path=":post_type/:category/:tag" component={SearchContainer} />
-            <Route path=":post_type/:category/:tag/:query" component={SearchContainer} />
-            <Route path=":postSlug" component={PostContainer} />
-          </Route>
-        </Router>
+        <BrowserRouter>
+          <ScrollToTop>
+            <ThemeContainer>
+              <Switch>
+                <Route exact path="/" component={HomeContainer} />
+                <Route exact path="/about" component={AboutPage} />
+                <Route path="/explore/:post_type/:category/:tag/:query" component={SearchContainer} />
+                <Route path="/explore/:post_type/:category/:tag" component={SearchContainer} />
+                <Route path="/explore/:post_type/:category" component={SearchContainer} />
+                <Route path="/explore/:post_type" component={SearchContainer} />
+                <Route exact path="/explore" component={SearchContainer} />
+                <Route exact path="/search/:query" component={SearchContainer} />
+                <Route path="/:post_type/:category" component={SearchContainer} />
+                <Route path="/:post_type/:category/:tag" component={SearchContainer} />
+                <Route path="/:post_type/:category/:tag/:query" component={SearchContainer} />
+                <Route path="/:postSlug" component={PostContainer} />
+              </Switch>
+            </ThemeContainer>
+          </ScrollToTop>
+        </BrowserRouter>
       </Provider>,
       rootElement
     );

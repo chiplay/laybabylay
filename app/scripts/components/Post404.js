@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import { Flex, Box } from 'grid-styled';
+import { Flex, Box } from '@rebass/grid';
 import Sidebar from 'components/Sidebar';
 
 import 'styles/post.less';
@@ -18,10 +18,10 @@ export default class Post extends Component {
         m="auto"
         pb={20}
         px={[10, 10, 10, 40]}
-        is="article"
+        as="article"
         className="post"
       >
-        <Flex wrap>
+        <Flex flexWrap="wrap">
           <Box width={[1, 1, 1, 2/3]}>
             <Helmet>
               <title itemProp="name" lang="en">404 - Post Not Found</title>
@@ -33,7 +33,7 @@ export default class Post extends Component {
               m="auto"
               pt={[30, 30, 30, 50]}
               px={[15, 15, 15, 40]}
-              is="header"
+              as="header"
               className="post__header"
             >
               <h1 className="post__title">404 Post Not Found</h1>

@@ -3,7 +3,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './app/scripts',
+  mode: 'development',
+  entry: ['@babel/polyfill', './app/scripts'],
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
@@ -20,13 +21,6 @@ module.exports = {
       template: 'index.tpl.html',
       favicon: 'favicon.ico'
     }),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        BROWSER: JSON.stringify(true),
-        NODE_ENV: JSON.stringify('development')
-      }
-    }),
     new webpack.HotModuleReplacementPlugin()
   ],
   resolve: {
@@ -41,7 +35,6 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /fbsdk/, loader: 'script-loader' },
       {
         test: /\.less$/,
         use: [

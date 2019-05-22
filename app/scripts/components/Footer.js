@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import 'styles/footer.less';
 
 export default class Footer extends Component {
@@ -35,9 +35,9 @@ export default class Footer extends Component {
             <div className="field-wrapper">
               <input type="email" name="EMAIL" className="email" id="mce-EMAIL" placeholder="email address" required="" />
               <div style={{ position: 'absolute', left: '-5000px' }}>
-                <input type="text" name="b_fdeae0ed89c10e09597447b4b_30ae3cf548" tabIndex="-1" value="" />
+                <input type="text" name="b_fdeae0ed89c10e09597447b4b_30ae3cf548" tabIndex="-1" defaultValue="" />
               </div>
-              <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" className="button" />
+              <input type="submit" defaultValue="Subscribe" name="subscribe" id="mc-embedded-subscribe" className="button" />
             </div>
           </form>
         </div>

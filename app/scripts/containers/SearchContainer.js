@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Masonry from 'react-masonry-component';
-import Waypoint from 'react-waypoint';
+import { withRouter } from 'react-router-dom';
+import { Waypoint } from 'react-waypoint';
 import { Helmet } from 'react-helmet';
 import _isEqual from 'lodash/isEqual';
-import { Flex, Box } from 'grid-styled';
+import { Flex, Box } from '@rebass/grid';
 import classNames from 'classnames';
 import LazyLoad from 'vanilla-lazyload';
 import _startCase from 'lodash/startCase';
@@ -36,7 +36,7 @@ class SearchContainer extends Component {
   componentWillMount() {
     const {
       actions,
-      params,
+      match,
       queryObj,
       searchPage
     } = this.props;
@@ -45,9 +45,9 @@ class SearchContainer extends Component {
 
     actions.search({
       ...queryObj,
-      ...params,
-      ...!params.query && { query: '' },
-      ...!params.category && { category: '' },
+      ...match.params,
+      ...!match.params.query && { query: '' },
+      ...!match.params.category && { category: '' },
       page: 0
     });
   }
@@ -57,16 +57,16 @@ class SearchContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { actions, params } = this.props,
-          { params: nextParams, queryObj: nextQueryObj } = nextProps;
+    const { actions, match } = this.props,
+          { match: nextMatch, queryObj: nextQueryObj } = nextProps;
 
     // Only trigger a new search here on route change (post_type or query?)
-    if (!_isEqual(params, nextParams)) {
+    if (!_isEqual(match.params, nextMatch.params)) {
       actions.search({
         ...nextQueryObj,
-        ...nextParams,
-        ...!nextParams.query && { query: '' },
-        ...!nextParams.category && { category: '' },
+        ...nextMatch.params,
+        ...!nextMatch.params.query && { query: '' },
+        ...!nextMatch.params.category && { category: '' },
         page: 0
       });
     }
@@ -105,9 +105,9 @@ class SearchContainer extends Component {
   }
 
   toggleFilter(filter) {
-    const { queryObj } = this.props;
+    const { queryObj, history } = this.props;
     const path = `/explore/${queryObj.post_type}/${filter.name.replace(/\s/g, '-')}`;
-    browserHistory.push(path);
+    history.push(path);
   }
 
   renderFilters = (filters, category) => {
@@ -116,7 +116,7 @@ class SearchContainer extends Component {
       const filterClasses = classNames('tag-btn', { active });
       return (
         <Box
-          is="button"
+          as="button"
           className={filterClasses}
           key={filter.term_id}
           onClick={() => this.toggleFilter(filter)}
@@ -135,8 +135,9 @@ class SearchContainer extends Component {
             searchCategories,
             queryObj,
             totalResults,
-            params
+            match
           } = this.props,
+          { params } = match,
           { post_type } = params;
 
     const filters = post_type === 'products' ? productCategories : searchCategories;
@@ -194,7 +195,7 @@ class SearchContainer extends Component {
 SearchContainer.propTypes = {
   searchPage: PropTypes.object,
   actions: PropTypes.object.isRequired,
-  params: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
   results: PropTypes.array.isRequired,
   totalResults: PropTypes.number.isRequired,
   searchCategories: PropTypes.array,
@@ -224,4 +225,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchContainer));

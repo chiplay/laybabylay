@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import utils, { decodeHtml, windowOptions } from 'utils';
 import { FacebookButton, PinterestButton, TwitterButton } from 'react-social';
 import LazyLoad from 'vanilla-lazyload';
-import { Flex, Box } from 'grid-styled';
+import { Flex, Box } from '@rebass/grid';
 
 import DynamicHead from 'components/DynamicHead';
 import RelatedPosts from 'components/RelatedPosts';
@@ -134,7 +134,7 @@ export default class Post extends Component {
     let content = html.replace(/upload\/.[^>]+?(?=\/)/g, `upload/f_auto,q_48,${imageSize}`).replace(/http:/g, 'https:');
     const matches = content.match(/<img.+src=(?:"|')(.+?)(?:"|')(?:.+?)>/gi);
     matches.forEach(match => {
-      content = content.replace(match, match.replace(/src=/ig, 'data-original='));
+      content = content.replace(match, match.replace(/src=/ig, 'data-src='));
     });
 
     return {
@@ -198,11 +198,11 @@ export default class Post extends Component {
         m="auto"
         pb={20}
         px={[10, 10, 10, 40]}
-        is="article"
+        as="article"
         className={postClasses}
       >
         {heroImage}
-        <Flex wrap>
+        <Flex flexWrap="wrap">
           <Box width={[1, 1, 1, 2/3]}>
             <DynamicHead post={post} />
 
@@ -211,7 +211,7 @@ export default class Post extends Component {
               m="auto"
               pt={[30, 30, 30, 50]}
               px={[15, 15, 15, 40]}
-              is="header"
+              as="header"
               className="post__header"
             >
               <h1 className="post__title">{decodeHtml(post_title)}</h1>

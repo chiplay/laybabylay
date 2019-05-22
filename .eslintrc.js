@@ -2,10 +2,12 @@
 const path = require('path');
 
 module.exports = {
-  "extends": "airbnb",
-  "parser": "babel-eslint",
+  "extends": [
+    "airbnb",
+    "plugin:react/recommended"
+  ],
   "plugins": [
-    "react", "flowtype", "import"
+    "import"
   ],
   "rules": {
     "arrow-body-style": 0,

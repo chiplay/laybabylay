@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import _isEqual from 'lodash/isEqual';
 
 import utils, { decodeHtml } from 'utils';
@@ -54,7 +54,7 @@ export default class SearchCard extends Component {
       <article>
         <div className="search-card__bg">
           <div className="search-card__image-wrapper" style={{ paddingBottom: `${ratio}%` }}>
-            <img className="search-card__image" data-original={imageSrc} alt={post_title} />
+            <img className="search-card__image" data-src={imageSrc} alt={post_title} />
           </div>
         </div>
 

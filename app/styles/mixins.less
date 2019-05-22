@@ -510,7 +510,7 @@
 }
 
 // Generate the columns
-.make-column(@columns, @gridsize @gutter: @grid-gutter-width) {
+.make-column(@columns, @gridsize, @gutter: @grid-gutter-width) {
   position: relative;
   // Prevent columns from collapsing when empty
   min-height: 1px;
@@ -543,7 +543,7 @@
 }
 
 // Generate the small columns
-.make-small-column(@columns, @gridsize @gutter: @grid-gutter-width) {
+.make-small-column(@columns, @gridsize, @gutter: @grid-gutter-width) {
   position: relative;
   float: left;
   // Prevent columns from collapsing when empty

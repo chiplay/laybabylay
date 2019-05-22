@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Link } from 'react-router';
-import Waypoint from 'react-waypoint';
+import { Link } from 'react-router-dom';
+import { Waypoint } from 'react-waypoint';
 import classNames from 'classnames';
 import 'styles/header.less';
 

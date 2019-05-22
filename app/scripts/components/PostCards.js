@@ -4,8 +4,7 @@ import { Helmet } from 'react-helmet';
 import URI from 'urijs';
 
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.less';
-import 'styles/postcards.less';
+import '../../styles/postcards.less';
 import PostCard from 'components/PostCard';
 
 export default class PostCards extends Component {

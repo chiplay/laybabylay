@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { ThemeProvider } from 'styled-components';
-import { Box } from 'grid-styled';
+import { Box } from '@rebass/grid';
 
 // import SearchFilters from '../components/SearchFilters';
 import Header from 'components/Header';
@@ -21,7 +21,8 @@ class ThemeContainer extends Component {
     return (
       <ThemeProvider
         theme={{
-          breakpoints: [36, 48, 62]
+          breakpoints: ['32em', '48em', '64em'],
+          space: [ 0, 6, 12, 18, 24 ]
         }}
       >
         <Box>

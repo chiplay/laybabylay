@@ -1,16 +1,16 @@
 const path = require('path');
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // https://www.algolia.com/doc/tutorials/seo/generate-sitemap-from-index/javascript/
 
 module.exports = {
-  entry: './app/scripts',
+  mode: 'production',
+  entry: ['@babel/polyfill', './app/scripts'],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].bundle.js',
+    filename: '[name].[contenthash].js',
     publicPath: '/'
   },
   plugins: [
@@ -18,27 +18,10 @@ module.exports = {
       template: 'index.tpl.html',
       favicon: 'favicon.ico'
     }),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new ExtractTextPlugin({
-      filename: 'app.css'
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css'
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        BROWSER: JSON.stringify(true),
-        NODE_ENV: JSON.stringify('production')
-      }
-    }),
-    new CompressionPlugin({
-      asset: '[path].gz[query]',
-      algorithm: 'gzip',
-      test: /\.js$|\.css$|\.html$/,
-      threshold: 0,
-      minRatio: 0.8,
-      verbose: true
-    }),
+    new CompressionPlugin()
   ],
   resolve: {
     modules: [
@@ -51,20 +34,13 @@ module.exports = {
     extensions: ['.js', '.json', '.less', '.jade']
   },
   module: {
-    loaders: [
-      { test: /fbsdk/, loader: 'script-loader' },
+    rules: [
       {
         test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader!less-loader'
-        })
-      },
-      {
-        test: /\.css$/,
         use: [
-          'style-loader',
-          'css-loader'
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'less-loader'
         ]
       },
       {

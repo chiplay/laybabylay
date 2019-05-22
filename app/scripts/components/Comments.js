@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Waypoint from 'react-waypoint';
+import { Waypoint } from 'react-waypoint';
 import moment from 'moment';
 import classNames from 'classnames';
-import URLSearchParams from 'url-search-params';
+import URLSearchParams from '@ungap/url-search-params';
 
 import { fetchComments, submitComment } from 'actions';
 import 'styles/comments.less';
