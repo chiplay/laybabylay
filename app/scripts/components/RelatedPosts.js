@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import RelatedPost from 'components/RelatedPost';
+import RelatedPost from '../components/RelatedPost';
 
 export default class RelatedPosts extends Component {
 

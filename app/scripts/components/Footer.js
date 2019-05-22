@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import 'styles/footer.less';
+import '../../styles/footer.less';
 
 export default class Footer extends Component {
   render() {

@@ -7,8 +7,8 @@ import moment from 'moment';
 import classNames from 'classnames';
 import URLSearchParams from '@ungap/url-search-params';
 
-import { fetchComments, submitComment } from 'actions';
-import 'styles/comments.less';
+import { fetchComments, submitComment } from '../actions';
+import '../../styles/comments.less';
 
 class Comments extends Component {
   constructor(props) {

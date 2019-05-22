@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getPostBySlug, getPageBySlug } from 'selectors';
+import { getPostBySlug, getPageBySlug } from '../selectors';
 import { fetchPost, fetchPage } from '../actions';
 // import { Link } from 'react-router-dom';
 import Post from '../components/Post';

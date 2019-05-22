@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import _startCase from 'lodash/startCase';
-import 'styles/about.less';
+import '../../styles/about.less';
 
 // Dumb component
 export default class AboutPage extends Component {

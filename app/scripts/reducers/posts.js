@@ -10,7 +10,7 @@ import {
   RECEIVE_COMMENTS,
   RECEIVE_SEARCH,
   RECEIVE_POST_ERROR
-} from 'actions';
+} from '../actions';
 
 const defaultState = {
   mapOfPosts: {}

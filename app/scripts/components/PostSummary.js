@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import utils, { decodeHtml } from 'utils';
 
 import URI from 'urijs';
-import 'styles/post-summary.less';
+import '../../styles/post-summary.less';
 
 export default class PostSummary extends Component {
 

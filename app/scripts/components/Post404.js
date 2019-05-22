@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { Flex, Box } from '@rebass/grid';
-import Sidebar from 'components/Sidebar';
+import Sidebar from '../components/Sidebar';
 
-import 'styles/post.less';
+import '../../styles/post.less';
 
 export default class Post extends Component {
 

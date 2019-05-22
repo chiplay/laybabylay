@@ -7,10 +7,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'production',
-  entry: ['@babel/polyfill', './app/scripts'],
+  entry: {
+    main: './app/scripts/index.js',
+    client: './app/scripts/client.js'
+  },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].[contenthash].js',
+    filename: '[name].js',
     publicPath: '/'
   },
   plugins: [
@@ -19,7 +22,7 @@ module.exports = {
       favicon: 'favicon.ico'
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css'
+      filename: '[name].css'
     }),
     new CompressionPlugin()
   ],

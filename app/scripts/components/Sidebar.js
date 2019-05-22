@@ -5,7 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { Box } from '@rebass/grid';
 import URI from 'urijs';
 
-import 'styles/sidebar.less';
+import '../../styles/sidebar.less';
 import Author from '../components/Author';
 
 class Sidebar extends Component {

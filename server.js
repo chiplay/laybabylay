@@ -2,6 +2,8 @@
 const express = require('express');
 const path = require('path');
 const compression = require('compression');
+const template = require('./views/server/template');
+const ssr = require('./views/server/ssr');
 
 const app = express();
 app.use(compression());
@@ -18,13 +20,6 @@ app.use((req, res, next) => {
 
   return next();
 });
-
-// Prerender
-const prerender = require('prerender-node').set('prerenderToken', process.env.PRERENDER_TOKEN);
-prerender.crawlerUserAgents.push('googlebot');
-prerender.crawlerUserAgents.push('bingbot');
-prerender.crawlerUserAgents.push('yandex');
-app.use(prerender);
 
 // Redirects
 app.get('/sitemap.xml', (req, res) => res.redirect(301, 'https://wp.laybabylay.com/sitemap.xml'));
@@ -89,7 +84,42 @@ app.use(express.static('public'));
 
 // send all requests to index.html so browserHistory in React Router works
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  // res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+
+  const initialState = {
+    posts: {
+      mapOfPosts: {
+        "a-greatest-showman-inspired-birthday-party": {
+          content: "<p>test</p>",
+          featured_image: "https://res.cloudinary.com/laybabylay/image/upload/v1547086302/greatest-showman-party-preview_htvda0.jpg",
+          first_image: "Vivi_Turns_8_Greatest_Showman-52_yrv2tz.jpg",
+          first_image_height: "2533",
+          first_image_width: "2119",
+          objectID: "12856-0",
+          post_date: 1547068295,
+          post_id: 12856,
+          post_title: "A Greatest Showman Inspired Birthday Party"
+        }
+      }
+    },
+    app: {
+      header: ""
+    },
+    pages: {
+      home: {
+
+      }
+    },
+    search: {
+
+    }
+  };
+
+  const { preloadedState, content } = ssr(initialState);
+  console.log(preloadedState);
+  const response = template("Server Rendered Page", preloadedState, content);
+  res.setHeader('Cache-Control', 'assets, max-age=604800');
+  res.send(response);
 });
 
 const PORT = process.env.PORT || 8080;

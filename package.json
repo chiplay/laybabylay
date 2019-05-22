@@ -17,7 +17,8 @@
     "heroku-postbuild": "npm run build",
     "build": "NODE_ENV=production webpack --config webpack.config.prod.js --progress",
     "start": "NODE_ENV=development webpack-dev-server --port=3000 --config=webpack.config.dev.js",
-    "lint": "eslint src"
+    "lint": "eslint app/scripts",
+    "babel": "babel app -d views"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
@@ -53,6 +54,7 @@
     "wpapi": "^1.2.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/preset-env": "^7.4.5",

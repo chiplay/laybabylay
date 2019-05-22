@@ -1,4 +1,7 @@
 import $ from 'jquery';
+if (typeof window === 'undefined') {
+  global.window = {}
+}
 
 export function decodeHtml(html) {
   return $('<div>').html(html).text();

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import 'styles/author.less';
+import '../../styles/author.less';
 
 export default class Author extends Component {
   render() {

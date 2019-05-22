@@ -12,7 +12,7 @@ import classNames from 'classnames';
 import LazyLoad from 'vanilla-lazyload';
 import _startCase from 'lodash/startCase';
 
-import { search, fetchPage } from 'actions';
+import { search, fetchPage } from '../actions';
 import {
   getSearchResults,
   getIsSearching,
@@ -21,12 +21,12 @@ import {
   getProductCategories,
   getSearchCategories,
   getSearchTotalResults
-} from 'selectors';
+} from '../selectors';
 
-import SearchCard from 'components/SearchCard';
-import 'styles/search-results.less';
-import 'styles/filters.less';
-import 'styles/tags.less';
+import SearchCard from '../components/SearchCard';
+import '../../styles/search-results.less';
+import '../../styles/filters.less';
+import '../../styles/tags.less';
 
 const masonryOptions = {
   transitionDuration: 0

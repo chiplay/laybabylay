@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Waypoint } from 'react-waypoint';
 import classNames from 'classnames';
-import 'styles/header.less';
+import '../../styles/header.less';
 
 export default class Header extends Component {
   render() {

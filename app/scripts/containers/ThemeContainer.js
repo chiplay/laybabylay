@@ -6,9 +6,9 @@ import { ThemeProvider } from 'styled-components';
 import { Box } from '@rebass/grid';
 
 // import SearchFilters from '../components/SearchFilters';
-import Header from 'components/Header';
-import Footer from 'components/Footer';
-import { expandHeader, shrinkHeader } from 'actions';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import { expandHeader, shrinkHeader } from '../actions';
 
 class ThemeContainer extends Component {
   componentWillMount() {

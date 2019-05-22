@@ -9,13 +9,13 @@ import { FacebookButton, PinterestButton, TwitterButton } from 'react-social';
 import LazyLoad from 'vanilla-lazyload';
 import { Flex, Box } from '@rebass/grid';
 
-import DynamicHead from 'components/DynamicHead';
-import RelatedPosts from 'components/RelatedPosts';
-import Comments from 'components/Comments';
-import Sidebar from 'components/Sidebar';
+import DynamicHead from '../components/DynamicHead';
+import RelatedPosts from '../components/RelatedPosts';
+import Comments from '../components/Comments';
+import Sidebar from '../components/Sidebar';
 
-import 'styles/post.less';
-import 'styles/share-buttons.less';
+import '../../styles/post.less';
+import '../../styles/share-buttons.less';
 
 export default class Post extends Component {
   constructor(props) {

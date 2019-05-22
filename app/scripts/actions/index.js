@@ -1,5 +1,4 @@
-import 'whatwg-fetch';
-import { checkStatus, parseJSON } from 'utils';
+import { checkStatus, parseJSON } from '../utils';
 import algoliasearch from 'algoliasearch';
 import _startCase from 'lodash/startCase';
 import WPAPI from 'wpapi';

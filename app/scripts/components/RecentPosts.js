@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Flex, Box } from '@rebass/grid';
 import utils from 'utils';
 
-import { RECENT_POSTS, FAVORITE_POSTS, POPULAR_POSTS } from 'reducers/pages';
+import { RECENT_POSTS, FAVORITE_POSTS, POPULAR_POSTS } from '../reducers/pages';
 
-import 'styles/recent-posts.less';
-import PostSummary from 'components/PostSummary';
+import '../../styles/recent-posts.less';
+import PostSummary from '../components/PostSummary';
 
 export default class RecentPosts extends Component {
 

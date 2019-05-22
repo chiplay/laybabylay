@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import URI from 'urijs';
 
-import utils, { decodeHtml } from 'utils';
-import 'styles/postcard.less';
+import utils, { decodeHtml } from '../utils';
+import '../../styles/postcard.less';
 
 export default class PostCard extends Component {
   render() {

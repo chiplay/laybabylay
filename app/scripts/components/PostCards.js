@@ -5,7 +5,7 @@ import URI from 'urijs';
 
 import Slider from 'react-slick';
 import '../../styles/postcards.less';
-import PostCard from 'components/PostCard';
+import PostCard from '../components/PostCard';
 
 export default class PostCards extends Component {
 

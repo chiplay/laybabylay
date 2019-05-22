@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Flex, Box } from '@rebass/grid';
 
-import { fetchPosts, fetchPage, setActiveFilter } from 'actions';
-import PostCards from 'components/PostCards';
-import RecentPosts from 'components/RecentPosts';
-import Sidebar from 'components/Sidebar';
+import { fetchPosts, fetchPage, setActiveFilter } from '../actions';
+import PostCards from '../components/PostCards';
+import RecentPosts from '../components/RecentPosts';
+import Sidebar from '../components/Sidebar';
 
-import { getPageBySlug, getActivePosts } from 'selectors';
+import { getPageBySlug, getActivePosts } from '../selectors';
 
 // Smart component
 class HomeContainer extends Component {

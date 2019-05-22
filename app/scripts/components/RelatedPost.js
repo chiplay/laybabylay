@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { decodeHtml } from 'utils';
 import URI from 'urijs';
-import 'styles/related-post.less';
+import '../../styles/related-post.less';
 
 // Dumb component
 export default class RelatedPost extends Component {

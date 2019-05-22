@@ -3,7 +3,7 @@ import {
   START_FETCH_SEARCH,
   SEARCH_FETCH_ERROR,
   RECEIVE_NEXT_SEARCH
-} from 'actions';
+} from '../actions';
 
 import _unionBy from 'lodash/unionBy';
 
