@@ -27,7 +27,9 @@ export default class Post extends Component {
   }
 
   componentDidMount() {
-    this.lazyload = new LazyLoad();
+    this.lazyload = new LazyLoad({
+      elements_selector: '.post__content img'
+    });
     this.buildImagePinButtons();
     this.loadScripts();
   }
@@ -64,7 +66,7 @@ export default class Post extends Component {
       // wrap each image and set pre-load height styles
       const wrapper = document.createElement('div');
       wrapper.classList.add('image-wrapper');
-      const ratio = (img.attributes.height.nodeValue / img.attributes.width.nodeValue) * 100;
+      const ratio = img.attributes.height ? (img.attributes.height.nodeValue / img.attributes.width.nodeValue) * 100 : 150;
       wrapper.setAttribute('style', `padding-bottom:${ratio}%;`);
       img.parentNode.insertBefore(wrapper, img);
       wrapper.appendChild(img);
@@ -133,8 +135,9 @@ export default class Post extends Component {
     const imageSize = utils.metrics.isPhone ? 'w_750' : 'w_1200';
     let content = html.replace(/upload\/.[^>]+?(?=\/)/g, `upload/f_auto,q_48,${imageSize}`).replace(/http:/g, 'https:');
     const matches = content.match(/<img.+src=(?:"|')(.+?)(?:"|')(?:.+?)>/gi);
-    matches.forEach(match => {
+    matches.forEach((match, i) => {
       // TODO - how do we correctly render images for crawlers/SEO, but still lazyload for clients?
+      if (i === 0) return;
       content = content.replace(match, match.replace(/src=/ig, 'data-src='));
     });
 

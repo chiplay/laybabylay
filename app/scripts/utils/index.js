@@ -2,6 +2,7 @@ import $ from 'jquery';
 if (typeof window === 'undefined') {
   global.window = {}
 }
+const isServer = (typeof __CLIENT__ !== 'undefined') ? false : true;
 
 export function decodeHtml(html) {
   return $('<div>').html(html).text();
@@ -55,7 +56,7 @@ export function popup(url, inputOptions, callback) {
 }
 
 const metrics = {
-  isPhone: window.innerWidth < 576
+  isPhone: window.innerWidth < 576 || isServer
 };
 
 export default {

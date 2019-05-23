@@ -126,17 +126,10 @@
       }
     }
 
-    .image-wrapper img {
-      margin: 0;
-      display: block;
-      width: 100%;
-      height: auto;
-      background: #f0f0f0;
-      opacity: 0;
-      position: absolute;
-      z-index: 1;
-      cursor: pointer;
+    .image-wrapper img[data-src] {
       .transition(opacity .5s linear);
+      opacity: 0;
+      background: #f0f0f0;
 
       &.loaded {
         opacity: 1;
@@ -145,6 +138,23 @@
       .wf-inactive & {
         opacity: 1;
       }
+    }
+
+    .image-wrapper img {
+      margin: 0;
+      display: block;
+      width: 100%;
+      height: auto;
+      position: absolute;
+      z-index: 1;
+      cursor: pointer;
+    }
+
+    figure img {
+      margin: 0;
+      display: block;
+      width: 100%;
+      height: auto;
     }
 
     .image-wrapper {

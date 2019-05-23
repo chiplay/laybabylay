@@ -1,6 +1,6 @@
 require('@babel/register');
 
-// Polyfill document for vanilla-lazyload... :(
+// Polyfill document for vanilla-lazyload... :( super gross
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
@@ -41,8 +41,6 @@ app.use((req, res, next) => {
 
   return next();
 });
-
-
 
 // Redirects
 app.get('/sitemap.xml', (req, res) => res.redirect(301, 'https://wp.laybabylay.com/sitemap.xml'));
@@ -108,36 +106,6 @@ app.use(express.static('public'));
 // send all requests to index.html so browserHistory in React Router works
 app.get('*', (req, res) => {
   // res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-
-  // const initialState = {
-  //   posts: {
-  //     mapOfPosts: {
-  //       "a-greatest-showman-inspired-birthday-party": {
-  //         content: "<p>test</p>",
-  //         featured_image: "https://res.cloudinary.com/laybabylay/image/upload/v1547086302/greatest-showman-party-preview_htvda0.jpg",
-  //         first_image: "Vivi_Turns_8_Greatest_Showman-52_yrv2tz.jpg",
-  //         first_image_height: "2533",
-  //         first_image_width: "2119",
-  //         objectID: "12856-0",
-  //         post_date: 1547068295,
-  //         post_id: 12856,
-  //         post_title: "A Greatest Showman Inspired Birthday Party"
-  //       }
-  //     }
-  //   },
-  //   app: {
-  //     header: ""
-  //   },
-  //   pages: {
-  //     home: {
-
-  //     }
-  //   },
-  //   search: {
-
-  //   }
-  // };
-
   // Configure the store with the initial state provided
   const store = configureStore();
 
@@ -145,10 +113,7 @@ app.get('*', (req, res) => {
   const dataRequirements =
     routes
       .filter(route => matchPath(req.url, route)) // filter matching paths
-      .map(route => {
-        console.log(route);
-        return route.component;
-      }) // map to components
+      .map(route => route.component) // map to components
       .filter(comp => comp.fetchData) // check if components have data requirement
       .map(comp => {
         // dispatch data requirement
@@ -157,16 +122,16 @@ app.get('*', (req, res) => {
         // for "/some-post" -> ["", "some-post"]
         // for homepage, "/" -> ["", ""]
         const slug = urlParts[1] || 'home';
-        console.log(slug);
-        return store.dispatch(comp.fetchData(slug));
+        if (Array.isArray(comp.fetchData)) {
+          return comp.fetchData.map(_fetch => store.dispatch(_fetch()))
+        } else {
+          return store.dispatch(comp.fetchData(slug));
+        }
       });
 
-  console.log(dataRequirements);
-
-  Promise.all(dataRequirements)
+  Promise.all(Array.prototype.concat(...dataRequirements))
     .then(() => {
       const { preloadedState, content, styleTags } = ssr(store, req);
-      console.log(preloadedState);
       const response = template("Server Rendered Page", preloadedState, content, styleTags);
       res.setHeader('Cache-Control', 'assets, max-age=604800');
       res.send(response);
@@ -174,7 +139,10 @@ app.get('*', (req, res) => {
     .catch((err) => {
       console.log(err);
       // What to do when the data fetching fails? 
-      // res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+      const { preloadedState, content, styleTags } = ssr(store, req);
+      const response = template("Server Rendered Page - Failed Data Fetch", preloadedState, content, styleTags);
+      res.setHeader('Cache-Control', 'assets, max-age=604800');
+      res.send(response);
     });
 });
 

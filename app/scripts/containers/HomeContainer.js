@@ -52,7 +52,7 @@ HomeContainer.propTypes = {
   activePosts: PropTypes.array.isRequired
 };
 
-HomeContainer.fetchData = fetchPage;
+HomeContainer.fetchData = [() => fetchPage('home'), () => fetchPosts(0,10)];
 
 function mapStateToProps(state) {
   return {

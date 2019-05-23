@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const webpack = require('webpack');
 
 // https://www.algolia.com/doc/tutorials/seo/generate-sitemap-from-index/javascript/
 

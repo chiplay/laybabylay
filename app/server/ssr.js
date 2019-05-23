@@ -2,7 +2,7 @@ import 'ignore-styles';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
-import { ServerStyleSheet, StyleSheetManager, __DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS } from 'styled-components'
+import { ServerStyleSheet, StyleSheetManager, __DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS } from 'styled-components';
 
 import { Provider } from 'react-redux';
 import App from '../scripts/App';
@@ -13,7 +13,6 @@ module.exports = function render(store, req) {
   StyleSheet.reset(true);
   const sheet = new ServerStyleSheet();
 
-  // render the App store static markup ins content variable
   let content = renderToString(
     <StyleSheetManager sheet={sheet.instance}>
       <Provider store={store}>

@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -21,7 +22,10 @@ module.exports = {
       template: 'index.tpl.html',
       favicon: 'favicon.ico'
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      __CLIENT__: true
+    })
   ],
   resolve: {
     modules: [

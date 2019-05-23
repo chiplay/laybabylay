@@ -8,6 +8,13 @@ import '../../styles/postcards.less';
 import PostCard from '../components/PostCard';
 
 export default class PostCards extends Component {
+  state = {
+    isClient: false
+  };
+
+  componentDidMount() {
+    this.setState({ isClient: true });
+  }
 
   buildPosts = (posts) => {
     return posts.length ? posts.map(post => {
@@ -17,6 +24,7 @@ export default class PostCards extends Component {
 
   render() {
     const { featured } = this.props,
+          { isClient } = this.state,
           { featured_image } = featured.length && featured[0];
 
     let imageSrc;
@@ -28,15 +36,24 @@ export default class PostCards extends Component {
 
     const settings = {
       dots: true,
-      arrows: true,
-      // className: 'center',
+      arrows: false,
+      adaptiveHeight: true,
+      lazyLoad: false,
       centerMode: true,
       infinite: true,
-      centerPadding: '180px',
+      centerPadding: '0',
       slidesToShow: 1,
       slidesToScroll: 1,
-      lazyLoad: true,
-      responsive: [{
+      key: isClient ? 'client' : 'server',
+      responsive: isClient ? [{
+        breakpoint: 5000,
+        settings: {
+          centerPadding: '180px',
+          arrows: true,
+          lazyLoad: true,
+          adaptiveHeight: false
+        }
+      },{
         breakpoint: 1440,
         settings: {
           centerPadding: '85px'
@@ -76,8 +93,10 @@ export default class PostCards extends Component {
           adaptiveHeight: true,
           lazyLoad: false
         }
-      }]
+      }] : null
     };
+
+    
 
     return (
       <div className="postcards">
