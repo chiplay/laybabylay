@@ -55,6 +55,10 @@ module.exports = {
         ]
       },
       {
+        test: /\.ico$/i,
+        loader: 'file-loader?name=[name].[ext]'
+      },
+      {
         test: /\.(jpe?g|gif|png|woff|svg)$/i,
         use: [
           {
@@ -65,7 +69,7 @@ module.exports = {
             }
           },
           {
-            loader: 'image-webpack',
+            loader: 'image-webpack-loader',
             options: {
               bypassOnDebug: true
             }

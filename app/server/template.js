@@ -1,5 +1,5 @@
 // html skeleton provider
-function template(title, initialState = {}, content = "", styleTags = "") {
+function template(title, initialState = {}, content = "", styleTags = "", helmet = {}) {
   let scripts = ''; // Dynamically ship scripts based on render type
   if (content) {
     scripts = `<script>
@@ -15,7 +15,7 @@ function template(title, initialState = {}, content = "", styleTags = "") {
   <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>${title}</title>
+    ${helmet.title.toString()}
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -28,6 +28,8 @@ function template(title, initialState = {}, content = "", styleTags = "") {
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
     </script>
+    ${helmet.meta.toString()}
+    ${helmet.link.toString()}
     <link rel="shortcut icon" href="/favicon.ico">
     <link href="/main.css" rel="stylesheet">
     ${styleTags}

@@ -131,16 +131,16 @@ app.get('*', (req, res) => {
 
   Promise.all(Array.prototype.concat(...dataRequirements))
     .then(() => {
-      const { preloadedState, content, styleTags } = ssr(store, req);
-      const response = template("Server Rendered Page", preloadedState, content, styleTags);
+      const { preloadedState, content, styleTags, helmet } = ssr(store, req);
+      const response = template("Server Rendered Page", preloadedState, content, styleTags, helmet);
       res.setHeader('Cache-Control', 'assets, max-age=604800');
       res.send(response);
     })
     .catch((err) => {
       console.log(err);
       // What to do when the data fetching fails? 
-      const { preloadedState, content, styleTags } = ssr(store, req);
-      const response = template("Server Rendered Page - Failed Data Fetch", preloadedState, content, styleTags);
+      const { preloadedState, content, styleTags, helmet } = ssr(store, req);
+      const response = template("Server Rendered Page - Failed Data Fetch", preloadedState, content, styleTags, helmet);
       res.setHeader('Cache-Control', 'assets, max-age=604800');
       res.send(response);
     });

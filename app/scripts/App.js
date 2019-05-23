@@ -4,8 +4,11 @@ import { Route, Switch } from 'react-router-dom';
 import ThemeContainer from './containers/ThemeContainer';
 import ScrollToTop from './components/ScrollToTop';
 import routes from './routes';
-
 import '../styles/app.less';
+
+if (typeof __CLIENT__ !== 'undefined') {
+  require('../../favicon.ico');
+}
 
 export default class App extends Component {
   render() {

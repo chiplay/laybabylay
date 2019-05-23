@@ -3,6 +3,8 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { ServerStyleSheet, StyleSheetManager, __DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS } from 'styled-components';
+import { Helmet } from 'react-helmet';
+Helmet.canUseDOM = false;
 
 import { Provider } from 'react-redux';
 import App from '../scripts/App';
@@ -26,8 +28,10 @@ module.exports = function render(store, req) {
   const styleTags = sheet.getStyleTags();
   sheet.seal();
 
+  const helmet = Helmet.renderStatic();
+
   // Get a copy of store data to create the same store on client side 
   const preloadedState = store.getState();
 
-  return { content, preloadedState, styleTags };
+  return { content, preloadedState, styleTags, helmet };
 }
