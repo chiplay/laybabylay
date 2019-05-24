@@ -225,4 +225,14 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+SearchContainer.fetchData = [() => fetchPage('search'), (params) => search({
+  hitsPerPage: 20,
+  page: 0,
+  post_type: 'posts',
+  ...params,
+  ...!params.query && { query: '' },
+  ...!params.tag && { tag: '' },
+  ...!params.category && { category: '' }
+})];
+
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchContainer));

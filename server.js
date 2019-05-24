@@ -69,23 +69,23 @@ app.get('/shop', (req, res) => res.redirect(301, '/explore/posts/shop'));
 app.get('/style-boards', (req, res) => res.redirect(301, '/explore/posts/style-boards'));
 app.get('/toddler-room', (req, res) => res.redirect(301, '/explore/posts/toddler-room'));
 // Product Types
-app.get('/accessories', (req, res) => res.redirect(301, '/explore/posts/accessories'));
-app.get('/art', (req, res) => res.redirect(301, '/explore/posts/art'));
-app.get('/bedding', (req, res) => res.redirect(301, '/explore/posts/bedding'));
-app.get('/chairs', (req, res) => res.redirect(301, '/explore/posts/chairs'));
-app.get('/clothes', (req, res) => res.redirect(301, '/explore/posts/clothes'));
-app.get('/cribs', (req, res) => res.redirect(301, '/explore/posts/cribs'));
-app.get('/curtains', (req, res) => res.redirect(301, '/explore/posts/curtains'));
-app.get('/dressers', (req, res) => res.redirect(301, '/explore/posts/dressers'));
-app.get('/fabric', (req, res) => res.redirect(301, '/explore/posts/fabric'));
-app.get('/furniture', (req, res) => res.redirect(301, '/explore/posts/furniture'));
-app.get('/lighting', (req, res) => res.redirect(301, '/explore/posts/lighting'));
-app.get('/mobiles', (req, res) => res.redirect(301, '/explore/posts/mobiles'));
-app.get('/ottoman', (req, res) => res.redirect(301, '/explore/posts/ottoman'));
-app.get('/pillows', (req, res) => res.redirect(301, '/explore/posts/pillows'));
-app.get('/rugs', (req, res) => res.redirect(301, '/explore/posts/rugs'));
-app.get('/storage', (req, res) => res.redirect(301, '/explore/posts/storage'));
-app.get('/toys', (req, res) => res.redirect(301, '/explore/posts/toys'));
+app.get('/accessories', (req, res) => res.redirect(301, '/explore/products/accessories'));
+app.get('/art', (req, res) => res.redirect(301, '/explore/products/art'));
+app.get('/bedding', (req, res) => res.redirect(301, '/explore/products/bedding'));
+app.get('/chairs', (req, res) => res.redirect(301, '/explore/products/chairs'));
+app.get('/clothes', (req, res) => res.redirect(301, '/explore/products/clothes'));
+app.get('/cribs', (req, res) => res.redirect(301, '/explore/products/cribs'));
+app.get('/curtains', (req, res) => res.redirect(301, '/explore/products/curtains'));
+app.get('/dressers', (req, res) => res.redirect(301, '/explore/products/dressers'));
+app.get('/fabric', (req, res) => res.redirect(301, '/explore/products/fabric'));
+app.get('/furniture', (req, res) => res.redirect(301, '/explore/products/furniture'));
+app.get('/lighting', (req, res) => res.redirect(301, '/explore/products/lighting'));
+app.get('/mobiles', (req, res) => res.redirect(301, '/explore/products/mobiles'));
+app.get('/ottoman', (req, res) => res.redirect(301, '/explore/products/ottoman'));
+app.get('/pillows', (req, res) => res.redirect(301, '/explore/products/pillows'));
+app.get('/rugs', (req, res) => res.redirect(301, '/explore/products/rugs'));
+app.get('/storage', (req, res) => res.redirect(301, '/explore/products/storage'));
+app.get('/toys', (req, res) => res.redirect(301, '/explore/products/toys'));
 // Pages
 app.get('/search', (req, res) => res.redirect(301, '/explore/posts'));
 app.get('/home', (req, res) => res.redirect(301, '/'));
@@ -121,9 +121,17 @@ app.get('*', (req, res) => {
 
         // for "/some-post" -> ["", "some-post"]
         // for homepage, "/" -> ["", ""]
+        // for explore, "/explore/post/some-category/some-tag/query" -> ["", "explore", "post", "category", "tag", "query"]
         const slug = urlParts[1] || 'home';
         if (Array.isArray(comp.fetchData)) {
-          return comp.fetchData.map(_fetch => store.dispatch(_fetch()))
+          // params are only used for Search, other _fetch functions for Home/Search don't take arguments
+          const params = {
+            ...(urlParts.length > 5) && { query: urlParts[5] },
+            ...(urlParts.length > 4) && { tag: urlParts[4] },
+            ...(urlParts.length > 3) && { category: urlParts[3] },
+            ...(urlParts.length > 2) && { post_type: urlParts[2] }
+          };
+          return comp.fetchData.map(_fetch => store.dispatch(_fetch(params)))
         } else {
           return store.dispatch(comp.fetchData(slug));
         }

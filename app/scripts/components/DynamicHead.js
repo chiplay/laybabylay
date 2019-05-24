@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import URI from 'urijs';
 import _startCase from 'lodash/startCase';
+import moment from 'moment';
 
 export default class DynamicHead extends Component {
   render() {
@@ -14,11 +15,13 @@ export default class DynamicHead extends Component {
             post_title,
             slug,
             _snippetResult,
-            excerpt
+            excerpt,
+            post_date
           } = post,
           { category = [] } = taxonomies,
           snippet = _snippetResult && _snippetResult.content.value,
-          categoryTitle = category.length && category[0];
+          categoryTitle = category.length && category[0],
+          description = (excerpt || snippet).replace(/<!--(.*?)-->/gmi, '').replace(/(\r\n|\n|\r)/gm, ' ');
 
     let imageSrc;
 
@@ -38,14 +41,15 @@ export default class DynamicHead extends Component {
         defaultTitle="Lay Baby Lay"
       >
         <title itemProp="name" lang="en">{_startCase(post_title)}</title>
-        <meta name="description" content={excerpt || snippet} />
+        <meta name="description" content={description} />
 
         <meta property="og:title" content={`${_startCase(post_title)} - Lay Baby Lay`} />
         <meta property="og:type" content="article" />
         <meta property="article:author" content="https://www.facebook.com/joni.h.lay" />
         <meta property="article:publisher" content="https://www.facebook.com/laybabylay" />
         <meta property="article:section" content={_startCase(categoryTitle)} />
-        <meta property="og:description" content={excerpt || snippet} />
+        <meta property="article:published_time" content={moment.unix(post_date).format()} />
+        <meta property="og:description" content={description} />
         <meta property="og:url" content={`https://www.laybabylay.com/${slug}`} />
         <meta property="og:image" content={imageSrc} />
 
