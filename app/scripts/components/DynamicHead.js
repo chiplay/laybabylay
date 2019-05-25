@@ -21,7 +21,7 @@ export default class DynamicHead extends Component {
           { category = [] } = taxonomies,
           snippet = _snippetResult && _snippetResult.content.value,
           categoryTitle = category.length && category[0],
-          description = (excerpt || snippet).replace(/<!--(.*?)-->/gmi, '').replace(/(\r\n|\n|\r)/gm, ' ');
+          description = (excerpt || snippet || '').replace(/<!--(.*?)-->/gmi, '').replace(/(\r\n|\n|\r)/gm, ' ');
 
     let imageSrc;
 
