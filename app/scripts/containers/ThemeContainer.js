@@ -30,14 +30,10 @@ class ThemeContainer extends Component {
             titleTemplate="%s - Lay Baby Lay"
             defaultTitle="Lay Baby Lay"
           >
-            <html lang="en" amp />
-
-            <meta charSet="utf-8" />
-            <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <html lang="en" />
             <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
 
-            <title>Nursery Decor &amp; Baby Room Ideas</title>
+            <title>Nursery Inspiration &amp; Baby Room Ideas</title>
             <meta name="description" content="Inspiration to create spaces for your little ones that are full of imagination, color, and delight and maybe find a little encouragement in this crazy but wonderful journey of having babies and watching them grow." />
 
             <meta property="og:title" content="Lay Baby Lay" />
