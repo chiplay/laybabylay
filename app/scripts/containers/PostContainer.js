@@ -45,11 +45,11 @@ class PostContainer extends Component {
   }
 
   render() {
-    const { post, home } = this.props;
+    const { post, home, serverIsMobile } = this.props;
     if (post && post.error) {
       return <Post404 post={post} sidebarTiles={home.sidebar_tiles} />;
     }
-    return <Post post={post} sidebarTiles={home.sidebar_tiles} />;
+    return <Post post={post} sidebarTiles={home.sidebar_tiles} serverIsMobile={serverIsMobile} />;
   }
 }
 
@@ -57,13 +57,15 @@ PostContainer.propTypes = {
   post: PropTypes.object,
   home: PropTypes.object,
   actions: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  serverIsMobile: PropTypes.bool
 };
 
 function mapStateToProps(state, props) {
   return {
     home: getPageBySlug(state, 'home'),
-    post: getPostBySlug(state, props.match.params.postSlug)
+    post: getPostBySlug(state, props.match.params.postSlug),
+    serverIsMobile: state.app.serverIsMobile
   };
 }
 

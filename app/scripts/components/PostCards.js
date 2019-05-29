@@ -16,14 +16,14 @@ export default class PostCards extends Component {
     this.setState({ isClient: true });
   }
 
-  buildPosts = (posts) => {
+  buildPosts = (posts, serverIsMobile) => {
     return posts.length ? posts.map(post => {
-      return (<div key={post.ID}><PostCard post={post} /></div>);
-    }) : <div className="postcard__loading" />;
+      return (<div key={post.ID}><PostCard post={post} serverIsMobile={serverIsMobile} /></div>);
+    }) : <div className="postcard__loading"/>;
   }
 
   render() {
-    const { featured } = this.props,
+    const { featured, serverIsMobile } = this.props,
           { isClient } = this.state,
           { featured_image } = featured.length && featured[0];
 
@@ -105,7 +105,7 @@ export default class PostCards extends Component {
         </Helmet>
 
         <Slider {...settings}>
-          {this.buildPosts(featured)}
+          {this.buildPosts(featured, serverIsMobile)}
         </Slider>
       </div>
     );
@@ -113,5 +113,6 @@ export default class PostCards extends Component {
 }
 
 PostCards.propTypes = {
-  featured: PropTypes.array.isRequired
+  featured: PropTypes.array.isRequired,
+  serverIsMobile: PropTypes.bool
 };

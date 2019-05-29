@@ -27,17 +27,17 @@ class HomeContainer extends Component {
   }
 
   render() {
-    const { home, actions, activePosts } = this.props;
+    const { home, actions, activePosts, serverIsMobile } = this.props;
 
     return (
       <Flex flexWrap="wrap">
         <Box width={1} mb={[10, 10, 40, 40]}>
-          <PostCards featured={home.featured_posts} />
+          <PostCards featured={home.featured_posts} serverIsMobile={serverIsMobile} />
         </Box>
 
         <Box width={1} px={100} mx="auto" className="home__container">
           <Flex flexWrap="wrap">
-            <RecentPosts home={home} activePosts={activePosts} actions={actions} />
+            <RecentPosts home={home} activePosts={activePosts} actions={actions} serverIsMobile={serverIsMobile} />
             <Sidebar tiles={home.sidebar_tiles} />
           </Flex>
         </Box>
@@ -49,7 +49,8 @@ class HomeContainer extends Component {
 HomeContainer.propTypes = {
   home: PropTypes.object.isRequired,
   actions: PropTypes.object.isRequired,
-  activePosts: PropTypes.array.isRequired
+  activePosts: PropTypes.array.isRequired,
+  serverIsMobile: PropTypes.bool
 };
 
 HomeContainer.fetchData = [() => fetchPage('home'), () => fetchPosts(0,10)];
@@ -57,7 +58,8 @@ HomeContainer.fetchData = [() => fetchPage('home'), () => fetchPosts(0,10)];
 function mapStateToProps(state) {
   return {
     home: getPageBySlug(state, 'home'),
-    activePosts: getActivePosts(state, 'home')
+    activePosts: getActivePosts(state, 'home'),
+    serverIsMobile: state.app.serverIsMobile
   };
 }
 

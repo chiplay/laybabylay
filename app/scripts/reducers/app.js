@@ -1,7 +1,8 @@
-import { EXPAND_HEADER, SHRINK_HEADER } from '../actions';
+import { EXPAND_HEADER, SHRINK_HEADER, UPDATE_SERVER_DEVICE } from '../actions';
 
 const defaultState = {
-  header: ''
+  header: '',
+  serverIsMobile: null
 };
 
 export default function posts(state = defaultState, action) {
@@ -14,6 +15,11 @@ export default function posts(state = defaultState, action) {
   case SHRINK_HEADER:
     return Object.assign({}, state, {
       header: 'slim'
+    });
+
+  case UPDATE_SERVER_DEVICE:
+    return Object.assign({}, state, {
+      serverIsMobile: action.payload
     });
 
   default: return state;

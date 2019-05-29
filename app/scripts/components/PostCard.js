@@ -9,7 +9,7 @@ import '../../styles/postcard.less';
 
 export default class PostCard extends Component {
   render() {
-    const { post } = this.props,
+    const { post, serverIsMobile } = this.props,
           {
             featured_image,
             post_title,
@@ -23,7 +23,7 @@ export default class PostCard extends Component {
     let image = <div />;
 
     if (featured_image) {
-      const imageSize = utils.metrics.isPhone ? 'w_1000,h_750' : 'w_2000,h_1000';
+      const imageSize = utils.metrics.isPhone(serverIsMobile) ? 'w_1000,h_750' : 'w_2000,h_1000';
       const filename = new URI(featured_image).filename();
       const imageSrc = `//res.cloudinary.com/laybabylay/image/upload/f_auto,q_35,${imageSize},c_fill/${filename}`;
       image = (
@@ -50,5 +50,6 @@ export default class PostCard extends Component {
 }
 
 PostCard.propTypes = {
-  post: PropTypes.object.isRequired
+  post: PropTypes.object.isRequired,
+  serverIsMobile: PropTypes.bool
 };

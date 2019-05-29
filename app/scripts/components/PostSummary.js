@@ -12,7 +12,7 @@ export default class PostSummary extends Component {
   // TODO - styles and router "Link" to single post
 
   render() {
-    const { post } = this.props,
+    const { post, serverIsMobile } = this.props,
           {
             first_image,
             first_image_height,
@@ -32,7 +32,7 @@ export default class PostSummary extends Component {
     let image = <div />;
 
     if (first_image) {
-      const imageSize = utils.metrics.isPhone ? 'w_750' : 'w_500';
+      const imageSize = utils.metrics.isPhone(serverIsMobile) ? 'w_750' : 'w_500';
       const filename = new URI(first_image).filename();
       const imageSrc = `//res.cloudinary.com/laybabylay/image/upload/f_auto,q_36,${imageSize}/${filename}`;
       image = (
@@ -68,5 +68,6 @@ export default class PostSummary extends Component {
 }
 
 PostSummary.propTypes = {
-  post: PropTypes.object.isRequired
+  post: PropTypes.object.isRequired,
+  serverIsMobile: PropTypes.bool
 };

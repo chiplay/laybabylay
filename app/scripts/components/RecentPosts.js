@@ -24,12 +24,12 @@ export default class RecentPosts extends Component {
 
   handleFilterClick(filter) {
     // scroll(0, 0);
-    window.scrollTo(0, utils.metrics.isPhone ? 480 : 560);
+    window.scrollTo(0, utils.metrics.isPhone(this.props.serverIsMobile) ? 480 : 560);
     this.props.actions.setActiveFilter(filter);
   }
 
-  buildPosts = (activePosts) => {
-    return activePosts.map(post => <PostSummary post={post} key={post.post_id} />);
+  buildPosts = (activePosts, serverIsMobile) => {
+    return activePosts.map(post => <PostSummary post={post} key={post.post_id} serverIsMobile={serverIsMobile} />);
   }
 
   buildPagination(page, totalPages, isFetching, activeFilter) {
@@ -83,7 +83,7 @@ export default class RecentPosts extends Component {
   }
 
   render() {
-    const { home, activePosts } = this.props,
+    const { home, activePosts, serverIsMobile } = this.props,
           {
             activeFilter,
             page,
@@ -94,7 +94,7 @@ export default class RecentPosts extends Component {
     return (
       <Box width={[1, 1, 1, 2/3]} mb={20} className="recent-posts">
         {this.buildFilters(activeFilter)}
-        {this.buildPosts(activePosts)}
+        {this.buildPosts(activePosts, serverIsMobile)}
         {this.buildPagination(page, totalPages, isFetching, activeFilter)}
       </Box>
     );
@@ -104,5 +104,6 @@ export default class RecentPosts extends Component {
 RecentPosts.propTypes = {
   actions: PropTypes.object.isRequired,
   activePosts: PropTypes.array.isRequired,
-  home: PropTypes.object.isRequired
+  home: PropTypes.object.isRequired,
+  serverIsMobile: PropTypes.bool
 };

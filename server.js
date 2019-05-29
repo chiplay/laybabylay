@@ -21,10 +21,12 @@ const express = require('express');
 const path = require('path');
 const compression = require('compression');
 const { matchPath } = require('react-router-dom');
+const MobileDetect = require('mobile-detect');
 const template = require('./app/server/template');
 const ssr = require('./app/server/ssr');
 const configureStore = require('./app/scripts/store/configureStore').default;
 const routes = require('./app/scripts/routes').default;
+const { UPDATE_SERVER_DEVICE } = require('./app/scripts/actions');
 
 const app = express();
 app.use(compression());
@@ -139,6 +141,13 @@ app.get('*', (req, res) => {
 
   Promise.all(Array.prototype.concat(...dataRequirements))
     .then(() => {
+      const md = new MobileDetect(req.headers['user-agent']);
+      const isMobile = !!md.mobile();
+      // Update store with UA device for responsive images
+      store.dispatch({
+        type: UPDATE_SERVER_DEVICE,
+        payload: isMobile
+      });
       const { preloadedState, content, styleTags, helmet } = ssr(store, req);
       const response = template("Server Rendered Page", preloadedState, content, styleTags, helmet);
       res.setHeader('Cache-Control', 'assets, max-age=604800');

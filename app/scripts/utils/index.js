@@ -56,7 +56,7 @@ export function popup(url, inputOptions, callback) {
 }
 
 const metrics = {
-  isPhone: window.innerWidth < 576 || isServer
+  isPhone: (serverIsMobile) => window.innerWidth < 576 || serverIsMobile
 };
 
 export default {

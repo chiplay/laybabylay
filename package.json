@@ -34,6 +34,7 @@
     "jquery": "^3.4.1",
     "lodash": "^4.17.11",
     "matchmedia-polyfill": "^0.3.2",
+    "mobile-detect": "^1.4.3",
     "moment": "^2.24.0",
     "prerender-node": "^3.2.4",
     "prop-types": "^15.7.2",

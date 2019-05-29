@@ -14,7 +14,7 @@ export default class SearchCard extends Component {
   }
 
   render() {
-    const { item } = this.props,
+    const { item, serverIsMobile } = this.props,
           {
             post_title,
             first_image,
@@ -32,7 +32,7 @@ export default class SearchCard extends Component {
           imageWidth = product_image_width || first_image_width,
           ratio = Math.ceil((imageHeight / imageWidth) * 100),
           filename = originalSrc ? new URI(originalSrc).filename() : null,
-          imageSize = utils.metrics.isPhone ? 'w_300' : 'w_500',
+          imageSize = utils.metrics.isPhone(serverIsMobile) ? 'w_300' : 'w_500',
           imageSrc = filename ? `//res.cloudinary.com/laybabylay/image/upload/q_36,${imageSize}/${filename.replace(/\.[^/.]+$/, '')}.jpg` : null;
 
     const cardLink = (isExternal, to, card) => {
@@ -72,4 +72,5 @@ export default class SearchCard extends Component {
 
 SearchCard.propTypes = {
   item: PropTypes.object.isRequired,
+  serverIsMobile: PropTypes.bool
 };

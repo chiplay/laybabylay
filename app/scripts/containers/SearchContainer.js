@@ -100,8 +100,8 @@ class SearchContainer extends Component {
     });
   }
 
-  buildResults = (results) => {
-    return results.map(item => <SearchCard item={item} key={item.post_id} />);
+  buildResults = (results, serverIsMobile) => {
+    return results.map(item => <SearchCard item={item} key={item.post_id} serverIsMobile={serverIsMobile} />);
   }
 
   toggleFilter(filter) {
@@ -135,7 +135,8 @@ class SearchContainer extends Component {
             searchCategories,
             queryObj,
             totalResults,
-            match
+            match,
+            serverIsMobile
           } = this.props,
           { params } = match,
           { post_type } = params;
@@ -172,7 +173,7 @@ class SearchContainer extends Component {
           options={masonryOptions}
           updateOnEachImageLoad
         >
-          {this.buildResults(results)}
+          {this.buildResults(results, serverIsMobile)}
         </Masonry>
         {isSearching ?
           <article className="post">
@@ -201,7 +202,8 @@ SearchContainer.propTypes = {
   searchCategories: PropTypes.array,
   productCategories: PropTypes.array,
   queryObj: PropTypes.object.isRequired,
-  isSearching: PropTypes.bool.isRequired
+  isSearching: PropTypes.bool.isRequired,
+  serverIsMobile: PropTypes.bool
 };
 
 function mapStateToProps(state) {
@@ -212,7 +214,8 @@ function mapStateToProps(state) {
     results: getSearchResults(state),
     queryObj: getSearchQuery(state),
     isSearching: getIsSearching(state),
-    searchPage: getPageBySlug(state, 'search')
+    searchPage: getPageBySlug(state, 'search'),
+    serverIsMobile: state.app.serverIsMobile
   };
 }
 

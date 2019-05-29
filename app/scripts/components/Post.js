@@ -34,7 +34,7 @@ export default class Post extends Component {
     this.loadScripts();
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps, nextState) {
     // If we visit a new post without unmounting the component,
     // we need to clear out the event listeners and reset state
     if (!nextProps.post && this.props.post) {
@@ -119,7 +119,7 @@ export default class Post extends Component {
   pinImage = (img) => {
     if (!window.PinUtils) return;
 
-    const imageSize = utils.metrics.isPhone ? 'upload/f_auto,q_48,w_750' : 'upload/f_auto,q_48,w_1200';
+    const imageSize = utils.metrics.isPhone(this.props.serverIsMobile) ? 'upload/f_auto,q_48,w_750' : 'upload/f_auto,q_48,w_1200';
     const re = new RegExp(imageSize, 'g');
     const { src } = img.currentTarget;
     const media = src.replace(re, `upload/w_2000`);
@@ -132,7 +132,7 @@ export default class Post extends Component {
   }
 
   createMarkup = (html) => {
-    const imageSize = utils.metrics.isPhone ? 'w_750' : 'w_1200';
+    const imageSize = utils.metrics.isPhone(this.props.serverIsMobile) ? 'w_750' : 'w_1200';
     let content = html.replace(/upload\/.[^>]+?(?=\/)/g, `upload/f_auto,q_48,${imageSize}`).replace(/http:/g, 'https:');
     const matches = content.match(/<img.+src=(?:"|')(.+?)(?:"|')(?:.+?)>/gi);
     matches.forEach((match, i) => {
@@ -147,7 +147,7 @@ export default class Post extends Component {
   }
 
   render() {
-    const { post, sidebarTiles } = this.props;
+    const { post, sidebarTiles, serverIsMobile } = this.props;
 
     if (!post) {
       return (
@@ -175,7 +175,7 @@ export default class Post extends Component {
     let heroImage = null;
 
     if (featured_image) {
-      const imageSize = utils.metrics.isPhone ? 'w_800,h_400' : 'w_2400,h_1000';
+      const imageSize = utils.metrics.isPhone(serverIsMobile) ? 'w_800,h_400' : 'w_2400,h_1000';
       const filename = new URI(featured_image).filename();
       const imageSrc = `//res.cloudinary.com/laybabylay/image/upload/f_auto,q_48,${imageSize},c_fill/${filename}`;
       heroImage = (
@@ -295,5 +295,6 @@ export default class Post extends Component {
 
 Post.propTypes = {
   post: PropTypes.object,
-  sidebarTiles: PropTypes.array
+  sidebarTiles: PropTypes.array,
+  serverIsMobile: PropTypes.bool
 };
