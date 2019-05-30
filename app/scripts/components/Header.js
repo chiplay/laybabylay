@@ -33,7 +33,7 @@ export default class Header extends Component {
                   <Link to="/">Home</Link>
                 </li>
                 <li className="header__nav-item">
-                  <Link to="https://society6.com/jonilay" target="_blank">Print Shop</Link>
+                  <a href="https://society6.com/jonilay" target="_blank">Print Shop</a>
                 </li>
                 <li className="header__nav-item">
                   <Link to="/about">About</Link>
