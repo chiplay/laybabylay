@@ -56,6 +56,12 @@ function get_first_image_from_content( $content ) {
 	return basename($first_img);	
 }
 
+function get_first_image_src_from_content( $content ) {
+	preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches);
+	$first_img = $matches[1][0];
+	return $first_img;	
+}
+
 function get_first_image_height_from_content( $content ) {
 	preg_match_all('/<img.+height=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches);
 	$first_image_height = $matches[1][0];
@@ -82,6 +88,7 @@ function transform_post( $related_post ) {
 	$new_post = new stdClass();
 	$content = $related_post->post_content;
 	$new_post->first_image = get_first_image_from_content($content);
+	$new_post->first_image_src = get_first_image_src_from_content($content);
 	$new_post->first_image_height = get_first_image_height_from_content($content);
 	$new_post->first_image_width = get_first_image_width_from_content($content);
 	$new_post->excerpt = wp_trim_words($content, 30, '...');
@@ -124,6 +131,7 @@ function acf_post_attributes(array $attributes, WP_Post $post) {
 	// Add the post content (with html), and reassign in algolia_post_records
 	$attributes['content_full'] = wpautop($post->post_content);
 	$attributes['first_image'] = get_first_image_from_content($post->post_content);
+	$attributes['first_image_src'] = get_first_image_src_from_content($post->post_content);
 	$attributes['first_image_height'] = get_first_image_height_from_content($post->post_content);
 	$attributes['first_image_width'] = get_first_image_width_from_content($post->post_content);
 
