@@ -98,41 +98,6 @@ function template(title, initialState = {}, content = "", styleTags = "", helmet
           s.parentNode.insertBefore(rs, s);
       })();
     </script>
-    
-    <script type="text/javascript" async=1>
-
-    ;(function(p,l,o,w,i,n,g){
-      if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
-      p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
-      };p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-      n.src=w;g.parentNode.insertBefore(n,g)}
-    }(
-      window,
-      document,
-      "script",
-      "https://8f8d0d2e-68ad-4753-a32d-293174927a24.try-snowplow.com/try.js",
-      "snowplow")
-    );
-
-
-    snowplow("newTracker", "try", "8f8d0d2e-68ad-4753-a32d-293174927a24.try-snowplow.com", {
-      appId: "laybabylay",
-      platform: "web",
-      forceSecureTracker: true,
-      contexts: {
-        webPage: true,
-        performanceTiming: true
-      }
-    });
-
-    // send first heartbeat after 10 seconds, and every 10 seconds thereafter
-    snowplow("enableActivityTracking", 10, 10); 
-    snowplow("enableLinkClickTracking"); 
-    // note: automatic form tracking only works on html forms
-    snowplow("enableFormTracking"); 
-    snowplow("trackPageView"); 
-
-    </script>
 
     ${scripts}
 
