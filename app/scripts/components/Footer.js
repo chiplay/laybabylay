@@ -17,7 +17,7 @@ export default class Footer extends Component {
           <a className="pinterest" href="https://www.pinterest.com/laybabylay/">Pinterest</a>
           <a className="facebook" href="https://www.facebook.com/laybabylay">Facebook</a>
           <a className="bloglovin" href="https://www.bloglovin.com/blog/2302038">Blog Lovin</a>
-          <a className="rss" href="https://feeds.feedburner.com/laybabylay/xINt">RSS</a>
+          <a className="rss" href="https://feeds.feedburner.com/laybabylay">RSS</a>
           <a className="twitter" href="https://twitter.com/laybabylay">Twitter</a>
         </div>
 
