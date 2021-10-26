@@ -16,8 +16,6 @@ H.init('3ng21re1', {
   enableStrictPrivacy: true,
 });
 
-pendo && pendo.initialize();
-
 export default class App extends Component {
   render() {
     return (
