@@ -74,6 +74,10 @@ function template(title, initialState = {}, content = "", styleTags = "", helmet
       }}();
     </script>
     
+    <script type="application/javascript">
+  (function(b,o,n,g,s,r,c){if(b[s])return;b[s]={};b[s].scriptToken="Xy0xOTMwMTQwMjc2";b[s].callsQueue=[];b[s].api=function(){b[s].callsQueue.push(arguments);};r=o.createElement(n);c=o.getElementsByTagName(n)[0];r.async=1;r.src=g;r.id=s+n;c.parentNode.insertBefore(r,c);})(window,document,"script","https://cdn.oribi.io/Xy0xOTMwMTQwMjc2/oribi.js","ORIBI");
+</script>
+    
 
 
   </head>
