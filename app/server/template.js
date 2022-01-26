@@ -77,6 +77,23 @@ function template(title, initialState = {}, content = "", styleTags = "", helmet
     <script type="application/javascript">
   (function(b,o,n,g,s,r,c){if(b[s])return;b[s]={};b[s].scriptToken="Xy0xOTMwMTQwMjc2";b[s].callsQueue=[];b[s].api=function(){b[s].callsQueue.push(arguments);};r=o.createElement(n);c=o.getElementsByTagName(n)[0];r.async=1;r.src=g;r.id=s+n;c.parentNode.insertBefore(r,c);})(window,document,"script","https://cdn.oribi.io/Xy0xOTMwMTQwMjc2/oribi.js","ORIBI");
 </script>
+
+<script>
+(function(A,s,a,y,e,r){
+  r=window.OpenReplay=[s,r,e,[y-1]];
+  s=document.createElement('script');s.src=a;s.async=!A;
+  document.getElementsByTagName('head')[0].appendChild(s);
+  r.start=function(v){r.push([0])};
+  r.stop=function(v){r.push([1])};
+  r.setUserID=function(id){r.push([2,id])};
+  r.setUserAnonymousID=function(id){r.push([3,id])};
+  r.setMetadata=function(k,v){r.push([4,k,v])};
+  r.event=function(k,p,i){r.push([5,k,p,i])};
+  r.issue=function(k,p){r.push([6,k,p])};
+  r.isActive=function(){return false};
+  r.getSessionToken=function(){};
+})(0, "8ykdN3yylOU5so2RRekr", "//static.openreplay.com/latest/openreplay.js",1,95);
+</script>
     
 
 
