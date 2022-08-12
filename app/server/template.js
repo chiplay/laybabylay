@@ -40,6 +40,14 @@ function template(title, initialState = {}, content = "", styleTags = "", helmet
       analytics.page();
       }}();
     </script>
+    
+    <script>
+	var beamer_config = {
+		product_id : "TmhRjRUq47613" //DO NOT CHANGE: This is your product code on Beamer
+	};
+</script>
+<script type="text/javascript" src="https://app.getbeamer.com/js/beamer-embed.js" defer="defer"></script>
+					
 
   </head>
 
