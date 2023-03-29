@@ -41,6 +41,14 @@ function template(title, initialState = {}, content = "", styleTags = "", helmet
       }}();
     </script>
     
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "3w739ur8z4");
+    </script>
+    
     <script>
 	var beamer_config = {
 		product_id : "TmhRjRUq47613" //DO NOT CHANGE: This is your product code on Beamer
