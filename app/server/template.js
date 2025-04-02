@@ -88,6 +88,8 @@ function template(title, initialState = {}, content = "", styleTags = "", helmet
       })();
     </script>
 
+    <script id="keak-script" src="https://keak-prod-d7a7awfeabbvb6hq.z01.azurefd.net/scripts/12f0f963-0e93-4e7f-a706-51de4369da1a-4866.js" type="text/javascript"></script>
+
     ${scripts}
 
   </body>
