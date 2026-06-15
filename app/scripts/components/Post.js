@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import URI from 'urijs';
 import moment from 'moment';
 import classNames from 'classnames';
 import { FacebookButton, PinterestButton, TwitterButton } from 'react-social';
 import LazyLoad from 'vanilla-lazyload';
 import { Flex, Box } from '@rebass/grid';
 
-import utils, { decodeHtml, windowOptions } from '../utils';
+import utils, { decodeHtml, windowOptions, imageUrl, reTransform } from '../utils';
 import DynamicHead from '../components/DynamicHead';
 import RelatedPosts from '../components/RelatedPosts';
 import Comments from '../components/Comments';
@@ -119,10 +118,8 @@ export default class Post extends Component {
   pinImage = (img) => {
     if (!window.PinUtils) return;
 
-    const imageSize = utils.metrics.isPhone(this.props.serverIsMobile) ? 'upload/f_auto,q_48,w_750' : 'upload/f_auto,q_48,w_1200';
-    const re = new RegExp(imageSize, 'g');
     const { src } = img.currentTarget;
-    const media = src.replace(re, `upload/w_2000`);
+    const media = reTransform(src, { width: 2000 });
 
     window.PinUtils.pinOne({
       url: `https://www.laybabylay.com/${this.props.post.slug}`,
@@ -132,8 +129,8 @@ export default class Post extends Component {
   }
 
   createMarkup = (html) => {
-    const imageSize = utils.metrics.isPhone(this.props.serverIsMobile) ? 'w_750' : 'w_1200';
-    let content = html.replace(/upload\/.[^>]+?(?=\/)/g, `upload/f_auto,q_48,${imageSize}`).replace(/http:/g, 'https:');
+    const width = utils.metrics.isPhone(this.props.serverIsMobile) ? 750 : 1200;
+    let content = reTransform(html, { width, quality: 48 }, true).replace(/http:/g, 'https:');
     const matches = content.match(/<img.+src=(?:"|')(.+?)(?:"|')(?:.+?)>/gi);
     matches.forEach((match, i) => {
       // TODO - how do we correctly render images for crawlers/SEO, but still lazyload for clients?
@@ -175,9 +172,8 @@ export default class Post extends Component {
     let heroImage = null;
 
     if (featured_image) {
-      const imageSize = utils.metrics.isPhone(serverIsMobile) ? 'w_800,h_400' : 'w_2400,h_1000';
-      const filename = new URI(featured_image).filename();
-      const imageSrc = `//res.cloudinary.com/laybabylay/image/upload/f_auto,q_48,${imageSize},c_fill/${filename}`;
+      const [width, height] = utils.metrics.isPhone(serverIsMobile) ? [800, 400] : [2400, 1000];
+      const imageSrc = imageUrl(featured_image, { width, height, quality: 48, fit: 'cover' });
       heroImage = (
         <div className="post__featured-image--wrapper">
           <img className="post__featured-image" src={imageSrc} alt={post_title} />
@@ -188,8 +184,7 @@ export default class Post extends Component {
     let shareImage;
 
     if (first_image) {
-      const filename = new URI(first_image).filename();
-      shareImage = `//res.cloudinary.com/laybabylay/image/upload/q_90,w_1200/${filename}`;
+      shareImage = imageUrl(first_image, { width: 1200, quality: 90 });
     }
 
     const postClasses = classNames({ post: true, featured: !!post.featured_image });

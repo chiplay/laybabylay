@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import URI from 'urijs';
 if (typeof window === 'undefined') {
   global.window = {}
 }
@@ -53,6 +54,39 @@ export function popup(url, inputOptions, callback) {
     }, 300);
   }
   return x;
+}
+
+// Originals live in an R2 bucket served at this host; transformations are
+// applied on the fly by Cloudflare Images via the `/cdn-cgi/image/` path.
+// Every source we receive (API fields, post-body HTML) is keyed by basename,
+// mirroring the flat namespace the old Cloudinary delivery relied on.
+export const IMAGE_HOST = 'https://images.laybabylay.com';
+
+// Map our transform intent onto a Cloudflare Image Resizing option string.
+function imageOptions({ width, height, quality, format = 'auto', fit } = {}) {
+  const opts = [];
+  if (width) opts.push(`width=${width}`);
+  if (height) opts.push(`height=${height}`);
+  if (quality) opts.push(`quality=${quality}`);
+  if (format) opts.push(`format=${format}`);
+  if (fit) opts.push(`fit=${fit}`);
+  return opts.join(',');
+}
+
+// Build a delivery URL from any source URL/path — only its basename matters.
+export function imageUrl(src, options) {
+  if (!src) return null;
+  const filename = new URI(src).filename();
+  return `${IMAGE_HOST}/cdn-cgi/image/${imageOptions(options)}/${filename}`;
+}
+
+// Retune the transform options of an already-built delivery URL. Post-body
+// <img> tags arrive from WordPress already pointing at the delivery host, so
+// we only swap the options segment. Pass `global` to rewrite every match in
+// an HTML string.
+export function reTransform(url, options, global = false) {
+  const re = new RegExp('cdn-cgi/image/[^/]+/', global ? 'g' : '');
+  return url.replace(re, `cdn-cgi/image/${imageOptions(options)}/`);
 }
 
 const metrics = {

@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import _isEqual from 'lodash/isEqual';
 
-import utils, { decodeHtml } from '../utils';
-import URI from 'urijs';
+import utils, { decodeHtml, imageUrl } from '../utils';
 import '../../styles/search-card.less';
 
 // Dumb component
@@ -31,9 +30,8 @@ export default class SearchCard extends Component {
           imageHeight = product_image_height || first_image_height,
           imageWidth = product_image_width || first_image_width,
           ratio = Math.ceil((imageHeight / imageWidth) * 100),
-          filename = originalSrc ? new URI(originalSrc).filename() : null,
-          imageSize = utils.metrics.isPhone(serverIsMobile) ? 'w_300' : 'w_500',
-          imageSrc = filename ? `//res.cloudinary.com/laybabylay/image/upload/q_36,${imageSize}/${filename.replace(/\.[^/.]+$/, '')}.jpg` : null;
+          imageSize = utils.metrics.isPhone(serverIsMobile) ? 300 : 500,
+          imageSrc = imageUrl(originalSrc, { width: imageSize, quality: 36 });
 
     const cardLink = (isExternal, to, card) => {
       return isExternal ? (

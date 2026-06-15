@@ -1,0 +1,14 @@
+# Downloaded originals — 8.84 GB, never commit
+export/
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+*.svg
+*.heic
+*.pdf
+*.ai
+*.psd
+*.mp4
+__pycache__/

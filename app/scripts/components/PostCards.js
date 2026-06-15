@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import URI from 'urijs';
 
+import { imageUrl } from '../utils';
 import Slider from 'react-slick';
 import '../../styles/postcards.less';
 import PostCard from '../components/PostCard';
@@ -30,8 +30,7 @@ export default class PostCards extends Component {
     let imageSrc;
 
     if (featured_image) {
-      const filename = new URI(featured_image).filename();
-      imageSrc = `//res.cloudinary.com/laybabylay/image/upload/q_90,w_1200/${filename}`;
+      imageSrc = imageUrl(featured_image, { width: 1200, quality: 90 });
     }
 
     const settings = {

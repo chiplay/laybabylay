@@ -34,7 +34,11 @@ function my_attachment_image_thumb($postid=0, $size='full', $attributes='') {
 
 add_filter( 'the_content', 'cloudinary_image_transform', 20 );
 /**
- * Let's save us some bandwidth
+ * Rewrite post-body images to our Cloudflare Images delivery host.
+ *
+ * Originals live in an R2 bucket served at images.laybabylay.com, keyed by
+ * basename; Cloudflare applies transformations on the fly via /cdn-cgi/image/.
+ * The React app (Post.createMarkup) retunes the width/quality per device.
  *
  * @uses is_single()
  */
@@ -45,7 +49,7 @@ function cloudinary_image_transform( $content ) {
   foreach ($images as $image) {
     $src = $image->getAttribute('src');
     $filename = basename($src);
-    $image->setAttribute('src', 'https://res.cloudinary.com/laybabylay/image/upload/q_60,w_1200/' . $filename);
+    $image->setAttribute('src', 'https://images.laybabylay.com/cdn-cgi/image/quality=60,width=1200,format=auto/' . $filename);
   }
   return $doc->saveHTML();
 }

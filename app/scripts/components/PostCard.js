@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
-import URI from 'urijs';
 
-import utils, { decodeHtml } from '../utils';
+import utils, { decodeHtml, imageUrl } from '../utils';
 import '../../styles/postcard.less';
 
 export default class PostCard extends Component {
@@ -23,9 +22,8 @@ export default class PostCard extends Component {
     let image = <div />;
 
     if (featured_image) {
-      const imageSize = utils.metrics.isPhone(serverIsMobile) ? 'w_1000,h_750' : 'w_2000,h_1000';
-      const filename = new URI(featured_image).filename();
-      const imageSrc = `//res.cloudinary.com/laybabylay/image/upload/f_auto,q_35,${imageSize},c_fill/${filename}`;
+      const [width, height] = utils.metrics.isPhone(serverIsMobile) ? [1000, 750] : [2000, 1000];
+      const imageSrc = imageUrl(featured_image, { width, height, quality: 35, fit: 'cover' });
       image = (
         <figure className="postcard__image--wrapper">
           <img className="postcard__image" src={imageSrc} alt={post_title} />

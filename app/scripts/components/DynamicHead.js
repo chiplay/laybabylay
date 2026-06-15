@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import URI from 'urijs';
 import _startCase from 'lodash/startCase';
 import moment from 'moment';
+
+import { imageUrl } from '../utils';
 
 export default class DynamicHead extends Component {
   render() {
@@ -26,13 +27,11 @@ export default class DynamicHead extends Component {
     let imageSrc;
 
     if (first_image) {
-      const filename = new URI(first_image).filename();
-      imageSrc = `https://res.cloudinary.com/laybabylay/image/upload/q_90,w_1200/${filename}`;
+      imageSrc = imageUrl(first_image, { width: 1200, quality: 90 });
     }
 
     if (featured_image) {
-      const filename = new URI(featured_image).filename();
-      imageSrc = `https://res.cloudinary.com/laybabylay/image/upload/q_90,w_1200/${filename}`;
+      imageSrc = imageUrl(featured_image, { width: 1200, quality: 90 });
     }
 
     return (

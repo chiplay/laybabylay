@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import _startCase from 'lodash/startCase';
+import { imageUrl } from '../utils';
 import '../../styles/about.less';
 
 // Dumb component
@@ -14,6 +15,7 @@ export default class AboutPage extends Component {
   render() {
     // const { page } = this.props;
     const description = 'Lay Baby Lay is my creative outlet and the place where I am able to express all the ideas running around in my head.  It is my hope that you will also be inspired to create spaces for your little ones that are full of imagination, color, and delight.';
+    const aboutImage = imageUrl('about_rnuilh.jpg', { quality: 40 });
     return (
       <div className="about">
         <Helmet>
@@ -22,12 +24,12 @@ export default class AboutPage extends Component {
           <meta property="og:title" content="About Lay Baby Lay" />
           <meta property="og:description" content={description} />
           <meta property="og:url" content="https://www.laybabylay.com/about" />
-          <meta property="og:image" content="https://res.cloudinary.com/laybabylay/image/upload/q_40/about_rnuilh.jpg" />
+          <meta property="og:image" content={aboutImage} />
           <link rel="canonical" href="https://www.laybabylay.com/about" />
         </Helmet>
         <h1 className="align-center">About Lay Baby Lay</h1>
         <div className="about-image">
-          <img data-pin-no-hover="true" src="https://res.cloudinary.com/laybabylay/image/upload/q_40/about_rnuilh.jpg" alt="Joni & Vivi" />
+          <img data-pin-no-hover="true" src={aboutImage} alt="Joni & Vivi" />
         </div>
 
         <div className="about-copy">

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 // import { checkStatus, parseJSON } from 'utils';
 import { Link, withRouter } from 'react-router-dom';
 import { Box } from '@rebass/grid';
-import URI from 'urijs';
 
+import { imageUrl } from '../utils';
 import '../../styles/sidebar.less';
 import Author from '../components/Author';
 
@@ -56,8 +56,7 @@ class Sidebar extends Component {
     let img = <div />;
 
     if (image.url) {
-      const filename = new URI(image.url).filename();
-      const imageSrc = `//res.cloudinary.com/laybabylay/image/upload/f_auto,q_35,w_540,h_360,c_fill/${filename}`;
+      const imageSrc = imageUrl(image.url, { width: 540, height: 360, quality: 35, fit: 'cover' });
       img = <img src={imageSrc} alt={title} />;
     }
 

@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
-import utils, { decodeHtml } from '../utils';
+import utils, { decodeHtml, imageUrl } from '../utils';
 
-import URI from 'urijs';
 import '../../styles/post-summary.less';
 
 export default class PostSummary extends Component {
@@ -32,9 +31,8 @@ export default class PostSummary extends Component {
     let image = <div />;
 
     if (first_image) {
-      const imageSize = utils.metrics.isPhone(serverIsMobile) ? 'w_750' : 'w_500';
-      const filename = new URI(first_image).filename();
-      const imageSrc = `//res.cloudinary.com/laybabylay/image/upload/f_auto,q_36,${imageSize}/${filename}`;
+      const width = utils.metrics.isPhone(serverIsMobile) ? 750 : 500;
+      const imageSrc = imageUrl(first_image, { width, quality: 36 });
       image = (
         <figure className="post-summary__image--wrapper">
           <div className="post-summary__image--responsive" style={{ paddingBottom: `${ratio}%` }}>
