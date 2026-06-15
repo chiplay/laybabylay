@@ -130,7 +130,13 @@ export default class Post extends Component {
 
   createMarkup = (html) => {
     const width = utils.metrics.isPhone(this.props.serverIsMobile) ? 750 : 1200;
-    let content = reTransform(html, { width, quality: 48 }, true).replace(/http:/g, 'https:');
+    const options = { width, quality: 48 };
+    // Post bodies come from Algolia with legacy Cloudinary URLs baked into the
+    // indexed content. Rehost any of them onto our R2 delivery host (keyed by
+    // basename via imageUrl) and retune any URLs already on R2.
+    let content = reTransform(html, options, true)
+      .replace(/(?:https?:)?\/\/res\.cloudinary\.com\/[^\s"'<>]+/gi, url => imageUrl(url, options))
+      .replace(/http:/g, 'https:');
     const matches = content.match(/<img.+src=(?:"|')(.+?)(?:"|')(?:.+?)>/gi);
     matches.forEach((match, i) => {
       // TODO - how do we correctly render images for crawlers/SEO, but still lazyload for clients?
