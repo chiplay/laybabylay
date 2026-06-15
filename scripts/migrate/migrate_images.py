@@ -166,41 +166,57 @@ def ctype_for(key):
 def cmd_upload(args):
     import boto3  # type: ignore
     from botocore.config import Config  # type: ignore
+    import concurrent.futures
+    import threading
 
+    workers = int(os.environ.get("WORKERS", "16"))
     s3 = boto3.client(
         "s3",
         endpoint_url=os.environ["R2_ENDPOINT"],
         aws_access_key_id=os.environ["R2_ACCESS_KEY"],
         aws_secret_access_key=os.environ["R2_SECRET_KEY"],
-        config=Config(signature_version="s3v4"),
+        config=Config(signature_version="s3v4", max_pool_connections=workers + 8),
     )
     bucket = os.environ["R2_BUCKET"]
-    up = skipped = 0
-    for rec in read_manifest():
-        k = key_for(rec)
-        src = os.path.join(EXPORT_DIR, k)
+    counts = {"up": 0, "skipped": 0, "failed": 0}
+    lock = threading.Lock()
+
+    def put(key, src):
         if not os.path.exists(src):
-            print(f"  MISSING local file, skip: {k}", file=sys.stderr)
-            skipped += 1
-            continue
-        s3.upload_file(src, bucket, k, ExtraArgs={"ContentType": ctype_for(k)})
-        up += 1
-        if up % 200 == 0:
-            print(f"  uploaded {up}...")
+            with lock:
+                counts["skipped"] += 1
+            print(f"  MISSING local file, skip: {key}", file=sys.stderr)
+            return
+        try:
+            s3.upload_file(src, bucket, key,
+                           ExtraArgs={"ContentType": ctype_for(key)})
+            with lock:
+                counts["up"] += 1
+                if counts["up"] % 200 == 0:
+                    print(f"  uploaded {counts['up']}...", flush=True)
+        except Exception as e:  # noqa: BLE001
+            with lock:
+                counts["failed"] += 1
+            print(f"  FAIL {key}: {e}", file=sys.stderr)
+
+    originals = [(key_for(r), os.path.join(EXPORT_DIR, key_for(r)))
+                 for r in read_manifest()]
 
     # Extension aliases: Cloudinary treated the URL extension as an output
     # format (so foo.jpeg served foo.jpg); R2 needs exact keys. aliasmap.json
     # maps a referenced basename -> the real manifest key to copy it from.
-    aliases = 0
     amap = os.environ.get("ALIASMAP", "aliasmap.json")
+    aliases = []
     if os.path.exists(amap):
-        for alias_key, source_key in json.load(open(amap)).items():
-            src = os.path.join(EXPORT_DIR, source_key)
-            if os.path.exists(src):
-                s3.upload_file(src, bucket, alias_key,
-                               ExtraArgs={"ContentType": ctype_for(alias_key)})
-                aliases += 1
-    print(f"Uploaded {up}, skipped {skipped}, aliases {aliases} to r2://{bucket}/")
+        aliases = [(ak, os.path.join(EXPORT_DIR, sk))
+                   for ak, sk in json.load(open(amap)).items()]
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as ex:
+        list(ex.map(lambda a: put(*a), originals + aliases))
+
+    print(f"Uploaded {counts['up']}, skipped {counts['skipped']}, "
+          f"failed {counts['failed']} (incl. {len(aliases)} aliases) "
+          f"to r2://{bucket}/")
 
 
 def basename(ref):
