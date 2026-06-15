@@ -118,22 +118,39 @@ def read_manifest():
 
 
 def cmd_download(args):
+    import concurrent.futures
+    import threading
+
     os.makedirs(EXPORT_DIR, exist_ok=True)
-    done = skipped = failed = 0
-    for rec in read_manifest():
+    workers = int(os.environ.get("WORKERS", "16"))
+    counts = {"done": 0, "skipped": 0, "failed": 0}
+    lock = threading.Lock()
+
+    def fetch(rec):
         dest = os.path.join(EXPORT_DIR, key_for(rec))
         if os.path.exists(dest) and os.path.getsize(dest) == rec["bytes"]:
-            skipped += 1
-            continue
+            with lock:
+                counts["skipped"] += 1
+            return
         try:
-            urllib.request.urlretrieve(rec["secure_url"], dest)
-            done += 1
-            if done % 200 == 0:
-                print(f"  downloaded {done} (skipped {skipped})...")
+            tmp = dest + ".part"
+            urllib.request.urlretrieve(rec["secure_url"], tmp)
+            os.replace(tmp, dest)
+            with lock:
+                counts["done"] += 1
+                if counts["done"] % 200 == 0:
+                    print(f"  downloaded {counts['done']} "
+                          f"(skipped {counts['skipped']})...", flush=True)
         except Exception as e:  # noqa: BLE001
-            failed += 1
+            with lock:
+                counts["failed"] += 1
             print(f"  FAIL {key_for(rec)}: {e}", file=sys.stderr)
-    print(f"Downloaded {done}, skipped {skipped}, failed {failed} -> {EXPORT_DIR}/")
+
+    recs = list(read_manifest())
+    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as ex:
+        list(ex.map(fetch, recs))
+    print(f"Downloaded {counts['done']}, skipped {counts['skipped']}, "
+          f"failed {counts['failed']} -> {EXPORT_DIR}/")
 
 
 CTYPES = {"jpg": "image/jpeg", "jpeg": "image/jpeg", "png": "image/png",
