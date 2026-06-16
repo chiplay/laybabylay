@@ -1,0 +1,27 @@
+name: Deploy to Fly (staging)
+
+# Runs only once the repo variable FLY_DEPLOY_ENABLED == 'true', so adding this
+# file doesn't trigger failing deploys before the Fly app + token are set up.
+#
+# One-time setup:
+#   1) fly apps create laybabylay-staging
+#   2) fly tokens create deploy -a laybabylay-staging   (copy the token)
+#   3) Add it as the repo secret FLY_API_TOKEN
+#   4) Set the repo variable FLY_DEPLOY_ENABLED = true
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    if: ${{ vars.FLY_DEPLOY_ENABLED == 'true' }}
+    name: Deploy
+    runs-on: ubuntu-latest
+    concurrency: deploy-staging
+    steps:
+      - uses: actions/checkout@v4
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

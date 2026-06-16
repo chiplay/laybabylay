@@ -36,8 +36,10 @@ app.use((req, res, next) => {
     return res.redirect(`https://${req.get('Host')}${req.url}`);
   }
 
-  // permanently redirect non-www request (except dev)
-  if (!(/^(www|dev)\..*/.test(req.get('Host')))) {
+  // permanently redirect non-www requests to the canonical host, but let the
+  // dev.* subdomain and Fly *.fly.dev staging hosts serve directly.
+  const host = req.get('Host') || '';
+  if (!/^(www|dev)\./.test(host) && !/\.fly\.dev$/.test(host)) {
     return res.redirect(301, `https://www.laybabylay.com${req.url}`);
   }
 
