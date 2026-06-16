@@ -152,7 +152,10 @@ app.get('*', (req, res) => {
       });
       const { preloadedState, content, styleTags, helmet } = ssr(store, req);
       const response = template("Server Rendered Page", preloadedState, content, styleTags, helmet);
-      res.setHeader('Cache-Control', 'assets, max-age=604800');
+      // Edge-cacheable: browsers always revalidate, but a shared cache (Cloudflare)
+      // holds the HTML and may serve it stale while revalidating in the background.
+      // This is what collapses origin renders + Algolia query volume.
+      res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400');
       res.send(response);
     })
     .catch((err) => {
@@ -160,7 +163,8 @@ app.get('*', (req, res) => {
       // What to do when the data fetching fails? 
       const { preloadedState, content, styleTags, helmet } = ssr(store, req);
       const response = template("Server Rendered Page - Failed Data Fetch", preloadedState, content, styleTags, helmet);
-      res.setHeader('Cache-Control', 'assets, max-age=604800');
+      // Never cache a failed-data-fetch render.
+      res.setHeader('Cache-Control', 'no-store');
       res.send(response);
     });
 });
