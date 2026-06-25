@@ -153,9 +153,10 @@ app.get('*', (req, res) => {
       const { preloadedState, content, styleTags, helmet } = ssr(store, req);
       const response = template("Server Rendered Page", preloadedState, content, styleTags, helmet);
       // Edge-cacheable: browsers always revalidate, but a shared cache (Cloudflare)
-      // holds the HTML and may serve it stale while revalidating in the background.
-      // This is what collapses origin renders + Algolia query volume.
-      res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400');
+      // holds the HTML up to 30 days and may serve it stale while revalidating.
+      // Long TTL is what collapses crawler-driven origin renders + Algolia volume;
+      // purge the Cloudflare cache when publishing (rare on this blog).
+      res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=2592000, stale-while-revalidate=86400');
       res.send(response);
     })
     .catch((err) => {
