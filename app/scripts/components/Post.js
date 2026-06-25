@@ -78,7 +78,11 @@ export default class Post extends Component {
       button.setAttribute('data-pin-round', true);
       button.setAttribute('data-pin-tall', true);
       button.setAttribute('data-pin-description', this.props.post.post_title);
-      button.setAttribute('data-pin-media', img.src);
+      // Post-body images (except the first) are lazy-loaded, so their real URL
+      // lives in `data-src`, not `src` (which is empty until they scroll into
+      // view). Read whichever is present and upgrade it to a high-res pin image.
+      const mediaSrc = img.getAttribute('src') || img.getAttribute('data-src');
+      button.setAttribute('data-pin-media', mediaSrc ? reTransform(mediaSrc, { width: 2000 }) : '');
       button.setAttribute('data-pin-custom', true);
       img.parentNode.insertBefore(button, img.nextSibling);
     });
@@ -118,7 +122,7 @@ export default class Post extends Component {
   pinImage = (img) => {
     if (!window.PinUtils) return;
 
-    const { src } = img.currentTarget;
+    const src = img.currentTarget.getAttribute('src') || img.currentTarget.getAttribute('data-src');
     const media = reTransform(src, { width: 2000 });
 
     window.PinUtils.pinOne({
