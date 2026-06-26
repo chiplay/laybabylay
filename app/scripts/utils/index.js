@@ -63,13 +63,17 @@ export function popup(url, inputOptions, callback) {
 export const IMAGE_HOST = 'https://images.laybabylay.com';
 
 // Map our transform intent onto a Cloudflare Image Resizing option string.
-function imageOptions({ width, height, quality, format = 'auto', fit } = {}) {
+function imageOptions({ width, height, quality, format = 'auto', fit, onerror } = {}) {
   const opts = [];
   if (width) opts.push(`width=${width}`);
   if (height) opts.push(`height=${height}`);
   if (quality) opts.push(`quality=${quality}`);
   if (format) opts.push(`format=${format}`);
   if (fit) opts.push(`fit=${fit}`);
+  // `onerror=redirect` serves the original image if the transform fails (e.g.
+  // over the monthly transform quota -> 9422) instead of erroring. Opt-in per
+  // call so it doesn't change other URLs' cache keys.
+  if (onerror) opts.push(`onerror=${onerror}`);
   return opts.join(',');
 }
 

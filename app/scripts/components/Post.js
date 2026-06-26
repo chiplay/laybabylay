@@ -82,7 +82,7 @@ export default class Post extends Component {
       // lives in `data-src`, not `src` (which is empty until they scroll into
       // view). Read whichever is present and upgrade it to a high-res pin image.
       const mediaSrc = img.getAttribute('src') || img.getAttribute('data-src');
-      button.setAttribute('data-pin-media', mediaSrc ? reTransform(mediaSrc, { width: 2000 }) : '');
+      button.setAttribute('data-pin-media', mediaSrc ? reTransform(mediaSrc, { width: 2000, onerror: 'redirect' }) : '');
       button.setAttribute('data-pin-custom', true);
       img.parentNode.insertBefore(button, img.nextSibling);
     });
@@ -123,7 +123,7 @@ export default class Post extends Component {
     if (!window.PinUtils) return;
 
     const src = img.currentTarget.getAttribute('src') || img.currentTarget.getAttribute('data-src');
-    const media = reTransform(src, { width: 2000 });
+    const media = reTransform(src, { width: 2000, onerror: 'redirect' });
 
     window.PinUtils.pinOne({
       url: `https://www.laybabylay.com/${this.props.post.slug}`,
