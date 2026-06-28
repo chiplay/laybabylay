@@ -134,7 +134,7 @@ export default class Post extends Component {
 
   createMarkup = (html) => {
     const width = utils.metrics.isPhone(this.props.serverIsMobile) ? 750 : 1200;
-    const options = { width, quality: 48 };
+    const options = { width, quality: 68 };
     // Post bodies come from Algolia with legacy Cloudinary URLs baked into the
     // indexed content. Rehost any of them onto our R2 delivery host (keyed by
     // basename via imageUrl) and retune any URLs already on R2.
@@ -183,7 +183,7 @@ export default class Post extends Component {
 
     if (featured_image) {
       const [width, height] = utils.metrics.isPhone(serverIsMobile) ? [800, 400] : [2400, 1000];
-      const imageSrc = imageUrl(featured_image, { width, height, quality: 48, fit: 'cover' });
+      const imageSrc = imageUrl(featured_image, { width, height, quality: 68, fit: 'cover' });
       heroImage = (
         <div className="post__featured-image--wrapper">
           <img className="post__featured-image" src={imageSrc} alt={post_title} />
