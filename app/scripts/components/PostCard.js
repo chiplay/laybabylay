@@ -23,7 +23,7 @@ export default class PostCard extends Component {
 
     if (featured_image) {
       const [width, height] = utils.metrics.isPhone(serverIsMobile) ? [1000, 750] : [2000, 1000];
-      const imageSrc = imageUrl(featured_image, { width, height, quality: 35, fit: 'cover' });
+      const imageSrc = imageUrl(featured_image, { width, height, quality: 68, fit: 'cover' });
       image = (
         <figure className="postcard__image--wrapper">
           <img className="postcard__image" src={imageSrc} alt={post_title} />

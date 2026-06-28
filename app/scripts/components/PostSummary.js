@@ -32,7 +32,7 @@ export default class PostSummary extends Component {
 
     if (first_image) {
       const width = utils.metrics.isPhone(serverIsMobile) ? 750 : 500;
-      const imageSrc = imageUrl(first_image, { width, quality: 36 });
+      const imageSrc = imageUrl(first_image, { width, quality: 68 });
       image = (
         <figure className="post-summary__image--wrapper">
           <div className="post-summary__image--responsive" style={{ paddingBottom: `${ratio}%` }}>
